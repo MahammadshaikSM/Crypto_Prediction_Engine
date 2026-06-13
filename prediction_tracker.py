@@ -639,26 +639,4 @@ if (!TIMELINE.length) {
         <span class="tl-arrow">&#9660;</span>
       </div>
       <div class="tl-body" data-body="${idx}">
-        <div class="tl-cols">
-          <div class="tl-col"><div class="tl-col-title pred">&#128302; Predicted Top 10 on ${fmtDate(entry.date)}</div>${predRows}</div>
-          ${actualCol}
-        </div>
-        ${evalSummary}
-      </div>
-    </div>`);
-  });
-
-  const firstHeader = container.querySelector('.tl-header');
-  if (firstHeader) toggle(firstHeader);
-}
-
-function toggle(header) {
-  const idx  = header.getAttribute('data-idx');
-  const body = document.querySelector(`[data-body="${idx}"]`);
-  const open = body.classList.contains('open');
-  body.classList.toggle('open', !open);
-  header.classList.toggle('open', !open);
-}
-</script>
-</body>
-</html>"""
+        <div class="tl-

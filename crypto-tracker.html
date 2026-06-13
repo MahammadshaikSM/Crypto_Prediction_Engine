@@ -1180,44 +1180,51 @@ td { padding: 12px 18px; vertical-align: middle; font-size: 0.81rem; white-space
           <span class="formula-icon">∑</span>
           <div>
             <div class="formula-title">Scoring Formula</div>
-            <div class="formula-sub">4-factor weighted momentum model</div>
+            <div class="formula-sub">5-factor quantitative model (v2)</div>
           </div>
         </div>
         <div class="formula-eq">
           <span class="feq-label">Score</span>
           <span class="feq-eq">=</span>
-          <span class="feq-term" style="--tc:var(--blue)">0.35 × Momentum₇ᵈ</span>
+          <span class="feq-term" style="--tc:var(--blue)">0.30 × VolAdjMomentum</span>
           <span class="feq-plus">+</span>
-          <span class="feq-term" style="--tc:var(--purple2)">0.25 × VolumeSurge</span>
+          <span class="feq-term" style="--tc:var(--purple2)">0.20 × VolumeSurge</span>
           <span class="feq-plus">+</span>
-          <span class="feq-term" style="--tc:var(--green)">0.25 × MomentumAccel</span>
+          <span class="feq-term" style="--tc:var(--green)">0.18 × MomentumAccel</span>
           <span class="feq-plus">+</span>
-          <span class="feq-term" style="--tc:var(--gold)">0.15 × TrendAlignment</span>
+          <span class="feq-term" style="--tc:var(--gold)">0.17 × BTCRelative</span>
+          <span class="feq-plus">+</span>
+          <span class="feq-term" style="--tc:#e879f9">0.15 × RSI Score</span>
         </div>
         <div class="formula-factors">
           <div class="ffactor">
-            <div class="ffactor-name" style="color:var(--blue)">Momentum₇ᵈ <span class="ffactor-w">35%</span></div>
-            <div class="ffactor-desc">Normalized rank of 7-day % gain (0→100). Coins already trending up tend to continue — the <em>momentum effect</em> is one of the most replicated findings in quantitative finance.</div>
-            <div class="ffactor-formula">rank(7d%) / totalCoins × 100</div>
+            <div class="ffactor-name" style="color:var(--blue)">VolAdjMomentum <span class="ffactor-w">30%</span></div>
+            <div class="ffactor-desc">7-day momentum divided by the coin's own volatility. A coin up 20% with low volatility is a stronger signal than one up 20% with wild swings — this factor rewards <em>steady</em> trending moves.</div>
+            <div class="ffactor-formula">7d% ÷ (std-dev(daily returns) × 100 + 1)</div>
           </div>
           <div class="ffactor">
-            <div class="ffactor-name" style="color:var(--purple2)">VolumeSurge <span class="ffactor-w">25%</span></div>
+            <div class="ffactor-name" style="color:var(--purple2)">VolumeSurge <span class="ffactor-w">20%</span></div>
             <div class="ffactor-desc">Volume-to-MarketCap ratio, normalized (0→100). High relative volume signals institutional or retail conviction — price moves on high volume are more likely to sustain.</div>
             <div class="ffactor-formula">normalize(volume / marketCap) × 100</div>
           </div>
           <div class="ffactor">
-            <div class="ffactor-name" style="color:var(--green)">MomentumAccel <span class="ffactor-w">25%</span></div>
+            <div class="ffactor-name" style="color:var(--green)">MomentumAccel <span class="ffactor-w">18%</span></div>
             <div class="ffactor-desc">Is today's pace faster than the weekly average? If the coin gained 14% over 7 days (~2%/day avg) but is up 5% today, momentum is <em>accelerating</em> — a bullish signal.</div>
             <div class="ffactor-formula">clamp(24h% ÷ (7d% ÷ 7), 0, 3) ÷ 3 × 100</div>
           </div>
           <div class="ffactor">
-            <div class="ffactor-name" style="color:var(--gold)">TrendAlignment <span class="ffactor-w">15%</span></div>
-            <div class="ffactor-desc">Do 24h and 7d signals agree? Aligned signals (both positive) indicate conviction. Mixed signals (7d up, 24h down) suggest possible reversal — lower weight assigned.</div>
-            <div class="ffactor-formula">both positive→100 · both negative→0 · mixed→40</div>
+            <div class="ffactor-name" style="color:var(--gold)">BTCRelative <span class="ffactor-w">17%</span></div>
+            <div class="ffactor-desc">How much the coin outperforms Bitcoin over 7 days. In a bull market everything rises — the real alpha is coins beating BTC. Positive = outperforming Bitcoin; negative = underperforming.</div>
+            <div class="ffactor-formula">normalize(7d% − BTC 7d%)</div>
+          </div>
+          <div class="ffactor">
+            <div class="ffactor-name" style="color:#e879f9">RSI Score <span class="ffactor-w">15%</span></div>
+            <div class="ffactor-desc">RSI(14) calculated from 168 hourly sparkline prices. Rewards under-extended coins (RSI 30–60) and heavily penalises overbought coins (RSI ≥ 70). Avoids buying tops.</div>
+            <div class="ffactor-formula">RSI≥80→0 · RSI≥70→20 · RSI≥60→50 · RSI≥40→70 · RSI≥30→85 · RSI&lt;30→100</div>
           </div>
         </div>
         <div class="formula-disclaimer">
-          ⚠️ <strong>Confidence cap at 72%.</strong> This model uses only momentum and volume signals from available API data. It does not account for macroeconomic events, regulatory news, project fundamentals, or broader market sentiment. Treat predictions as one data point among many — never as financial advice.
+          ⚠️ <strong>Confidence cap at 72%.</strong> This model uses momentum, volume, and RSI signals derived from CoinGecko sparkline data. It does not account for macroeconomic events, regulatory news, project fundamentals, or broader market sentiment. Treat predictions as one data point among many — never as financial advice.
         </div>
       </div>
 
@@ -1258,7 +1265,7 @@ const API_KEY_STORE  = 'cryptotracker_cg_key';
 const REFRESH_MS     = 12 * 60 * 60 * 1000;
 
 const CG_URL = 'https://api.coingecko.com/api/v3/coins/markets' +
-  '?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=7d';
+  '?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=7d';
 const CC_URL = 'https://api.coincap.io/v2/assets?limit=200';
 
 // ─── STATE ────────────────────────────────────────
@@ -1588,6 +1595,49 @@ function hideError(){ document.getElementById('errorBanner').style.display='none
 
 // ─── PREDICTION ENGINE ───────────────────────────
 // Triggered when user opens the Prediction tab
+
+// ── RSI / Volatility helpers (mirror of prediction_tracker.py) ──
+function calcRSI(prices, period = 14) {
+  if (!prices || prices.length < period + 1) return 50.0;
+  const gains = [], losses = [];
+  for (let i = 1; i < prices.length; i++) {
+    const diff = prices[i] - prices[i - 1];
+    gains.push(Math.max(diff, 0));
+    losses.push(Math.max(-diff, 0));
+  }
+  const g = gains.slice(-period), l = losses.slice(-period);
+  const avgG = g.reduce((s, v) => s + v, 0) / period;
+  const avgL = l.reduce((s, v) => s + v, 0) / period;
+  if (avgL === 0) return 100.0;
+  const rs = avgG / avgL;
+  return 100.0 - (100.0 / (1.0 + rs));
+}
+
+function calcVolatility(prices) {
+  const daily = [];
+  for (let i = 0; i < prices.length; i += 24) {
+    if (prices[i] > 0) daily.push(prices[i]);
+  }
+  if (daily.length < 2) return 0.01;
+  const returns = [];
+  for (let i = 1; i < daily.length; i++) {
+    returns.push((daily[i] - daily[i - 1]) / daily[i - 1]);
+  }
+  const n = returns.length;
+  const mean = returns.reduce((s, v) => s + v, 0) / n;
+  const variance = returns.reduce((s, v) => s + (v - mean) ** 2, 0) / n;
+  return Math.max(Math.sqrt(variance), 0.0001);
+}
+
+function rsiScore(rsi) {
+  if (rsi >= 80) return 0.0;
+  if (rsi >= 70) return 20.0;
+  if (rsi >= 60) return 50.0;
+  if (rsi >= 40) return 70.0;
+  if (rsi >= 30) return 85.0;
+  return 100.0;
+}
+
 function runPrediction() {
   const no7dEl    = document.getElementById('pred-no7d');
   const resultsEl = document.getElementById('predResults');
@@ -1606,21 +1656,23 @@ function runPrediction() {
   }
   no7dEl.style.display = 'none';
 
-  // ── Stablecoin exclusion (USD-pegged & other fiat-pegged coins) ──
+  // ── Stablecoin exclusion ──
   const STABLECOINS = new Set([
     'usdt','usdc','busd','dai','tusd','usdp','usdd','frax','gusd','lusd',
     'susd','usdn','cusd','nusd','usdx','husd','ousd','musd','usdk','usds',
     'fdusd','pyusd','crvusd','mkusd','eurs','eurt','xaut','paxg','usde',
     'dola','ageur','alusd','usd0','wusd',
   ]);
-  // Also auto-exclude any coin whose price barely moves — catches unlisted
-  // stables pegged to $1 that aren't in the list above
   const isStable = c =>
     STABLECOINS.has((c.symbol || '').toLowerCase()) ||
     (Math.abs(c.price_change_percentage_7d_in_currency || 0) < 0.6 &&
      Math.abs(c.price_change_percentage_24h || 0) < 0.3);
 
-  // ── STEP 1: Compute raw factor values ──────────────────────────
+  // ── BTC 7d return for relative-strength factor ──
+  const btcCoin = currentData.find(c => (c.symbol || '').toLowerCase() === 'btc');
+  const btc7d   = btcCoin ? (btcCoin.price_change_percentage_7d_in_currency || 0) : 0;
+
+  // ── STEP 1: Compute raw factor values ──
   const eligible = currentData.filter(c =>
     c.price_change_percentage_7d_in_currency != null &&
     c.price_change_percentage_24h != null &&
@@ -1629,67 +1681,80 @@ function runPrediction() {
   );
 
   const scored = eligible.map(c => {
-    const mom7d  = c.price_change_percentage_7d_in_currency;   // raw 7d %
-    const mom24h = c.price_change_percentage_24h;              // raw 24h %
-    const volRat = c.total_volume / c.market_cap;              // volume/mcap
+    const mom7d  = c.price_change_percentage_7d_in_currency;
+    const mom24h = c.price_change_percentage_24h;
+    const volRat = c.total_volume / c.market_cap;
 
-    // MomentumAccel: 24h % vs average daily rate over 7d
+    // Sparkline-derived factors (168 hourly prices from CoinGecko)
+    const sp         = (c.sparkline_in_7d && c.sparkline_in_7d.price) || [];
+    const rsi        = calcRSI(sp);
+    const volatility = sp.length >= 2 ? calcVolatility(sp) : 0.01;
+
+    // Volatility-adjusted momentum (penalises high-volatility pumps)
+    const volAdjMom  = mom7d / (volatility * 100 + 1);
+
+    // BTC-relative strength (outperforming BTC is the real signal)
+    const btcRelative = mom7d - btc7d;
+
+    // Momentum acceleration: is today's pace faster than the weekly average?
     const avgDaily = mom7d / 7;
     let accelRaw = avgDaily !== 0 ? mom24h / avgDaily : 0;
     accelRaw = Math.max(0, Math.min(3, accelRaw)); // clamp 0→3
 
-    // TrendAlignment: directional agreement
-    const alignment = (mom7d > 0 && mom24h > 0) ? 100
-                    : (mom7d < 0 && mom24h < 0) ? 0
-                    : 40; // mixed signal
+    // RSI score: rewards under-extended coins, penalises overbought
+    const rsiS = rsiScore(rsi);
 
-    return { coin: c, mom7d, mom24h, volRat, accelRaw, alignment };
+    return { coin: c, mom7d, mom24h, volRat, accelRaw, btcRelative, volAdjMom, rsi, rsiS };
   });
 
-  // ── STEP 2: Normalize mom7d, volRat, accelRaw to 0-100 ────────
+  // ── STEP 2: Normalize each factor to 0-100 ──
   function normalize(arr, key) {
     const vals = arr.map(x => x[key]);
     const min = Math.min(...vals), max = Math.max(...vals);
     const range = max - min;
     arr.forEach(x => { x[key + '_n'] = range > 0 ? (x[key] - min) / range * 100 : 50; });
   }
-  normalize(scored, 'mom7d');
+  normalize(scored, 'volAdjMom');
   normalize(scored, 'volRat');
   normalize(scored, 'accelRaw');
-  // alignment is already 0-100
+  normalize(scored, 'btcRelative');
+  // rsiS is already 0-100
 
-  // ── STEP 3: Weighted composite score ───────────────────────────
+  // ── STEP 3: 5-factor weighted composite score ──
   scored.forEach(x => {
     x.score =
-      0.35 * x.mom7d_n    +   // Momentum 7d
-      0.25 * x.volRat_n   +   // Volume surge
-      0.25 * x.accelRaw_n +   // Momentum acceleration
-      0.15 * x.alignment;     // Trend alignment
-    // Confidence: score × 0.72, max 72%
+      0.30 * x.volAdjMom_n   +  // Vol-Adjusted Momentum
+      0.20 * x.volRat_n      +  // Volume Surge
+      0.18 * x.accelRaw_n    +  // Momentum Acceleration
+      0.17 * x.btcRelative_n +  // BTC-Relative Strength
+      0.15 * x.rsiS;            // RSI Score
     x.confidence = Math.min(72, x.score * 0.72);
   });
 
-  // ── STEP 4: Sort and take top 10 ───────────────────────────────
+  // ── STEP 4: Sort and take top 10 ──
   const top10 = scored.sort((a,b) => b.score - a.score).slice(0, 10);
 
-  // ── STEP 5: Render ─────────────────────────────────────────────
+  // ── STEP 5: Render ──
   const grid = document.getElementById('predGrid');
   grid.innerHTML = top10.map((x, i) => {
     const c = x.coin;
-    const tierClass = i < 3 ? 'tier-1' : i < 6 ? 'tier-2' : 'tier-3';
-    const medals = ['🥇','🥈','🥉'];
-    const rankLabel = i < 3 ? medals[i] + ' Rank ' + (i+1) : 'Rank ' + (i+1);
+    const tierClass  = i < 3 ? 'tier-1' : i < 6 ? 'tier-2' : 'tier-3';
+    const medals     = ['🥇','🥈','🥉'];
+    const rankLabel  = i < 3 ? medals[i] + ' Rank ' + (i+1) : 'Rank ' + (i+1);
 
     // Factor strength chips
     const chips = [];
-    if (x.mom7d_n    > 70) chips.push({label:'Strong 7d Momentum', cls:'strong'});
-    if (x.volRat_n   > 70) chips.push({label:'High Volume Surge',   cls:'strong'});
-    if (x.accelRaw_n > 70) chips.push({label:'Accel Momentum',      cls:'good'});
-    if (x.alignment === 100) chips.push({label:'Aligned Signals',   cls:'good'});
-    if (chips.length === 0)  chips.push({label:'Moderate signals',  cls:''});
+    if (x.volAdjMom_n   > 70) chips.push({label:'Strong Vol-Adj Momentum', cls:'strong'});
+    if (x.volRat_n      > 70) chips.push({label:'High Volume Surge',        cls:'strong'});
+    if (x.accelRaw_n    > 70) chips.push({label:'Accel Momentum',           cls:'good'});
+    if (x.btcRelative_n > 70) chips.push({label:'Beats BTC',                cls:'good'});
+    if (x.rsiS          > 70) chips.push({label:'RSI Not Overbought',       cls:'good'});
+    if (chips.length === 0)   chips.push({label:'Moderate signals',         cls:''});
 
-    const fillWidth = x.score.toFixed(1);
-    const confText  = x.confidence.toFixed(1) + '% confidence';
+    const fillWidth  = x.score.toFixed(1);
+    const confText   = x.confidence.toFixed(1) + '% confidence';
+    const rsiLabel   = x.rsi >= 70 ? '⚠️ ' + x.rsi.toFixed(0) : x.rsi.toFixed(0);
+    const btcRelSign = x.btcRelative >= 0 ? '+' : '';
 
     return `
     <div class="pred-card ${tierClass}" style="animation-delay:${i*0.05}s">
@@ -1708,8 +1773,8 @@ function runPrediction() {
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:0.7rem;color:var(--muted);margin-top:8px;margin-bottom:10px">
         <div>7d Momentum <span style="color:var(--text2);font-weight:700">${fmt(x.mom7d,'pct')}</span></div>
         <div>24h Change <span style="color:${x.mom24h>=0?'var(--green)':'var(--red)'};font-weight:700">${fmt(x.mom24h,'pct')}</span></div>
-        <div>Vol/MCap <span style="color:var(--text2);font-weight:700">${(x.volRat*100).toFixed(2)}%</span></div>
-        <div>Alignment <span style="color:${x.alignment===100?'var(--green)':x.alignment===0?'var(--red)':'var(--gold)'};font-weight:700">${x.alignment===100?'Strong ↑':x.alignment===0?'Strong ↓':'Mixed'}</span></div>
+        <div>BTC-Relative <span style="color:${x.btcRelative>=0?'var(--green)':'var(--red)'};font-weight:700">${btcRelSign}${x.btcRelative.toFixed(1)}%</span></div>
+        <div>RSI(14) <span style="color:${x.rsi>=70?'var(--gold)':'var(--green)'};font-weight:700">${rsiLabel}</span></div>
       </div>
       <div class="pred-factors">${chips.map(ch=>`<span class="pred-factor-chip ${ch.cls}">${ch.label}</span>`).join('')}</div>
     </div>`;
@@ -1884,61 +1949,4 @@ function applyScrollColors() {
 
 window.addEventListener('scroll', onScroll, { passive: true });
 // Apply immediately on load too
-window.addEventListener('DOMContentLoaded', applyScrollColors);
-
-// ─── GLOBAL FILTER ────────────────────────────────
-let filterQuery = '';
-
-function applyGlobalFilter(q) {
-  filterQuery = q.trim().toLowerCase();
-  const badge = document.getElementById('filterBadge');
-  badge.style.display = filterQuery ? 'block' : 'none';
-
-  if (!currentData) return;
-
-  if (!filterQuery) {
-    // Restore original dashboard
-    renderDashboard(currentData);
-    return;
-  }
-
-  // Filter coins by name or symbol
-  const filtered = currentData.filter(c =>
-    c.name.toLowerCase().includes(filterQuery) ||
-    c.symbol.toLowerCase().includes(filterQuery)
-  );
-
-  if (filtered.length === 0) {
-    ['tbl-24h-up','tbl-24h-dn','tbl-7d-up','tbl-7d-dn',
-     'tbl-amt-up','tbl-amt-dn','tbl-vol-up','tbl-vol-dn'].forEach(id => {
-      document.getElementById(id).innerHTML =
-        '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">No coins match</td></tr>';
-    });
-    return;
-  }
-
-  const by24  = [...filtered].filter(c=>c.price_change_percentage_24h!=null).sort((a,b)=>b.price_change_percentage_24h-a.price_change_percentage_24h);
-  const by7d  = [...filtered].filter(c=>c.price_change_percentage_7d_in_currency!=null).sort((a,b)=>b.price_change_percentage_7d_in_currency-a.price_change_percentage_7d_in_currency);
-  const byAmt = [...filtered].filter(c=>c.price_change_24h!=null).sort((a,b)=>b.price_change_24h-a.price_change_24h);
-  const byVol = [...filtered].filter(c=>c.total_volume!=null).sort((a,b)=>b.total_volume-a.total_volume);
-
-  fillTable('tbl-24h-up', by24.slice(0,10),         '24up');
-  fillTable('tbl-24h-dn', by24.slice(-10).reverse(), '24dn');
-  fillTable('tbl-7d-up',  by7d.slice(0,10),         '7up');
-  fillTable('tbl-7d-dn',  by7d.slice(-10).reverse(), '7dn');
-  fillTable('tbl-amt-up', byAmt.slice(0,10),         'amtup');
-  fillTable('tbl-amt-dn', byAmt.slice(-10).reverse(),'amtdn');
-  fillTable('tbl-vol-up', byVol.slice(0,10),         'volup');
-  fillTable('tbl-vol-dn', byVol.slice(-10).reverse(),'voldn');
-}
-
-// Clear filter on Escape key
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    const s = document.getElementById('globalSearch');
-    if (s && s.value) { s.value = ''; applyGlobalFilter(''); s.blur(); }
-  }
-});
-</script>
-</body>
-</html>
+window.addEventListene
