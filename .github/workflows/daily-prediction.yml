@@ -1,0 +1,53 @@
+name: Daily Crypto Prediction
+
+on:
+  schedule:
+    # 11:30 AM UTC = 5:00 PM IST (India) daily
+    # Adjust if you're in a different timezone
+    - cron: '30 11 * * *'
+  workflow_dispatch:  # lets you trigger manually from GitHub Actions tab
+
+jobs:
+  predict:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # needed to commit results back to repo
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Write CoinGecko API key (if secret is set)
+        run: |
+          if [ -n "$COINGECKO_API_KEY" ]; then
+            echo "$COINGECKO_API_KEY" > .coingecko_key
+            echo "API key loaded."
+          else
+            echo "No API key set — using public endpoint (may be rate-limited)."
+          fi
+        env:
+          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+
+      - name: Run prediction tracker
+        run: python prediction_tracker.py
+
+      - name: Commit and push updated files
+        run: |
+          git config user.name  "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add prediction_data.json prediction_dashboard.html
+          # Only commit if something changed
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: daily prediction update $(date -u +%Y-%m-%d)"
+            git push
+          fi

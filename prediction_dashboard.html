@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prediction Accuracy Dashboard — CryptoTracker Pro</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --void:#020510; --deep:#070d1e; --surface:#0c1428;
+  --glass:rgba(255,255,255,0.025); --glass2:rgba(255,255,255,0.05);
+  --border:rgba(255,255,255,0.06); --border2:rgba(255,255,255,0.10);
+  --blue:#4facfe; --blue2:#00d4ff; --purple:#7f5af0; --purple2:#a78bfa;
+  --teal:#00d4aa; --green:#00f5a0; --red:#ff4d6d; --gold:#ffd60a; --amber:#fb923c;
+  --text:#e8eaf6; --text2:#8b9cc8; --muted:#3d4e72;
+  --font:'Inter',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--text);font-family:var(--font);
+      line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px}
+
+/* Layout */
+.header{background:rgba(2,5,16,.85);backdrop-filter:blur(24px);
+         border-bottom:1px solid var(--border);padding:18px 40px;
+         display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+.logo-mark{width:36px;height:36px;background:linear-gradient(135deg,#4facfe,#00d4ff);
+            border-radius:11px;display:flex;align-items:center;justify-content:center;
+            font-weight:900;color:var(--void);font-size:1rem;flex-shrink:0}
+.logo-name{font-size:.95rem;font-weight:800;letter-spacing:-.02em;
+            background:linear-gradient(135deg,#4facfe,#00d4ff);
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-sub{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
+           -webkit-text-fill-color:var(--muted)}
+.hdr-right{margin-left:auto;font-size:.72rem;color:var(--muted)}
+
+.wrap{max-width:1320px;margin:0 auto;padding:40px 32px 80px}
+
+/* Stat cards */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:48px}
+.stat{background:var(--glass);border:1px solid var(--border);border-radius:20px;
+       padding:24px 26px;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:20px 20px 0 0}
+.stat.c-blue::before{background:linear-gradient(90deg,#4facfe,#00d4ff)}
+.stat.c-green::before{background:linear-gradient(90deg,#00f5a0,#00d4aa)}
+.stat.c-gold::before{background:linear-gradient(90deg,#ffd60a,#fb923c)}
+.stat.c-purple::before{background:linear-gradient(90deg,#7f5af0,#a78bfa)}
+.stat-icon{font-size:1.1rem;margin-bottom:10px}
+.stat-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
+             color:var(--muted);margin-bottom:6px}
+.stat-val{font-size:2rem;font-weight:900;letter-spacing:-.04em;line-height:1}
+.stat-val.blue{color:var(--blue)}
+.stat-val.green{color:var(--green)}
+.stat-val.gold{color:var(--gold)}
+.stat-val.purple{color:var(--purple2)}
+.stat-sub{font-size:.72rem;color:var(--text2);margin-top:6px}
+
+/* Section */
+.section-label{font-size:.62rem;font-weight:700;text-transform:uppercase;
+                letter-spacing:.12em;color:var(--blue);margin-bottom:14px}
+.section-h{font-size:1.4rem;font-weight:800;letter-spacing:-.04em;margin-bottom:4px}
+.section-sub{font-size:.82rem;color:var(--text2);margin-bottom:22px}
+
+/* Chart card */
+.chart-card{background:var(--glass);border:1px solid var(--border);
+             border-radius:20px;padding:28px 28px 24px;margin-bottom:48px}
+.chart-wrap{position:relative;height:220px}
+
+/* Timeline */
+.timeline{display:flex;flex-direction:column;gap:14px}
+.tl-entry{background:var(--glass);border:1px solid var(--border);
+           border-radius:20px;overflow:hidden}
+.tl-header{display:flex;align-items:center;gap:14px;padding:16px 22px;
+            cursor:pointer;transition:background .15s}
+.tl-header:hover{background:var(--glass2)}
+.tl-date-badge{background:rgba(79,172,254,.1);border:1px solid rgba(79,172,254,.2);
+                border-radius:12px;padding:4px 12px;font-size:.72rem;
+                font-weight:700;color:var(--blue);white-space:nowrap}
+.tl-arrow{margin-left:auto;color:var(--muted);font-size:.9rem;transition:transform .2s}
+.tl-header.open .tl-arrow{transform:rotate(180deg)}
+.tl-status-badge{font-size:.67rem;font-weight:700;padding:3px 10px;border-radius:20px}
+.badge-hit{background:rgba(0,245,160,.1);color:var(--green);border:1px solid rgba(0,245,160,.2)}
+.badge-pending{background:rgba(255,214,10,.08);color:var(--gold);border:1px solid rgba(255,214,10,.2)}
+.badge-miss{background:rgba(255,77,109,.1);color:var(--red);border:1px solid rgba(255,77,109,.2)}
+
+.tl-body{display:none;border-top:1px solid var(--border)}
+.tl-body.open{display:block}
+.tl-cols{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:800px){.tl-cols{grid-template-columns:1fr}}
+.tl-col{padding:20px 22px}
+.tl-col:first-child{border-right:1px solid var(--border)}
+.tl-col-title{font-size:.64rem;font-weight:800;text-transform:uppercase;
+               letter-spacing:.1em;margin-bottom:12px}
+.tl-col-title.pred{color:var(--blue)}
+.tl-col-title.actual{color:var(--green)}
+.tl-col-title.pending{color:var(--gold)}
+
+/* Coin rows */
+.coin-row{display:flex;align-items:center;gap:10px;padding:7px 0;
+           border-bottom:1px solid rgba(255,255,255,.03)}
+.coin-row:last-child{border-bottom:none}
+.coin-img{width:24px;height:24px;border-radius:50%;object-fit:contain;
+           background:rgba(255,255,255,.05);flex-shrink:0}
+.coin-name{flex:1;font-size:.8rem;font-weight:600}
+.coin-sym{font-size:.64rem;color:var(--muted);font-weight:700;text-transform:uppercase}
+.coin-val{font-size:.78rem;font-weight:700;white-space:nowrap}
+.coin-val.up{color:var(--green)}
+.coin-val.dn{color:var(--red)}
+.coin-val.neutral{color:var(--text2)}
+.hit-icon{font-size:.9rem;flex-shrink:0;width:18px;text-align:center}
+.rank-badge{font-size:.62rem;font-weight:800;color:var(--muted);width:22px;
+             flex-shrink:0;text-align:center}
+
+/* Accuracy bar inside evaluation */
+.eval-summary{background:rgba(0,0,0,.2);border-top:1px solid var(--border);
+               padding:14px 22px;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.eval-bar-wrap{flex:1;min-width:160px}
+.eval-bar-label{font-size:.65rem;font-weight:700;text-transform:uppercase;
+                 letter-spacing:.08em;color:var(--muted);margin-bottom:5px;
+                 display:flex;justify-content:space-between}
+.eval-bar-track{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.eval-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#4facfe,#00d4ff);
+                transition:width .6s cubic-bezier(.34,1.2,.64,1)}
+.eval-bar-fill.pos{background:linear-gradient(90deg,#00f5a0,#00d4aa)}
+.eval-pill{font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:20px;
+            white-space:nowrap}
+.pill-green{background:rgba(0,245,160,.1);color:var(--green);border:1px solid rgba(0,245,160,.2)}
+.pill-red{background:rgba(255,77,109,.1);color:var(--red);border:1px solid rgba(255,77,109,.2)}
+.pill-gold{background:rgba(255,214,10,.08);color:var(--gold);border:1px solid rgba(255,214,10,.2)}
+
+/* Pending state */
+.pending-notice{padding:32px 22px;text-align:center;color:var(--muted)}
+.pending-notice .pi{font-size:2.2rem;margin-bottom:10px}
+.pending-notice .pt{font-size:.88rem;font-weight:600;color:var(--text2);margin-bottom:4px}
+.pending-notice .ps{font-size:.75rem}
+
+/* No data */
+.no-data{text-align:center;padding:80px 24px;color:var(--muted)}
+.no-data .ni{font-size:3rem;margin-bottom:16px}
+.no-data .nt{font-size:1rem;font-weight:700;color:var(--text2);margin-bottom:8px}
+.no-data .ns{font-size:.82rem;line-height:1.7}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.entry-anim{animation:fadeUp .4s ease both}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo-mark">CT</div>
+  <div>
+    <div class="logo-name">CryptoTracker Pro</div>
+    <div class="logo-sub">Prediction Accuracy Dashboard</div>
+  </div>
+  <div class="hdr-right">Last updated: Jun 10, 2026 at 01:10</div>
+</header>
+
+<div class="wrap">
+
+  <!-- ── Stats ── -->
+  <div style="margin-bottom:32px">
+    <div class="section-label">Model Performance</div>
+    <h2 class="section-h">Prediction Accuracy</h2>
+    <p class="section-sub">
+      Each day the model predicts the top&nbsp;10 coins most likely to outperform over the next 7&nbsp;days.
+      A "hit" = the coin actually appeared in the real top&nbsp;10 gainers 7&nbsp;days later.
+    </p>
+  </div>
+
+  <div class="stats">
+    <div class="stat c-blue entry-anim" style="animation-delay:.05s">
+      <div class="stat-icon">📊</div>
+      <div class="stat-label">Total Predictions</div>
+      <div class="stat-val blue">2</div>
+      <div class="stat-sub">Days tracked so far</div>
+    </div>
+    <div class="stat c-green entry-anim" style="animation-delay:.1s">
+      <div class="stat-icon">✅</div>
+      <div class="stat-label">Avg Hit Rate</div>
+      <div class="stat-val green">60.0%</div>
+      <div class="stat-sub">Top-10 intersection accuracy</div>
+    </div>
+    <div class="stat c-gold entry-anim" style="animation-delay:.15s">
+      <div class="stat-icon">📈</div>
+      <div class="stat-label">Avg Positive Rate</div>
+      <div class="stat-val gold">60.0%</div>
+      <div class="stat-sub">% predicted coins that went up</div>
+    </div>
+    <div class="stat c-purple entry-anim" style="animation-delay:.2s">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-label">Best Day</div>
+      <div class="stat-val purple" style="font-size:1.2rem;line-height:1.3">60% (2026-06-02)</div>
+      <div class="stat-sub">Highest single-day hit rate</div>
+    </div>
+  </div>
+
+  <!-- ── Accuracy Chart ── -->
+  <div id="chart-section" style="margin-bottom:48px">
+    <div class="section-label">Accuracy Over Time</div>
+    <h2 class="section-h" style="margin-bottom:18px">Hit Rate &amp; Positive Rate</h2>
+    <div class="chart-card">
+      <div class="chart-wrap">
+        <canvas id="accChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Timeline ── -->
+  <div>
+    <div class="section-label">Prediction History</div>
+    <h2 class="section-h">All Predictions</h2>
+    <p class="section-sub">Click any entry to expand. Green = hit (in actual top 10), Red = miss.</p>
+    <div class="timeline" id="timeline"></div>
+    <div id="no-data" class="no-data" style="display:none">
+      <div class="ni">🔮</div>
+      <div class="nt">No predictions yet</div>
+      <div class="ns">Run <code>prediction_tracker.py</code> to make the first prediction.<br>
+        Evaluations appear automatically after 7 days.</div>
+    </div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+// ── Embedded data ────────────────────────────────────────────────────────────
+const TIMELINE   = [{"date": "2026-06-09", "maturity_date": "2026-06-16", "predicted_coins": [{"rank": 1, "id": "sui", "symbol": "sui", "name": "Sui", "image": "https://example.com/SUI.png", "price_at_prediction": 13139.14642534329, "score": 83.53, "confidence": 60.14, "mom7d": 24.54, "mom24h": 7.47, "vol_ratio_pct": 10.5207, "alignment": 100}, {"rank": 2, "id": "uniswap", "symbol": "uni", "name": "Uniswap", "image": "https://example.com/UNI.png", "price_at_prediction": 34797.963656023734, "score": 83.04, "confidence": 59.79, "mom7d": 26.07, "mom24h": 8.06, "vol_ratio_pct": 9.5056, "alignment": 100}, {"rank": 3, "id": "polkadot", "symbol": "dot", "name": "Polkadot", "image": "https://example.com/DOT.png", "price_at_prediction": 42473.95709890693, "score": 82.39, "confidence": 59.32, "mom7d": 5.42, "mom24h": 9.31, "vol_ratio_pct": 14.4438, "alignment": 100}, {"rank": 4, "id": "injective-protocol", "symbol": "inj", "name": "Injective", "image": "https://example.com/INJ.png", "price_at_prediction": 22084.44973006203, "score": 70.44, "confidence": 50.72, "mom7d": 19.31, "mom24h": 3.09, "vol_ratio_pct": 10.4245, "alignment": 100}, {"rank": 5, "id": "arbitrum", "symbol": "arb", "name": "Arbitrum", "image": "https://example.com/ARB.png", "price_at_prediction": 36559.961357180575, "score": 63.27, "confidence": 45.55, "mom7d": 20.04, "mom24h": 2.96, "vol_ratio_pct": 6.9329, "alignment": 100}, {"rank": 6, "id": "litecoin", "symbol": "ltc", "name": "Litecoin", "image": "https://example.com/LTC.png", "price_at_prediction": 22795.3451510138, "score": 57.83, "confidence": 41.64, "mom7d": 19.46, "mom24h": -3.07, "vol_ratio_pct": 13.1901, "alignment": 40}, {"rank": 7, "id": "avalanche-2", "symbol": "avax", "name": "Avalanche", "image": "https://example.com/AVAX.png", "price_at_prediction": 20939.25827862502, "score": 55.29, "confidence": 39.81, "mom7d": 24.41, "mom24h": -1.05, "vol_ratio_pct": 9.8484, "alignment": 40}, {"rank": 8, "id": "ethereum", "symbol": "eth", "name": "Ethereum", "image": "https://example.com/ETH.png", "price_at_prediction": 39139.645988750955, "score": 53.12, "confidence": 38.24, "mom7d": 15.68, "mom24h": 3.05, "vol_ratio_pct": 2.3874, "alignment": 100}, {"rank": 9, "id": "near", "symbol": "near", "name": "Near", "image": "https://example.com/NEAR.png", "price_at_prediction": 13084.136135447156, "score": 38.77, "confidence": 27.91, "mom7d": 12.4, "mom24h": -2.71, "vol_ratio_pct": 6.7428, "alignment": 40}, {"rank": 10, "id": "chainlink", "symbol": "link", "name": "Chainlink", "image": "https://example.com/LINK.png", "price_at_prediction": 43393.996115794456, "score": 34.97, "confidence": 25.18, "mom7d": 7.53, "mom24h": -2.32, "vol_ratio_pct": 6.9209, "alignment": 40}], "evaluation": null}, {"date": "2026-06-02", "maturity_date": "2026-06-09", "predicted_coins": [{"rank": 1, "id": "optimism", "symbol": "op", "name": "Optimism", "image": "https://example.com/OP.png", "price_at_prediction": 49476.178008479124, "score": 83.84, "confidence": 60.36, "mom7d": 12.85, "mom24h": 5.69, "vol_ratio_pct": 12.9571, "alignment": 100}, {"rank": 2, "id": "litecoin", "symbol": "ltc", "name": "Litecoin", "image": "https://example.com/LTC.png", "price_at_prediction": 19081.58270604033, "score": 83.16, "confidence": 59.88, "mom7d": 11.46, "mom24h": 11.42, "vol_ratio_pct": 13.1901, "alignment": 100}, {"rank": 3, "id": "uniswap", "symbol": "uni", "name": "Uniswap", "image": "https://example.com/UNI.png", "price_at_prediction": 27602.479523030077, "score": 79.39, "confidence": 57.16, "mom7d": 15.93, "mom24h": 9.23, "vol_ratio_pct": 9.5056, "alignment": 100}, {"rank": 4, "id": "chainlink", "symbol": "link", "name": "Chainlink", "image": "https://example.com/LINK.png", "price_at_prediction": 40356.60653544574, "score": 70.77, "confidence": 50.96, "mom7d": 11.81, "mom24h": 11.46, "vol_ratio_pct": 6.9209, "alignment": 100}, {"rank": 5, "id": "cardano", "symbol": "ada", "name": "Cardano", "image": "https://example.com/ADA.png", "price_at_prediction": 27247.529088680232, "score": 63.18, "confidence": 45.49, "mom7d": 14.46, "mom24h": 8.19, "vol_ratio_pct": 2.0845, "alignment": 100}, {"rank": 6, "id": "sui", "symbol": "sui", "name": "Sui", "image": "https://example.com/SUI.png", "price_at_prediction": 10549.931196472737, "score": 58.06, "confidence": 41.81, "mom7d": 28.82, "mom24h": -1.71, "vol_ratio_pct": 10.5207, "alignment": 40}, {"rank": 7, "id": "bitcoin", "symbol": "btc", "name": "Bitcoin", "image": "https://example.com/BTC.png", "price_at_prediction": 31971.70049609573, "score": 54.43, "confidence": 39.19, "mom7d": -1.25, "mom24h": -3.54, "vol_ratio_pct": 11.5741, "alignment": 0}, {"rank": 8, "id": "shiba-inu", "symbol": "shib", "name": "Shiba Inu", "image": "https://example.com/SHIB.png", "price_at_prediction": 5483.346868402607, "score": 49.08, "confidence": 35.34, "mom7d": 24.6, "mom24h": 0.44, "vol_ratio_pct": 2.8259, "alignment": 100}, {"rank": 9, "id": "arbitrum", "symbol": "arb", "name": "Arbitrum", "image": "https://example.com/ARB.png", "price_at_prediction": 30456.94115234374, "score": 44.74, "confidence": 32.22, "mom7d": 21.46, "mom24h": -4.73, "vol_ratio_pct": 6.9329, "alignment": 40}, {"rank": 10, "id": "polkadot", "symbol": "dot", "name": "Polkadot", "image": "https://example.com/DOT.png", "price_at_prediction": 40291.15677238856, "score": 43.92, "confidence": 31.62, "mom7d": 2.01, "mom24h": -4.89, "vol_ratio_pct": 14.4438, "alignment": 40}], "evaluation": {"prediction_date": "2026-06-02", "evaluation_date": "2026-06-10", "hit_count": 6, "hit_rate": 60.0, "positive_count": 6, "positive_rate": 60.0, "coin_results": [{"id": "optimism", "symbol": "op", "name": "Optimism", "image": "https://example.com/OP.png", "rank_predicted": 1, "score": 83.84, "confidence": 60.36, "price_at_prediction": 49476.178008479124, "price_at_evaluation": 42067.484162790075, "actual_return_pct": -14.97, "in_actual_top10": false, "went_positive": false, "hit": false}, {"id": "litecoin", "symbol": "ltc", "name": "Litecoin", "image": "https://example.com/LTC.png", "rank_predicted": 2, "score": 83.16, "confidence": 59.88, "price_at_prediction": 19081.58270604033, "price_at_evaluation": 22795.3451510138, "actual_return_pct": 19.46, "in_actual_top10": true, "went_positive": true, "hit": true}, {"id": "uniswap", "symbol": "uni", "name": "Uniswap", "image": "https://example.com/UNI.png", "rank_predicted": 3, "score": 79.39, "confidence": 57.16, "price_at_prediction": 27602.479523030077, "price_at_evaluation": 34797.963656023734, "actual_return_pct": 26.07, "in_actual_top10": true, "went_positive": true, "hit": true}, {"id": "chainlink", "symbol": "link", "name": "Chainlink", "image": "https://example.com/LINK.png", "rank_predicted": 4, "score": 70.77, "confidence": 50.96, "price_at_prediction": 40356.60653544574, "price_at_evaluation": 43393.996115794456, "actual_return_pct": 7.53, "in_actual_top10": true, "went_positive": true, "hit": true}, {"id": "cardano", "symbol": "ada", "name": "Cardano", "image": "https://example.com/ADA.png", "rank_predicted": 5, "score": 63.18, "confidence": 45.49, "price_at_prediction": 27247.529088680232, "price_at_evaluation": 24528.184218109815, "actual_return_pct": -9.98, "in_actual_top10": false, "went_positive": false, "hit": false}, {"id": "sui", "symbol": "sui", "name": "Sui", "image": "https://example.com/SUI.png", "rank_predicted": 6, "score": 58.06, "confidence": 41.81, "price_at_prediction": 10549.931196472737, "price_at_evaluation": 13139.14642534329, "actual_return_pct": 24.54, "in_actual_top10": true, "went_positive": true, "hit": true}, {"id": "bitcoin", "symbol": "btc", "name": "Bitcoin", "image": "https://example.com/BTC.png", "rank_predicted": 7, "score": 54.43, "confidence": 39.19, "price_at_prediction": 31971.70049609573, "price_at_evaluation": 27341.125929406593, "actual_return_pct": -14.48, "in_actual_top10": false, "went_positive": false, "hit": false}, {"id": "shiba-inu", "symbol": "shib", "name": "Shiba Inu", "image": "https://example.com/SHIB.png", "rank_predicted": 8, "score": 49.08, "confidence": 35.34, "price_at_prediction": 5483.346868402607, "price_at_evaluation": 4831.627149021257, "actual_return_pct": -11.89, "in_actual_top10": false, "went_positive": false, "hit": false}, {"id": "arbitrum", "symbol": "arb", "name": "Arbitrum", "image": "https://example.com/ARB.png", "rank_predicted": 9, "score": 44.74, "confidence": 32.22, "price_at_prediction": 30456.94115234374, "price_at_evaluation": 36559.961357180575, "actual_return_pct": 20.04, "in_actual_top10": true, "went_positive": true, "hit": true}, {"id": "polkadot", "symbol": "dot", "name": "Polkadot", "image": "https://example.com/DOT.png", "rank_predicted": 10, "score": 43.92, "confidence": 31.62, "price_at_prediction": 40291.15677238856, "price_at_evaluation": 42473.95709890693, "actual_return_pct": 5.42, "in_actual_top10": true, "went_positive": true, "hit": true}], "actual_top10": [{"id": "uniswap", "name": "Uniswap", "symbol": "uni", "return_pct": 26.07, "was_predicted": true}, {"id": "sui", "name": "Sui", "symbol": "sui", "return_pct": 24.54, "was_predicted": true}, {"id": "avalanche-2", "name": "Avalanche", "symbol": "avax", "return_pct": 24.41, "was_predicted": false}, {"id": "arbitrum", "name": "Arbitrum", "symbol": "arb", "return_pct": 20.04, "was_predicted": true}, {"id": "litecoin", "name": "Litecoin", "symbol": "ltc", "return_pct": 19.46, "was_predicted": true}, {"id": "injective-protocol", "name": "Injective", "symbol": "inj", "return_pct": 19.31, "was_predicted": false}, {"id": "ethereum", "name": "Ethereum", "symbol": "eth", "return_pct": 15.68, "was_predicted": false}, {"id": "near", "name": "Near", "symbol": "near", "return_pct": 12.4, "was_predicted": false}, {"id": "chainlink", "name": "Chainlink", "symbol": "link", "return_pct": 7.53, "was_predicted": true}, {"id": "polkadot", "name": "Polkadot", "symbol": "dot", "return_pct": 5.42, "was_predicted": true}]}}];
+const CHART_DATA = {"labels": ["2026-06-02"], "hit_rates": [60.0], "pos_rates": [60.0]};
+
+// ── Chart ────────────────────────────────────────────────────────────────────
+(function() {
+  if (!CHART_DATA.labels.length) {
+    document.getElementById('chart-section').style.display = 'none';
+    return;
+  }
+  const ctx = document.getElementById('accChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: CHART_DATA.labels,
+      datasets: [
+        {
+          label: 'Hit Rate (top-10 intersection %)',
+          data: CHART_DATA.hit_rates,
+          borderColor: '#4facfe', backgroundColor: 'rgba(79,172,254,.1)',
+          tension: 0.35, fill: true, pointRadius: 5, pointHoverRadius: 7,
+          pointBackgroundColor: '#4facfe',
+        },
+        {
+          label: 'Positive Rate (% coins that went up)',
+          data: CHART_DATA.pos_rates,
+          borderColor: '#00f5a0', backgroundColor: 'rgba(0,245,160,.07)',
+          tension: 0.35, fill: true, pointRadius: 5, pointHoverRadius: 7,
+          pointBackgroundColor: '#00f5a0',
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#8b9cc8', font: { size: 12 } } },
+        tooltip: { backgroundColor: '#0c1428', borderColor: 'rgba(255,255,255,.1)', borderWidth: 1,
+                   titleColor: '#e8eaf6', bodyColor: '#8b9cc8' },
+      },
+      scales: {
+        x: { ticks: { color: '#3d4e72' }, grid: { color: 'rgba(255,255,255,.04)' } },
+        y: { min: 0, max: 100, ticks: { color: '#3d4e72', callback: v => v + '%' },
+              grid: { color: 'rgba(255,255,255,.04)' } },
+      },
+    },
+  });
+})();
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function fmtDate(d) {
+  if (!d) return '';
+  const [y,m,day] = d.split('-');
+  return new Date(+y, +m-1, +day).toLocaleDateString('en-US',
+    {weekday:'short',month:'short',day:'numeric',year:'numeric'});
+}
+function fmtPct(v) {
+  if (v == null) return '—';
+  const sign = v >= 0 ? '+' : '';
+  return sign + v.toFixed(2) + '%';
+}
+function coinImg(img, sym) {
+  return `<img class="coin-img" src="${img}" alt="${sym}"
+    onerror="this.src='';this.style.visibility='hidden'" loading="lazy">`;
+}
+
+// ── Build timeline ───────────────────────────────────────────────────────────
+const container = document.getElementById('timeline');
+if (!TIMELINE.length) {
+  document.getElementById('no-data').style.display = 'block';
+} else {
+  TIMELINE.forEach((entry, idx) => {
+    const ev       = entry.evaluation;
+    const mature   = ev != null;
+    const hitRate  = ev ? ev.hit_rate : null;
+
+    let statusBadge = '';
+    if (!mature) {
+      const daysLeft = Math.ceil((new Date(entry.maturity_date) - new Date()) / 86400000);
+      const dl = daysLeft > 0 ? `Matures in ${daysLeft} day${daysLeft!==1?'s':''}` : 'Evaluating soon…';
+      statusBadge = `<span class="tl-status-badge badge-pending">⏳ Pending · ${dl}</span>`;
+    } else {
+      const hr = hitRate;
+      const cls = hr >= 50 ? 'badge-hit' : 'badge-miss';
+      const icon = hr >= 50 ? '✅' : '❌';
+      statusBadge = `<span class="tl-status-badge ${cls}">${icon} ${ev.hit_count}/10 hits · ${hr}%</span>`;
+    }
+
+    // Predicted coins list
+    let predRows = entry.predicted_coins.map(c => {
+      const hitIcon = mature
+        ? (ev.coin_results.find(r => r.id === c.id)?.hit ? '✅' : '❌')
+        : '';
+      const actualRet = mature
+        ? ev.coin_results.find(r => r.id === c.id)?.actual_return_pct
+        : null;
+      const retStr = actualRet != null
+        ? `<span class="coin-val ${actualRet >= 0 ? 'up' : 'dn'}">${fmtPct(actualRet)}</span>`
+        : `<span class="coin-val neutral">${fmtPct(c.confidence)} conf.</span>`;
+      return `<div class="coin-row">
+        ${coinImg(c.image, c.symbol)}
+        <span class="rank-badge">#${c.rank}</span>
+        <div class="coin-name">${c.name}<br><span class="coin-sym">${c.symbol.toUpperCase()}</span></div>
+        ${retStr}
+        ${mature ? `<span class="hit-icon">${hitIcon}</span>` : ''}
+      </div>`;
+    }).join('');
+
+    // Actual top-10 (if evaluated)
+    let actualCol = '';
+    if (mature && ev.actual_top10) {
+      const rows = ev.actual_top10.map(c => {
+        const wasP = c.was_predicted
+          ? `<span class="hit-icon">⭐</span>` : `<span class="hit-icon" style="opacity:.2">·</span>`;
+        return `<div class="coin-row">
+          <div class="coin-name">${c.name}<br><span class="coin-sym">${c.symbol.toUpperCase()}</span></div>
+          <span class="coin-val up">${fmtPct(c.return_pct)}</span>
+          ${wasP}
+        </div>`;
+      }).join('');
+      actualCol = `<div class="tl-col">
+        <div class="tl-col-title actual">🏆 Actual Top 10 (⭐ = was predicted)</div>
+        ${rows}
+      </div>`;
+    } else if (!mature) {
+      actualCol = `<div class="tl-col">
+        <div class="pending-notice">
+          <div class="pi">⏳</div>
+          <div class="pt">Not yet evaluated</div>
+          <div class="ps">Matures on ${fmtDate(entry.maturity_date)}</div>
+        </div>
+      </div>`;
+    }
+
+    // Eval summary bar
+    let evalSummary = '';
+    if (mature) {
+      const hitPct = ev.hit_rate;
+      const posPct = ev.positive_rate;
+      evalSummary = `<div class="eval-summary">
+        <div class="eval-bar-wrap">
+          <div class="eval-bar-label">
+            <span>Hit Rate (top-10 match)</span><span>${hitPct.toFixed(1)}%</span>
+          </div>
+          <div class="eval-bar-track">
+            <div class="eval-bar-fill" style="width:${hitPct}%"></div>
+          </div>
+        </div>
+        <div class="eval-bar-wrap">
+          <div class="eval-bar-label">
+            <span>Positive Rate (went up)</span><span>${posPct.toFixed(1)}%</span>
+          </div>
+          <div class="eval-bar-track">
+            <div class="eval-bar-fill pos" style="width:${posPct}%"></div>
+          </div>
+        </div>
+        <span class="eval-pill ${hitPct >= 50 ? 'pill-green' : 'pill-red'}">${ev.hit_count}/10 Hits</span>
+        <span class="eval-pill ${posPct >= 50 ? 'pill-green' : 'pill-gold'}">${ev.positive_count}/10 Positive</span>
+      </div>`;
+    }
+
+    const html = `
+    <div class="tl-entry entry-anim" style="animation-delay:${idx * 0.04}s">
+      <div class="tl-header" onclick="toggle(this)" data-idx="${idx}">
+        <span class="tl-date-badge">📅 ${fmtDate(entry.date)}</span>
+        ${statusBadge}
+        <span style="font-size:.7rem;color:var(--muted);white-space:nowrap">
+          → Matures ${fmtDate(entry.maturity_date)}
+        </span>
+        <span class="tl-arrow">▾</span>
+      </div>
+      <div class="tl-body" data-body="${idx}">
+        <div class="tl-cols">
+          <div class="tl-col">
+            <div class="tl-col-title pred">🔮 Predicted Top 10 on ${fmtDate(entry.date)}</div>
+            ${predRows}
+          </div>
+          ${actualCol}
+        </div>
+        ${evalSummary}
+      </div>
+    </div>`;
+    container.insertAdjacentHTML('beforeend', html);
+  });
+
+  // Auto-open first entry
+  const firstHeader = container.querySelector('.tl-header');
+  if (firstHeader) toggle(firstHeader);
+}
+
+function toggle(header) {
+  const idx  = header.getAttribute('data-idx');
+  const body = document.querySelector(`[data-body="${idx}"]`);
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  header.classList.toggle('open', !open);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoTracker Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN SYSTEM
+═══════════════════════════════════════════════════ */
+:root {
+  --void:     #020510;
+  --deep:     #070d1e;
+  --surface:  #0c1428;
+  --glass:    rgba(255,255,255,0.025);
+  --glass2:   rgba(255,255,255,0.05);
+  --border:   rgba(255,255,255,0.06);
+  --border2:  rgba(255,255,255,0.1);
+
+  --blue:     #4facfe;
+  --blue2:    #00d4ff;
+  --purple:   #7f5af0;
+  --purple2:  #a78bfa;
+  --teal:     #00d4aa;
+  --green:    #00f5a0;
+  --red:      #ff4d6d;
+  --gold:     #ffd60a;
+  --amber:    #fb923c;
+
+  --text:     #e8eaf6;
+  --text2:    #8b9cc8;
+  --muted:    #3d4e72;
+
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --grad-blue:   linear-gradient(135deg, #4facfe 0%, #00d4ff 100%);
+  --grad-purple: linear-gradient(135deg, #7f5af0 0%, #a78bfa 100%);
+  --grad-green:  linear-gradient(135deg, #00f5a0 0%, #00d4aa 100%);
+  --grad-red:    linear-gradient(135deg, #ff4d6d 0%, #ff8b42 100%);
+  --grad-gold:   linear-gradient(135deg, #ffd60a 0%, #fb923c 100%);
+  --grad-hero:   linear-gradient(135deg, #4facfe 0%, #7f5af0 50%, #00d4ff 100%);
+
+  --nav-h: 68px;
+  --page-max: 1380px;
+  --r-sm: 10px; --r-md: 16px; --r-lg: 20px; --r-xl: 28px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+
+/* ═══════════════════════════════════════════════════
+   AMBIENT BACKGROUND
+═══════════════════════════════════════════════════ */
+.ambient {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.glow {
+  position: absolute; border-radius: 50%;
+  filter: blur(100px); will-change: transform;
+}
+.glow-1 {
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(79,172,254,0.14) 0%, transparent 65%);
+  top: -250px; left: -200px;
+  animation: drift1 28s ease-in-out infinite;
+}
+.glow-2 {
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(127,90,240,0.12) 0%, transparent 65%);
+  bottom: -150px; right: -150px;
+  animation: drift2 34s ease-in-out infinite;
+}
+.glow-3 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 65%);
+  top: 45%; left: 45%;
+  animation: drift3 22s ease-in-out infinite;
+}
+.dot-grid {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+@keyframes drift1 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(70px,90px)} 66%{transform:translate(-50px,40px)} }
+@keyframes drift2 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(-90px,-70px)} 66%{transform:translate(50px,-30px)} }
+@keyframes drift3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.4)} }
+
+/* ═══════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════ */
+.header {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h); z-index: 200;
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  background: rgba(2,5,16,0.72);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  max-width: var(--page-max);
+  margin: 0 auto; height: 100%;
+  padding: 0 32px;
+  display: flex; align-items: center; gap: 12px;
+}
+
+/* Logo */
+.logo { display: flex; align-items: center; gap: 11px; text-decoration: none; flex-shrink: 0; }
+.logo-mark {
+  width: 36px; height: 36px;
+  background: var(--grad-blue);
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; font-weight: 900; color: var(--void);
+  box-shadow: 0 0 24px rgba(79,172,254,0.35), 0 0 60px rgba(79,172,254,0.1);
+  letter-spacing: -0.02em;
+}
+.logo-name {
+  font-size: 0.95rem; font-weight: 800; letter-spacing: -0.02em;
+  background: var(--grad-blue);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+.logo-tag {
+  font-size: 0.6rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+  -webkit-text-fill-color: var(--muted);
+}
+
+/* Nav tabs */
+.nav-tabs {
+  display: flex; gap: 2px; margin-left: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border); border-radius: 13px; padding: 4px;
+}
+.nav-tab {
+  background: none; border: none;
+  color: var(--text2); cursor: pointer;
+  font-family: var(--font); font-size: 0.8rem; font-weight: 500;
+  padding: 7px 18px; border-radius: 10px;
+  transition: all .18s; letter-spacing: -0.01em;
+}
+.nav-tab:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+.nav-tab.active {
+  background: rgba(79,172,254,0.1); color: var(--blue); font-weight: 600;
+}
+
+/* Header right */
+.hdr-right { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+.status-pill {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  border-radius: 20px; padding: 5px 12px;
+  font-size: 0.7rem; font-weight: 500; color: var(--text2);
+  white-space: nowrap;
+}
+.status-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(0,245,160,.5);
+  animation: statusPulse 2.5s ease-in-out infinite;
+}
+@keyframes statusPulse { 0%,100%{opacity:1;box-shadow:0 0 8px rgba(0,245,160,.5)} 50%{opacity:.5;box-shadow:0 0 4px rgba(0,245,160,.2)} }
+.source-chip {
+  font-size: 0.67rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+  background: rgba(127,90,240,0.1); color: var(--purple2);
+  border: 1px solid rgba(127,90,240,0.2); display: none; white-space: nowrap;
+}
+.next-refresh { font-size: 0.67rem; color: var(--muted); white-space: nowrap; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  border: none; border-radius: var(--r-sm); cursor: pointer;
+  font-family: var(--font); font-size: 0.78rem; font-weight: 600;
+  padding: 8px 16px; transition: all .2s; white-space: nowrap;
+}
+.btn-ghost {
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border2);
+  color: var(--text2);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.09); color: var(--text); }
+.btn-primary {
+  background: var(--grad-blue); color: var(--void); font-weight: 700;
+  box-shadow: 0 0 20px rgba(79,172,254,0.22);
+}
+.btn-primary:hover { opacity: .88; box-shadow: 0 0 32px rgba(79,172,254,0.4); transform: translateY(-1px); }
+.btn-danger { background: rgba(255,77,109,0.1); border: 1px solid rgba(255,77,109,0.2); color: var(--red); }
+.btn-danger:hover { background: rgba(255,77,109,0.2); }
+.btn:disabled { opacity: .35; cursor: not-allowed; transform: none !important; }
+
+/* ═══════════════════════════════════════════════════
+   SETTINGS MODAL
+═══════════════════════════════════════════════════ */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,.75); backdrop-filter: blur(12px);
+  z-index: 500; align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; animation: fadeIn .2s ease; }
+@keyframes fadeIn { from{opacity:0} }
+.modal {
+  background: #0c1428; border: 1px solid var(--border2);
+  border-radius: var(--r-xl); padding: 36px 40px;
+  width: 500px; max-width: 95vw;
+  box-shadow: 0 40px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.04);
+  animation: modalIn .28s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes modalIn { from{opacity:0;transform:scale(.9) translateY(10px)} }
+.modal h3 { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 6px; }
+.modal-desc { font-size: 0.81rem; color: var(--text2); line-height: 1.75; margin-bottom: 18px; }
+.modal-step { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 7px; }
+.modal-num {
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  background: rgba(79,172,254,0.12); color: var(--blue);
+  font-size: 0.62rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-step-text { font-size: 0.79rem; color: var(--text2); line-height: 1.5; }
+.modal-step-text strong { color: var(--text); }
+.modal label {
+  display: block; font-size: 0.7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--text2); margin: 18px 0 7px;
+}
+.modal input {
+  width: 100%; background: rgba(255,255,255,.04); border: 1px solid var(--border2);
+  border-radius: var(--r-md); color: var(--text);
+  font-family: var(--font); font-size: 0.84rem; padding: 11px 14px;
+  outline: none; transition: border-color .2s, box-shadow .2s;
+}
+.modal input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(79,172,254,.1); }
+.modal-status { font-size: 0.74rem; color: var(--green); min-height: 18px; margin-top: 6px; }
+.modal-link { color: var(--blue); text-decoration: none; font-size: 0.74rem; }
+.modal-link:hover { text-decoration: underline; }
+.modal-btns { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
+
+/* ═══════════════════════════════════════════════════
+   APP SHELL
+═══════════════════════════════════════════════════ */
+.app-shell { position: relative; z-index: 1; padding-top: var(--nav-h); }
+.page { display: none; }
+.page.active { display: block; }
+.page-wrap { max-width: var(--page-max); margin: 0 auto; padding: 0 32px 100px; }
+
+/* ═══════════════════════════════════════════════════
+   ERROR BANNER
+═══════════════════════════════════════════════════ */
+.error-banner {
+  background: rgba(255,77,109,.06); border: 1px solid rgba(255,77,109,.2);
+  border-radius: var(--r-md); color: var(--red); font-size: 0.8rem;
+  padding: 14px 20px; margin: 0 32px 0; max-width: var(--page-max);
+  margin-left: auto; margin-right: auto; display: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════════════════ */
+.hero {
+  max-width: var(--page-max); margin: 0 auto;
+  padding: 64px 32px 48px;
+  animation: fadeUp .6s ease both;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(79,172,254,.07); border: 1px solid rgba(79,172,254,.18);
+  border-radius: 20px; padding: 5px 14px; margin-bottom: 22px;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--blue);
+}
+.hero-eyebrow-dot {
+  width: 5px; height: 5px; border-radius: 50%; background: var(--blue);
+  animation: statusPulse 2s infinite;
+}
+.hero-h1 {
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  font-weight: 900; letter-spacing: -0.05em; line-height: 1.05; margin-bottom: 14px;
+}
+.hero-h1 .grad {
+  background: var(--grad-hero); background-size: 200%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: textShimmer 5s ease-in-out infinite;
+}
+@keyframes textShimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+.hero-p { font-size: 0.95rem; color: var(--text2); margin-bottom: 44px; max-width: 520px; font-weight: 400; }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+}
+.hstat {
+  background: var(--glass); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 22px 24px; position: relative; overflow: hidden;
+  transition: transform .3s cubic-bezier(.34,1.2,.64,1), border-color .3s, box-shadow .3s;
+  animation: fadeUp .5s ease both;
+}
+.hstat::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+.hstat.c-neu::before { background: var(--grad-blue); }
+.hstat.c-up::before  { background: var(--grad-green); }
+.hstat.c-dn::before  { background: var(--grad-red); }
+.hstat.c-wk::before  { background: var(--grad-gold); }
+.hstat:hover { transform: translateY(-5px); border-color: rgba(79,172,254,.18); box-shadow: 0 16px 50px rgba(0,0,0,.4); }
+.hstat:nth-child(1) { animation-delay: .08s }
+.hstat:nth-child(2) { animation-delay: .16s }
+.hstat:nth-child(3) { animation-delay: .24s }
+.hstat:nth-child(4) { animation-delay: .32s }
+.hstat-icon { font-size: 1.1rem; margin-bottom: 12px; display: block; }
+.hstat-label { font-size: 0.64rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+.hstat-val { font-size: 1.85rem; font-weight: 900; letter-spacing: -0.05em; line-height: 1; margin-bottom: 7px; font-variant-numeric: tabular-nums; }
+.hstat-val.c-blue  { color: var(--blue); }
+.hstat-val.c-green { color: var(--green); }
+.hstat-val.c-red   { color: var(--red); }
+.hstat-val.c-gold  { color: var(--gold); }
+.hstat-sub { font-size: 0.72rem; color: var(--text2); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ═══════════════════════════════════════════════════
+   LOADING
+═══════════════════════════════════════════════════ */
+.loading-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 100px 24px; gap: 18px;
+  min-height: 320px;
+}
+.spinner {
+  width: 42px; height: 42px;
+  border: 3px solid rgba(79,172,254,.12); border-top-color: var(--blue);
+  border-radius: 50%; animation: spin .75s linear infinite;
+}
+@keyframes spin { to{transform:rotate(360deg)} }
+.loading-t { font-size: 0.9rem; font-weight: 600; color: var(--text2); }
+.loading-s { font-size: 0.75rem; color: var(--muted); }
+
+/* ═══════════════════════════════════════════════════
+   SECTION LAYOUT
+═══════════════════════════════════════════════════ */
+.section {
+  margin-bottom: 64px;
+  animation: fadeUp .5s ease both;
+}
+.section-eyebrow {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+}
+.section-eyebrow-text {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--blue); white-space: nowrap;
+}
+.section-eyebrow-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, rgba(79,172,254,.25), transparent);
+}
+.section-h2 {
+  font-size: 1.55rem; font-weight: 800; letter-spacing: -0.04em;
+  color: var(--text); margin-bottom: 4px;
+}
+.section-sub { font-size: 0.82rem; color: var(--text2); margin-bottom: 22px; }
+
+.divider {
+  height: 1px; margin: 56px 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.07) 30%, rgba(255,255,255,.07) 70%, transparent);
+}
+
+/* ═══════════════════════════════════════════════════
+   SPOTLIGHT CARDS (top 3 gainers)
+═══════════════════════════════════════════════════ */
+.spotlight-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 16px;
+  margin-bottom: 0;
+}
+@media(max-width:900px){ .spotlight-grid{grid-template-columns:1fr} }
+
+.scard {
+  background: var(--glass); backdrop-filter: blur(24px);
+  border-radius: var(--r-xl); padding: 28px 26px;
+  position: relative; overflow: hidden;
+  transition: transform .38s cubic-bezier(.34,1.56,.64,1), box-shadow .38s;
+}
+.scard.r1 { border: 1px solid rgba(255,214,10,.22); box-shadow: 0 0 50px rgba(255,214,10,.06), 0 8px 40px rgba(0,0,0,.4); }
+.scard.r2 { border: 1px solid rgba(255,255,255,.08); box-shadow: 0 8px 40px rgba(0,0,0,.4); }
+.scard.r3 { border: 1px solid rgba(251,146,60,.18); box-shadow: 0 0 40px rgba(251,146,60,.05), 0 8px 40px rgba(0,0,0,.4); }
+.scard:hover { transform: translateY(-10px) scale(1.015); }
+.scard.r1:hover { box-shadow: 0 24px 70px rgba(255,214,10,.12), 0 8px 40px rgba(0,0,0,.4); }
+.scard.r2:hover { box-shadow: 0 24px 70px rgba(79,172,254,.08), 0 8px 40px rgba(0,0,0,.4); }
+.scard.r3:hover { box-shadow: 0 24px 70px rgba(251,146,60,.1), 0 8px 40px rgba(0,0,0,.4); }
+
+/* Glow orb inside card */
+.scard::after {
+  content: ''; position: absolute; width: 220px; height: 220px;
+  border-radius: 50%; right: -70px; bottom: -70px; filter: blur(50px);
+}
+.scard.r1::after { background: rgba(255,214,10,.09); }
+.scard.r2::after { background: rgba(79,172,254,.07); }
+.scard.r3::after { background: rgba(251,146,60,.08); }
+
+.scard-rank {
+  font-size: 0.65rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: 18px; display: flex; align-items: center; gap: 7px;
+}
+.scard.r1 .scard-rank { color: var(--gold); }
+.scard.r2 .scard-rank { color: var(--text2); }
+.scard.r3 .scard-rank { color: var(--amber); }
+
+.scard-coin { display: flex; align-items: center; gap: 13px; margin-bottom: 22px; }
+.scard-img {
+  width: 50px; height: 50px; border-radius: 50%;
+  object-fit: contain; background: rgba(255,255,255,.05); flex-shrink: 0;
+}
+.scard-name { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
+.scard-sym  { font-size: 0.72rem; color: var(--text2); font-weight: 600; text-transform: uppercase; margin-top: 1px; }
+.scard-price {
+  font-size: 1.55rem; font-weight: 900; letter-spacing: -0.04em;
+  margin-bottom: 10px; font-variant-numeric: tabular-nums;
+}
+.scard-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.95rem; font-weight: 800; padding: 6px 14px; border-radius: 20px;
+}
+.scard-badge.up { background: rgba(0,245,160,.1); color: var(--green); border: 1px solid rgba(0,245,160,.2); }
+.scard-badge.dn { background: rgba(255,77,109,.1); color: var(--red);   border: 1px solid rgba(255,77,109,.2); }
+
+/* ═══════════════════════════════════════════════════
+   PAIR GRID + TABLE CARDS
+═══════════════════════════════════════════════════ */
+.pair-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media(max-width:960px){ .pair-grid{grid-template-columns:1fr} }
+
+.tcard {
+  background: var(--glass); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: var(--r-xl);
+  overflow: hidden;
+  transition: border-color .3s, box-shadow .3s;
+}
+.tcard:hover { border-color: rgba(79,172,254,.1); box-shadow: 0 8px 40px rgba(0,0,0,.3); }
+
+.tcard-hdr {
+  padding: 18px 22px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 11px;
+}
+.tcard-icon {
+  width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem; font-weight: 800;
+}
+.icon-up   { background: rgba(0,245,160,.08);  color: var(--green); }
+.icon-dn   { background: rgba(255,77,109,.08); color: var(--red);   }
+.icon-gold { background: rgba(255,214,10,.08); color: var(--gold);  }
+.icon-blue { background: rgba(79,172,254,.08); color: var(--blue);  }
+
+.tcard-title { font-size: 0.86rem; font-weight: 700; letter-spacing: -0.01em; }
+.tcard-tag   { margin-left: auto; font-size: 0.67rem; color: var(--muted); font-weight: 500; }
+
+.tbl-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  background: rgba(0,0,0,.25); color: var(--muted);
+  font-size: 0.63rem; font-weight: 700; letter-spacing: .07em;
+  padding: 9px 18px; text-align: left; text-transform: uppercase; white-space: nowrap;
+}
+th.r, td.r { text-align: right; }
+tbody tr { border-top: 1px solid var(--border); transition: background .15s; }
+tbody tr:hover { background: rgba(79,172,254,.03); }
+td { padding: 12px 18px; vertical-align: middle; font-size: 0.81rem; white-space: nowrap; }
+
+.td-rank { font-size: 0.7rem; font-weight: 700; color: var(--muted); width: 32px; font-variant-numeric: tabular-nums; }
+.coin-cell { display: flex; align-items: center; gap: 11px; }
+.coin-img {
+  width: 30px; height: 30px; border-radius: 50%;
+  object-fit: contain; background: rgba(255,255,255,.05); flex-shrink: 0;
+}
+.coin-name { font-weight: 700; font-size: 0.82rem; letter-spacing: -0.01em; }
+.coin-sym  { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; font-weight: 600; }
+.td-price  { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--text); }
+
+.ppill {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 0.72rem; font-weight: 700; padding: 3px 9px; border-radius: 20px;
+  font-variant-numeric: tabular-nums;
+}
+.ppill.up { background: rgba(0,245,160,.1); color: var(--green); border: 1px solid rgba(0,245,160,.15); }
+.ppill.dn { background: rgba(255,77,109,.1); color: var(--red);   border: 1px solid rgba(255,77,109,.15); }
+.td-vol { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--blue); }
+
+/* ═══════════════════════════════════════════════════
+   CALENDAR PAGE
+═══════════════════════════════════════════════════ */
+.cal-layout { display: grid; grid-template-columns: 310px 1fr; gap: 22px; align-items: start; }
+@media(max-width:900px){ .cal-layout{grid-template-columns:1fr} }
+
+.glass-card {
+  background: var(--glass); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden;
+}
+.cal-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px; border-bottom: 1px solid var(--border);
+}
+.cal-month-lbl { font-size: 0.92rem; font-weight: 700; letter-spacing: -0.02em; }
+.cal-arrow {
+  background: rgba(255,255,255,.05); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text2); cursor: pointer;
+  font-size: 1rem; padding: 4px 12px; transition: all .15s;
+}
+.cal-arrow:hover { background: var(--blue); border-color: var(--blue); color: var(--void); }
+.cal-body { padding: 14px; }
+.cal-hdr-row { display: grid; grid-template-columns: repeat(7,1fr); margin-bottom: 6px; }
+.cal-hdr-day { font-size: 0.6rem; font-weight: 700; color: var(--muted); text-align: center; padding: 4px; text-transform: uppercase; letter-spacing: .04em; }
+.cal-days { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
+.cday {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  border-radius: 9px; font-size: 0.76rem; font-weight: 500; color: var(--muted);
+  cursor: default; transition: all .15s;
+}
+.cday.has-data {
+  background: rgba(79,172,254,.08); border: 1px solid rgba(79,172,254,.2);
+  color: var(--blue); font-weight: 700; cursor: pointer;
+}
+.cday.has-data:hover { background: var(--blue); color: var(--void); border-color: var(--blue); }
+.cday.selected { background: var(--blue) !important; color: var(--void) !important; border-color: var(--blue) !important; font-weight: 800; }
+.cday.today-mark { border: 1px solid rgba(255,214,10,.35); color: var(--gold); }
+.cday.empty { opacity: 0; pointer-events: none; }
+.cal-legend { padding: 10px 14px 14px; font-size: 0.66rem; color: var(--muted); text-align: center; }
+.cal-detail-hdr { padding: 18px 22px; border-bottom: 1px solid var(--border); font-size: 0.92rem; font-weight: 700; letter-spacing: -0.02em; }
+.cal-empty {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 12px; padding: 64px 24px;
+  color: var(--muted); text-align: center;
+}
+.cal-empty-ico  { font-size: 2.8rem; }
+.cal-empty-t    { font-size: 0.9rem; font-weight: 600; color: var(--text2); }
+.cal-empty-desc { font-size: 0.77rem; line-height: 1.65; }
+
+/* ═══════════════════════════════════════════════════
+   ABOUT PAGE
+═══════════════════════════════════════════════════ */
+.about-wrap { max-width: 680px; }
+.about-card {
+  background: var(--glass); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: var(--r-xl);
+  padding: 40px 44px; font-size: 0.86rem; color: var(--text2); line-height: 1.8;
+}
+.about-card h2 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.04em; color: var(--text); margin-bottom: 6px; }
+.about-card h4 { font-size: 0.63rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--blue); margin: 24px 0 7px; }
+.about-card ul { margin-left: 18px; margin-top: 7px; }
+.about-card li { margin-bottom: 5px; }
+.about-disclaimer {
+  margin-top: 28px; padding: 16px 20px;
+  background: rgba(255,214,10,.04); border: 1px solid rgba(255,214,10,.12);
+  border-radius: var(--r-md); font-size: 0.74rem; color: var(--muted); line-height: 1.65;
+}
+
+/* ═══════════════════════════════════════════════════
+   PREDICTION PAGE
+═══════════════════════════════════════════════════ */
+.formula-card {
+  background: var(--glass); backdrop-filter: blur(20px);
+  border: 1px solid var(--border2); border-radius: var(--r-xl);
+  overflow: hidden;
+}
+.formula-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 22px 28px; border-bottom: 1px solid var(--border);
+  background: rgba(79,172,254,.04);
+}
+.formula-icon {
+  width: 40px; height: 40px; border-radius: 12px;
+  background: var(--grad-blue); color: var(--void);
+  font-size: 1.4rem; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 20px rgba(79,172,254,.3); flex-shrink: 0;
+}
+.formula-title { font-size: 0.95rem; font-weight: 800; letter-spacing: -0.02em; }
+.formula-sub   { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+.formula-eq {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+  padding: 22px 28px; border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,.2);
+}
+.feq-label {
+  font-size: 1rem; font-weight: 800; color: var(--text);
+  letter-spacing: -0.02em; font-style: italic;
+}
+.feq-eq   { font-size: 1.2rem; color: var(--muted); font-weight: 300; }
+.feq-plus { font-size: 1.1rem; color: var(--muted); font-weight: 300; }
+.feq-term {
+  font-size: 0.84rem; font-weight: 700;
+  padding: 6px 14px; border-radius: 20px;
+  color: var(--tc);
+  background: color-mix(in srgb, var(--tc) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tc) 25%, transparent);
+  white-space: nowrap;
+}
+
+.formula-factors {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+}
+@media(max-width:800px){ .formula-factors{grid-template-columns:1fr} }
+.ffactor {
+  padding: 20px 28px; border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+.ffactor:nth-child(2n) { border-right: none; }
+.ffactor:nth-last-child(-n+2) { border-bottom: none; }
+@media(max-width:800px){
+  .ffactor { border-right: none; }
+  .ffactor:last-child { border-bottom: none; }
+  .ffactor:nth-last-child(-n+2) { border-bottom: 1px solid var(--border); }
+  .ffactor:last-child { border-bottom: none; }
+}
+.ffactor-name {
+  font-size: 0.82rem; font-weight: 800; letter-spacing: -0.01em;
+  margin-bottom: 6px; display: flex; align-items: center; gap: 8px;
+}
+.ffactor-w {
+  font-size: 0.65rem; font-weight: 700; padding: 2px 7px; border-radius: 10px;
+  background: rgba(255,255,255,.06); color: var(--muted);
+}
+.ffactor-desc {
+  font-size: 0.78rem; color: var(--text2); line-height: 1.65; margin-bottom: 8px;
+}
+.ffactor-formula {
+  font-size: 0.72rem; font-weight: 600; color: var(--muted);
+  font-family: 'Courier New', monospace;
+  background: rgba(0,0,0,.3); border-radius: 6px; padding: 5px 10px;
+  border-left: 2px solid rgba(79,172,254,.3);
+}
+.formula-disclaimer {
+  padding: 16px 28px; font-size: 0.75rem; color: var(--muted); line-height: 1.7;
+  background: rgba(255,214,10,.03); border-top: 1px solid rgba(255,214,10,.1);
+}
+
+/* Prediction results grid */
+.pred-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px;
+}
+.pred-card {
+  background: var(--glass); backdrop-filter: blur(20px);
+  border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 18px 20px; position: relative; overflow: hidden;
+  transition: transform .3s cubic-bezier(.34,1.2,.64,1), border-color .3s, box-shadow .3s;
+  animation: fadeUp .4s ease both;
+}
+.pred-card:hover { transform: translateY(-5px); border-color: rgba(79,172,254,.15); box-shadow: 0 12px 40px rgba(0,0,0,.35); }
+.pred-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px; border-radius:var(--r-lg) var(--r-lg) 0 0;
+}
+.pred-card.tier-1::before { background:var(--grad-gold); }
+.pred-card.tier-2::before { background:var(--grad-blue); }
+.pred-card.tier-3::before { background:var(--grad-purple); }
+
+.pred-rank-row {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;
+}
+.pred-rank { font-size: 0.65rem; font-weight: 800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.pred-conf {
+  font-size: 0.7rem; font-weight: 700; padding: 3px 9px; border-radius: 20px;
+  background: rgba(0,245,160,.08); color: var(--green); border: 1px solid rgba(0,245,160,.15);
+}
+.pred-coin-row { display:flex; align-items:center; gap:11px; margin-bottom:14px; }
+.pred-img { width:36px; height:36px; border-radius:50%; object-fit:contain; background:rgba(255,255,255,.05); flex-shrink:0; }
+.pred-name { font-size:0.9rem; font-weight:700; letter-spacing:-0.02em; }
+.pred-sym  { font-size:0.68rem; color:var(--muted); text-transform:uppercase; font-weight:600; }
+.pred-score-bar-wrap { margin-bottom:10px; }
+.pred-score-label { display:flex; justify-content:space-between; font-size:0.68rem; color:var(--muted); margin-bottom:5px; font-weight:600; }
+.pred-score-track { height:4px; background:rgba(255,255,255,.06); border-radius:2px; overflow:hidden; }
+.pred-score-fill  { height:100%; border-radius:2px; background:var(--grad-blue); transition:width .8s cubic-bezier(.34,1.2,.64,1); }
+.pred-factors {
+  display:flex; flex-wrap:wrap; gap:5px; margin-top:8px;
+}
+.pred-factor-chip {
+  font-size:0.62rem; font-weight:700; padding:2px 7px; border-radius:8px;
+  background:rgba(255,255,255,.05); color:var(--muted); border:1px solid var(--border);
+}
+.pred-factor-chip.strong { background:rgba(79,172,254,.08); color:var(--blue); border-color:rgba(79,172,254,.15); }
+.pred-factor-chip.good   { background:rgba(127,90,240,.08); color:var(--purple2); border-color:rgba(127,90,240,.15); }
+
+/* No-7d notice */
+.pred-notice {
+  display:flex; align-items:flex-start; gap:14px;
+  background:rgba(255,214,10,.05); border:1px solid rgba(255,214,10,.15);
+  border-radius:var(--r-lg); padding:20px 24px;
+  font-size:0.83rem; color:var(--text2); line-height:1.7;
+}
+.pred-notice-icon { font-size:1.5rem; flex-shrink:0; margin-top:1px; }
+
+/* ═══════════════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-d1 { animation-delay: .1s }
+.fade-d2 { animation-delay: .2s }
+.fade-d3 { animation-delay: .3s }
+
+/* ═══════════════════════════════════════════════════
+   TICKER STRIP
+═══════════════════════════════════════════════════ */
+.ticker-strip {
+  position: sticky; top: var(--nav-h); z-index: 90;
+  overflow: hidden;
+  background: rgba(5,10,24,.92);
+  backdrop-filter: blur(14px) saturate(180%);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  height: 36px; display: flex; align-items: center;
+}
+.ticker-track {
+  display: flex; align-items: center;
+  animation: ticker-scroll 55s linear infinite;
+  white-space: nowrap; will-change: transform;
+}
+.ticker-strip:hover .ticker-track { animation-play-state: paused; }
+.ticker-item {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0 22px;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em;
+  border-right: 1px solid rgba(255,255,255,.05);
+  cursor: default;
+}
+.ticker-sym   { color: var(--text); }
+.ticker-price { color: var(--text2); font-weight: 500; }
+.ticker-up    { color: var(--green); }
+.ticker-dn    { color: var(--red); }
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity .65s cubic-bezier(.22,1,.36,1),
+              transform .65s cubic-bezier(.22,1,.36,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: .07s }
+.reveal-d2 { transition-delay: .14s }
+.reveal-d3 { transition-delay: .21s }
+.reveal-d4 { transition-delay: .28s }
+
+/* ═══════════════════════════════════════════════════
+   FLOAT-BOB  (spotlight cards, starts after reveal)
+═══════════════════════════════════════════════════ */
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-8px); }
+}
+.scard.visible:nth-child(1) { animation: float-bob 4.4s ease-in-out .9s infinite; }
+.scard.visible:nth-child(2) { animation: float-bob 3.9s ease-in-out 1.3s infinite; }
+.scard.visible:nth-child(3) { animation: float-bob 4.8s ease-in-out 1.7s infinite; }
+
+/* ═══════════════════════════════════════════════════
+   EYEBROW LINE DRAW
+═══════════════════════════════════════════════════ */
+.section-eyebrow-line {
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform .9s cubic-bezier(.22,1,.36,1) .35s;
+}
+.section-eyebrow-line.drawn { transform: scaleX(1); }
+</style>
+</head>
+<body>
+
+<!-- ════ AMBIENT BACKGROUND ════ -->
+<div class="ambient">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+  <div class="dot-grid"></div>
+</div>
+
+<!-- ════ HEADER ════ -->
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <div class="logo-mark">CT</div>
+      <div>
+        <div class="logo-name">CryptoTracker</div>
+        <div class="logo-tag">Top 200 · Live</div>
+      </div>
+    </a>
+
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showPage('dashboard',this)">Dashboard</button>
+      <button class="nav-tab" onclick="showPage('calendar',this)">Calendar</button>
+      <button class="nav-tab" onclick="showPage('prediction',this)">🔮 Prediction</button>
+      <button class="nav-tab" onclick="showPage('about',this)">About</button>
+    </div>
+
+    <div class="hdr-right">
+      <div class="status-pill">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Loading…</span>
+      </div>
+      <span class="source-chip" id="sourceChip"></span>
+      <span class="next-refresh" id="nextRefresh"></span>
+      <button class="btn btn-ghost" onclick="openSettings()">⚙ API Key</button>
+      <button class="btn btn-primary" id="refreshBtn" onclick="manualRefresh()">↻ Refresh</button>
+    </div>
+  </div>
+</header>
+
+<!-- ════ TICKER STRIP ════ -->
+<div id="tickerStrip" class="ticker-strip"></div>
+
+<!-- ════ SETTINGS MODAL ════ -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <h3>API Configuration</h3>
+    <p class="modal-desc">The app tries three data sources in order until one works:</p>
+    <div class="modal-step">
+      <div class="modal-num">1</div>
+      <div class="modal-step-text"><strong>CoinGecko + your key</strong> — Best option. Full data including 7-day % changes.</div>
+    </div>
+    <div class="modal-step">
+      <div class="modal-num">2</div>
+      <div class="modal-step-text"><strong>CoinGecko public</strong> — Free but may be rate-limited without a key.</div>
+    </div>
+    <div class="modal-step">
+      <div class="modal-num">3</div>
+      <div class="modal-step-text"><strong>CoinCap.io</strong> — Always works. No key needed. 24h data only.</div>
+    </div>
+    <label>CoinGecko Demo API Key (optional)</label>
+    <input type="text" id="apiKeyInput" placeholder="CG-xxxxxxxxxxxxxxxxxxxxxxxx" />
+    <div class="modal-status" id="settingsStatus"></div>
+    <p style="margin-top:6px">
+      <a class="modal-link" href="https://www.coingecko.com/en/api" target="_blank">Get a free key at coingecko.com/en/api →</a>
+    </p>
+    <div class="modal-btns">
+      <button class="btn btn-ghost" onclick="closeSettings()">Cancel</button>
+      <button class="btn btn-danger" onclick="clearApiKey()">Clear Key</button>
+      <button class="btn btn-primary" onclick="saveApiKey()">Save &amp; Refresh</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ APP SHELL ════ -->
+<div class="app-shell">
+
+  <div class="error-banner" id="errorBanner" style="margin-top:12px"></div>
+
+  <!-- ══════════════ DASHBOARD ══════════════ -->
+  <div id="page-dashboard" class="page active">
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-eyebrow"><div class="hero-eyebrow-dot"></div>Live Market Intelligence</div>
+      <h1 class="hero-h1">Market <span class="grad">Pulse</span></h1>
+      <p class="hero-p">Real-time performance tracking for the top 200 cryptocurrencies by market cap.</p>
+      <div class="hero-stats">
+        <div class="hstat c-neu">
+          <span class="hstat-icon">🌐</span>
+          <div class="hstat-label">Coins Tracked</div>
+          <div class="hstat-val c-blue" id="statCoins">—</div>
+          <div class="hstat-sub" id="statUpdated">Awaiting data…</div>
+        </div>
+        <div class="hstat c-up">
+          <span class="hstat-icon">🚀</span>
+          <div class="hstat-label">Best 24h</div>
+          <div class="hstat-val c-green" id="statBest24">—</div>
+          <div class="hstat-sub" id="statBest24name">—</div>
+        </div>
+        <div class="hstat c-dn">
+          <span class="hstat-icon">📉</span>
+          <div class="hstat-label">Worst 24h</div>
+          <div class="hstat-val c-red" id="statWorst24">—</div>
+          <div class="hstat-sub" id="statWorst24name">—</div>
+        </div>
+        <div class="hstat c-wk">
+          <span class="hstat-icon">📆</span>
+          <div class="hstat-label">Best 7 Days</div>
+          <div class="hstat-val c-gold" id="statBest7d">—</div>
+          <div class="hstat-sub" id="statBest7dname">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="loadingBox" class="loading-wrap">
+      <div class="spinner"></div>
+      <div class="loading-t">Fetching top 200 coins…</div>
+      <div class="loading-s">Connecting to CoinGecko</div>
+    </div>
+
+    <!-- Data -->
+    <div id="dataContent" style="display:none">
+      <div class="page-wrap">
+
+        <!-- Spotlight -->
+        <div class="section fade-d1" style="animation:fadeUp .5s ease .1s both">
+          <div class="section-eyebrow">
+            <span class="section-eyebrow-text">Today's Leaders</span>
+            <div class="section-eyebrow-line"></div>
+          </div>
+          <h2 class="section-h2">Top Gainers Right Now</h2>
+          <p class="section-sub">Three best-performing coins in the last 24 hours</p>
+          <div class="spotlight-grid" id="spotlightGrid"></div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- 24h -->
+        <div class="section" style="animation:fadeUp .5s ease .15s both">
+          <div class="section-eyebrow">
+            <span class="section-eyebrow-text">24-Hour Performance</span>
+            <div class="section-eyebrow-line"></div>
+          </div>
+          <div class="pair-grid">
+            <div class="tcard">
+              <div class="tcard-hdr">
+                <div class="tcard-icon icon-up">▲</div>
+                <div class="tcard-title">Top 10 Gainers</div>
+                <span class="tcard-tag">24h %</span>
+              </div>
+              <div class="tbl-scroll">
+                <table><thead><tr><th>#</th><th>Coin</th><th class="r">Price</th><th class="r">24h %</th><th class="r">Δ Amount</th></tr></thead>
+                <tbody id="tbl-24h-up"></tbody></table>
+              </div>
+            </div>
+            <div class="tcard">
+              <div class="tcard-hdr">
+                <div class="tcard-icon icon-dn">▼</div>
+                <div class="tcard-title">Top 10 Losers</div>
+                <span class="tcard-tag">24h %</span>
+              </div>
+              <div class="tbl-scroll">
+                <table><thead><tr><th>#</th><th>Coin</th><th class="r">Price</th><th class="r">24h %</th><th class="r">Δ Amount</th></tr></thead>
+                <tbody id="tbl-24h-dn"></tbody></table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider section-7d"></div>
+
+        <!-- 7d -->
+        <div class="section section-7d" style="animation:fadeUp .5s ease .2s both">
+          <div class="section-eyebrow">
+            <span class="section-eyebrow-text">7-Day Performance</span>
+            <div class="section-eyebrow-line"></div>
+          </div>
+          <div class="pair-grid">
+            <div class="tcard">
+              <div class="tcard-hdr">
+                <div class="tcard-icon icon-up">▲</div>
+                <div class="tcard-title">Top 10 Gainers</div>
+                <span class="tcard-tag">7 Day %</span>
+              </div>
+              <div class="tbl-scroll">
+                <table><thead><tr><th>#</th><th>Coin</th><th class="r">Price</th><th class="r">7d %</th><th class="r">24h %</th></tr></thead>
+                <tbody id="tbl-7d-up"></tbody></table>
+              </div>
+            </div>
+            <div class="tcard">
+              <div class="tcard-hdr">
+                <div class="tcard-icon icon-dn">▼</div>
+                <div class="tcard-title">Top 10 Losers</div>
+                <span class="tcard-tag">7 Day %</span>
+              </div>
+              <div class="tbl-scroll">
+                <table><thead><tr><th>#</th><th>Coin</th><th class="r">Price</th><th class="r">7d %</th><th class="r">24h %</th></tr></thead>
+                <tbody id="tbl-7d-dn"></tbody></table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Dollar movers -->
+        <div class="section" style="animation:fadeUp .5s ease .25s both">
+          <div class="section-eyebrow">
+            <span class="section-eyebrow-text">Dollar Amount Movers</span>
+            <div class="section-eyebrow-line"></div>
+          </div>
+          <div class="pair-grid">
+            <div class="tcard">
+              <div class="tcard-hdr">
+                <div class="tcard-icon icon-gold">$</div>
+                <div class="tcard-title">Biggest $ Gainers</div>
+                <span class="tcard-tag">24h USD Δ</span>
+              </div>
+              <div class="tbl-scroll">
+                <table><thead><tr><th>#</th><th>Coin</th><th class="r">Price</th><th class="r">Δ USD</th><th class="r">24h %</th></tr></thead>
+                <tbody id="tbl-amt-up"></tbody></table>
+              </div>
+            </div>
+            <div class="tcard">
+              <div class="tcard-hdr">
+                <div class="tcard-icon icon-dn">$</div>
+                <div class="tcard-title">Biggest $ Losers</div>
+                <span class="tcard-tag">24h USD Δ</span>
+              </div>
+              <div class="tbl-scroll">
+                <table><thead><tr><th>#</th><th>Coin</th><th class="r">Price</th><th class="r">Δ USD</th><th class="r">24h %</th></tr></thead>
+                <tbody id="tbl-amt-dn"></tbody></table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Volume -->
+        <div class="section" style="animation:fadeUp .5s ease .3s both">
+          <div class="section-eyebrow">
+            <span class="section-eyebrow-text">Trading Volume</span>
+            <div class="section-eyebrow-line"></div>
+          </div>
+          <div class="pair-grid">
+            <div class="tcard">
+              <div class="tcard-hdr">
+                <div class="tcard-icon icon-blue">◈</div>
+                <div class="tcard-title">Highest Volume</div>
+                <span class="tcard-tag">24h Volume</span>
+              </div>
+              <div class="tbl-scroll">
+                <table><thead><tr><th>#</th><th>Coin</th><th class="r">Volume</th><th class="r">Price</th><th class="r">24h %</th></tr></thead>
+                <tbody id="tbl-vol-up"></tbody></table>
+              </div>
+            </div>
+            <div class="tcard">
+              <div class="tcard-hdr">
+                <div class="tcard-icon icon-dn">◈</div>
+                <div class="tcard-title">Lowest Volume</div>
+                <span class="tcard-tag">24h Volume</span>
+              </div>
+              <div class="tbl-scroll">
+                <table><thead><tr><th>#</th><th>Coin</th><th class="r">Volume</th><th class="r">Price</th><th class="r">24h %</th></tr></thead>
+                <tbody id="tbl-vol-dn"></tbody></table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /dashboard -->
+
+  <!-- ══════════════ CALENDAR ══════════════ -->
+  <div id="page-calendar" class="page">
+    <div class="page-wrap" style="padding-top:40px">
+      <div class="section-eyebrow" style="margin-bottom:14px">
+        <span class="section-eyebrow-text">History</span>
+        <div class="section-eyebrow-line"></div>
+      </div>
+      <h2 class="section-h2">Performance Calendar</h2>
+      <p class="section-sub">Click a highlighted date to view that day's top &amp; worst performers</p>
+      <div class="cal-layout">
+        <div class="glass-card">
+          <div class="cal-nav">
+            <button class="cal-arrow" onclick="calPrev()">‹</button>
+            <div class="cal-month-lbl" id="calMonthLabel"></div>
+            <button class="cal-arrow" onclick="calNext()">›</button>
+          </div>
+          <div class="cal-body">
+            <div class="cal-hdr-row">
+              <div class="cal-hdr-day">Su</div><div class="cal-hdr-day">Mo</div>
+              <div class="cal-hdr-day">Tu</div><div class="cal-hdr-day">We</div>
+              <div class="cal-hdr-day">Th</div><div class="cal-hdr-day">Fr</div>
+              <div class="cal-hdr-day">Sa</div>
+            </div>
+            <div class="cal-days" id="calGrid"></div>
+          </div>
+          <div class="cal-legend">
+            <span style="color:var(--blue)">● Data available</span>&emsp;<span style="color:var(--gold)">○ Today</span>
+          </div>
+        </div>
+        <div class="glass-card">
+          <div class="cal-detail-hdr" id="calDetailHeader">Select a date</div>
+          <div id="calDetail">
+            <div class="cal-empty">
+              <div class="cal-empty-ico">📅</div>
+              <div class="cal-empty-t">No date selected</div>
+              <div class="cal-empty-desc">Click a highlighted date to see<br>top &amp; worst performers for that day.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ ABOUT ══════════════ -->
+  <div id="page-about" class="page">
+    <div class="page-wrap" style="padding-top:40px">
+      <div class="about-wrap">
+        <div class="about-card">
+          <h2>About CryptoTracker Pro</h2>
+          <p style="margin-top:6px;color:var(--text2)">A real-time crypto performance tracker built for long-term insight accumulation.</p>
+          <h4>Data Source</h4>
+          <p>CoinGecko free public API — tracks top 200 coins by market cap with 24h and 7-day performance data. A free demo key from <a href="https://www.coingecko.com/en/api" target="_blank" style="color:var(--blue)">coingecko.com/en/api</a> gives the best experience.</p>
+          <h4>Auto-Refresh</h4>
+          <p>Data refreshes automatically every <strong style="color:var(--blue)">12 hours</strong>. Hit Refresh any time for an immediate update.</p>
+          <h4>History & Calendar</h4>
+          <p>Each daily snapshot is stored locally in your browser's localStorage — up to 90 days. The Calendar tab lets you browse any day the app was open. Data persists across browser sessions on the same machine.</p>
+          <h4>Dashboard Sections</h4>
+          <ul>
+            <li><strong style="color:var(--text)">24h Performance</strong> — ranked by % change in the last 24 hours</li>
+            <li><strong style="color:var(--text)">7-Day Performance</strong> — ranked by weekly % (CoinGecko only)</li>
+            <li><strong style="color:var(--text)">Dollar Amount Movers</strong> — ranked by absolute USD price move</li>
+            <li><strong style="color:var(--text)">Volume Leaders</strong> — ranked by 24h trading volume</li>
+          </ul>
+          <div class="about-disclaimer">
+            ⚠️ For informational purposes only. Nothing here is financial advice. Always do your own research before making any investment decisions.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ PREDICTION ══════════════ -->
+  <div id="page-prediction" class="page">
+    <div class="page-wrap" style="padding-top:40px">
+
+      <!-- Header -->
+      <div class="section-eyebrow" style="margin-bottom:14px">
+        <span class="section-eyebrow-text">Quantitative Analysis</span>
+        <div class="section-eyebrow-line"></div>
+      </div>
+      <h2 class="section-h2">Next Week Prediction</h2>
+      <p class="section-sub" id="predSubtitle">Top 10 coins most likely to outperform next week, based on momentum signals.</p>
+
+      <!-- Formula Card -->
+      <div class="formula-card" style="margin-bottom:28px">
+        <div class="formula-header">
+          <span class="formula-icon">∑</span>
+          <div>
+            <div class="formula-title">Scoring Formula</div>
+            <div class="formula-sub">4-factor weighted momentum model</div>
+          </div>
+        </div>
+        <div class="formula-eq">
+          <span class="feq-label">Score</span>
+          <span class="feq-eq">=</span>
+          <span class="feq-term" style="--tc:var(--blue)">0.35 × Momentum₇ᵈ</span>
+          <span class="feq-plus">+</span>
+          <span class="feq-term" style="--tc:var(--purple2)">0.25 × VolumeSurge</span>
+          <span class="feq-plus">+</span>
+          <span class="feq-term" style="--tc:var(--green)">0.25 × MomentumAccel</span>
+          <span class="feq-plus">+</span>
+          <span class="feq-term" style="--tc:var(--gold)">0.15 × TrendAlignment</span>
+        </div>
+        <div class="formula-factors">
+          <div class="ffactor">
+            <div class="ffactor-name" style="color:var(--blue)">Momentum₇ᵈ <span class="ffactor-w">35%</span></div>
+            <div class="ffactor-desc">Normalized rank of 7-day % gain (0→100). Coins already trending up tend to continue — the <em>momentum effect</em> is one of the most replicated findings in quantitative finance.</div>
+            <div class="ffactor-formula">rank(7d%) / totalCoins × 100</div>
+          </div>
+          <div class="ffactor">
+            <div class="ffactor-name" style="color:var(--purple2)">VolumeSurge <span class="ffactor-w">25%</span></div>
+            <div class="ffactor-desc">Volume-to-MarketCap ratio, normalized (0→100). High relative volume signals institutional or retail conviction — price moves on high volume are more likely to sustain.</div>
+            <div class="ffactor-formula">normalize(volume / marketCap) × 100</div>
+          </div>
+          <div class="ffactor">
+            <div class="ffactor-name" style="color:var(--green)">MomentumAccel <span class="ffactor-w">25%</span></div>
+            <div class="ffactor-desc">Is today's pace faster than the weekly average? If the coin gained 14% over 7 days (~2%/day avg) but is up 5% today, momentum is <em>accelerating</em> — a bullish signal.</div>
+            <div class="ffactor-formula">clamp(24h% ÷ (7d% ÷ 7), 0, 3) ÷ 3 × 100</div>
+          </div>
+          <div class="ffactor">
+            <div class="ffactor-name" style="color:var(--gold)">TrendAlignment <span class="ffactor-w">15%</span></div>
+            <div class="ffactor-desc">Do 24h and 7d signals agree? Aligned signals (both positive) indicate conviction. Mixed signals (7d up, 24h down) suggest possible reversal — lower weight assigned.</div>
+            <div class="ffactor-formula">both positive→100 · both negative→0 · mixed→40</div>
+          </div>
+        </div>
+        <div class="formula-disclaimer">
+          ⚠️ <strong>Confidence cap at 72%.</strong> This model uses only momentum and volume signals from available API data. It does not account for macroeconomic events, regulatory news, project fundamentals, or broader market sentiment. Treat predictions as one data point among many — never as financial advice.
+        </div>
+      </div>
+
+      <!-- No 7d data notice -->
+      <div id="pred-no7d" class="pred-notice" style="display:none">
+        <div class="pred-notice-icon">⚡</div>
+        <div>
+          <strong>7-day data unavailable (CoinCap mode)</strong><br>
+          The prediction model requires 7-day % change data. Add a free CoinGecko API key via <button onclick="openSettings()" style="background:none;border:none;color:var(--blue);cursor:pointer;font-size:inherit;text-decoration:underline">⚙ API Key</button> to enable predictions.
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="predResults" style="display:none">
+        <div class="section-eyebrow" style="margin-bottom:16px;margin-top:8px">
+          <span class="section-eyebrow-text">Predicted Top 10 — Next 7 Days</span>
+          <div class="section-eyebrow-line"></div>
+        </div>
+        <div class="pred-grid" id="predGrid"></div>
+        <div style="margin-top:24px;font-size:0.75rem;color:var(--muted);line-height:1.7;max-width:700px">
+          <strong style="color:var(--text2)">How to read this:</strong> Score is 0–100. Confidence = Score × 0.72 (capped). The formula is purely backward-looking — it does not know about future news, partnerships, listings, or macro events. Run this weekly and track accuracy. After 6 months of data you'll know which factors are most predictive for your watchlist.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /app-shell -->
+
+<!-- ════════════════════════════════════════
+     JAVASCRIPT — All logic
+════════════════════════════════════════ -->
+<script>
+// ─── CONSTANTS ────────────────────────────────────
+const STORAGE_KEY    = 'cryptotracker_snapshots';
+const LAST_FETCH_KEY = 'cryptotracker_last_fetch';
+const API_KEY_STORE  = 'cryptotracker_cg_key';
+const REFRESH_MS     = 12 * 60 * 60 * 1000;
+
+const CG_URL = 'https://api.coingecko.com/api/v3/coins/markets' +
+  '?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=7d';
+const CC_URL = 'https://api.coincap.io/v2/assets?limit=200';
+
+// ─── STATE ────────────────────────────────────────
+let currentData = [], calYear = new Date().getFullYear(),
+    calMonth = new Date().getMonth(), calSelected = null,
+    refreshTimer = null, countdownTimer = null;
+
+// ─── SETTINGS ─────────────────────────────────────
+function openSettings() {
+  const k = localStorage.getItem(API_KEY_STORE) || '';
+  document.getElementById('apiKeyInput').value = k;
+  document.getElementById('settingsStatus').textContent = k ? '✓ Key saved' : '';
+  document.getElementById('settingsModal').classList.add('open');
+}
+function closeSettings() { document.getElementById('settingsModal').classList.remove('open'); }
+function saveApiKey() {
+  const v = document.getElementById('apiKeyInput').value.trim();
+  if (v) { localStorage.setItem(API_KEY_STORE, v); document.getElementById('settingsStatus').textContent = '✓ Saved!'; }
+  setTimeout(() => { closeSettings(); manualRefresh(); }, 500);
+}
+function clearApiKey() {
+  localStorage.removeItem(API_KEY_STORE);
+  document.getElementById('apiKeyInput').value = '';
+  document.getElementById('settingsStatus').textContent = 'Key cleared.';
+}
+document.getElementById('settingsModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeSettings(); });
+
+// ─── INIT ─────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', async () => {
+  renderCalendar();
+  const cached = loadTodayCache();
+  if (cached) { setStatus('Cached'); renderDashboard(cached); scheduleRefresh(); }
+  else await fetchData();
+});
+
+// ─── MULTI-SOURCE FETCH ───────────────────────────
+async function fetchData() {
+  setStatus('Fetching…'); showLoading(true); hideError();
+  document.getElementById('refreshBtn').disabled = true;
+  const errs = [];
+
+  // 1 — CoinGecko + key
+  const key = localStorage.getItem(API_KEY_STORE);
+  if (key) {
+    try {
+      const r = await fetch(CG_URL + '&x_cg_demo_api_key=' + encodeURIComponent(key),
+        { headers: { 'x-cg-demo-api-key': key } });
+      if (!r.ok) throw new Error(`CoinGecko(key) ${r.status}`);
+      const d = await r.json();
+      if (Array.isArray(d) && d.length) return finishFetch(d.slice(0,200), 'CoinGecko ✓');
+      throw new Error('Empty');
+    } catch(e) { errs.push(e.message); }
+  }
+
+  // 2 — CoinGecko public
+  try {
+    const r = await fetch(CG_URL, { signal: AbortSignal.timeout(10000) });
+    if (!r.ok) throw new Error(`CoinGecko ${r.status}`);
+    const d = await r.json();
+    if (Array.isArray(d) && d.length) return finishFetch(d.slice(0,200), 'CoinGecko');
+    throw new Error('Empty');
+  } catch(e) { errs.push(e.message); }
+
+  // 3 — CoinCap
+  try {
+    const r = await fetch(CC_URL, { signal: AbortSignal.timeout(10000) });
+    if (!r.ok) throw new Error(`CoinCap ${r.status}`);
+    const j = await r.json();
+    if (!j.data?.length) throw new Error('Empty');
+    return finishFetch(normCC(j.data), 'CoinCap');
+  } catch(e) { errs.push(e.message); }
+
+  // All failed
+  showError('⚠️ All sources failed: ' + errs.join(' · ') + ' — Add a CoinGecko key via ⚙ API Key.');
+  const fb = loadRecentCache();
+  if (fb) { renderDashboard(fb.data); setStatus('Cached · ' + fb.date); }
+  else {
+    setStatus('Error'); showLoading(false);
+    document.getElementById('dataContent').style.display = 'none';
+    document.getElementById('loadingBox').innerHTML = `
+      <div style="text-align:center;padding:40px 20px;animation:fadeUp .4s ease">
+        <div style="font-size:2.8rem;margin-bottom:18px">⚡</div>
+        <div style="font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:10px">No data available</div>
+        <div style="font-size:0.82rem;color:var(--text2);margin-bottom:24px;line-height:1.7;max-width:320px;margin-left:auto;margin-right:auto">
+          All three data sources failed.<br>Add a free CoinGecko API key to get started.
+        </div>
+        <button class="btn btn-primary" onclick="openSettings()">⚙ Add Free API Key</button>
+      </div>`;
+    document.getElementById('loadingBox').style.display = 'flex';
+  }
+  document.getElementById('refreshBtn').disabled = false;
+}
+
+function finishFetch(data, source) {
+  const chip = document.getElementById('sourceChip');
+  chip.textContent = source; chip.style.display = 'inline-block';
+  const has7d = !source.includes('CoinCap');
+  document.querySelectorAll('.section-7d').forEach(el => el.style.display = has7d ? '' : 'none');
+  if (!has7d) {
+    document.getElementById('statBest7d').textContent = 'N/A';
+    document.getElementById('statBest7dname').textContent = 'Add CoinGecko key for 7d data';
+  }
+  saveSnap(data); renderDashboard(data); setStatus('Live · ' + source);
+  scheduleRefresh(); document.getElementById('refreshBtn').disabled = false;
+}
+
+function normCC(assets) {
+  return assets.map(a => {
+    const p = parseFloat(a.priceUsd)||0, pct = parseFloat(a.changePercent24Hr)||0;
+    const delta = p - p/(1+pct/100);
+    return {
+      id: a.id, symbol:(a.symbol||'').toLowerCase(), name:a.name,
+      image:`https://assets.coincap.io/assets/icons/${(a.symbol||'').toLowerCase()}@2x.png`,
+      current_price:p, market_cap:parseFloat(a.marketCapUsd)||0,
+      market_cap_rank:parseInt(a.rank)||0, total_volume:parseFloat(a.volumeUsd24Hr)||0,
+      price_change_24h:delta, price_change_percentage_24h:pct,
+      price_change_percentage_7d_in_currency:null,
+    };
+  });
+}
+
+async function manualRefresh() {
+  clearTimeout(refreshTimer); clearInterval(countdownTimer); await fetchData();
+}
+function scheduleRefresh() {
+  clearTimeout(refreshTimer); clearInterval(countdownTimer);
+  let rem = REFRESH_MS;
+  countdownTimer = setInterval(() => {
+    rem -= 1000;
+    document.getElementById('nextRefresh').textContent = rem > 0 ? 'Refreshes in ' + fmtCountdown(rem) : '';
+  }, 1000);
+  refreshTimer = setTimeout(fetchData, REFRESH_MS);
+  document.getElementById('nextRefresh').textContent = 'Refreshes in ' + fmtCountdown(REFRESH_MS);
+}
+
+// ─── STORAGE ──────────────────────────────────────
+const todayKey = () => new Date().toISOString().slice(0,10);
+function saveSnap(data) {
+  let s={};
+  try { s=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); } catch{}
+  s[todayKey()] = data;
+  const ks = Object.keys(s).sort();
+  while(ks.length>90) delete s[ks.shift()];
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch{}
+  localStorage.setItem(LAST_FETCH_KEY, new Date().toISOString());
+  renderCalendar();
+}
+function loadTodayCache()  { try{return(JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')||{})[todayKey()]||null}catch{return null} }
+function loadDateCache(d)  { try{return(JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')||{})[d]||null}catch{return null} }
+function loadRecentCache() { try{const s=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'),ks=Object.keys(s).sort().reverse();return ks.length?{date:ks[0],data:s[ks[0]]}:null}catch{return null} }
+function getStoredDates()  { try{return Object.keys(JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')||{})}catch{return[]} }
+
+// ─── RENDER DASHBOARD ─────────────────────────────
+function renderDashboard(data) {
+  currentData = data;
+  showLoading(false);
+  document.getElementById('dataContent').style.display = 'block';
+
+  countUp(document.getElementById('statCoins'), data.length, 1200, false);
+  const last = localStorage.getItem(LAST_FETCH_KEY);
+  if (last) {
+    const d = new Date(last);
+    document.getElementById('statUpdated').textContent =
+      d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) + ' · ' +
+      d.toLocaleDateString([],{month:'short',day:'numeric'});
+  }
+
+  const by24 = [...data].filter(c=>c.price_change_percentage_24h!=null).sort((a,b)=>b.price_change_percentage_24h-a.price_change_percentage_24h);
+  const by7d = [...data].filter(c=>c.price_change_percentage_7d_in_currency!=null).sort((a,b)=>b.price_change_percentage_7d_in_currency-a.price_change_percentage_7d_in_currency);
+  const byAmt = [...data].filter(c=>c.price_change_24h!=null).sort((a,b)=>b.price_change_24h-a.price_change_24h);
+  const byVol = [...data].filter(c=>c.total_volume!=null).sort((a,b)=>b.total_volume-a.total_volume);
+
+  if (by24.length>=2) {
+    const b=by24[0],w=by24[by24.length-1];
+    countUp(document.getElementById('statBest24'),  b.price_change_percentage_24h, 1400, true);
+    document.getElementById('statBest24name').textContent=b.name+' ('+b.symbol.toUpperCase()+')';
+    countUp(document.getElementById('statWorst24'), w.price_change_percentage_24h, 1400, true);
+    document.getElementById('statWorst24name').textContent=w.name+' ('+w.symbol.toUpperCase()+')';
+  }
+  if (by7d.length) {
+    const b=by7d[0];
+    countUp(document.getElementById('statBest7d'), b.price_change_percentage_7d_in_currency, 1400, true);
+    document.getElementById('statBest7dname').textContent=b.name+' ('+b.symbol.toUpperCase()+')';
+  }
+
+  renderSpotlight(by24.slice(0,3));
+  fillTable('tbl-24h-up', by24.slice(0,10),    '24up');
+  fillTable('tbl-24h-dn', by24.slice(-10).reverse(), '24dn');
+  fillTable('tbl-7d-up',  by7d.slice(0,10),    '7up');
+  fillTable('tbl-7d-dn',  by7d.slice(-10).reverse(), '7dn');
+  fillTable('tbl-amt-up', byAmt.slice(0,10),   'amtup');
+  fillTable('tbl-amt-dn', byAmt.slice(-10).reverse(),'amtdn');
+  fillTable('tbl-vol-up', byVol.slice(0,10),   'volup');
+  fillTable('tbl-vol-dn', byVol.slice(-10).reverse(),'voldn');
+
+  buildTicker(data);
+  requestAnimationFrame(setupReveal);
+}
+
+// ─── SPOTLIGHT ────────────────────────────────────
+function renderSpotlight(top3) {
+  const medals = ['🥇','🥈','🥉'], ranks=['r1','r2','r3'], labels=['#1 Today','#2 Today','#3 Today'];
+  document.getElementById('spotlightGrid').innerHTML = top3.map((c,i) => {
+    const up = c.price_change_percentage_24h >= 0;
+    return `<div class="scard ${ranks[i]}">
+      <div class="scard-rank">${medals[i]} ${labels[i]}</div>
+      <div class="scard-coin">
+        <img class="scard-img" src="${c.image}" alt="${c.symbol}" loading="lazy" onerror="this.style.display='none'">
+        <div><div class="scard-name">${c.name}</div><div class="scard-sym">${c.symbol.toUpperCase()}</div></div>
+      </div>
+      <div class="scard-price">${fmt(c.current_price,'price')}</div>
+      <div class="scard-badge ${up?'up':'dn'}">${up?'▲':'▼'} ${fmt(c.price_change_percentage_24h,'pct')}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── TABLE FILLERS ────────────────────────────────
+function coinCell(c) {
+  return `<td><div class="coin-cell">
+    <img class="coin-img" src="${c.image}" alt="${c.symbol}" loading="lazy" onerror="this.style.display='none'">
+    <div><div class="coin-name">${c.name}</div><div class="coin-sym">${c.symbol.toUpperCase()}</div></div>
+  </div></td>`;
+}
+function ppill(val) {
+  if (val==null||isNaN(val)) return '<td class="r">—</td>';
+  const up=val>=0;
+  return `<td class="r"><span class="ppill ${up?'up':'dn'}">${up?'▲':'▼'} ${Math.abs(val).toFixed(2)}%</span></td>`;
+}
+function fillTable(id, arr, mode) {
+  document.getElementById(id).innerHTML = arr.map((c,i) => {
+    const rank = `<td class="td-rank">${i+1}</td>`;
+    const coin = coinCell(c);
+    const price = `<td class="r td-price">${fmt(c.current_price,'price')}</td>`;
+    switch(mode) {
+      case '24up': return `<tr>${rank}${coin}${price}${ppill(c.price_change_percentage_24h)}<td class="r" style="color:var(--green);font-weight:700">${fmt(c.price_change_24h,'delta')}</td></tr>`;
+      case '24dn': return `<tr>${rank}${coin}${price}${ppill(c.price_change_percentage_24h)}<td class="r" style="color:var(--red);font-weight:700">${fmt(c.price_change_24h,'delta')}</td></tr>`;
+      case '7up':  return `<tr>${rank}${coin}${price}${ppill(c.price_change_percentage_7d_in_currency)}${ppill(c.price_change_percentage_24h)}</tr>`;
+      case '7dn':  return `<tr>${rank}${coin}${price}${ppill(c.price_change_percentage_7d_in_currency)}${ppill(c.price_change_percentage_24h)}</tr>`;
+      case 'amtup':return `<tr>${rank}${coin}${price}<td class="r" style="color:var(--green);font-weight:700">+${fmt(c.price_change_24h,'price')}</td>${ppill(c.price_change_percentage_24h)}</tr>`;
+      case 'amtdn':return `<tr>${rank}${coin}${price}<td class="r" style="color:var(--red);font-weight:700">${fmt(c.price_change_24h,'delta')}</td>${ppill(c.price_change_percentage_24h)}</tr>`;
+      case 'volup':return `<tr>${rank}${coin}<td class="r td-vol">${fmt(c.total_volume,'vol')}</td>${price}${ppill(c.price_change_percentage_24h)}</tr>`;
+      case 'voldn':return `<tr>${rank}${coin}<td class="r td-vol">${fmt(c.total_volume,'vol')}</td>${price}${ppill(c.price_change_percentage_24h)}</tr>`;
+    }
+  }).join('');
+}
+
+// ─── CALENDAR ─────────────────────────────────────
+function renderCalendar() {
+  const MN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('calMonthLabel').textContent = MN[calMonth] + ' ' + calYear;
+  const stored = new Set(getStoredDates()), today = todayKey();
+  const fd = new Date(calYear,calMonth,1).getDay(), days = new Date(calYear,calMonth+1,0).getDate();
+  let html = '';
+  for(let i=0;i<fd;i++) html+=`<div class="cday empty"></div>`;
+  for(let d=1;d<=days;d++){
+    const ds=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const has=stored.has(ds), isTd=ds===today, isSel=ds===calSelected;
+    let cls='cday';
+    if(has) cls+=' has-data';
+    if(isTd&&!has) cls+=' today-mark';
+    if(isSel) cls+=' selected';
+    html+=`<div class="${cls}" ${has?`onclick="calSelect('${ds}')"`:''}>${d}</div>`;
+  }
+  document.getElementById('calGrid').innerHTML = html;
+}
+function calPrev(){ calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar(); }
+function calNext(){ calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar(); }
+function calSelect(ds) {
+  calSelected=ds; renderCalendar();
+  const data = loadDateCache(ds);
+  const d = new Date(ds);
+  document.getElementById('calDetailHeader').textContent =
+    d.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  if(!data){
+    document.getElementById('calDetail').innerHTML=`<div class="cal-empty"><div class="cal-empty-ico">🔍</div><div class="cal-empty-t">No data for this date</div></div>`;
+    return;
+  }
+  const by24=[...data].filter(c=>c.price_change_percentage_24h!=null).sort((a,b)=>b.price_change_percentage_24h-a.price_change_percentage_24h);
+  const mini = (arr,label,col) => `
+    <div style="padding:16px 20px;border-bottom:1px solid var(--border)">
+      <div style="font-size:0.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:${col};margin-bottom:10px">${label}</div>
+      <div class="tbl-scroll"><table><thead><tr><th>#</th><th>Coin</th><th class="r">Price</th><th class="r">24h %</th></tr></thead>
+      <tbody>${arr.map((c,i)=>`<tr><td class="td-rank">${i+1}</td>${coinCell(c)}<td class="r td-price">${fmt(c.current_price,'price')}</td>${ppill(c.price_change_percentage_24h)}</tr>`).join('')}
+      </tbody></table></div></div>`;
+  document.getElementById('calDetail').innerHTML =
+    mini(by24.slice(0,10),'▲ Top 10 Gainers','var(--green)') +
+    mini(by24.slice(-10).reverse(),'▼ Top 10 Losers','var(--red)');
+}
+
+// ─── FORMATTING ───────────────────────────────────
+function fmt(v, type) {
+  if(v==null||isNaN(v)) return '—';
+  switch(type){
+    case 'pct': return (v>=0?'+':'')+v.toFixed(2)+'%';
+    case 'price':{const a=Math.abs(v),s=v<0?'-$':'$';return a>=1000?s+a.toLocaleString('en-US',{maximumFractionDigits:2}):a>=1?s+a.toFixed(4):a>=.01?s+a.toFixed(6):s+a.toFixed(8);}
+    case 'delta':{const a=Math.abs(v),s=v>=0?'+$':'-$';return a>=1000?s+a.toLocaleString('en-US',{maximumFractionDigits:2}):a>=1?s+a.toFixed(4):s+a.toFixed(6);}
+    case 'vol':  return v>=1e9?'$'+(v/1e9).toFixed(2)+'B':v>=1e6?'$'+(v/1e6).toFixed(2)+'M':v>=1e3?'$'+(v/1e3).toFixed(2)+'K':'$'+v.toFixed(2);
+    default: return v;
+  }
+}
+function fmtCountdown(ms){
+  const h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000),s=Math.floor(ms%60000/1000);
+  return `${h}h ${m}m ${s}s`;
+}
+
+// ─── UI HELPERS ───────────────────────────────────
+function showPage(name,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='calendar')   renderCalendar();
+  if(name==='prediction') runPrediction();
+}
+function setStatus(t){
+  document.getElementById('statusText').textContent=t;
+  const dot=document.getElementById('statusDot');
+  dot.style.background=t.startsWith('Live')?'var(--green)':t==='Error'?'var(--red)':'var(--gold)';
+  dot.style.boxShadow=t.startsWith('Live')?'0 0 8px rgba(0,245,160,.5)':'none';
+}
+function showLoading(show){
+  document.getElementById('loadingBox').style.display=show?'flex':'none';
+  if(show) document.getElementById('dataContent').style.display='none';
+}
+function showError(msg){ const e=document.getElementById('errorBanner');e.textContent=msg;e.style.display='block';setTimeout(()=>e.style.display='none',10000); }
+function hideError(){ document.getElementById('errorBanner').style.display='none'; }
+
+// ─── PREDICTION ENGINE ───────────────────────────
+// Triggered when user opens the Prediction tab
+function runPrediction() {
+  const no7dEl    = document.getElementById('pred-no7d');
+  const resultsEl = document.getElementById('predResults');
+
+  if (!currentData || currentData.length === 0) {
+    no7dEl.style.display = 'flex';
+    resultsEl.style.display = 'none';
+    document.getElementById('pred-no7d').querySelector('strong').textContent = 'No data loaded yet.';
+    return;
+  }
+
+  // Need 7d data — check first coin with it
+  const has7d = currentData.some(c => c.price_change_percentage_7d_in_currency != null);
+  if (!has7d) {
+    no7dEl.style.display = 'flex'; resultsEl.style.display = 'none'; return;
+  }
+  no7dEl.style.display = 'none';
+
+  // ── Stablecoin exclusion (USD-pegged & other fiat-pegged coins) ──
+  const STABLECOINS = new Set([
+    'usdt','usdc','busd','dai','tusd','usdp','usdd','frax','gusd','lusd',
+    'susd','usdn','cusd','nusd','usdx','husd','ousd','musd','usdk','usds',
+    'fdusd','pyusd','crvusd','mkusd','eurs','eurt','xaut','paxg','usde',
+    'dola','ageur','alusd','usd0','wusd',
+  ]);
+  // Also auto-exclude any coin whose price barely moves — catches unlisted
+  // stables pegged to $1 that aren't in the list above
+  const isStable = c =>
+    STABLECOINS.has((c.symbol || '').toLowerCase()) ||
+    (Math.abs(c.price_change_percentage_7d_in_currency || 0) < 0.6 &&
+     Math.abs(c.price_change_percentage_24h || 0) < 0.3);
+
+  // ── STEP 1: Compute raw factor values ──────────────────────────
+  const eligible = currentData.filter(c =>
+    c.price_change_percentage_7d_in_currency != null &&
+    c.price_change_percentage_24h != null &&
+    c.total_volume != null && c.market_cap > 0 &&
+    !isStable(c)
+  );
+
+  const scored = eligible.map(c => {
+    const mom7d  = c.price_change_percentage_7d_in_currency;   // raw 7d %
+    const mom24h = c.price_change_percentage_24h;              // raw 24h %
+    const volRat = c.total_volume / c.market_cap;              // volume/mcap
+
+    // MomentumAccel: 24h % vs average daily rate over 7d
+    const avgDaily = mom7d / 7;
+    let accelRaw = avgDaily !== 0 ? mom24h / avgDaily : 0;
+    accelRaw = Math.max(0, Math.min(3, accelRaw)); // clamp 0→3
+
+    // TrendAlignment: directional agreement
+    const alignment = (mom7d > 0 && mom24h > 0) ? 100
+                    : (mom7d < 0 && mom24h < 0) ? 0
+                    : 40; // mixed signal
+
+    return { coin: c, mom7d, mom24h, volRat, accelRaw, alignment };
+  });
+
+  // ── STEP 2: Normalize mom7d, volRat, accelRaw to 0-100 ────────
+  function normalize(arr, key) {
+    const vals = arr.map(x => x[key]);
+    const min = Math.min(...vals), max = Math.max(...vals);
+    const range = max - min;
+    arr.forEach(x => { x[key + '_n'] = range > 0 ? (x[key] - min) / range * 100 : 50; });
+  }
+  normalize(scored, 'mom7d');
+  normalize(scored, 'volRat');
+  normalize(scored, 'accelRaw');
+  // alignment is already 0-100
+
+  // ── STEP 3: Weighted composite score ───────────────────────────
+  scored.forEach(x => {
+    x.score =
+      0.35 * x.mom7d_n    +   // Momentum 7d
+      0.25 * x.volRat_n   +   // Volume surge
+      0.25 * x.accelRaw_n +   // Momentum acceleration
+      0.15 * x.alignment;     // Trend alignment
+    // Confidence: score × 0.72, max 72%
+    x.confidence = Math.min(72, x.score * 0.72);
+  });
+
+  // ── STEP 4: Sort and take top 10 ───────────────────────────────
+  const top10 = scored.sort((a,b) => b.score - a.score).slice(0, 10);
+
+  // ── STEP 5: Render ─────────────────────────────────────────────
+  const grid = document.getElementById('predGrid');
+  grid.innerHTML = top10.map((x, i) => {
+    const c = x.coin;
+    const tierClass = i < 3 ? 'tier-1' : i < 6 ? 'tier-2' : 'tier-3';
+    const medals = ['🥇','🥈','🥉'];
+    const rankLabel = i < 3 ? medals[i] + ' Rank ' + (i+1) : 'Rank ' + (i+1);
+
+    // Factor strength chips
+    const chips = [];
+    if (x.mom7d_n    > 70) chips.push({label:'Strong 7d Momentum', cls:'strong'});
+    if (x.volRat_n   > 70) chips.push({label:'High Volume Surge',   cls:'strong'});
+    if (x.accelRaw_n > 70) chips.push({label:'Accel Momentum',      cls:'good'});
+    if (x.alignment === 100) chips.push({label:'Aligned Signals',   cls:'good'});
+    if (chips.length === 0)  chips.push({label:'Moderate signals',  cls:''});
+
+    const fillWidth = x.score.toFixed(1);
+    const confText  = x.confidence.toFixed(1) + '% confidence';
+
+    return `
+    <div class="pred-card ${tierClass}" style="animation-delay:${i*0.05}s">
+      <div class="pred-rank-row">
+        <span class="pred-rank">${rankLabel}</span>
+        <span class="pred-conf">${confText}</span>
+      </div>
+      <div class="pred-coin-row">
+        <img class="pred-img" src="${c.image}" alt="${c.symbol}" loading="lazy" onerror="this.style.display='none'">
+        <div><div class="pred-name">${c.name}</div><div class="pred-sym">${c.symbol.toUpperCase()}</div></div>
+      </div>
+      <div class="pred-score-bar-wrap">
+        <div class="pred-score-label"><span>Composite Score</span><span>${x.score.toFixed(1)} / 100</span></div>
+        <div class="pred-score-track"><div class="pred-score-fill" style="width:${fillWidth}%"></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:0.7rem;color:var(--muted);margin-top:8px;margin-bottom:10px">
+        <div>7d Momentum <span style="color:var(--text2);font-weight:700">${fmt(x.mom7d,'pct')}</span></div>
+        <div>24h Change <span style="color:${x.mom24h>=0?'var(--green)':'var(--red)'};font-weight:700">${fmt(x.mom24h,'pct')}</span></div>
+        <div>Vol/MCap <span style="color:var(--text2);font-weight:700">${(x.volRat*100).toFixed(2)}%</span></div>
+        <div>Alignment <span style="color:${x.alignment===100?'var(--green)':x.alignment===0?'var(--red)':'var(--gold)'};font-weight:700">${x.alignment===100?'Strong ↑':x.alignment===0?'Strong ↓':'Mixed'}</span></div>
+      </div>
+      <div class="pred-factors">${chips.map(ch=>`<span class="pred-factor-chip ${ch.cls}">${ch.label}</span>`).join('')}</div>
+    </div>`;
+  }).join('');
+
+  resultsEl.style.display = 'block';
+  document.getElementById('predSubtitle').textContent =
+    `Analyzed ${eligible.length} coins (stablecoins excluded) · Data from ${new Date(localStorage.getItem(LAST_FETCH_KEY)||Date.now()).toLocaleDateString()} · Scores update on each data refresh`;
+}
+
+// ─── TICKER STRIP ─────────────────────────────────
+function buildTicker(coins) {
+  const strip = document.getElementById('tickerStrip');
+  if (!strip || !coins.length) return;
+  const top20 = coins.slice(0, 20);
+  function items() {
+    return top20.map(c => {
+      const pct = c.price_change_percentage_24h || 0;
+      const cls = pct >= 0 ? 'ticker-up' : 'ticker-dn';
+      const sign = pct >= 0 ? '+' : '';
+      const p = c.current_price;
+      const price = p >= 1
+        ? '$' + p.toLocaleString('en-US', {maximumFractionDigits: 2})
+        : '$' + p.toPrecision(4);
+      return `<span class="ticker-item">
+        <span class="ticker-sym">${c.symbol.toUpperCase()}</span>
+        <span class="ticker-price">${price}</span>
+        <span class="${cls}">${sign}${pct.toFixed(2)}%</span>
+      </span>`;
+    }).join('');
+  }
+  // Double the items so the CSS loop is seamless
+  strip.innerHTML = `<div class="ticker-track">${items()}${items()}</div>`;
+}
+
+// ─── COUNT-UP ANIMATION ───────────────────────────
+function countUp(el, endVal, duration, isPct) {
+  if (!el || endVal == null || isNaN(endVal)) return;
+  const absEnd = Math.abs(endVal);
+  const neg    = endVal < 0;
+  const t0     = performance.now();
+  function step(now) {
+    const progress = Math.min(1, (now - t0) / duration);
+    const ease     = 1 - Math.pow(1 - progress, 3); // cubic ease-out
+    const cur      = absEnd * ease * (neg ? -1 : 1);
+    if (isPct) {
+      el.textContent = (cur >= 0 ? '+' : '') + cur.toFixed(2) + '%';
+    } else {
+      el.textContent = Math.round(cur).toLocaleString();
+    }
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      // Snap to exact final value
+      el.textContent = isPct
+        ? (endVal >= 0 ? '+' : '') + endVal.toFixed(2) + '%'
+        : Math.round(endVal).toLocaleString();
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+// ─── SCROLL REVEAL (IntersectionObserver) ─────────
+let _revealObs = null;
+function setupReveal() {
+  // Disconnect any previous observer to avoid duplicate bindings on re-render
+  if (_revealObs) _revealObs.disconnect();
+
+  _revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('visible');
+      // Draw any eyebrow lines inside the newly-visible element
+      entry.target.querySelectorAll('.section-eyebrow-line')
+        .forEach(l => l.classList.add('drawn'));
+      _revealObs.unobserve(entry.target);
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -30px 0px' });
+
+  // Sections: remove static inline animation, add reveal
+  document.querySelectorAll('.section').forEach(el => {
+    el.style.animation = 'none';
+    el.classList.remove('visible');
+    el.classList.add('reveal');
+    _revealObs.observe(el);
+  });
+
+  // Spotlight cards (dynamically rendered by renderSpotlight)
+  document.querySelectorAll('.scard').forEach((el, i) => {
+    el.style.animation = 'none';
+    el.classList.remove('visible');
+    el.classList.add('reveal');
+    if (i > 0) el.classList.add(`reveal-d${Math.min(i, 4)}`);
+    _revealObs.observe(el);
+  });
+
+  // Prediction cards
+  document.querySelectorAll('.pred-card').forEach((el, i) => {
+    el.classList.remove('visible');
+    el.classList.add('reveal');
+    if (i > 0) el.classList.add(`reveal-d${Math.min(i % 4 + 1, 4)}`);
+    _revealObs.observe(el);
+  });
+
+  // Table rows (first 15 per table get stagger)
+  document.querySelectorAll('table tbody tr').forEach((el, i) => {
+    el.classList.remove('visible');
+    el.classList.add('reveal');
+    el.style.transitionDelay = `${Math.min(i % 15, 14) * 0.028}s`;
+    _revealObs.observe(el);
+  });
+
+  // Eyebrow lines that are already in-view (top of page)
+  document.querySelectorAll('.section-eyebrow-line').forEach(l => {
+    const rect = l.getBoundingClientRect();
+    if (rect.top < window.innerHeight) l.classList.add('drawn');
+  });
+}
+
+// ─── SCROLL-DRIVEN BACKGROUND COLORS ─────────────
+// Each stop: [scrollFraction, bg_rgb, glow1_rgb, glow2_rgb, glow3_rgb]
+const BG_STOPS = [
+  { p:0.00, bg:[3,8,18],   g1:[79,172,254],  g2:[127,90,240],  g3:[0,212,170]  }, // Deep navy
+  { p:0.14, bg:[3,14,18],  g1:[0,180,200],   g2:[79,172,254],  g3:[0,200,180]  }, // Ocean teal
+  { p:0.28, bg:[8,4,18],   g1:[127,90,240],  g2:[170,90,220],  g3:[80,60,200]  }, // Deep violet
+  { p:0.45, bg:[3,13,6],   g1:[0,170,100],   g2:[0,200,150],   g3:[40,180,120] }, // Dark forest
+  { p:0.60, bg:[14,3,14],  g1:[180,60,180],  g2:[127,90,240],  g3:[160,40,160] }, // Deep plum
+  { p:0.76, bg:[3,10,20],  g1:[50,140,254],  g2:[0,180,220],   g3:[30,120,200] }, // Midnight cobalt
+  { p:0.90, bg:[10,5,8],   g1:[180,80,120],  g2:[140,60,200],  g3:[100,40,140] }, // Dark rose
+  { p:1.00, bg:[3,8,18],   g1:[79,172,254],  g2:[127,90,240],  g3:[0,212,170]  }, // Back to navy
+];
+
+const glow1El       = document.querySelector('.glow-1');
+const glow2El       = document.querySelector('.glow-2');
+const glow3El       = document.querySelector('.glow-3');
+const heroParallaxEl = document.querySelector('.hero');
+
+function lerp(a, b, t) { return a + (b - a) * t; }
+function lerpRGB(c1, c2, t) { return c1.map((v,i) => Math.round(lerp(v, c2[i], t))); }
+
+let ticking = false;
+function onScroll() {
+  if (!ticking) { requestAnimationFrame(applyScrollColors); ticking = true; }
+}
+function applyScrollColors() {
+  ticking = false;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  const p = maxScroll > 0 ? Math.max(0, Math.min(1, window.scrollY / maxScroll)) : 0;
+
+  // Find the two adjacent stops
+  let s1 = BG_STOPS[0], s2 = BG_STOPS[1];
+  for (let i = 0; i < BG_STOPS.length - 1; i++) {
+    if (p >= BG_STOPS[i].p && p <= BG_STOPS[i+1].p) {
+      s1 = BG_STOPS[i]; s2 = BG_STOPS[i+1]; break;
+    }
+  }
+  const segLen = s2.p - s1.p;
+  const t = segLen > 0 ? (p - s1.p) / segLen : 0;
+
+  const bg = lerpRGB(s1.bg, s2.bg, t);
+  const g1 = lerpRGB(s1.g1, s2.g1, t);
+  const g2 = lerpRGB(s1.g2, s2.g2, t);
+  const g3 = lerpRGB(s1.g3, s2.g3, t);
+
+  document.body.style.background = `rgb(${bg})`;
+  if (glow1El) glow1El.style.background = `radial-gradient(circle, rgba(${g1},.16) 0%, transparent 65%)`;
+  if (glow2El) glow2El.style.background = `radial-gradient(circle, rgba(${g2},.13) 0%, transparent 65%)`;
+  if (glow3El) glow3El.style.background = `radial-gradient(circle, rgba(${g3},.10) 0%, transparent 65%)`;
+  // Parallax hero — moves at 0.35× scroll speed for depth
+  if (heroParallaxEl) heroParallaxEl.style.transform = `translateY(${window.scrollY * 0.35}px)`;
+}
+
+window.addEventListener('scroll', onScroll, { passive: true });
+// Apply immediately on load too
+window.addEventListener('DOMContentLoaded', applyScrollColors);
+</script>
+</body>
+</html>
