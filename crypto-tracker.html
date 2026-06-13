@@ -166,6 +166,27 @@ body {
 
 /* Header right */
 .hdr-right { margin-left: auto; display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+/* Global search bar */
+.global-search-wrap {
+  position: relative; display: flex; align-items: center;
+}
+.global-search {
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  border-radius: 22px; padding: 7px 14px 7px 34px;
+  color: var(--text); font-family: var(--font); font-size: 0.78rem;
+  width: 180px; outline: none; transition: border-color .2s, width .25s;
+}
+.global-search::placeholder { color: var(--muted); }
+.global-search:focus { border-color: var(--blue); width: 220px; }
+.global-search-icon {
+  position: absolute; left: 11px; font-size: 0.8rem;
+  color: var(--muted); pointer-events: none;
+}
+.filter-active-badge {
+  display: none; position: absolute; top: -4px; right: -4px;
+  width: 8px; height: 8px; background: var(--blue); border-radius: 50%;
+}
+
 .status-pill {
   display: flex; align-items: center; gap: 6px;
   background: rgba(255,255,255,0.04); border: 1px solid var(--border);
@@ -813,6 +834,13 @@ td { padding: 12px 18px; vertical-align: middle; font-size: 0.81rem; white-space
       <button class="nav-tab" onclick="showPage('about',this)">About</button>
     </div>
 
+    <div class="global-search-wrap">
+      <span class="global-search-icon">🔍</span>
+      <input class="global-search" id="globalSearch" type="text"
+             placeholder="Search coin…" oninput="applyGlobalFilter(this.value)"
+             autocomplete="off" spellcheck="false">
+      <div class="filter-active-badge" id="filterBadge"></div>
+    </div>
     <div class="hdr-right">
       <div class="status-pill">
         <div class="status-dot" id="statusDot"></div>
@@ -1857,6 +1885,60 @@ function applyScrollColors() {
 window.addEventListener('scroll', onScroll, { passive: true });
 // Apply immediately on load too
 window.addEventListener('DOMContentLoaded', applyScrollColors);
+
+// ─── GLOBAL FILTER ────────────────────────────────
+let filterQuery = '';
+
+function applyGlobalFilter(q) {
+  filterQuery = q.trim().toLowerCase();
+  const badge = document.getElementById('filterBadge');
+  badge.style.display = filterQuery ? 'block' : 'none';
+
+  if (!currentData) return;
+
+  if (!filterQuery) {
+    // Restore original dashboard
+    renderDashboard(currentData);
+    return;
+  }
+
+  // Filter coins by name or symbol
+  const filtered = currentData.filter(c =>
+    c.name.toLowerCase().includes(filterQuery) ||
+    c.symbol.toLowerCase().includes(filterQuery)
+  );
+
+  if (filtered.length === 0) {
+    ['tbl-24h-up','tbl-24h-dn','tbl-7d-up','tbl-7d-dn',
+     'tbl-amt-up','tbl-amt-dn','tbl-vol-up','tbl-vol-dn'].forEach(id => {
+      document.getElementById(id).innerHTML =
+        '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:20px">No coins match</td></tr>';
+    });
+    return;
+  }
+
+  const by24  = [...filtered].filter(c=>c.price_change_percentage_24h!=null).sort((a,b)=>b.price_change_percentage_24h-a.price_change_percentage_24h);
+  const by7d  = [...filtered].filter(c=>c.price_change_percentage_7d_in_currency!=null).sort((a,b)=>b.price_change_percentage_7d_in_currency-a.price_change_percentage_7d_in_currency);
+  const byAmt = [...filtered].filter(c=>c.price_change_24h!=null).sort((a,b)=>b.price_change_24h-a.price_change_24h);
+  const byVol = [...filtered].filter(c=>c.total_volume!=null).sort((a,b)=>b.total_volume-a.total_volume);
+
+  fillTable('tbl-24h-up', by24.slice(0,10),         '24up');
+  fillTable('tbl-24h-dn', by24.slice(-10).reverse(), '24dn');
+  fillTable('tbl-7d-up',  by7d.slice(0,10),         '7up');
+  fillTable('tbl-7d-dn',  by7d.slice(-10).reverse(), '7dn');
+  fillTable('tbl-amt-up', byAmt.slice(0,10),         'amtup');
+  fillTable('tbl-amt-dn', byAmt.slice(-10).reverse(),'amtdn');
+  fillTable('tbl-vol-up', byVol.slice(0,10),         'volup');
+  fillTable('tbl-vol-dn', byVol.slice(-10).reverse(),'voldn');
+}
+
+// Clear filter on Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const s = document.getElementById('globalSearch');
+    if (s && s.value) { s.value = ''; applyGlobalFilter(''); s.blur(); }
+  }
+});
 </script>
 </body>
 </html>
