@@ -3,412 +3,314 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prediction Accuracy Dashboard — CryptoTracker Pro</title>
+<title>Prediction Accuracy Dashboard - CryptoTracker Pro</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root {
   --void:#020510; --deep:#070d1e; --surface:#0c1428;
   --glass:rgba(255,255,255,0.025); --glass2:rgba(255,255,255,0.05);
-  --border:rgba(255,255,255,0.06); --border2:rgba(255,255,255,0.10);
-  --blue:#4facfe; --blue2:#00d4ff; --purple:#7f5af0; --purple2:#a78bfa;
-  --teal:#00d4aa; --green:#00f5a0; --red:#ff4d6d; --gold:#ffd60a; --amber:#fb923c;
+  --border:rgba(255,255,255,0.06);
+  --blue:#4facfe; --purple2:#a78bfa;
+  --teal:#00d4aa; --green:#00f5a0; --red:#ff4d6d; --gold:#ffd60a;
   --text:#e8eaf6; --text2:#8b9cc8; --muted:#3d4e72;
   --font:'Inter',system-ui,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--void);color:var(--text);font-family:var(--font);
-      line-height:1.6;min-height:100vh;-webkit-font-smoothing:antialiased}
+body{background:var(--void);color:var(--text);font-family:var(--font);line-height:1.6;min-height:100vh}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px}
-
-/* Layout */
-.header{background:rgba(2,5,16,.85);backdrop-filter:blur(24px);
-         border-bottom:1px solid var(--border);padding:18px 40px;
-         display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+.header{background:rgba(2,5,16,.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);
+        padding:18px 40px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
 .logo-mark{width:36px;height:36px;background:linear-gradient(135deg,#4facfe,#00d4ff);
-            border-radius:11px;display:flex;align-items:center;justify-content:center;
-            font-weight:900;color:var(--void);font-size:1rem;flex-shrink:0}
-.logo-name{font-size:.95rem;font-weight:800;letter-spacing:-.02em;
-            background:linear-gradient(135deg,#4facfe,#00d4ff);
-            -webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.logo-sub{font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;
-           -webkit-text-fill-color:var(--muted)}
+           border-radius:11px;display:flex;align-items:center;justify-content:center;
+           font-weight:900;color:var(--void);font-size:1rem}
+.logo-name{font-size:.95rem;font-weight:800;background:linear-gradient(135deg,#4facfe,#00d4ff);
+           -webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-sub{font-size:.6rem;color:var(--muted);text-transform:uppercase;-webkit-text-fill-color:var(--muted)}
 .hdr-right{margin-left:auto;font-size:.72rem;color:var(--muted)}
-
 .wrap{max-width:1320px;margin:0 auto;padding:40px 32px 80px}
-
-/* Stat cards */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:48px}
-.stat{background:var(--glass);border:1px solid var(--border);border-radius:20px;
-       padding:24px 26px;position:relative;overflow:hidden}
+.stat{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:24px 26px;position:relative;overflow:hidden}
 .stat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:20px 20px 0 0}
 .stat.c-blue::before{background:linear-gradient(90deg,#4facfe,#00d4ff)}
 .stat.c-green::before{background:linear-gradient(90deg,#00f5a0,#00d4aa)}
 .stat.c-gold::before{background:linear-gradient(90deg,#ffd60a,#fb923c)}
 .stat.c-purple::before{background:linear-gradient(90deg,#7f5af0,#a78bfa)}
 .stat-icon{font-size:1.1rem;margin-bottom:10px}
-.stat-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;
-             color:var(--muted);margin-bottom:6px}
+.stat-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:6px}
 .stat-val{font-size:2rem;font-weight:900;letter-spacing:-.04em;line-height:1}
-.stat-val.blue{color:var(--blue)}
-.stat-val.green{color:var(--green)}
-.stat-val.gold{color:var(--gold)}
-.stat-val.purple{color:var(--purple2)}
+.stat-val.blue{color:var(--blue)} .stat-val.green{color:var(--green)}
+.stat-val.gold{color:var(--gold)} .stat-val.purple{color:var(--purple2)}
 .stat-sub{font-size:.72rem;color:var(--text2);margin-top:6px}
-
-/* Section */
-.section-label{font-size:.62rem;font-weight:700;text-transform:uppercase;
-                letter-spacing:.12em;color:var(--blue);margin-bottom:14px}
+.section-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);margin-bottom:14px}
 .section-h{font-size:1.4rem;font-weight:800;letter-spacing:-.04em;margin-bottom:4px}
 .section-sub{font-size:.82rem;color:var(--text2);margin-bottom:22px}
-
-/* Chart card */
-.chart-card{background:var(--glass);border:1px solid var(--border);
-             border-radius:20px;padding:28px 28px 24px;margin-bottom:48px}
+.model-badge{display:inline-flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.mbadge{font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:20px;
+        background:rgba(79,172,254,.08);color:var(--blue);border:1px solid rgba(79,172,254,.15)}
+.chart-card{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:28px 28px 24px;margin-bottom:48px}
 .chart-wrap{position:relative;height:220px}
-
-/* Timeline */
 .timeline{display:flex;flex-direction:column;gap:14px}
-.tl-entry{background:var(--glass);border:1px solid var(--border);
-           border-radius:20px;overflow:hidden}
-.tl-header{display:flex;align-items:center;gap:14px;padding:16px 22px;
-            cursor:pointer;transition:background .15s}
+.tl-entry{background:var(--glass);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.tl-header{display:flex;align-items:center;gap:14px;padding:16px 22px;cursor:pointer;transition:background .15s}
 .tl-header:hover{background:var(--glass2)}
 .tl-date-badge{background:rgba(79,172,254,.1);border:1px solid rgba(79,172,254,.2);
-                border-radius:12px;padding:4px 12px;font-size:.72rem;
-                font-weight:700;color:var(--blue);white-space:nowrap}
-.tl-arrow{margin-left:auto;color:var(--muted);font-size:.9rem;transition:transform .2s}
+               border-radius:12px;padding:4px 12px;font-size:.72rem;font-weight:700;color:var(--blue);white-space:nowrap}
+.tl-arrow{margin-left:auto;color:var(--muted);transition:transform .2s}
 .tl-header.open .tl-arrow{transform:rotate(180deg)}
 .tl-status-badge{font-size:.67rem;font-weight:700;padding:3px 10px;border-radius:20px}
 .badge-hit{background:rgba(0,245,160,.1);color:var(--green);border:1px solid rgba(0,245,160,.2)}
 .badge-pending{background:rgba(255,214,10,.08);color:var(--gold);border:1px solid rgba(255,214,10,.2)}
 .badge-miss{background:rgba(255,77,109,.1);color:var(--red);border:1px solid rgba(255,77,109,.2)}
-
 .tl-body{display:none;border-top:1px solid var(--border)}
 .tl-body.open{display:block}
-.tl-cols{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.tl-cols{display:grid;grid-template-columns:1fr 1fr}
 @media(max-width:800px){.tl-cols{grid-template-columns:1fr}}
 .tl-col{padding:20px 22px}
 .tl-col:first-child{border-right:1px solid var(--border)}
-.tl-col-title{font-size:.64rem;font-weight:800;text-transform:uppercase;
-               letter-spacing:.1em;margin-bottom:12px}
-.tl-col-title.pred{color:var(--blue)}
-.tl-col-title.actual{color:var(--green)}
-.tl-col-title.pending{color:var(--gold)}
-
-/* Coin rows */
-.coin-row{display:flex;align-items:center;gap:10px;padding:7px 0;
-           border-bottom:1px solid rgba(255,255,255,.03)}
+.tl-col-title{font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.tl-col-title.pred{color:var(--blue)} .tl-col-title.actual{color:var(--green)}
+.coin-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.03)}
 .coin-row:last-child{border-bottom:none}
-.coin-img{width:24px;height:24px;border-radius:50%;object-fit:contain;
-           background:rgba(255,255,255,.05);flex-shrink:0}
+.coin-img{width:24px;height:24px;border-radius:50%;object-fit:contain;background:rgba(255,255,255,.05);flex-shrink:0}
 .coin-name{flex:1;font-size:.8rem;font-weight:600}
 .coin-sym{font-size:.64rem;color:var(--muted);font-weight:700;text-transform:uppercase}
 .coin-val{font-size:.78rem;font-weight:700;white-space:nowrap}
-.coin-val.up{color:var(--green)}
-.coin-val.dn{color:var(--red)}
-.coin-val.neutral{color:var(--text2)}
+.coin-val.up{color:var(--green)} .coin-val.dn{color:var(--red)} .coin-val.neutral{color:var(--text2)}
 .hit-icon{font-size:.9rem;flex-shrink:0;width:18px;text-align:center}
-.rank-badge{font-size:.62rem;font-weight:800;color:var(--muted);width:22px;
-             flex-shrink:0;text-align:center}
-
-/* Accuracy bar inside evaluation */
+.rank-badge{font-size:.62rem;font-weight:800;color:var(--muted);width:22px;flex-shrink:0;text-align:center}
+.rsi-tag{font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:8px;white-space:nowrap}
+.rsi-hot{background:rgba(255,77,109,.15);color:#ff4d6d}
+.rsi-ok{background:rgba(0,245,160,.1);color:#00f5a0}
+.rsi-neutral{background:rgba(255,255,255,.05);color:var(--muted)}
 .eval-summary{background:rgba(0,0,0,.2);border-top:1px solid var(--border);
-               padding:14px 22px;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+              padding:14px 22px;display:flex;gap:20px;flex-wrap:wrap;align-items:center}
 .eval-bar-wrap{flex:1;min-width:160px}
-.eval-bar-label{font-size:.65rem;font-weight:700;text-transform:uppercase;
-                 letter-spacing:.08em;color:var(--muted);margin-bottom:5px;
-                 display:flex;justify-content:space-between}
+.eval-bar-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+                color:var(--muted);margin-bottom:5px;display:flex;justify-content:space-between}
 .eval-bar-track{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
-.eval-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#4facfe,#00d4ff);
-                transition:width .6s cubic-bezier(.34,1.2,.64,1)}
+.eval-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#4facfe,#00d4ff)}
 .eval-bar-fill.pos{background:linear-gradient(90deg,#00f5a0,#00d4aa)}
-.eval-pill{font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:20px;
-            white-space:nowrap}
+.eval-pill{font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap}
 .pill-green{background:rgba(0,245,160,.1);color:var(--green);border:1px solid rgba(0,245,160,.2)}
 .pill-red{background:rgba(255,77,109,.1);color:var(--red);border:1px solid rgba(255,77,109,.2)}
 .pill-gold{background:rgba(255,214,10,.08);color:var(--gold);border:1px solid rgba(255,214,10,.2)}
-
-/* Pending state */
 .pending-notice{padding:32px 22px;text-align:center;color:var(--muted)}
-.pending-notice .pi{font-size:2.2rem;margin-bottom:10px}
-.pending-notice .pt{font-size:.88rem;font-weight:600;color:var(--text2);margin-bottom:4px}
-.pending-notice .ps{font-size:.75rem}
-
-/* No data */
 .no-data{text-align:center;padding:80px 24px;color:var(--muted)}
-.no-data .ni{font-size:3rem;margin-bottom:16px}
-.no-data .nt{font-size:1rem;font-weight:700;color:var(--text2);margin-bottom:8px}
-.no-data .ns{font-size:.82rem;line-height:1.7}
-
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .entry-anim{animation:fadeUp .4s ease both}
 </style>
 </head>
 <body>
-
 <header class="header">
   <div class="logo-mark">CT</div>
   <div>
     <div class="logo-name">CryptoTracker Pro</div>
     <div class="logo-sub">Prediction Accuracy Dashboard</div>
   </div>
-  <div class="hdr-right">Last updated: Jun 13, 2026 at 02:05</div>
+  <div class="hdr-right">Last updated: Jun 16, 2026 at 04:12</div>
 </header>
-
 <div class="wrap">
-
-  <!-- ── Stats ── -->
   <div style="margin-bottom:32px">
     <div class="section-label">Model Performance</div>
     <h2 class="section-h">Prediction Accuracy</h2>
     <p class="section-sub">
       Each day the model predicts the top&nbsp;10 coins most likely to outperform over the next 7&nbsp;days.
-      A "hit" = the coin actually appeared in the real top&nbsp;10 gainers 7&nbsp;days later.
+      A "hit" = coin appeared in the real top&nbsp;10 gainers 7&nbsp;days later.
     </p>
+    <div class="model-badge">
+      <span class="mbadge">&#9889; Vol-Adj Momentum 30%</span>
+      <span class="mbadge">&#128202; Volume Surge 20%</span>
+      <span class="mbadge">&#128640; Momentum Accel 18%</span>
+      <span class="mbadge">&#8383; BTC-Relative 17%</span>
+      <span class="mbadge">&#128201; RSI Score 15%</span>
+    </div>
   </div>
-
   <div class="stats">
     <div class="stat c-blue entry-anim" style="animation-delay:.05s">
-      <div class="stat-icon">📊</div>
+      <div class="stat-icon">&#128202;</div>
       <div class="stat-label">Total Predictions</div>
-      <div class="stat-val blue">1</div>
+      <div class="stat-val blue">2</div>
       <div class="stat-sub">Days tracked so far</div>
     </div>
     <div class="stat c-green entry-anim" style="animation-delay:.1s">
-      <div class="stat-icon">✅</div>
+      <div class="stat-icon">&#9989;</div>
       <div class="stat-label">Avg Hit Rate</div>
-      <div class="stat-val green">—</div>
+      <div class="stat-val green">-</div>
       <div class="stat-sub">Top-10 intersection accuracy</div>
     </div>
     <div class="stat c-gold entry-anim" style="animation-delay:.15s">
-      <div class="stat-icon">📈</div>
+      <div class="stat-icon">&#128200;</div>
       <div class="stat-label">Avg Positive Rate</div>
-      <div class="stat-val gold">—</div>
+      <div class="stat-val gold">-</div>
       <div class="stat-sub">% predicted coins that went up</div>
     </div>
     <div class="stat c-purple entry-anim" style="animation-delay:.2s">
-      <div class="stat-icon">🏆</div>
+      <div class="stat-icon">&#127942;</div>
       <div class="stat-label">Best Day</div>
-      <div class="stat-val purple" style="font-size:1.2rem;line-height:1.3">—</div>
+      <div class="stat-val purple" style="font-size:1.2rem;line-height:1.3">-</div>
       <div class="stat-sub">Highest single-day hit rate</div>
     </div>
   </div>
-
-  <!-- ── Accuracy Chart ── -->
   <div id="chart-section" style="margin-bottom:48px">
     <div class="section-label">Accuracy Over Time</div>
     <h2 class="section-h" style="margin-bottom:18px">Hit Rate &amp; Positive Rate</h2>
-    <div class="chart-card">
-      <div class="chart-wrap">
-        <canvas id="accChart"></canvas>
-      </div>
-    </div>
+    <div class="chart-card"><div class="chart-wrap"><canvas id="accChart"></canvas></div></div>
   </div>
-
-  <!-- ── Timeline ── -->
   <div>
     <div class="section-label">Prediction History</div>
     <h2 class="section-h">All Predictions</h2>
-    <p class="section-sub">Click any entry to expand. Green = hit (in actual top 10), Red = miss.</p>
+    <p class="section-sub">Click any entry to expand. RSI tags: red=overbought (&gt;70), green=oversold (&lt;30).</p>
     <div class="timeline" id="timeline"></div>
     <div id="no-data" class="no-data" style="display:none">
-      <div class="ni">🔮</div>
-      <div class="nt">No predictions yet</div>
-      <div class="ns">Run <code>prediction_tracker.py</code> to make the first prediction.<br>
-        Evaluations appear automatically after 7 days.</div>
+      <div style="font-size:3rem;margin-bottom:16px">&#128302;</div>
+      <div style="font-size:1rem;font-weight:700;color:var(--text2);margin-bottom:8px">No predictions yet</div>
+      <div style="font-size:.82rem">Run <code>prediction_tracker.py</code> to make the first prediction.</div>
     </div>
   </div>
-
-</div><!-- /wrap -->
-
+</div>
 <script>
-// ── Embedded data ────────────────────────────────────────────────────────────
-const TIMELINE   = [{"date": "2026-06-13", "maturity_date": "2026-06-20", "predicted_coins": [{"rank": 1, "id": "official-trump", "symbol": "trump", "name": "Official Trump", "image": "https://coin-images.coingecko.com/coins/images/53746/large/trump.png?1737171561", "price_at_prediction": 2.33, "score": 73.49, "confidence": 52.91, "mom7d": 44.65, "mom24h": 33.59, "vol_ratio_pct": 146.2314, "alignment": 100}, {"rank": 2, "id": "plasma", "symbol": "xpl", "name": "Plasma", "image": "https://coin-images.coingecko.com/coins/images/66489/large/Plasma-symbol-green-1.png?1755142558", "price_at_prediction": 0.083642, "score": 61.44, "confidence": 44.24, "mom7d": 23.02, "mom24h": 7.04, "vol_ratio_pct": 127.7143, "alignment": 100}, {"rank": 3, "id": "billions-network", "symbol": "bill", "name": "Billions Network", "image": "https://coin-images.coingecko.com/coins/images/68464/large/billions.png?1755828007", "price_at_prediction": 0.073639, "score": 50.78, "confidence": 36.56, "mom7d": 2.4, "mom24h": 7.23, "vol_ratio_pct": 33.1441, "alignment": 100}, {"rank": 4, "id": "virtual-protocol", "symbol": "virtual", "name": "Virtuals Protocol", "image": "https://coin-images.coingecko.com/coins/images/34057/large/LOGOMARK.png?1708356054", "price_at_prediction": 0.616967, "score": 49.49, "confidence": 35.63, "mom7d": 10.41, "mom24h": 4.44, "vol_ratio_pct": 22.6221, "alignment": 100}, {"rank": 5, "id": "optimism", "symbol": "op", "name": "Optimism", "image": "https://coin-images.coingecko.com/coins/images/25244/large/Token.png?1774456081", "price_at_prediction": 0.100702, "score": 48.98, "confidence": 35.26, "mom7d": 2.62, "mom24h": 5.45, "vol_ratio_pct": 22.5011, "alignment": 100}, {"rank": 6, "id": "sei-network", "symbol": "sei", "name": "Sei", "image": "https://coin-images.coingecko.com/coins/images/28205/large/Sei_Logo_-_Transparent.png?1696527207", "price_at_prediction": 0.052867, "score": 48.25, "confidence": 34.74, "mom7d": 10.93, "mom24h": 6.59, "vol_ratio_pct": 14.3419, "alignment": 100}, {"rank": 7, "id": "midnight-3", "symbol": "night", "name": "Midnight", "image": "https://coin-images.coingecko.com/coins/images/71015/large/midnight.png?1765193080", "price_at_prediction": 0.03513457, "score": 48.23, "confidence": 34.73, "mom7d": 14.83, "mom24h": 6.89, "vol_ratio_pct": 12.4436, "alignment": 100}, {"rank": 8, "id": "jito-governance-token", "symbol": "jto", "name": "Jito", "image": "https://coin-images.coingecko.com/coins/images/33228/large/jto.png?1701137022", "price_at_prediction": 0.543955, "score": 47.5, "confidence": 34.2, "mom7d": 4.35, "mom24h": 2.53, "vol_ratio_pct": 13.0634, "alignment": 100}, {"rank": 9, "id": "ether-fi", "symbol": "ethfi", "name": "Ether.fi", "image": "https://coin-images.coingecko.com/coins/images/35958/large/etherfi.jpeg?1710254562", "price_at_prediction": 0.319427, "score": 47.5, "confidence": 34.2, "mom7d": 10.92, "mom24h": 4.93, "vol_ratio_pct": 9.9849, "alignment": 100}, {"rank": 10, "id": "axie-infinity", "symbol": "axs", "name": "Axie Infinity", "image": "https://coin-images.coingecko.com/coins/images/13029/large/axie_infinity_logo.png?1696512817", "price_at_prediction": 0.958115, "score": 47.38, "confidence": 34.11, "mom7d": 2.68, "mom24h": 2.04, "vol_ratio_pct": 13.1138, "alignment": 100}], "evaluation": null}];
+const TIMELINE   = [{"date": "2026-06-16", "maturity_date": "2026-06-23", "predicted_coins": [{"rank": 1, "id": "layerzero", "symbol": "zro", "name": "LayerZero", "image": "https://coin-images.coingecko.com/coins/images/28206/large/ftxG9_TJ_400x400.jpeg?1696527208", "price_at_prediction": 1.14, "score": 70.49, "confidence": 50.75, "mom7d": 37.11, "mom24h": 12.72, "vol_ratio_pct": 45.5973, "btc_relative": 31.8, "rsi": 60.3, "volatility_pct": 4.23}, {"rank": 2, "id": "jito-governance-token", "symbol": "jto", "name": "Jito", "image": "https://coin-images.coingecko.com/coins/images/33228/large/jto.png?1701137022", "price_at_prediction": 0.742884, "score": 68.33, "confidence": 49.2, "mom7d": 23.23, "mom24h": 27.26, "vol_ratio_pct": 75.6708, "btc_relative": 17.92, "rsi": 70.8, "volatility_pct": 4.37}, {"rank": 3, "id": "spx6900", "symbol": "spx", "name": "SPX6900", "image": "https://coin-images.coingecko.com/coins/images/31401/large/centeredcoin_%281%29.png?1737048493", "price_at_prediction": 0.395002, "score": 64.1, "confidence": 46.15, "mom7d": 32.88, "mom24h": 15.06, "vol_ratio_pct": 6.9087, "btc_relative": 27.57, "rsi": 56.7, "volatility_pct": 4.24}, {"rank": 4, "id": "aave", "symbol": "aave", "name": "Aave", "image": "https://coin-images.coingecko.com/coins/images/12645/large/aave-token-round.png?1720472354", "price_at_prediction": 73.74, "score": 63.29, "confidence": 45.57, "mom7d": 19.08, "mom24h": 6.97, "vol_ratio_pct": 21.5862, "btc_relative": 13.77, "rsi": 56.3, "volatility_pct": 2.09}, {"rank": 5, "id": "aerodrome-finance", "symbol": "aero", "name": "Aerodrome Finance", "image": "https://coin-images.coingecko.com/coins/images/31745/large/token.png?1696530564", "price_at_prediction": 0.428585, "score": 60.54, "confidence": 43.59, "mom7d": 27.3, "mom24h": 13.51, "vol_ratio_pct": 13.3751, "btc_relative": 21.99, "rsi": 70.4, "volatility_pct": 2.7}, {"rank": 6, "id": "humanity", "symbol": "h", "name": "Humanity", "image": "https://coin-images.coingecko.com/coins/images/66811/large/H_tokenLogo_original.png?1750581252", "price_at_prediction": 0.247009, "score": 58.97, "confidence": 42.46, "mom7d": 111.38, "mom24h": -52.9, "vol_ratio_pct": 30.5929, "btc_relative": 106.07, "rsi": 14.5, "volatility_pct": 33.62}, {"rank": 7, "id": "plasma", "symbol": "xpl", "name": "Plasma", "image": "https://coin-images.coingecko.com/coins/images/66489/large/Plasma-symbol-green-1.png?1755142558", "price_at_prediction": 0.095731, "score": 57.21, "confidence": 41.19, "mom7d": 42.27, "mom24h": 5.78, "vol_ratio_pct": 46.7914, "btc_relative": 36.97, "rsi": 42.1, "volatility_pct": 9.92}, {"rank": 8, "id": "worldcoin-wld", "symbol": "wld", "name": "Worldcoin", "image": "https://coin-images.coingecko.com/coins/images/31069/large/worldcoin.jpeg?1696529903", "price_at_prediction": 0.599029, "score": 51.94, "confidence": 37.4, "mom7d": 23.92, "mom24h": 1.29, "vol_ratio_pct": 62.5828, "btc_relative": 18.61, "rsi": 49.9, "volatility_pct": 8.41}, {"rank": 9, "id": "grass", "symbol": "grass", "name": "Grass", "image": "https://coin-images.coingecko.com/coins/images/40094/large/Grass.jpg?1725697048", "price_at_prediction": 0.47675, "score": 51.2, "confidence": 36.86, "mom7d": 42.14, "mom24h": 2.19, "vol_ratio_pct": 15.9368, "btc_relative": 36.83, "rsi": 52.0, "volatility_pct": 6.01}, {"rank": 10, "id": "uniswap", "symbol": "uni", "name": "Uniswap", "image": "https://coin-images.coingecko.com/coins/images/12504/large/uniswap-logo.png?1720676669", "price_at_prediction": 2.87, "score": 50.71, "confidence": 36.51, "mom7d": 15.89, "mom24h": 11.29, "vol_ratio_pct": 17.7316, "btc_relative": 10.58, "rsi": 81.3, "volatility_pct": 2.21}], "evaluation": null}, {"date": "2026-06-13", "maturity_date": "2026-06-20", "predicted_coins": [{"rank": 1, "id": "official-trump", "symbol": "trump", "name": "Official Trump", "image": "https://coin-images.coingecko.com/coins/images/53746/large/trump.png?1737171561", "price_at_prediction": 2.33, "score": 73.49, "confidence": 52.91, "mom7d": 44.65, "mom24h": 33.59, "vol_ratio_pct": 146.2314, "alignment": 100}, {"rank": 2, "id": "plasma", "symbol": "xpl", "name": "Plasma", "image": "https://coin-images.coingecko.com/coins/images/66489/large/Plasma-symbol-green-1.png?1755142558", "price_at_prediction": 0.083642, "score": 61.44, "confidence": 44.24, "mom7d": 23.02, "mom24h": 7.04, "vol_ratio_pct": 127.7143, "alignment": 100}, {"rank": 3, "id": "billions-network", "symbol": "bill", "name": "Billions Network", "image": "https://coin-images.coingecko.com/coins/images/68464/large/billions.png?1755828007", "price_at_prediction": 0.073639, "score": 50.78, "confidence": 36.56, "mom7d": 2.4, "mom24h": 7.23, "vol_ratio_pct": 33.1441, "alignment": 100}, {"rank": 4, "id": "virtual-protocol", "symbol": "virtual", "name": "Virtuals Protocol", "image": "https://coin-images.coingecko.com/coins/images/34057/large/LOGOMARK.png?1708356054", "price_at_prediction": 0.616967, "score": 49.49, "confidence": 35.63, "mom7d": 10.41, "mom24h": 4.44, "vol_ratio_pct": 22.6221, "alignment": 100}, {"rank": 5, "id": "optimism", "symbol": "op", "name": "Optimism", "image": "https://coin-images.coingecko.com/coins/images/25244/large/Token.png?1774456081", "price_at_prediction": 0.100702, "score": 48.98, "confidence": 35.26, "mom7d": 2.62, "mom24h": 5.45, "vol_ratio_pct": 22.5011, "alignment": 100}, {"rank": 6, "id": "sei-network", "symbol": "sei", "name": "Sei", "image": "https://coin-images.coingecko.com/coins/images/28205/large/Sei_Logo_-_Transparent.png?1696527207", "price_at_prediction": 0.052867, "score": 48.25, "confidence": 34.74, "mom7d": 10.93, "mom24h": 6.59, "vol_ratio_pct": 14.3419, "alignment": 100}, {"rank": 7, "id": "midnight-3", "symbol": "night", "name": "Midnight", "image": "https://coin-images.coingecko.com/coins/images/71015/large/midnight.png?1765193080", "price_at_prediction": 0.03513457, "score": 48.23, "confidence": 34.73, "mom7d": 14.83, "mom24h": 6.89, "vol_ratio_pct": 12.4436, "alignment": 100}, {"rank": 8, "id": "jito-governance-token", "symbol": "jto", "name": "Jito", "image": "https://coin-images.coingecko.com/coins/images/33228/large/jto.png?1701137022", "price_at_prediction": 0.543955, "score": 47.5, "confidence": 34.2, "mom7d": 4.35, "mom24h": 2.53, "vol_ratio_pct": 13.0634, "alignment": 100}, {"rank": 9, "id": "ether-fi", "symbol": "ethfi", "name": "Ether.fi", "image": "https://coin-images.coingecko.com/coins/images/35958/large/etherfi.jpeg?1710254562", "price_at_prediction": 0.319427, "score": 47.5, "confidence": 34.2, "mom7d": 10.92, "mom24h": 4.93, "vol_ratio_pct": 9.9849, "alignment": 100}, {"rank": 10, "id": "axie-infinity", "symbol": "axs", "name": "Axie Infinity", "image": "https://coin-images.coingecko.com/coins/images/13029/large/axie_infinity_logo.png?1696512817", "price_at_prediction": 0.958115, "score": 47.38, "confidence": 34.11, "mom7d": 2.68, "mom24h": 2.04, "vol_ratio_pct": 13.1138, "alignment": 100}], "evaluation": null}];
 const CHART_DATA = {"labels": [], "hit_rates": [], "pos_rates": []};
 
-// ── Chart ────────────────────────────────────────────────────────────────────
 (function() {
-  if (!CHART_DATA.labels.length) {
-    document.getElementById('chart-section').style.display = 'none';
-    return;
-  }
+  if (!CHART_DATA.labels.length) { document.getElementById('chart-section').style.display='none'; return; }
   const ctx = document.getElementById('accChart').getContext('2d');
   new Chart(ctx, {
     type: 'line',
     data: {
       labels: CHART_DATA.labels,
       datasets: [
-        {
-          label: 'Hit Rate (top-10 intersection %)',
-          data: CHART_DATA.hit_rates,
-          borderColor: '#4facfe', backgroundColor: 'rgba(79,172,254,.1)',
-          tension: 0.35, fill: true, pointRadius: 5, pointHoverRadius: 7,
-          pointBackgroundColor: '#4facfe',
-        },
-        {
-          label: 'Positive Rate (% coins that went up)',
-          data: CHART_DATA.pos_rates,
-          borderColor: '#00f5a0', backgroundColor: 'rgba(0,245,160,.07)',
-          tension: 0.35, fill: true, pointRadius: 5, pointHoverRadius: 7,
-          pointBackgroundColor: '#00f5a0',
-        },
-      ],
+        { label:'Hit Rate (top-10 %)', data:CHART_DATA.hit_rates,
+          borderColor:'#4facfe', backgroundColor:'rgba(79,172,254,.1)',
+          tension:0.35, fill:true, pointRadius:5, pointBackgroundColor:'#4facfe' },
+        { label:'Positive Rate (% up)', data:CHART_DATA.pos_rates,
+          borderColor:'#00f5a0', backgroundColor:'rgba(0,245,160,.07)',
+          tension:0.35, fill:true, pointRadius:5, pointBackgroundColor:'#00f5a0' },
+      ]
     },
     options: {
-      responsive: true, maintainAspectRatio: false,
+      responsive:true, maintainAspectRatio:false,
       plugins: {
-        legend: { labels: { color: '#8b9cc8', font: { size: 12 } } },
-        tooltip: { backgroundColor: '#0c1428', borderColor: 'rgba(255,255,255,.1)', borderWidth: 1,
-                   titleColor: '#e8eaf6', bodyColor: '#8b9cc8' },
+        legend:{ labels:{ color:'#8b9cc8', font:{ size:12 } } },
+        tooltip:{ backgroundColor:'#0c1428', borderColor:'rgba(255,255,255,.1)', borderWidth:1,
+                  titleColor:'#e8eaf6', bodyColor:'#8b9cc8' }
       },
       scales: {
-        x: { ticks: { color: '#3d4e72' }, grid: { color: 'rgba(255,255,255,.04)' } },
-        y: { min: 0, max: 100, ticks: { color: '#3d4e72', callback: v => v + '%' },
-              grid: { color: 'rgba(255,255,255,.04)' } },
-      },
-    },
+        x:{ ticks:{ color:'#3d4e72' }, grid:{ color:'rgba(255,255,255,.04)' } },
+        y:{ min:0, max:100, ticks:{ color:'#3d4e72', callback:v=>v+'%' },
+            grid:{ color:'rgba(255,255,255,.04)' } }
+      }
+    }
   });
 })();
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
 function fmtDate(d) {
   if (!d) return '';
   const [y,m,day] = d.split('-');
-  return new Date(+y, +m-1, +day).toLocaleDateString('en-US',
-    {weekday:'short',month:'short',day:'numeric',year:'numeric'});
+  return new Date(+y,+m-1,+day).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
 }
 function fmtPct(v) {
-  if (v == null) return '—';
-  const sign = v >= 0 ? '+' : '';
-  return sign + v.toFixed(2) + '%';
+  if (v==null) return '-';
+  return (v>=0?'+':'')+v.toFixed(2)+'%';
 }
-function coinImg(img, sym) {
-  return `<img class="coin-img" src="${img}" alt="${sym}"
-    onerror="this.src='';this.style.visibility='hidden'" loading="lazy">`;
+function coinImg(img,sym) {
+  return `<img class="coin-img" src="${img}" alt="${sym}" onerror="this.style.visibility='hidden'" loading="lazy">`;
+}
+function rsiTag(rsi) {
+  if (rsi==null) return '';
+  const cls = rsi>70?'rsi-hot':rsi<30?'rsi-ok':'rsi-neutral';
+  return `<span class="rsi-tag ${cls}">RSI ${rsi}</span>`;
 }
 
-// ── Build timeline ───────────────────────────────────────────────────────────
 const container = document.getElementById('timeline');
 if (!TIMELINE.length) {
-  document.getElementById('no-data').style.display = 'block';
+  document.getElementById('no-data').style.display='block';
 } else {
   TIMELINE.forEach((entry, idx) => {
-    const ev       = entry.evaluation;
-    const mature   = ev != null;
-    const hitRate  = ev ? ev.hit_rate : null;
+    const ev     = entry.evaluation;
+    const mature = ev != null;
 
     let statusBadge = '';
     if (!mature) {
-      const daysLeft = Math.ceil((new Date(entry.maturity_date) - new Date()) / 86400000);
-      const dl = daysLeft > 0 ? `Matures in ${daysLeft} day${daysLeft!==1?'s':''}` : 'Evaluating soon…';
-      statusBadge = `<span class="tl-status-badge badge-pending">⏳ Pending · ${dl}</span>`;
+      const daysLeft = Math.ceil((new Date(entry.maturity_date)-new Date())/86400000);
+      const dl = daysLeft>0?`Matures in ${daysLeft} day${daysLeft!==1?'s':''}`:'Evaluating soon...';
+      statusBadge = `<span class="tl-status-badge badge-pending">&#9203; Pending &middot; ${dl}</span>`;
     } else {
-      const hr = hitRate;
-      const cls = hr >= 50 ? 'badge-hit' : 'badge-miss';
-      const icon = hr >= 50 ? '✅' : '❌';
-      statusBadge = `<span class="tl-status-badge ${cls}">${icon} ${ev.hit_count}/10 hits · ${hr}%</span>`;
+      const hr=ev.hit_rate, cls=hr>=50?'badge-hit':'badge-miss', ico=hr>=50?'&#9989;':'&#10060;';
+      statusBadge = `<span class="tl-status-badge ${cls}">${ico} ${ev.hit_count}/10 hits &middot; ${hr}%</span>`;
     }
 
-    // Predicted coins list
-    let predRows = entry.predicted_coins.map(c => {
-      const hitIcon = mature
-        ? (ev.coin_results.find(r => r.id === c.id)?.hit ? '✅' : '❌')
-        : '';
-      const actualRet = mature
-        ? ev.coin_results.find(r => r.id === c.id)?.actual_return_pct
-        : null;
-      const retStr = actualRet != null
-        ? `<span class="coin-val ${actualRet >= 0 ? 'up' : 'dn'}">${fmtPct(actualRet)}</span>`
+    const predRows = entry.predicted_coins.map(c => {
+      const hitIcon  = mature?(ev.coin_results.find(r=>r.id===c.id)?.hit?'&#9989;':'&#10060;'):'';
+      const actualRet = mature?ev.coin_results.find(r=>r.id===c.id)?.actual_return_pct:null;
+      const retStr = actualRet!=null
+        ? `<span class="coin-val ${actualRet>=0?'up':'dn'}">${fmtPct(actualRet)}</span>`
         : `<span class="coin-val neutral">${fmtPct(c.confidence)} conf.</span>`;
       return `<div class="coin-row">
-        ${coinImg(c.image, c.symbol)}
+        ${coinImg(c.image,c.symbol)}
         <span class="rank-badge">#${c.rank}</span>
         <div class="coin-name">${c.name}<br><span class="coin-sym">${c.symbol.toUpperCase()}</span></div>
+        ${rsiTag(c.rsi)}
         ${retStr}
-        ${mature ? `<span class="hit-icon">${hitIcon}</span>` : ''}
+        ${mature?`<span class="hit-icon">${hitIcon}</span>`:''}
       </div>`;
     }).join('');
 
-    // Actual top-10 (if evaluated)
     let actualCol = '';
     if (mature && ev.actual_top10) {
       const rows = ev.actual_top10.map(c => {
-        const wasP = c.was_predicted
-          ? `<span class="hit-icon">⭐</span>` : `<span class="hit-icon" style="opacity:.2">·</span>`;
+        const star = c.was_predicted?'&#11088;':'<span style="opacity:.2">&middot;</span>';
         return `<div class="coin-row">
           <div class="coin-name">${c.name}<br><span class="coin-sym">${c.symbol.toUpperCase()}</span></div>
           <span class="coin-val up">${fmtPct(c.return_pct)}</span>
-          ${wasP}
+          <span class="hit-icon">${star}</span>
         </div>`;
       }).join('');
-      actualCol = `<div class="tl-col">
-        <div class="tl-col-title actual">🏆 Actual Top 10 (⭐ = was predicted)</div>
-        ${rows}
-      </div>`;
+      actualCol = `<div class="tl-col"><div class="tl-col-title actual">&#127942; Actual Top 10 (&#11088; = predicted)</div>${rows}</div>`;
     } else if (!mature) {
-      actualCol = `<div class="tl-col">
-        <div class="pending-notice">
-          <div class="pi">⏳</div>
-          <div class="pt">Not yet evaluated</div>
-          <div class="ps">Matures on ${fmtDate(entry.maturity_date)}</div>
-        </div>
-      </div>`;
+      actualCol = `<div class="tl-col"><div style="padding:32px;text-align:center;color:var(--muted)">
+        <div style="font-size:2rem;margin-bottom:8px">&#9203;</div>
+        <div style="font-size:.88rem;font-weight:600;color:var(--text2)">Not yet evaluated</div>
+        <div style="font-size:.75rem">Matures ${fmtDate(entry.maturity_date)}</div>
+      </div></div>`;
     }
 
-    // Eval summary bar
     let evalSummary = '';
     if (mature) {
-      const hitPct = ev.hit_rate;
-      const posPct = ev.positive_rate;
+      const hp=ev.hit_rate, pp=ev.positive_rate;
       evalSummary = `<div class="eval-summary">
         <div class="eval-bar-wrap">
-          <div class="eval-bar-label">
-            <span>Hit Rate (top-10 match)</span><span>${hitPct.toFixed(1)}%</span>
-          </div>
-          <div class="eval-bar-track">
-            <div class="eval-bar-fill" style="width:${hitPct}%"></div>
-          </div>
+          <div class="eval-bar-label"><span>Hit Rate</span><span>${hp.toFixed(1)}%</span></div>
+          <div class="eval-bar-track"><div class="eval-bar-fill" style="width:${hp}%"></div></div>
         </div>
         <div class="eval-bar-wrap">
-          <div class="eval-bar-label">
-            <span>Positive Rate (went up)</span><span>${posPct.toFixed(1)}%</span>
-          </div>
-          <div class="eval-bar-track">
-            <div class="eval-bar-fill pos" style="width:${posPct}%"></div>
-          </div>
+          <div class="eval-bar-label"><span>Positive Rate</span><span>${pp.toFixed(1)}%</span></div>
+          <div class="eval-bar-track"><div class="eval-bar-fill pos" style="width:${pp}%"></div></div>
         </div>
-        <span class="eval-pill ${hitPct >= 50 ? 'pill-green' : 'pill-red'}">${ev.hit_count}/10 Hits</span>
-        <span class="eval-pill ${posPct >= 50 ? 'pill-green' : 'pill-gold'}">${ev.positive_count}/10 Positive</span>
+        <span class="eval-pill ${hp>=50?'pill-green':'pill-red'}">${ev.hit_count}/10 Hits</span>
+        <span class="eval-pill ${pp>=50?'pill-green':'pill-gold'}">${ev.positive_count}/10 Positive</span>
       </div>`;
     }
 
-    const html = `
-    <div class="tl-entry entry-anim" style="animation-delay:${idx * 0.04}s">
+    container.insertAdjacentHTML('beforeend', `
+    <div class="tl-entry entry-anim" style="animation-delay:${idx*0.04}s">
       <div class="tl-header" onclick="toggle(this)" data-idx="${idx}">
-        <span class="tl-date-badge">📅 ${fmtDate(entry.date)}</span>
+        <span class="tl-date-badge">&#128197; ${fmtDate(entry.date)}</span>
         ${statusBadge}
-        <span style="font-size:.7rem;color:var(--muted);white-space:nowrap">
-          → Matures ${fmtDate(entry.maturity_date)}
-        </span>
-        <span class="tl-arrow">▾</span>
+        <span style="font-size:.7rem;color:var(--muted);white-space:nowrap">-&gt; Matures ${fmtDate(entry.maturity_date)}</span>
+        <span class="tl-arrow">&#9660;</span>
       </div>
       <div class="tl-body" data-body="${idx}">
         <div class="tl-cols">
-          <div class="tl-col">
-            <div class="tl-col-title pred">🔮 Predicted Top 10 on ${fmtDate(entry.date)}</div>
-            ${predRows}
-          </div>
+          <div class="tl-col"><div class="tl-col-title pred">&#128302; Predicted Top 10 on ${fmtDate(entry.date)}</div>${predRows}</div>
           ${actualCol}
         </div>
         ${evalSummary}
       </div>
-    </div>`;
-    container.insertAdjacentHTML('beforeend', html);
+    </div>\`);
   });
 
-  // Auto-open first entry
   const firstHeader = container.querySelector('.tl-header');
   if (firstHeader) toggle(firstHeader);
 }
