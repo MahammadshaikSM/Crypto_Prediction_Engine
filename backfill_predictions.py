@@ -149,13 +149,12 @@ def fetch_all_history(coins, api_key):
 # ── Step 3: Score one historical day ───────────────────────────────────────────
 def score_day(target_date, daily, meta):
     """
-    4-factor model for a past date:
-      Vol-Adj Momentum → replaced by plain 7d momentum (no sparkline for volatility)
-      Volume Surge     35%
-      Momentum Accel   25%  (kept same weights for backfill)
-      BTC-Relative     25%
-                       15%  (redistrib from RSI since RSI unavailable)
-    Weights: mom7d 35%, vol_surge 25%, accel 22%, btc_rel 18%
+    4-factor model for a past date (no RSI/sparkline available for history):
+      24H Momentum  31%  (strongest predictor from correlation analysis)
+      BTC-Relative  30%  (near-equal to 24H)
+      7D Momentum   29%  (plain, not vol-adjusted — no sparkline)
+      Volume Surge  10%  (weak signal, kept as filter)
+    Weights derived from 6-month correlation study on actual hit outcomes.
     """
     d_today     = date_str(target_date)
     d_yesterday = date_str(target_date - timedelta(days=1))
@@ -213,7 +212,7 @@ def score_day(target_date, daily, meta):
     br   = normalize([e['btc_rel'] for e in eligible])
 
     for i, e in enumerate(eligible):
-        e['score']      = 0.35*m7[i] + 0.25*vr[i] + 0.22*ac[i] + 0.18*br[i]
+        e['score']      = 0.29*m7[i] + 0.31*ac[i] + 0.30*br[i] + 0.10*vr[i]
         e['confidence'] = min(72.0, e['score'] * 0.72)
 
     top10 = sorted(eligible, key=lambda x: x['score'], reverse=True)[:10]

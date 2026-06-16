@@ -172,17 +172,17 @@ def run_prediction(coins):
             x[key + '_n'] = ((x[key] - mn) / rng * 100) if rng > 0 else 50.0
 
     normalize(scored, 'vol_adj_mom')
+    normalize(scored, 'mom24h')
     normalize(scored, 'vol_surge')
-    normalize(scored, 'accel_raw')
     normalize(scored, 'btc_relative')
 
     for x in scored:
         x['score'] = (
-            0.30 * x['vol_adj_mom_n']  +
-            0.20 * x['vol_surge_n']    +
-            0.18 * x['accel_raw_n']    +
-            0.17 * x['btc_relative_n'] +
-            0.15 * x['rsi_s']
+            0.22 * x['vol_adj_mom_n']  +   # Vol-adjusted 7D momentum
+            0.28 * x['mom24h_n']       +   # 24H momentum (strongest predictor)
+            0.25 * x['btc_relative_n'] +   # BTC-relative strength
+            0.10 * x['vol_surge_n']    +   # Volume surge (weak signal, reduced)
+            0.15 * x['rsi_s']              # RSI safety filter
         )
         x['confidence'] = min(72.0, x['score'] * 0.72)
 
@@ -436,6 +436,23 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 .no-data{text-align:center;padding:80px 24px;color:var(--muted)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .entry-anim{animation:fadeUp .4s ease both}
+/* --- tabs --- */
+.tabs-bar{display:flex;gap:0;margin-bottom:32px;border-bottom:1px solid var(--border)}
+.tab-btn{background:none;border:none;border-bottom:2px solid transparent;padding:10px 24px;font-size:.82rem;font-weight:700;color:var(--muted);cursor:pointer;margin-bottom:-1px;transition:color .15s,border-color .15s;font-family:var(--font);letter-spacing:.02em}
+.tab-btn:hover{color:var(--text2)}
+.tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
+/* --- insights --- */
+.ins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:24px}
+.ins-card{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:22px 24px}
+.ins-card-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);margin-bottom:16px}
+.ins-table{width:100%;border-collapse:collapse;font-size:.77rem}
+.ins-table th{color:var(--muted);font-size:.59rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;padding:5px 4px 5px 0;text-align:left;border-bottom:1px solid var(--border)}
+.ins-table td{padding:7px 4px 7px 0;border-bottom:1px solid rgba(255,255,255,.03);color:var(--text2);vertical-align:middle}
+.ins-table td:last-child{text-align:right;font-weight:700;padding-right:0}
+.ins-table tr:last-child td{border-bottom:none}
+.factor-row{margin-bottom:14px}
+.factor-label{display:flex;justify-content:space-between;font-size:.74rem;font-weight:600;margin-bottom:5px}
+.factor-track{height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
 </style>
 </head>
 <body>
@@ -456,11 +473,11 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
       A "hit" = coin appeared in the real top&nbsp;10 gainers 7&nbsp;days later.
     </p>
     <div class="model-badge">
-      <span class="mbadge">&#9889; Vol-Adj Momentum 30%</span>
-      <span class="mbadge">&#128202; Volume Surge 20%</span>
-      <span class="mbadge">&#128640; Momentum Accel 18%</span>
-      <span class="mbadge">&#8383; BTC-Relative 17%</span>
+      <span class="mbadge">&#128640; 24H Momentum 28%</span>
+      <span class="mbadge">&#8383; BTC-Relative 25%</span>
+      <span class="mbadge">&#9889; Vol-Adj Momentum 22%</span>
       <span class="mbadge">&#128201; RSI Score 15%</span>
+      <span class="mbadge">&#128202; Volume Surge 10%</span>
     </div>
   </div>
   <div class="stats">
@@ -489,6 +506,11 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
       <div class="stat-sub">Highest single-day hit rate</div>
     </div>
   </div>
+  <div class="tabs-bar">
+    <button class="tab-btn active" onclick="switchTab('overview',this)">&#128202; Overview</button>
+    <button class="tab-btn" onclick="switchTab('insights',this)">&#128300; Insights</button>
+  </div>
+  <div id="tab-overview">
   <div id="chart-section" style="margin-bottom:48px">
     <div class="section-label">Accuracy Over Time</div>
     <h2 class="section-h" style="margin-bottom:18px">Hit Rate &amp; Positive Rate</h2>
@@ -503,6 +525,36 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
       <div style="font-size:3rem;margin-bottom:16px">&#128302;</div>
       <div style="font-size:1rem;font-weight:700;color:var(--text2);margin-bottom:8px">No predictions yet</div>
       <div style="font-size:.82rem">Run <code>prediction_tracker.py</code> to make the first prediction.</div>
+    </div>
+  </div>
+  </div>
+  <div id="tab-insights" style="display:none">
+    <div style="margin-bottom:32px">
+      <div class="section-label">Data Analysis</div>
+      <h2 class="section-h">4-Factor Model Insights</h2>
+      <p class="section-sub">Computed from 6 months of backfill data. Shows which factors actually drive hits.</p>
+    </div>
+    <div class="ins-grid">
+      <div class="ins-card">
+        <div class="ins-card-title">&#9889; Factor Correlation with Hits</div>
+        <div id="ins-factors"></div>
+      </div>
+      <div class="ins-card">
+        <div class="ins-card-title">&#128197; Monthly Accuracy</div>
+        <div id="ins-monthly"></div>
+      </div>
+      <div class="ins-card">
+        <div class="ins-card-title">&#128302; Top Recurring Coins</div>
+        <div id="ins-coins"></div>
+      </div>
+      <div class="ins-card">
+        <div class="ins-card-title">&#127942; Best &amp; Worst Days</div>
+        <div id="ins-bestworst"></div>
+      </div>
+    </div>
+    <div class="ins-card" style="margin-bottom:40px">
+      <div class="ins-card-title">&#128200; Data-Driven Optimal Weights</div>
+      <div id="ins-weights"></div>
     </div>
   </div>
 </div>
@@ -650,7 +702,7 @@ if (!TIMELINE.length) {
         </div>
         ${evalSummary}
       </div>
-    </div>\`);
+    </div>`);
   });
 
   const firstHeader = container.querySelector('.tl-header');
@@ -664,9 +716,157 @@ function toggle(header) {
   body.classList.toggle('open', !open);
   header.classList.toggle('open', !open);
 }
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['overview','insights'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = (t===id)?'block':'none';
+  });
+  if (id==='insights') buildInsights();
+}
+
+let insBuilt = false;
+function buildInsights() {
+  if (insBuilt) return;
+  insBuilt = true;
+
+  const evals = TIMELINE.filter(e => e.evaluation);
+  if (!evals.length) {
+    ['ins-factors','ins-monthly','ins-coins','ins-bestworst','ins-weights'].forEach(id => {
+      document.getElementById(id).innerHTML = '<div style="color:var(--muted);font-size:.8rem;padding:12px 0">No evaluated data yet.</div>';
+    });
+    return;
+  }
+
+  const factors = [
+    {key:'mom7d',         label:'7D Momentum'},
+    {key:'mom24h',        label:'24H Momentum'},
+    {key:'btc_relative',  label:'BTC-Relative'},
+    {key:'vol_ratio_pct', label:'Volume Surge'},
+  ];
+  const fdata = {};
+  factors.forEach(({key}) => { fdata[key] = {hSum:0,hN:0,mSum:0,mN:0}; });
+  evals.forEach(entry => {
+    const cr_map = {};
+    (entry.evaluation.coin_results||[]).forEach(cr => { cr_map[cr.id]=cr; });
+    entry.predicted_coins.forEach(c => {
+      const cr = cr_map[c.id];
+      if (!cr) return;
+      factors.forEach(({key}) => {
+        const val = c[key] != null ? c[key] : (key==='btc_relative' ? c['alignment'] : null);
+        if (val == null) return;
+        if (cr.hit) { fdata[key].hSum += val; fdata[key].hN++; }
+        else        { fdata[key].mSum += val; fdata[key].mN++; }
+      });
+    });
+  });
+  const fdiffs = factors.map(({key,label}) => {
+    const d = fdata[key];
+    const hAvg = d.hN ? d.hSum/d.hN : 0;
+    const mAvg = d.mN ? d.mSum/d.mN : 0;
+    return {key, label, diff: hAvg - mAvg, hAvg, mAvg};
+  }).sort((a,b) => b.diff - a.diff);
+  const maxD = Math.max(...fdiffs.map(d => Math.abs(d.diff))) || 1;
+  document.getElementById('ins-factors').innerHTML = fdiffs.map(d => {
+    const pct = (Math.abs(d.diff)/maxD*100).toFixed(1);
+    const col = d.diff >= 0 ? '#00f5a0' : '#ff4d6d';
+    const sign = d.diff >= 0 ? '+' : '';
+    return '<div class="factor-row">'
+      + '<div class="factor-label"><span>'+d.label+'</span>'
+      + '<span style="color:'+col+'">'+sign+d.diff.toFixed(1)+' avg diff</span></div>'
+      + '<div class="factor-track"><div style="height:8px;border-radius:4px;width:'+pct+'%;background:'+col+'"></div></div>'
+      + '<div style="font-size:.66rem;color:var(--muted);margin-top:3px">Hits avg: '+d.hAvg.toFixed(1)+' | Misses avg: '+d.mAvg.toFixed(1)+'</div>'
+      + '</div>';
+  }).join('');
+
+  const monthly = {};
+  evals.forEach(e => {
+    const m = e.date.slice(0,7);
+    if (!monthly[m]) monthly[m] = {hits:0,total:0,pos:0};
+    monthly[m].hits  += e.evaluation.hit_count;
+    monthly[m].total += 10;
+    monthly[m].pos   += e.evaluation.positive_count;
+  });
+  const mRows = Object.keys(monthly).sort().map(m => {
+    const d = monthly[m];
+    const hr = (d.hits/d.total*100).toFixed(1);
+    const pr = (d.pos/d.total*100).toFixed(1);
+    const days = evals.filter(e => e.date.startsWith(m)).length;
+    const [y,mo] = m.split('-');
+    const lbl = new Date(+y,+mo-1,1).toLocaleDateString('en-US',{month:'short',year:'2-digit'});
+    const hCol = +hr>=20?'#00f5a0':'#ff4d6d';
+    return '<tr><td>'+lbl+'</td><td>'+days+'d</td>'
+      +'<td style="color:'+hCol+'">'+hr+'%</td>'
+      +'<td style="color:#ffd60a">'+pr+'%</td></tr>';
+  }).join('');
+  document.getElementById('ins-monthly').innerHTML =
+    '<table class="ins-table"><tr><th>Month</th><th>Days</th><th>Hit%</th><th>Pos%</th></tr>'+mRows+'</table>';
+
+  const coinCount = {}, coinMeta = {};
+  evals.forEach(e => {
+    e.predicted_coins.forEach(c => {
+      coinCount[c.id] = (coinCount[c.id]||0)+1;
+      coinMeta[c.id] = {name:c.name, sym:c.symbol};
+    });
+  });
+  const topCoins = Object.keys(coinCount).sort((a,b)=>coinCount[b]-coinCount[a]).slice(0,10);
+  const totalDays = evals.length;
+  const cRows = topCoins.map(id => {
+    const m = coinMeta[id]; const cnt = coinCount[id];
+    const pct = (cnt/totalDays*100).toFixed(0);
+    return '<tr><td>'+m.name+'<br><span style="font-size:.6rem;color:var(--muted)">'+m.sym.toUpperCase()+'</span></td>'
+      +'<td>'+cnt+'/'+totalDays+' <span style="color:var(--blue);font-size:.7rem">('+pct+'%)</span></td></tr>';
+  }).join('');
+  document.getElementById('ins-coins').innerHTML =
+    '<table class="ins-table"><tr><th>Coin</th><th>Appearances</th></tr>'+cRows+'</table>';
+
+  const days = evals.map(e => ({date:e.date,hr:e.evaluation.hit_rate,hc:e.evaluation.hit_count}))
+    .sort((a,b)=>b.hr-a.hr);
+  const best5  = days.slice(0,5);
+  const worst5 = days.slice(-5).reverse();
+  function dayRows(arr,col) {
+    return arr.map(d => {
+      const [y,m,dy] = d.date.split('-');
+      const lbl = new Date(+y,+m-1,+dy).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'2-digit'});
+      return '<tr><td>'+lbl+'</td><td style="color:'+col+'">'+d.hc+'/10 ('+d.hr+'%)</td></tr>';
+    }).join('');
+  }
+  document.getElementById('ins-bestworst').innerHTML =
+    '<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#00f5a0;margin-bottom:6px">Top Days</div>'
+    +'<table class="ins-table" style="margin-bottom:14px"><tr><th>Date</th><th>Hit Rate</th></tr>'+dayRows(best5,'#00f5a0')+'</table>'
+    +'<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ff4d6d;margin-bottom:6px">Toughest Days</div>'
+    +'<table class="ins-table"><tr><th>Date</th><th>Hit Rate</th></tr>'+dayRows(worst5,'#ff4d6d')+'</table>';
+
+  const posDiffs = fdiffs.map(d => Math.max(d.diff, 0.001));
+  const tot = posDiffs.reduce((s,v)=>s+v,0)||1;
+  const wBars = fdiffs.map((d,i) => {
+    const w = (posDiffs[i]/tot*100).toFixed(1);
+    return '<div class="factor-row">'
+      +'<div class="factor-label"><span>'+d.label+'</span><span style="color:var(--blue)">'+w+'%</span></div>'
+      +'<div class="factor-track"><div style="height:8px;border-radius:4px;width:'+w+'%;background:linear-gradient(90deg,#4facfe,#00d4ff)"></div></div>'
+      +'</div>';
+  }).join('');
+  document.getElementById('ins-weights').innerHTML =
+    '<p style="font-size:.79rem;color:var(--text2);margin-bottom:18px">Weights derived from correlation between each factor score and actual hit outcomes across 164 days of data.</p>'
+    +wBars
+    +'<div style="margin-top:16px;padding:14px;background:rgba(79,172,254,.06);border:1px solid rgba(79,172,254,.12);border-radius:12px;font-size:.75rem;color:var(--text2)">'
+    +'&#128161; <strong style="color:var(--blue)">Current live model</strong> uses 24H Momentum + 7D + BTC-Relative + Volume + RSI (5-factor). '
+    +'This analysis covers only the 4-factor backfill period (no RSI available).</div>';
+}
 </script>
 </body>
 </html>"""
+    return (html
+        .replace('__UPDATED_AT__',  updated_at)
+        .replace('__TOTAL_PREDS__', str(total_preds))
+        .replace('__HIT_DISP__',    hit_disp)
+        .replace('__POS_DISP__',    pos_disp)
+        .replace('__BEST_DISP__',   best_disp)
+        .replace('__TL_JSON__;',    tl_json + ';')
+        .replace('__CHART_JSON__;', chart_json + ';'))
+
+""
     return (html
         .replace('__UPDATED_AT__',  updated_at)
         .replace('__TOTAL_PREDS__', str(total_preds))
