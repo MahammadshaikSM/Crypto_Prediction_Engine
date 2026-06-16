@@ -335,7 +335,7 @@ def generate_dashboard(data):
 
 def _build_html(tl_json, chart_json, updated_at, hit_disp, pos_disp,
                 best_disp, total_preds):
-    return """<!DOCTYPE html>
+    html = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -445,7 +445,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
     <div class="logo-name">CryptoTracker Pro</div>
     <div class="logo-sub">Prediction Accuracy Dashboard</div>
   </div>
-  <div class="hdr-right">Last updated: """ + updated_at + """</div>
+  <div class="hdr-right">Last updated: __UPDATED_AT__</div>
 </header>
 <div class="wrap">
   <div style="margin-bottom:32px">
@@ -467,25 +467,25 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
     <div class="stat c-blue entry-anim" style="animation-delay:.05s">
       <div class="stat-icon">&#128202;</div>
       <div class="stat-label">Total Predictions</div>
-      <div class="stat-val blue">""" + str(total_preds) + """</div>
+      <div class="stat-val blue">__TOTAL_PREDS__</div>
       <div class="stat-sub">Days tracked so far</div>
     </div>
     <div class="stat c-green entry-anim" style="animation-delay:.1s">
       <div class="stat-icon">&#9989;</div>
       <div class="stat-label">Avg Hit Rate</div>
-      <div class="stat-val green">""" + hit_disp + """</div>
+      <div class="stat-val green">__HIT_DISP__</div>
       <div class="stat-sub">Top-10 intersection accuracy</div>
     </div>
     <div class="stat c-gold entry-anim" style="animation-delay:.15s">
       <div class="stat-icon">&#128200;</div>
       <div class="stat-label">Avg Positive Rate</div>
-      <div class="stat-val gold">""" + pos_disp + """</div>
+      <div class="stat-val gold">__POS_DISP__</div>
       <div class="stat-sub">% predicted coins that went up</div>
     </div>
     <div class="stat c-purple entry-anim" style="animation-delay:.2s">
       <div class="stat-icon">&#127942;</div>
       <div class="stat-label">Best Day</div>
-      <div class="stat-val purple" style="font-size:1.2rem;line-height:1.3">""" + best_disp + """</div>
+      <div class="stat-val purple" style="font-size:1.2rem;line-height:1.3">__BEST_DISP__</div>
       <div class="stat-sub">Highest single-day hit rate</div>
     </div>
   </div>
@@ -507,8 +507,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
   </div>
 </div>
 <script>
-const TIMELINE   = """ + tl_json + """;
-const CHART_DATA = """ + chart_json + """;
+const TIMELINE   = __TL_JSON__;
+const CHART_DATA = __CHART_JSON__;
 
 (function() {
   if (!CHART_DATA.labels.length) { document.getElementById('chart-section').style.display='none'; return; }
@@ -639,4 +639,101 @@ if (!TIMELINE.length) {
         <span class="tl-arrow">&#9660;</span>
       </div>
       <div class="tl-body" data-body="${idx}">
-        <div class="tl-
+        <div class="tl-cols">
+          <div class="tl-col"><div class="tl-col-title pred">&#128302; Predicted Top 10 on ${fmtDate(entry.date)}</div>${predRows}</div>
+          ${actualCol}
+        </div>
+        ${evalSummary}
+      </div>
+    </div>\`);
+  });
+
+  const firstHeader = container.querySelector('.tl-header');
+  if (firstHeader) toggle(firstHeader);
+}
+
+function toggle(header) {
+  const idx  = header.getAttribute('data-idx');
+  const body = document.querySelector(`[data-body="${idx}"]`);
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  header.classList.toggle('open', !open);
+}
+</script>
+</body>
+</html>"""
+    return (html
+        .replace('__UPDATED_AT__',  updated_at)
+        .replace('__TOTAL_PREDS__', str(total_preds))
+        .replace('__HIT_DISP__',    hit_disp)
+        .replace('__POS_DISP__',    pos_disp)
+        .replace('__BEST_DISP__',   best_disp)
+        .replace('__TL_JSON__;',    tl_json + ';')
+        .replace('__CHART_JSON__;', chart_json + ';'))
+
+
+# -- Main execution -----------------------------------------------------------
+def main():
+    print("CryptoTracker Pro - Daily Prediction Pipeline")
+    print("=" * 50)
+
+    # 1. Fetch coins
+    print("\n[1/4] Fetching top coins from CoinGecko...")
+    coins = fetch_coins()
+    if not coins:
+        print("  ERROR: Failed to fetch coin data. Aborting.")
+        sys.exit(1)
+    print(f"  Fetched {len(coins)} coins.")
+
+    # 2. Load existing data
+    print("\n[2/4] Loading prediction history...")
+    data = load_data()
+    today_str = datetime.now().strftime('%Y-%m-%d')
+    maturity  = (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')
+
+    # 3. Evaluate past prediction (7 days ago)
+    print("\n[3/4] Checking for prediction to evaluate...")
+    eval_date = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
+    if eval_date in data['predictions'] and eval_date not in data['evaluations']:
+        print(f"  Evaluating prediction from {eval_date}...")
+        ev = evaluate_prediction(data['predictions'][eval_date], coins)
+        data['evaluations'][eval_date] = ev
+        print(f"  Hit rate: {ev['hit_rate']}%  |  Positive rate: {ev['positive_rate']}%")
+        print(f"  Hits: {ev['hit_count']}/10")
+    else:
+        print(f"  No prediction found for {eval_date} (or already evaluated).")
+
+    # 4. Run today's prediction
+    print("\n[4/4] Running today's prediction model...")
+    if today_str in data['predictions']:
+        print(f"  Prediction for {today_str} already exists. Updating...")
+    top10 = run_prediction(coins)
+    if not top10:
+        print("  ERROR: Prediction model returned no results.")
+        sys.exit(1)
+
+    price_snapshot = {c['id']: c['current_price'] for c in coins}
+    data['predictions'][today_str] = {
+        'date':             today_str,
+        'maturity_date':    maturity,
+        'predicted_coins':  top10,
+        'price_snapshot':   price_snapshot,
+    }
+    save_data(data)
+    print(f"  Saved prediction for {today_str}.")
+
+    # Print top 10
+    print("\nToday's Predicted Top 10 (7-day outlook):")
+    print("-" * 45)
+    for coin in top10:
+        print(f"  #{coin['rank']:2d}  {coin['symbol'].upper():<8}  {coin['name']:<22}  confidence: {coin['confidence']:.1f}%")
+
+    # 5. Regenerate dashboard
+    print("\nRegenerating dashboard...")
+    generate_dashboard(data)
+
+    print("\nDone \u2713")
+
+
+if __name__ == '__main__':
+    main()
