@@ -108,7 +108,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
     <div class="logo-name">CryptoTracker Pro</div>
     <div class="logo-sub">Prediction Accuracy Dashboard</div>
   </div>
-  <div class="hdr-right">Last updated: Jun 16, 2026 at 00:53</div>
+  <div class="hdr-right">Last updated: Jun 16, 2026 at 01:06</div>
 </header>
 <div class="wrap">
   <div style="margin-bottom:32px">
@@ -183,21 +183,26 @@ const CHART_DATA = {"labels": ["2025-12-28", "2025-12-29", "2025-12-30", "2025-1
       datasets: [
         { label:'Hit Rate (top-10 %)', data:CHART_DATA.hit_rates,
           borderColor:'#4facfe', backgroundColor:'rgba(79,172,254,.1)',
-          tension:0.35, fill:true, pointRadius:5, pointBackgroundColor:'#4facfe' },
+          tension:0.4, fill:true, pointRadius:0, pointHoverRadius:4,
+          pointBackgroundColor:'#4facfe', borderWidth:2 },
         { label:'Positive Rate (% up)', data:CHART_DATA.pos_rates,
           borderColor:'#00f5a0', backgroundColor:'rgba(0,245,160,.07)',
-          tension:0.35, fill:true, pointRadius:5, pointBackgroundColor:'#00f5a0' },
+          tension:0.4, fill:true, pointRadius:0, pointHoverRadius:4,
+          pointBackgroundColor:'#00f5a0', borderWidth:2 },
       ]
     },
     options: {
       responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
       plugins: {
-        legend:{ labels:{ color:'#8b9cc8', font:{ size:12 } } },
+        legend:{ labels:{ color:'#8b9cc8', font:{ size:12 }, boxWidth:12 } },
         tooltip:{ backgroundColor:'#0c1428', borderColor:'rgba(255,255,255,.1)', borderWidth:1,
-                  titleColor:'#e8eaf6', bodyColor:'#8b9cc8' }
+                  titleColor:'#e8eaf6', bodyColor:'#8b9cc8',
+                  callbacks:{ label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + '%' } }
       },
       scales: {
-        x:{ ticks:{ color:'#3d4e72' }, grid:{ color:'rgba(255,255,255,.04)' } },
+        x:{ ticks:{ color:'#3d4e72', maxTicksLimit:10, maxRotation:0 },
+            grid:{ color:'rgba(255,255,255,.04)' } },
         y:{ min:0, max:100, ticks:{ color:'#3d4e72', callback:v=>v+'%' },
             grid:{ color:'rgba(255,255,255,.04)' } }
       }

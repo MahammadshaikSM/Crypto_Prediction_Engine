@@ -520,21 +520,26 @@ const CHART_DATA = __CHART_JSON__;
       datasets: [
         { label:'Hit Rate (top-10 %)', data:CHART_DATA.hit_rates,
           borderColor:'#4facfe', backgroundColor:'rgba(79,172,254,.1)',
-          tension:0.35, fill:true, pointRadius:5, pointBackgroundColor:'#4facfe' },
+          tension:0.4, fill:true, pointRadius:0, pointHoverRadius:4,
+          pointBackgroundColor:'#4facfe', borderWidth:2 },
         { label:'Positive Rate (% up)', data:CHART_DATA.pos_rates,
           borderColor:'#00f5a0', backgroundColor:'rgba(0,245,160,.07)',
-          tension:0.35, fill:true, pointRadius:5, pointBackgroundColor:'#00f5a0' },
+          tension:0.4, fill:true, pointRadius:0, pointHoverRadius:4,
+          pointBackgroundColor:'#00f5a0', borderWidth:2 },
       ]
     },
     options: {
       responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
       plugins: {
-        legend:{ labels:{ color:'#8b9cc8', font:{ size:12 } } },
+        legend:{ labels:{ color:'#8b9cc8', font:{ size:12 }, boxWidth:12 } },
         tooltip:{ backgroundColor:'#0c1428', borderColor:'rgba(255,255,255,.1)', borderWidth:1,
-                  titleColor:'#e8eaf6', bodyColor:'#8b9cc8' }
+                  titleColor:'#e8eaf6', bodyColor:'#8b9cc8',
+                  callbacks:{ label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + '%' } }
       },
       scales: {
-        x:{ ticks:{ color:'#3d4e72' }, grid:{ color:'rgba(255,255,255,.04)' } },
+        x:{ ticks:{ color:'#3d4e72', maxTicksLimit:10, maxRotation:0 },
+            grid:{ color:'rgba(255,255,255,.04)' } },
         y:{ min:0, max:100, ticks:{ color:'#3d4e72', callback:v=>v+'%' },
             grid:{ color:'rgba(255,255,255,.04)' } }
       }
@@ -726,14 +731,12 @@ def main():
     print("\nToday's Predicted Top 10 (7-day outlook):")
     print("-" * 45)
     for coin in top10:
-        print(f"  #{coin['rank']:2d}  {coin['symbol'].upper():<8}  {coin['name']:<22}  confidence: {coin['confidence']:.1f}%")
+        r,s,n,c = coin["rank"],coin["symbol"].upper(),coin["name"],coin["confidence"]
+        print(f"  #{r:2d}  {s:<8}  {n:<22}  confidence: {c:.1f}%")
 
     # 5. Regenerate dashboard
     print("\nRegenerating dashboard...")
     generate_dashboard(data)
-
-    print("\nDone \u2713")
-
-
-if __name__ == '__main__':
-    main()
+    # 5. Regenerate dashboard
+    print("\nRegenerating dashboard...")
+    generate_dashboard(data)
