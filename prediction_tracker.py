@@ -866,59 +866,60 @@ function buildInsights() {
         .replace('__TL_JSON__;',    tl_json + ';')
         .replace('__CHART_JSON__;', chart_json + ';'))
 
-""
-    return (html
-        .replace('__UPDATED_AT__',  updated_at)
-        .replace('__TOTAL_PREDS__', str(total_preds))
-        .replace('__HIT_DISP__',    hit_disp)
-        .replace('__POS_DISP__',    pos_disp)
-        .replace('__BEST_DISP__',   best_disp)
-        .replace('__TL_JSON__;',    tl_json + ';')
-        .replace('__CHART_JSON__;', chart_json + ';'))
 
+if __name__ == '__main__':
+    today = datetime.now().strftime('%Y-%m-%d')
+    seven_days_ago = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
 
-# -- Main execution -----------------------------------------------------------
-def main():
-    print("CryptoTracker Pro - Daily Prediction Pipeline")
-    print("=" * 50)
+    print(f"[{today}] Loading data...")
+    data = load_data()
 
-    # 1. Fetch coins
-    print("\n[1/4] Fetching top coins from CoinGecko...")
+    print("  Fetching coins from CoinGecko...")
     coins = fetch_coins()
-    if not coins:
-        print("  ERROR: Failed to fetch coin data. Aborting.")
-        sys.exit(1)
     print(f"  Fetched {len(coins)} coins.")
 
-    # 2. Load existing data
-    print("\n[2/4] Loading prediction history...")
-    data = load_data()
-    today_str = datetime.now().strftime('%Y-%m-%d')
-    maturity  = (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')
-
-    # 3. Evaluate past prediction (7 days ago)
-    print("\n[3/4] Checking for prediction to evaluate...")
-    eval_date = (datetime.now() - timedelta(days=7)).strftime('%Y-%m-%d')
-    if eval_date in data['predictions'] and eval_date not in data['evaluations']:
-        print(f"  Evaluating prediction from {eval_date}...")
-        ev = evaluate_prediction(data['predictions'][eval_date], coins)
-        data['evaluations'][eval_date] = ev
+    # --- Evaluate 7-day-old prediction if it exists and hasn't been evaluated ---
+    if seven_days_ago in data.get('predictions', {}) and seven_days_ago not in data.get('evaluations', {}):
+        print(f"  Evaluating prediction from {seven_days_ago}...")
+        ev = evaluate_prediction(data['predictions'][seven_days_ago], coins)
+        data.setdefault('evaluations', {})[seven_days_ago] = ev
         print(f"  Hit rate: {ev['hit_rate']}%  |  Positive rate: {ev['positive_rate']}%")
-        print(f"  Hits: {ev['hit_count']}/10")
+
+    # --- Run today's prediction (skip if already done today) ---
+    if today not in data.get('predictions', {}):
+        print("  Running prediction model...")
+        top10 = run_prediction(coins)
+        if not top10:
+            print("  ERROR: prediction model returned no results.")
+            sys.exit(1)
+
+        price_snapshot = {c['id']: c['current_price'] for c in coins if c.get('current_price')}
+        maturity = (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')
+
+        data.setdefault('predictions', {})[today] = {
+            'date':            today,
+            'maturity_date':   maturity,
+            'predicted_coins': top10,
+            'price_snapshot':  price_snapshot,
+            'fetched_at':      datetime.now().isoformat(),
+        }
+
+        print(f"  Today's top 10:")
+        for c in top10:
+            print(f"    {c['rank']:>2}. {c['symbol'].upper():<10} confidence={c['confidence']}%")
     else:
-        print(f"  No prediction found for {eval_date} (or already evaluated).")
+        print(f"  Prediction for {today} already exists — skipping.")
+        for c in data['predictions'][today]['predicted_coins']:
+            print(f"    {c['rank']:>2}. {c['symbol'].upper():<10} confidence={c['confidence']}%")
 
-    # 4. Run today's prediction
-    print("\n[4/4] Running today's prediction model...")
-    if today_str in data['predictions']:
-        print(f"  Prediction for {today_str} already exists. Updating...")
-    top10 = run_prediction(coins)
-    if not top10:
-        print("  ERROR: Prediction model returned no results.")
-        sys.exit(1)
+    print("  Saving data...")
+    save_data(data)
 
-    price_snapshot = {c['id']: c['current_price'] for c in coins}
-    data['predictions'][today_str] = {
+    print("  Regenerating dashboard...")
+    generate_dashboard(data)
+
+    print("Done ✓")
+ data['predictions'][today_str] = {
         'date':             today_str,
         'maturity_date':    maturity,
         'predicted_coins':  top10,
