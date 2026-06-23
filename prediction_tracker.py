@@ -562,8 +562,9 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 const TIMELINE   = __TL_JSON__;
 const CHART_DATA = __CHART_JSON__;
 
-(function() {
+window.addEventListener('load', function() {
   if (!CHART_DATA.labels.length) { document.getElementById('chart-section').style.display='none'; return; }
+  if (typeof Chart === 'undefined') { console.error('Chart.js failed to load'); return; }
   const ctx = document.getElementById('accChart').getContext('2d');
   new Chart(ctx, {
     type: 'line',
@@ -590,14 +591,14 @@ const CHART_DATA = __CHART_JSON__;
                   callbacks:{ label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + '%' } }
       },
       scales: {
-        x:{ ticks:{ color:'#3d4e72', maxTicksLimit:10, maxRotation:0 },
+        x:{ ticks:{ color:'#8b9cc8', maxTicksLimit:10, maxRotation:0 },
             grid:{ color:'rgba(255,255,255,.04)' } },
-        y:{ min:0, max:100, ticks:{ color:'#3d4e72', callback:v=>v+'%' },
+        y:{ min:0, max:100, ticks:{ color:'#8b9cc8', callback:v=>v+'%' },
             grid:{ color:'rgba(255,255,255,.04)' } }
       }
     }
   });
-})();
+});
 
 function fmtDate(d) {
   if (!d) return '';
