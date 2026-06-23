@@ -343,7 +343,6 @@ def _build_html(tl_json, chart_json, updated_at, hit_disp, pos_disp,
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prediction Accuracy Dashboard - CryptoTracker Pro</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root {
   --void:#020510; --deep:#070d1e; --surface:#0c1428;
@@ -566,39 +565,79 @@ const CHART_DATA = __CHART_JSON__;
 
 window.addEventListener('load', function() {
   if (!CHART_DATA.labels.length) { document.getElementById('chart-section').style.display='none'; return; }
-  if (typeof Chart === 'undefined') { console.error('Chart.js failed to load'); return; }
-  const ctx = document.getElementById('accChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: CHART_DATA.labels,
-      datasets: [
-        { label:'Hit Rate (top-10 %)', data:CHART_DATA.hit_rates,
-          borderColor:'#4facfe', backgroundColor:'rgba(79,172,254,.1)',
-          tension:0.4, fill:true, pointRadius:0, pointHoverRadius:4,
-          pointBackgroundColor:'#4facfe', borderWidth:2 },
-        { label:'Positive Rate (% up)', data:CHART_DATA.pos_rates,
-          borderColor:'#00f5a0', backgroundColor:'rgba(0,245,160,.07)',
-          tension:0.4, fill:true, pointRadius:0, pointHoverRadius:4,
-          pointBackgroundColor:'#00f5a0', borderWidth:2 },
-      ]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      interaction:{ mode:'index', intersect:false },
-      plugins: {
-        legend:{ labels:{ color:'#8b9cc8', font:{ size:12 }, boxWidth:12 } },
-        tooltip:{ backgroundColor:'#0c1428', borderColor:'rgba(255,255,255,.1)', borderWidth:1,
-                  titleColor:'#e8eaf6', bodyColor:'#8b9cc8',
-                  callbacks:{ label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y.toFixed(1) + '%' } }
-      },
-      scales: {
-        x:{ ticks:{ color:'#8b9cc8', maxTicksLimit:10, maxRotation:0 },
-            grid:{ color:'rgba(255,255,255,.04)' } },
-        y:{ min:0, max:100, ticks:{ color:'#8b9cc8', callback:v=>v+'%' },
-            grid:{ color:'rgba(255,255,255,.04)' } }
-      }
-    }
+  const canvas = document.getElementById('accChart');
+  const W = canvas.width  = canvas.offsetWidth  || canvas.parentElement.offsetWidth;
+  const H = canvas.height = canvas.offsetHeight || 220;
+  const ctx = canvas.getContext('2d');
+  const PAD = { top:20, right:20, bottom:40, left:44 };
+  const cw = W - PAD.left - PAD.right;
+  const ch = H - PAD.top  - PAD.bottom;
+  const n  = CHART_DATA.labels.length;
+  const xStep = n > 1 ? cw / (n - 1) : cw;
+
+  function toY(v) { return PAD.top + ch - (v / 100) * ch; }
+  function toX(i) { return PAD.left + (n > 1 ? i * xStep : cw / 2); }
+
+  // grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+  ctx.lineWidth   = 1;
+  [0,25,50,75,100].forEach(v => {
+    const y = toY(v);
+    ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + cw, y); ctx.stroke();
+    ctx.fillStyle = '#8b9cc8';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(v + '%', PAD.left - 6, y + 4);
+  });
+
+  // x labels
+  ctx.fillStyle = '#8b9cc8';
+  ctx.font = '11px sans-serif';
+  ctx.textAlign = 'center';
+  CHART_DATA.labels.forEach((lbl, i) => {
+    ctx.fillText(lbl.slice(5), toX(i), H - 8);
+  });
+
+  function drawLine(vals, color, fillColor) {
+    ctx.save();
+    // filled area
+    ctx.beginPath();
+    ctx.moveTo(toX(0), toY(vals[0]));
+    vals.forEach((v,i) => { if(i>0) ctx.lineTo(toX(i), toY(v)); });
+    ctx.lineTo(toX(vals.length-1), PAD.top + ch);
+    ctx.lineTo(toX(0), PAD.top + ch);
+    ctx.closePath();
+    ctx.fillStyle = fillColor;
+    ctx.fill();
+    // line
+    ctx.beginPath();
+    ctx.moveTo(toX(0), toY(vals[0]));
+    vals.forEach((v,i) => { if(i>0) ctx.lineTo(toX(i), toY(v)); });
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+    // dots
+    vals.forEach((v,i) => {
+      ctx.beginPath();
+      ctx.arc(toX(i), toY(v), 4, 0, Math.PI*2);
+      ctx.fillStyle = color; ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  drawLine(CHART_DATA.pos_rates, '#00f5a0', 'rgba(0,245,160,0.07)');
+  drawLine(CHART_DATA.hit_rates, '#4facfe', 'rgba(79,172,254,0.12)');
+
+  // legend
+  [['#4facfe','Hit Rate'],['#00f5a0','Positive Rate']].forEach(([c,l], i) => {
+    const lx = PAD.left + i * 140;
+    ctx.fillStyle = c;
+    ctx.fillRect(lx, 4, 14, 3);
+    ctx.fillStyle = '#8b9cc8';
+    ctx.font = '11px sans-serif';
+    ctx.textAlign = 'left';
+    ctx.fillText(l, lx + 18, 11);
   });
 });
 
