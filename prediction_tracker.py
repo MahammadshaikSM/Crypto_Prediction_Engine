@@ -919,25 +919,3 @@ if __name__ == '__main__':
     generate_dashboard(data)
 
     print("Done ✓")
- data['predictions'][today_str] = {
-        'date':             today_str,
-        'maturity_date':    maturity,
-        'predicted_coins':  top10,
-        'price_snapshot':   price_snapshot,
-    }
-    save_data(data)
-    print(f"  Saved prediction for {today_str}.")
-
-    # Print top 10
-    print("\nToday's Predicted Top 10 (7-day outlook):")
-    print("-" * 45)
-    for coin in top10:
-        r,s,n,c = coin["rank"],coin["symbol"].upper(),coin["name"],coin["confidence"]
-        print(f"  #{r:2d}  {s:<8}  {n:<22}  confidence: {c:.1f}%")
-
-    # 5. Regenerate dashboard
-    print("\nRegenerating dashboard...")
-    generate_dashboard(data)
-    # 5. Regenerate dashboard
-    print("\nRegenerating dashboard...")
-    generate_dashboard(data)
