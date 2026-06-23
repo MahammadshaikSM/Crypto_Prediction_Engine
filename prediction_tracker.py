@@ -312,7 +312,9 @@ def generate_dashboard(data):
         })
 
     chart_data = {'labels': [], 'hit_rates': [], 'pos_rates': []}
-    for ev in sorted(evaluations.values(), key=lambda e: e['prediction_date']):
+    all_evs = sorted(evaluations.values(), key=lambda e: e['prediction_date'])
+    recent_evs = all_evs[-7:]  # last 7 evaluated days only
+    for ev in recent_evs:
         chart_data['labels'].append(ev['prediction_date'])
         chart_data['hit_rates'].append(ev['hit_rate'])
         chart_data['pos_rates'].append(ev['positive_rate'])
