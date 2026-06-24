@@ -566,8 +566,8 @@ const CHART_DATA = __CHART_JSON__;
 window.addEventListener('load', function() {
   if (!CHART_DATA.labels.length) { document.getElementById('chart-section').style.display='none'; return; }
   const canvas = document.getElementById('accChart');
-  const W = canvas.width  = canvas.offsetWidth  || canvas.parentElement.offsetWidth;
-  const H = canvas.height = canvas.offsetHeight || 220;
+  const W = canvas.width  = canvas.parentElement.clientWidth || 600;
+  const H = canvas.height = 220;
   const ctx = canvas.getContext('2d');
   const PAD = { top:20, right:20, bottom:40, left:44 };
   const cw = W - PAD.left - PAD.right;
