@@ -965,6 +965,3 @@ if __name__ == '__main__':
     generate_dashboard(data)
 
     print("Done ✓")
-hboard(data)
-
-    print("Done ✓")
