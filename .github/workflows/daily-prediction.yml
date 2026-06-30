@@ -1,9 +1,8 @@
-name: Daily Crypto Prediction
+name: Daily Crypto & Stock Prediction
 
 on:
   schedule:
     # 11:30 AM UTC = 5:00 PM IST (India) daily
-    # Adjust if you're in a different timezone
     - cron: '30 11 * * *'
   workflow_dispatch:  # lets you trigger manually from GitHub Actions tab
 
@@ -23,7 +22,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests yfinance pandas
 
       - name: Write CoinGecko API key (if secret is set)
         run: |
@@ -36,14 +35,18 @@ jobs:
         env:
           COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
 
-      - name: Run prediction tracker
+      - name: Run crypto prediction tracker
         run: python prediction_tracker.py
+
+      - name: Run stock prediction tracker
+        run: python stock_tracker.py
 
       - name: Commit and push updated files
         run: |
           git config user.name  "GitHub Actions"
           git config user.email "actions@github.com"
-          git add prediction_data.json prediction_dashboard.html
+          git add prediction_data.json prediction_dashboard.html \
+                  stock_data.json stock_dashboard.html
           # Only commit if something changed
           if git diff --staged --quiet; then
             echo "No changes to commit."
