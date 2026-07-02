@@ -804,6 +804,84 @@ td { padding: 12px 18px; vertical-align: middle; font-size: 0.81rem; white-space
   transition: transform .9s cubic-bezier(.22,1,.36,1) .35s;
 }
 .section-eyebrow-line.drawn { transform: scaleX(1); }
+
+/* ═══════════════════════════════════════════════════
+   MOBILE RESPONSIVE — phone browsers
+═══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  /* Header */
+  .header-inner { padding: 0 14px; gap: 8px; }
+  .logo-name { font-size: 0.82rem; }
+  .logo-tag { display: none; }
+
+  /* Nav tabs: scrollable row below logo */
+  .nav-tabs {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    margin: 0; border-radius: 0;
+    background: rgba(2,5,16,0.96);
+    border: none; border-top: 1px solid var(--border);
+    padding: 6px 8px;
+    display: flex; gap: 2px; z-index: 300;
+    justify-content: space-around;
+  }
+  .nav-tab {
+    flex: 1; font-size: 0.7rem; padding: 8px 6px;
+    border-radius: 10px; text-align: center;
+  }
+
+  /* Hide search bar on mobile */
+  .global-search-wrap { display: none; }
+
+  /* Extra bottom padding so content isn't hidden behind bottom nav */
+  .app-shell { padding-bottom: 60px; }
+
+  /* Page padding */
+  .page-wrap { padding-left: 14px !important; padding-right: 14px !important; }
+
+  /* Cards */
+  .metric-card, .pred-card { padding: 18px 16px !important; }
+
+  /* Section headers */
+  .section-hero { padding: 32px 14px 24px !important; }
+
+  /* Spotlight / pair grids already stack via existing media queries */
+
+  /* Stat numbers scale down */
+  .stat-val { font-size: 1.6rem !important; }
+
+  /* Timeline header */
+  .tl-header { padding: 14px 14px; gap: 10px; }
+  .tl-date-badge { font-size: 0.65rem; padding: 3px 8px; }
+
+  /* Formula factors */
+  .ffactor { padding: 16px 16px; }
+
+  /* Tabs bar in prediction dashboard */
+  .tabs-bar { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; }
+  .tab-btn { white-space: nowrap; padding: 10px 16px; font-size: 0.75rem; }
+
+  /* Chart card */
+  .chart-card { padding: 18px 14px 16px; }
+  .chart-wrap { height: 180px; }
+
+  /* Model badges wrap tightly */
+  .model-badge { gap: 6px; }
+  .mbadge { font-size: 0.6rem; padding: 3px 8px; }
+
+  /* Spotlight cards stack */
+  .spotlight-grid { grid-template-columns: 1fr !important; }
+  .pair-grid { grid-template-columns: 1fr !important; }
+  .cal-layout { grid-template-columns: 1fr !important; }
+  .pred-grid { grid-template-columns: 1fr !important; }
+  .ins-grid { grid-template-columns: 1fr !important; }
+
+  /* Table overflow */
+  .ins-table { font-size: 0.72rem; }
+
+  /* coin row compact */
+  .coin-img { width: 20px; height: 20px; }
+  .coin-name { font-size: 0.75rem; }
+}
 </style>
 </head>
 <body>

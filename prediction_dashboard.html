@@ -64,7 +64,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 .tl-body{display:none;border-top:1px solid var(--border)}
 .tl-body.open{display:block}
 .tl-cols{display:grid;grid-template-columns:1fr 1fr}
-@media(max-width:800px){.tl-cols{grid-template-columns:1fr}}
+@media(max-width:800px){.tl-cols{grid-template-columns:1fr}.tl-col:first-child{border-right:none;border-bottom:1px solid var(--border)}}
 .tl-col{padding:20px 22px}
 .tl-col:first-child{border-right:1px solid var(--border)}
 .tl-col-title{font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
@@ -98,6 +98,60 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 .no-data{text-align:center;padding:80px 24px;color:var(--muted)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .entry-anim{animation:fadeUp .4s ease both}
+
+/* ═══════════════════════════════════════════════════
+   MOBILE RESPONSIVE — phone browsers
+═══════════════════════════════════════════════════ */
+@media(max-width:640px){
+  /* Header */
+  .header{padding:12px 14px}
+  .logo-name{font-size:0.82rem}
+  .logo-sub{display:none}
+  .hdr-right{font-size:0.62rem;text-align:right;max-width:100px;line-height:1.3}
+
+  /* Main wrap */
+  .wrap{padding:20px 14px 60px}
+
+  /* Stat cards: 2-column grid on phone */
+  .stats{grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:28px}
+  .stat{padding:16px 14px;border-radius:14px}
+  .stat-val{font-size:1.4rem}
+  .stat-sub{font-size:0.65rem}
+  .stat-label{font-size:0.55rem}
+
+  /* Tabs: scrollable, no wrap */
+  .tabs-bar{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;margin-bottom:20px}
+  .tab-btn{white-space:nowrap;padding:10px 14px;font-size:0.75rem}
+
+  /* Section headers */
+  .section-h{font-size:1.1rem}
+  .section-sub{font-size:0.76rem}
+  .model-badge{gap:5px}
+  .mbadge{font-size:0.58rem;padding:3px 7px}
+
+  /* Chart */
+  .chart-card{padding:16px 12px 14px}
+  .chart-wrap{height:160px}
+
+  /* Timeline */
+  .tl-header{padding:12px 14px;gap:10px}
+  .tl-date-badge{font-size:0.62rem;padding:3px 8px}
+  .tl-col{padding:14px 14px}
+  .tl-col:first-child{border-right:none;border-bottom:1px solid var(--border)}
+
+  /* Coin rows */
+  .coin-img{width:20px;height:20px}
+  .coin-name{font-size:0.74rem}
+  .coin-val{font-size:0.72rem}
+
+  /* Eval summary */
+  .eval-summary{padding:12px 14px;gap:12px}
+  .eval-bar-wrap{min-width:120px}
+
+  /* Insights */
+  .ins-grid{grid-template-columns:1fr}
+  .ins-card{padding:16px 14px}
+}
 /* --- tabs --- */
 .tabs-bar{display:flex;gap:0;margin-bottom:32px;border-bottom:1px solid var(--border)}
 .tab-btn{background:none;border:none;border-bottom:2px solid transparent;padding:10px 24px;font-size:.82rem;font-weight:700;color:var(--muted);cursor:pointer;margin-bottom:-1px;transition:color .15s,border-color .15s;font-family:var(--font);letter-spacing:.02em}
