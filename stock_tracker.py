@@ -491,6 +491,12 @@ a { color:inherit; text-decoration:none }
 const TIMELINE   = __TL_JSON__;
 const CHART_DATA = __CHART_JSON__;
 
+/* FIX: named function avoids quote-in-string JS syntax error in onclick */
+function toggleTL(el) {
+  var body = el.nextElementSibling;
+  body.style.display = body.style.display === 'block' ? 'none' : 'block';
+}
+
 window.addEventListener('load', function() {
   // Draw chart
   if (CHART_DATA.labels.length) {
@@ -583,7 +589,8 @@ window.addEventListener('load', function() {
 
     const el = document.createElement('div');
     el.className = 'tl-entry';
-    el.innerHTML = '<div class="tl-header" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'block\'?\'none\':\'block\'">'
+    /* FIX: onclick="toggleTL(this)" — avoids quote-in-string JS syntax error */
+    el.innerHTML = '<div class="tl-header" onclick="toggleTL(this)">'
       + '<div><div class="tl-date">' + dateStr + '</div>'
       + '<div class="tl-meta">Matures: ' + (entry.maturity_date || '—') + '</div></div>'
       + '<div class="tl-badges"><span class="badge ' + badgeCls + '">' + badgeTxt + '</span></div>'
