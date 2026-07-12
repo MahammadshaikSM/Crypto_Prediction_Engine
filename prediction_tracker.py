@@ -31,7 +31,6 @@ DASHBOARD    = SCRIPT_DIR / "prediction_dashboard.html"
 API_KEY_FILE = SCRIPT_DIR / ".coingecko_key"
 
 # -- CoinGecko URL -------------------------------------------------------------
-# sparkline=true gives 7-day hourly prices (~168 points) for RSI + volatility
 CG_URL = (
     "https://api.coingecko.com/api/v3/coins/markets"
     "?vs_currency=usd&order=market_cap_desc&per_page=250&page=1"
@@ -85,7 +84,6 @@ def fetch_coins():
 
 # -- Technical helpers ---------------------------------------------------------
 def calc_rsi(prices, period=14):
-    """RSI(14) from a list of prices. Returns 0-100, or 50 if insufficient data."""
     if not prices or len(prices) < period + 1:
         return 50.0
     gains, losses = [], []
@@ -103,7 +101,6 @@ def calc_rsi(prices, period=14):
     return 100.0 - (100.0 / (1.0 + rs))
 
 def calc_volatility(prices):
-    """Daily-return std-dev from hourly sparkline. Returns small positive float."""
     if not prices or len(prices) < 2:
         return 0.01
     daily = [prices[i] for i in range(0, len(prices), 24) if prices[i] > 0]
@@ -116,7 +113,6 @@ def calc_volatility(prices):
     return max(math.sqrt(variance), 0.0001)
 
 def rsi_score(rsi):
-    """Convert RSI to a 0-100 score. Penalise overbought >70, boost oversold <30."""
     if rsi >= 80:  return 0.0
     if rsi >= 70:  return 20.0
     if rsi >= 60:  return 50.0
@@ -178,11 +174,11 @@ def run_prediction(coins):
 
     for x in scored:
         x['score'] = (
-            0.22 * x['vol_adj_mom_n']  +   # Vol-adjusted 7D momentum
-            0.28 * x['mom24h_n']       +   # 24H momentum (strongest predictor)
-            0.25 * x['btc_relative_n'] +   # BTC-relative strength
-            0.10 * x['vol_surge_n']    +   # Volume surge (weak signal, reduced)
-            0.15 * x['rsi_s']              # RSI safety filter
+            0.22 * x['vol_adj_mom_n']  +
+            0.28 * x['mom24h_n']       +
+            0.25 * x['btc_relative_n'] +
+            0.10 * x['vol_surge_n']    +
+            0.15 * x['rsi_s']
         )
         x['confidence'] = min(72.0, x['score'] * 0.72)
 
@@ -313,7 +309,7 @@ def generate_dashboard(data):
 
     chart_data = {'labels': [], 'hit_rates': [], 'pos_rates': []}
     all_evs = sorted(evaluations.values(), key=lambda e: e['prediction_date'])
-    recent_evs = all_evs[-7:]  # last 7 evaluated days only
+    recent_evs = all_evs[-7:]
     for ev in recent_evs:
         chart_data['labels'].append(ev['prediction_date'])
         chart_data['hit_rates'].append(ev['hit_rate'])
@@ -437,12 +433,10 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 .no-data{text-align:center;padding:80px 24px;color:var(--muted)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .entry-anim{animation:fadeUp .4s ease both}
-/* --- tabs --- */
 .tabs-bar{display:flex;gap:0;margin-bottom:32px;border-bottom:1px solid var(--border)}
 .tab-btn{background:none;border:none;border-bottom:2px solid transparent;padding:10px 24px;font-size:.82rem;font-weight:700;color:var(--muted);cursor:pointer;margin-bottom:-1px;transition:color .15s,border-color .15s;font-family:var(--font);letter-spacing:.02em}
 .tab-btn:hover{color:var(--text2)}
 .tab-btn.active{color:var(--blue);border-bottom-color:var(--blue)}
-/* --- insights --- */
 .ins-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:24px}
 .ins-card{background:var(--glass);border:1px solid var(--border);border-radius:20px;padding:22px 24px}
 .ins-card-title{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);margin-bottom:16px}
@@ -454,6 +448,22 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 .factor-row{margin-bottom:14px}
 .factor-label{display:flex;justify-content:space-between;font-size:.74rem;font-weight:600;margin-bottom:5px}
 .factor-track{height:8px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+/* ── Today's 3-Day Picks ─────────────────────────────────────── */
+.picks-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:12px;margin-top:4px}
+.pick-card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:16px;position:relative;overflow:hidden;transition:transform .15s,border-color .15s;cursor:default}
+.pick-card:hover{transform:translateY(-2px);border-color:rgba(79,172,254,.3)}
+.pick-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#4facfe,#00d4aa)}
+.pick-card.hit-card::before{background:linear-gradient(90deg,#00f5a0,#00d4aa)}
+.pick-card.miss-card::before{background:linear-gradient(90deg,#ff4d6d,#fb923c)}
+.pick-rank{position:absolute;top:10px;right:12px;font-size:.6rem;font-weight:800;color:var(--muted)}
+.pick-img{width:34px;height:34px;border-radius:50%;object-fit:contain;background:rgba(255,255,255,.05);margin-bottom:8px}
+.pick-name{font-size:.78rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:1px}
+.pick-sym{font-size:.6rem;font-weight:800;color:var(--blue);text-transform:uppercase;margin-bottom:9px;letter-spacing:.05em}
+.pick-stat{display:flex;justify-content:space-between;font-size:.63rem;color:var(--text2);margin-bottom:3px}
+.pick-stat-val{font-weight:700}
+.pick-conf-bar{margin-top:8px;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.pick-conf-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#4facfe,#00d4aa);transition:width .6s ease}
+.pick-footer{display:flex;justify-content:space-between;align-items:center;margin-top:5px;font-size:.6rem;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -470,6 +480,15 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
   <div class="hdr-right">Last updated: __UPDATED_AT__</div>
 </header>
 <div class="wrap">
+
+  <!-- ── Today's 3-Day Picks ───────────────────────────────────── -->
+  <div style="margin-bottom:52px">
+    <div class="section-label">&#128293; 3-Day Spotlight</div>
+    <h2 class="section-h">Today's Top Picks</h2>
+    <p class="section-sub" id="picks-subtitle" style="margin-bottom:18px">Loading...</p>
+    <div class="picks-grid" id="picks-grid"></div>
+  </div>
+
   <div style="margin-bottom:32px">
     <div class="section-label">Model Performance</div>
     <h2 class="section-h">Prediction Accuracy</h2>
@@ -567,6 +586,91 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 const TIMELINE   = __TL_JSON__;
 const CHART_DATA = __CHART_JSON__;
 
+// ── Utility helpers ──────────────────────────────────────────────────────────
+function fmtDate(d) {
+  if (!d) return '';
+  const [y,m,day] = d.split('-');
+  return new Date(+y,+m-1,+day).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+}
+function fmtPct(v) {
+  if (v==null) return '-';
+  return (v>=0?'+':'')+v.toFixed(2)+'%';
+}
+function coinImg(img,sym) {
+  return '<img class="coin-img" src="'+img+'" alt="'+sym+'" onerror="this.style.visibility=\'hidden\'" loading="lazy">';
+}
+function rsiTag(rsi) {
+  if (rsi==null) return '';
+  const cls = rsi>70?'rsi-hot':rsi<30?'rsi-ok':'rsi-neutral';
+  return '<span class="rsi-tag '+cls+'">RSI '+rsi+'</span>';
+}
+
+// ── Today's 3-Day Picks ──────────────────────────────────────────────────────
+(function renderTodayPicks() {
+  const subtitle = document.getElementById('picks-subtitle');
+  const grid     = document.getElementById('picks-grid');
+  if (!TIMELINE.length) {
+    subtitle.textContent = 'No prediction data yet.';
+    return;
+  }
+  const today  = TIMELINE[0];
+  const coins  = today.predicted_coins || [];
+  const ev     = today.evaluation;
+  const mature = ev != null;
+
+  if (mature) {
+    const hc = ev.hit_count, hr = ev.hit_rate, pr = ev.positive_rate;
+    subtitle.innerHTML =
+      'Results in: <strong style="color:var(--green)">' + hc + '/10 hits (' + hr + '%)</strong>' +
+      ' &middot; Positive rate: <strong style="color:var(--gold)">' + pr + '%</strong>' +
+      ' &middot; Matured ' + fmtDate(today.maturity_date);
+  } else {
+    const daysLeft = Math.ceil((new Date(today.maturity_date)-new Date())/86400000);
+    subtitle.innerHTML =
+      'Matures in <strong style="color:var(--blue)">' + daysLeft + ' day' + (daysLeft!==1?'s':'') + '</strong>' +
+      ' (' + fmtDate(today.maturity_date) + ')' +
+      ' &middot; Model: Vol-Adj Momentum(22%) + 24H-Mom(28%) + BTC-Rel(25%) + RSI(15%) + Volume(10%)';
+  }
+
+  coins.forEach(function(c) {
+    const result  = mature ? (ev.coin_results||[]).find(function(r){return r.id===c.id;}) : null;
+    const ret     = result ? result.actual_return_pct : null;
+    const hit     = result ? result.hit : null;
+    const cardCls = mature ? (hit ? 'hit-card' : 'miss-card') : '';
+
+    const retRow = ret != null
+      ? '<div class="pick-stat"><span>Return</span><span class="pick-stat-val" style="color:' +
+        (ret>=0?'var(--green)':'var(--red)') + '">' + (ret>=0?'+':'') + ret.toFixed(1) + '%</span></div>'
+      : '';
+    const hitBadge = mature
+      ? '<span style="font-size:.65rem;font-weight:700;color:' + (hit?'var(--green)':'var(--red)') + '">' +
+        (hit?'&#9989; HIT':'&#10060; MISS') + '</span>'
+      : '<span style="font-size:.6rem;color:var(--muted)">&#9203; Pending</span>';
+
+    const rsiVal  = c.rsi != null ? c.rsi : 50;
+    const rsiCol  = rsiVal > 70 ? '#ff4d6d' : rsiVal < 30 ? '#00f5a0' : 'var(--muted)';
+    const m7col   = c.mom7d  >= 0 ? 'var(--green)' : 'var(--red)';
+    const m24col  = c.mom24h >= 0 ? 'var(--green)' : 'var(--red)';
+
+    grid.insertAdjacentHTML('beforeend',
+      '<div class="pick-card ' + cardCls + '">' +
+        '<span class="pick-rank">#' + c.rank + '</span>' +
+        '<img class="pick-img" src="' + (c.image||'') + '" alt="' + c.symbol + '" onerror="this.style.visibility=\'hidden\'" loading="lazy">' +
+        '<div class="pick-name">' + c.name + '</div>' +
+        '<div class="pick-sym">' + c.symbol.toUpperCase() + '</div>' +
+        '<div class="pick-stat"><span>7D</span><span class="pick-stat-val" style="color:'+m7col+'">' + (c.mom7d>=0?'+':'') + c.mom7d.toFixed(1) + '%</span></div>' +
+        '<div class="pick-stat"><span>24H</span><span class="pick-stat-val" style="color:'+m24col+'">' + (c.mom24h>=0?'+':'') + c.mom24h.toFixed(1) + '%</span></div>' +
+        '<div class="pick-stat"><span>Vol Surge</span><span class="pick-stat-val" style="color:var(--blue)">' + c.vol_ratio_pct.toFixed(2) + '%</span></div>' +
+        '<div class="pick-stat"><span>RSI</span><span class="pick-stat-val" style="color:'+rsiCol+'">' + rsiVal.toFixed(0) + '</span></div>' +
+        retRow +
+        '<div class="pick-conf-bar"><div class="pick-conf-fill" style="width:' + Math.min(100,c.confidence) + '%"></div></div>' +
+        '<div class="pick-footer"><span>' + c.confidence.toFixed(1) + '% conf</span>' + hitBadge + '</div>' +
+      '</div>'
+    );
+  });
+})();
+
+// ── Chart ────────────────────────────────────────────────────────────────────
 window.addEventListener('load', function() {
   if (!CHART_DATA.labels.length) { document.getElementById('chart-section').style.display='none'; return; }
   const canvas = document.getElementById('accChart');
@@ -582,10 +686,9 @@ window.addEventListener('load', function() {
   function toY(v) { return PAD.top + ch - (v / 100) * ch; }
   function toX(i) { return PAD.left + (n > 1 ? i * xStep : cw / 2); }
 
-  // grid lines
   ctx.strokeStyle = 'rgba(255,255,255,0.05)';
   ctx.lineWidth   = 1;
-  [0,25,50,75,100].forEach(v => {
+  [0,25,50,75,100].forEach(function(v) {
     const y = toY(v);
     ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + cw, y); ctx.stroke();
     ctx.fillStyle = '#8b9cc8';
@@ -594,35 +697,31 @@ window.addEventListener('load', function() {
     ctx.fillText(v + '%', PAD.left - 6, y + 4);
   });
 
-  // x labels
   ctx.fillStyle = '#8b9cc8';
   ctx.font = '11px sans-serif';
   ctx.textAlign = 'center';
-  CHART_DATA.labels.forEach((lbl, i) => {
+  CHART_DATA.labels.forEach(function(lbl, i) {
     ctx.fillText(lbl.slice(5), toX(i), H - 8);
   });
 
   function drawLine(vals, color, fillColor) {
     ctx.save();
-    // filled area
     ctx.beginPath();
     ctx.moveTo(toX(0), toY(vals[0]));
-    vals.forEach((v,i) => { if(i>0) ctx.lineTo(toX(i), toY(v)); });
+    vals.forEach(function(v,i) { if(i>0) ctx.lineTo(toX(i), toY(v)); });
     ctx.lineTo(toX(vals.length-1), PAD.top + ch);
     ctx.lineTo(toX(0), PAD.top + ch);
     ctx.closePath();
     ctx.fillStyle = fillColor;
     ctx.fill();
-    // line
     ctx.beginPath();
     ctx.moveTo(toX(0), toY(vals[0]));
-    vals.forEach((v,i) => { if(i>0) ctx.lineTo(toX(i), toY(v)); });
+    vals.forEach(function(v,i) { if(i>0) ctx.lineTo(toX(i), toY(v)); });
     ctx.strokeStyle = color;
     ctx.lineWidth = 2.5;
     ctx.lineJoin = 'round';
     ctx.stroke();
-    // dots
-    vals.forEach((v,i) => {
+    vals.forEach(function(v,i) {
       ctx.beginPath();
       ctx.arc(toX(i), toY(v), 4, 0, Math.PI*2);
       ctx.fillStyle = color; ctx.fill();
@@ -633,8 +732,8 @@ window.addEventListener('load', function() {
   drawLine(CHART_DATA.pos_rates, '#00f5a0', 'rgba(0,245,160,0.07)');
   drawLine(CHART_DATA.hit_rates, '#4facfe', 'rgba(79,172,254,0.12)');
 
-  // legend
-  [['#4facfe','Hit Rate'],['#00f5a0','Positive Rate']].forEach(([c,l], i) => {
+  [['#4facfe','Hit Rate'],['#00f5a0','Positive Rate']].forEach(function(item, i) {
+    var c = item[0], l = item[1];
     const lx = PAD.left + i * 140;
     ctx.fillStyle = c;
     ctx.fillRect(lx, 4, 14, 3);
@@ -645,110 +744,94 @@ window.addEventListener('load', function() {
   });
 });
 
-function fmtDate(d) {
-  if (!d) return '';
-  const [y,m,day] = d.split('-');
-  return new Date(+y,+m-1,+day).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
-}
-function fmtPct(v) {
-  if (v==null) return '-';
-  return (v>=0?'+':'')+v.toFixed(2)+'%';
-}
-function coinImg(img,sym) {
-  return `<img class="coin-img" src="${img}" alt="${sym}" onerror="this.style.visibility='hidden'" loading="lazy">`;
-}
-function rsiTag(rsi) {
-  if (rsi==null) return '';
-  const cls = rsi>70?'rsi-hot':rsi<30?'rsi-ok':'rsi-neutral';
-  return `<span class="rsi-tag ${cls}">RSI ${rsi}</span>`;
-}
-
+// ── Timeline ─────────────────────────────────────────────────────────────────
 const container = document.getElementById('timeline');
 if (!TIMELINE.length) {
   document.getElementById('no-data').style.display='block';
 } else {
-  TIMELINE.forEach((entry, idx) => {
+  TIMELINE.forEach(function(entry, idx) {
     const ev     = entry.evaluation;
     const mature = ev != null;
 
-    let statusBadge = '';
+    var statusBadge = '';
     if (!mature) {
       const daysLeft = Math.ceil((new Date(entry.maturity_date)-new Date())/86400000);
-      const dl = daysLeft>0?`Matures in ${daysLeft} day${daysLeft!==1?'s':''}`:'Evaluating soon...';
-      statusBadge = `<span class="tl-status-badge badge-pending">&#9203; Pending &middot; ${dl}</span>`;
+      const dl = daysLeft>0?'Matures in '+daysLeft+' day'+(daysLeft!==1?'s':''):'Evaluating soon...';
+      statusBadge = '<span class="tl-status-badge badge-pending">&#9203; Pending &middot; '+dl+'</span>';
     } else {
       const hr=ev.hit_rate, cls=hr>=50?'badge-hit':'badge-miss', ico=hr>=50?'&#9989;':'&#10060;';
-      statusBadge = `<span class="tl-status-badge ${cls}">${ico} ${ev.hit_count}/10 hits &middot; ${hr}%</span>`;
+      statusBadge = '<span class="tl-status-badge '+cls+'">'+ico+' '+ev.hit_count+'/10 hits &middot; '+hr+'%</span>';
     }
 
-    const predRows = entry.predicted_coins.map(c => {
-      const hitIcon  = mature?(ev.coin_results.find(r=>r.id===c.id)?.hit?'&#9989;':'&#10060;'):'';
-      const actualRet = mature?ev.coin_results.find(r=>r.id===c.id)?.actual_return_pct:null;
+    const predRows = entry.predicted_coins.map(function(c) {
+      const hitIcon  = mature?(ev.coin_results.find(function(r){return r.id===c.id;})?.hit?'&#9989;':'&#10060;'):'';
+      const actualRet = mature?ev.coin_results.find(function(r){return r.id===c.id;})?.actual_return_pct:null;
       const retStr = actualRet!=null
-        ? `<span class="coin-val ${actualRet>=0?'up':'dn'}">${fmtPct(actualRet)}</span>`
-        : `<span class="coin-val neutral">${fmtPct(c.confidence)} conf.</span>`;
-      return `<div class="coin-row">
-        ${coinImg(c.image,c.symbol)}
-        <span class="rank-badge">#${c.rank}</span>
-        <div class="coin-name">${c.name}<br><span class="coin-sym">${c.symbol.toUpperCase()}</span></div>
-        ${rsiTag(c.rsi)}
-        ${retStr}
-        ${mature?`<span class="hit-icon">${hitIcon}</span>`:''}
-      </div>`;
+        ? '<span class="coin-val '+(actualRet>=0?'up':'dn')+'">'+fmtPct(actualRet)+'</span>'
+        : '<span class="coin-val neutral">'+fmtPct(c.confidence)+' conf.</span>';
+      return '<div class="coin-row">'+
+        coinImg(c.image,c.symbol)+
+        '<span class="rank-badge">#'+c.rank+'</span>'+
+        '<div class="coin-name">'+c.name+'<br><span class="coin-sym">'+c.symbol.toUpperCase()+'</span></div>'+
+        rsiTag(c.rsi)+
+        retStr+
+        (mature?'<span class="hit-icon">'+hitIcon+'</span>':'')+
+      '</div>';
     }).join('');
 
-    let actualCol = '';
+    var actualCol = '';
     if (mature && ev.actual_top10) {
-      const rows = ev.actual_top10.map(c => {
+      const rows = ev.actual_top10.map(function(c) {
         const star = c.was_predicted?'&#11088;':'<span style="opacity:.2">&middot;</span>';
-        return `<div class="coin-row">
-          <div class="coin-name">${c.name}<br><span class="coin-sym">${c.symbol.toUpperCase()}</span></div>
-          <span class="coin-val up">${fmtPct(c.return_pct)}</span>
-          <span class="hit-icon">${star}</span>
-        </div>`;
+        return '<div class="coin-row">'+
+          '<div class="coin-name">'+c.name+'<br><span class="coin-sym">'+c.symbol.toUpperCase()+'</span></div>'+
+          '<span class="coin-val up">'+fmtPct(c.return_pct)+'</span>'+
+          '<span class="hit-icon">'+star+'</span>'+
+        '</div>';
       }).join('');
-      actualCol = `<div class="tl-col"><div class="tl-col-title actual">&#127942; Actual Top 10 (&#11088; = predicted)</div>${rows}</div>`;
+      actualCol = '<div class="tl-col"><div class="tl-col-title actual">&#127942; Actual Top 10 (&#11088; = predicted)</div>'+rows+'</div>';
     } else if (!mature) {
-      actualCol = `<div class="tl-col"><div style="padding:32px;text-align:center;color:var(--muted)">
-        <div style="font-size:2rem;margin-bottom:8px">&#9203;</div>
-        <div style="font-size:.88rem;font-weight:600;color:var(--text2)">Not yet evaluated</div>
-        <div style="font-size:.75rem">Matures ${fmtDate(entry.maturity_date)}</div>
-      </div></div>`;
+      actualCol = '<div class="tl-col"><div style="padding:32px;text-align:center;color:var(--muted)">'+
+        '<div style="font-size:2rem;margin-bottom:8px">&#9203;</div>'+
+        '<div style="font-size:.88rem;font-weight:600;color:var(--text2)">Not yet evaluated</div>'+
+        '<div style="font-size:.75rem">Matures '+fmtDate(entry.maturity_date)+'</div>'+
+      '</div></div>';
     }
 
-    let evalSummary = '';
+    var evalSummary = '';
     if (mature) {
       const hp=ev.hit_rate, pp=ev.positive_rate;
-      evalSummary = `<div class="eval-summary">
-        <div class="eval-bar-wrap">
-          <div class="eval-bar-label"><span>Hit Rate</span><span>${hp.toFixed(1)}%</span></div>
-          <div class="eval-bar-track"><div class="eval-bar-fill" style="width:${hp}%"></div></div>
-        </div>
-        <div class="eval-bar-wrap">
-          <div class="eval-bar-label"><span>Positive Rate</span><span>${pp.toFixed(1)}%</span></div>
-          <div class="eval-bar-track"><div class="eval-bar-fill pos" style="width:${pp}%"></div></div>
-        </div>
-        <span class="eval-pill ${hp>=50?'pill-green':'pill-red'}">${ev.hit_count}/10 Hits</span>
-        <span class="eval-pill ${pp>=50?'pill-green':'pill-gold'}">${ev.positive_count}/10 Positive</span>
-      </div>`;
+      evalSummary = '<div class="eval-summary">'+
+        '<div class="eval-bar-wrap">'+
+          '<div class="eval-bar-label"><span>Hit Rate</span><span>'+hp.toFixed(1)+'%</span></div>'+
+          '<div class="eval-bar-track"><div class="eval-bar-fill" style="width:'+hp+'%"></div></div>'+
+        '</div>'+
+        '<div class="eval-bar-wrap">'+
+          '<div class="eval-bar-label"><span>Positive Rate</span><span>'+pp.toFixed(1)+'%</span></div>'+
+          '<div class="eval-bar-track"><div class="eval-bar-fill pos" style="width:'+pp+'%"></div></div>'+
+        '</div>'+
+        '<span class="eval-pill '+(hp>=50?'pill-green':'pill-red')+'">'+ev.hit_count+'/10 Hits</span>'+
+        '<span class="eval-pill '+(pp>=50?'pill-green':'pill-gold')+'">'+ev.positive_count+'/10 Positive</span>'+
+      '</div>';
     }
 
-    container.insertAdjacentHTML('beforeend', `
-    <div class="tl-entry entry-anim" style="animation-delay:${idx*0.04}s">
-      <div class="tl-header" onclick="toggle(this)" data-idx="${idx}">
-        <span class="tl-date-badge">&#128197; ${fmtDate(entry.date)}</span>
-        ${statusBadge}
-        <span style="font-size:.7rem;color:var(--muted);white-space:nowrap">-&gt; Matures ${fmtDate(entry.maturity_date)}</span>
-        <span class="tl-arrow">&#9660;</span>
-      </div>
-      <div class="tl-body" data-body="${idx}">
-        <div class="tl-cols">
-          <div class="tl-col"><div class="tl-col-title pred">&#128302; Predicted Top 10 on ${fmtDate(entry.date)}</div>${predRows}</div>
-          ${actualCol}
-        </div>
-        ${evalSummary}
-      </div>
-    </div>`);
+    container.insertAdjacentHTML('beforeend',
+      '<div class="tl-entry entry-anim" style="animation-delay:'+idx*0.04+'s">'+
+        '<div class="tl-header" onclick="toggle(this)" data-idx="'+idx+'">'+
+          '<span class="tl-date-badge">&#128197; '+fmtDate(entry.date)+'</span>'+
+          statusBadge+
+          '<span style="font-size:.7rem;color:var(--muted);white-space:nowrap">-&gt; Matures '+fmtDate(entry.maturity_date)+'</span>'+
+          '<span class="tl-arrow">&#9660;</span>'+
+        '</div>'+
+        '<div class="tl-body" data-body="'+idx+'">'+
+          '<div class="tl-cols">'+
+            '<div class="tl-col"><div class="tl-col-title pred">&#128302; Predicted Top 10 on '+fmtDate(entry.date)+'</div>'+predRows+'</div>'+
+            actualCol+
+          '</div>'+
+          evalSummary+
+        '</div>'+
+      '</div>'
+    );
   });
 
   const firstHeader = container.querySelector('.tl-header');
@@ -757,16 +840,16 @@ if (!TIMELINE.length) {
 
 function toggle(header) {
   const idx  = header.getAttribute('data-idx');
-  const body = document.querySelector(`[data-body="${idx}"]`);
+  const body = document.querySelector('[data-body="'+idx+'"]');
   const open = body.classList.contains('open');
   body.classList.toggle('open', !open);
   header.classList.toggle('open', !open);
 }
 
 function switchTab(id, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
-  ['overview','insights'].forEach(t => {
+  ['overview','insights'].forEach(function(t) {
     document.getElementById('tab-'+t).style.display = (t===id)?'block':'none';
   });
   if (id==='insights') buildInsights();
@@ -777,9 +860,9 @@ function buildInsights() {
   if (insBuilt) return;
   insBuilt = true;
 
-  const evals = TIMELINE.filter(e => e.evaluation);
+  const evals = TIMELINE.filter(function(e) { return e.evaluation; });
   if (!evals.length) {
-    ['ins-factors','ins-monthly','ins-coins','ins-bestworst','ins-weights'].forEach(id => {
+    ['ins-factors','ins-monthly','ins-coins','ins-bestworst','ins-weights'].forEach(function(id) {
       document.getElementById(id).innerHTML = '<div style="color:var(--muted);font-size:.8rem;padding:12px 0">No evaluated data yet.</div>';
     });
     return;
@@ -792,113 +875,110 @@ function buildInsights() {
     {key:'vol_ratio_pct', label:'Volume Surge'},
   ];
   const fdata = {};
-  factors.forEach(({key}) => { fdata[key] = {hSum:0,hN:0,mSum:0,mN:0}; });
-  evals.forEach(entry => {
+  factors.forEach(function(f) { fdata[f.key] = {hSum:0,hN:0,mSum:0,mN:0}; });
+  evals.forEach(function(entry) {
     const cr_map = {};
-    (entry.evaluation.coin_results||[]).forEach(cr => { cr_map[cr.id]=cr; });
-    entry.predicted_coins.forEach(c => {
+    (entry.evaluation.coin_results||[]).forEach(function(cr) { cr_map[cr.id]=cr; });
+    entry.predicted_coins.forEach(function(c) {
       const cr = cr_map[c.id];
       if (!cr) return;
-      factors.forEach(({key}) => {
-        const val = c[key] != null ? c[key] : (key==='btc_relative' ? c['alignment'] : null);
+      factors.forEach(function(f) {
+        const val = c[f.key] != null ? c[f.key] : (f.key==='btc_relative' ? c['alignment'] : null);
         if (val == null) return;
-        if (cr.hit) { fdata[key].hSum += val; fdata[key].hN++; }
-        else        { fdata[key].mSum += val; fdata[key].mN++; }
+        if (cr.hit) { fdata[f.key].hSum += val; fdata[f.key].hN++; }
+        else        { fdata[f.key].mSum += val; fdata[f.key].mN++; }
       });
     });
   });
-  const fdiffs = factors.map(({key,label}) => {
-    const d = fdata[key];
+  const fdiffs = factors.map(function(f) {
+    const d = fdata[f.key];
     const hAvg = d.hN ? d.hSum/d.hN : 0;
     const mAvg = d.mN ? d.mSum/d.mN : 0;
-    return {key, label, diff: hAvg - mAvg, hAvg, mAvg};
-  }).sort((a,b) => b.diff - a.diff);
-  const maxD = Math.max(...fdiffs.map(d => Math.abs(d.diff))) || 1;
-  document.getElementById('ins-factors').innerHTML = fdiffs.map(d => {
+    return {key:f.key, label:f.label, diff: hAvg - mAvg, hAvg:hAvg, mAvg:mAvg};
+  }).sort(function(a,b){return b.diff-a.diff;});
+  const maxD = Math.max.apply(null, fdiffs.map(function(d){return Math.abs(d.diff);})) || 1;
+  document.getElementById('ins-factors').innerHTML = fdiffs.map(function(d) {
     const pct = (Math.abs(d.diff)/maxD*100).toFixed(1);
     const col = d.diff >= 0 ? '#00f5a0' : '#ff4d6d';
     const sign = d.diff >= 0 ? '+' : '';
-    return '<div class="factor-row">'
-      + '<div class="factor-label"><span>'+d.label+'</span>'
-      + '<span style="color:'+col+'">'+sign+d.diff.toFixed(1)+' avg diff</span></div>'
-      + '<div class="factor-track"><div style="height:8px;border-radius:4px;width:'+pct+'%;background:'+col+'"></div></div>'
-      + '<div style="font-size:.66rem;color:var(--muted);margin-top:3px">Hits avg: '+d.hAvg.toFixed(1)+' | Misses avg: '+d.mAvg.toFixed(1)+'</div>'
-      + '</div>';
+    return '<div class="factor-row">'+
+      '<div class="factor-label"><span>'+d.label+'</span><span style="color:'+col+'">'+sign+d.diff.toFixed(1)+' avg diff</span></div>'+
+      '<div class="factor-track"><div style="height:8px;border-radius:4px;width:'+pct+'%;background:'+col+'"></div></div>'+
+      '<div style="font-size:.66rem;color:var(--muted);margin-top:3px">Hits avg: '+d.hAvg.toFixed(1)+' | Misses avg: '+d.mAvg.toFixed(1)+'</div>'+
+    '</div>';
   }).join('');
 
   const monthly = {};
-  evals.forEach(e => {
+  evals.forEach(function(e) {
     const m = e.date.slice(0,7);
     if (!monthly[m]) monthly[m] = {hits:0,total:0,pos:0};
     monthly[m].hits  += e.evaluation.hit_count;
     monthly[m].total += 10;
     monthly[m].pos   += e.evaluation.positive_count;
   });
-  const mRows = Object.keys(monthly).sort().map(m => {
+  const mRows = Object.keys(monthly).sort().map(function(m) {
     const d = monthly[m];
     const hr = (d.hits/d.total*100).toFixed(1);
     const pr = (d.pos/d.total*100).toFixed(1);
-    const days = evals.filter(e => e.date.startsWith(m)).length;
-    const [y,mo] = m.split('-');
-    const lbl = new Date(+y,+mo-1,1).toLocaleDateString('en-US',{month:'short',year:'2-digit'});
+    const days = evals.filter(function(e){return e.date.startsWith(m);}).length;
+    const parts = m.split('-');
+    const lbl = new Date(+parts[0],+parts[1]-1,1).toLocaleDateString('en-US',{month:'short',year:'2-digit'});
     const hCol = +hr>=20?'#00f5a0':'#ff4d6d';
-    return '<tr><td>'+lbl+'</td><td>'+days+'d</td>'
-      +'<td style="color:'+hCol+'">'+hr+'%</td>'
-      +'<td style="color:#ffd60a">'+pr+'%</td></tr>';
+    return '<tr><td>'+lbl+'</td><td>'+days+'d</td><td style="color:'+hCol+'">'+hr+'%</td><td style="color:#ffd60a">'+pr+'%</td></tr>';
   }).join('');
   document.getElementById('ins-monthly').innerHTML =
     '<table class="ins-table"><tr><th>Month</th><th>Days</th><th>Hit%</th><th>Pos%</th></tr>'+mRows+'</table>';
 
   const coinCount = {}, coinMeta = {};
-  evals.forEach(e => {
-    e.predicted_coins.forEach(c => {
+  evals.forEach(function(e) {
+    e.predicted_coins.forEach(function(c) {
       coinCount[c.id] = (coinCount[c.id]||0)+1;
       coinMeta[c.id] = {name:c.name, sym:c.symbol};
     });
   });
-  const topCoins = Object.keys(coinCount).sort((a,b)=>coinCount[b]-coinCount[a]).slice(0,10);
+  const topCoins = Object.keys(coinCount).sort(function(a,b){return coinCount[b]-coinCount[a];}).slice(0,10);
   const totalDays = evals.length;
-  const cRows = topCoins.map(id => {
+  const cRows = topCoins.map(function(id) {
     const m = coinMeta[id]; const cnt = coinCount[id];
     const pct = (cnt/totalDays*100).toFixed(0);
-    return '<tr><td>'+m.name+'<br><span style="font-size:.6rem;color:var(--muted)">'+m.sym.toUpperCase()+'</span></td>'
-      +'<td>'+cnt+'/'+totalDays+' <span style="color:var(--blue);font-size:.7rem">('+pct+'%)</span></td></tr>';
+    return '<tr><td>'+m.name+'<br><span style="font-size:.6rem;color:var(--muted)">'+m.sym.toUpperCase()+'</span></td>'+
+      '<td>'+cnt+'/'+totalDays+' <span style="color:var(--blue);font-size:.7rem">('+pct+'%)</span></td></tr>';
   }).join('');
   document.getElementById('ins-coins').innerHTML =
     '<table class="ins-table"><tr><th>Coin</th><th>Appearances</th></tr>'+cRows+'</table>';
 
-  const days = evals.map(e => ({date:e.date,hr:e.evaluation.hit_rate,hc:e.evaluation.hit_count}))
-    .sort((a,b)=>b.hr-a.hr);
+  const days = evals.map(function(e){return {date:e.date,hr:e.evaluation.hit_rate,hc:e.evaluation.hit_count};})
+    .sort(function(a,b){return b.hr-a.hr;});
   const best5  = days.slice(0,5);
   const worst5 = days.slice(-5).reverse();
   function dayRows(arr,col) {
-    return arr.map(d => {
-      const [y,m,dy] = d.date.split('-');
-      const lbl = new Date(+y,+m-1,+dy).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'2-digit'});
+    return arr.map(function(d) {
+      const parts = d.date.split('-');
+      const lbl = new Date(+parts[0],+parts[1]-1,+parts[2]).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'2-digit'});
       return '<tr><td>'+lbl+'</td><td style="color:'+col+'">'+d.hc+'/10 ('+d.hr+'%)</td></tr>';
     }).join('');
   }
   document.getElementById('ins-bestworst').innerHTML =
-    '<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#00f5a0;margin-bottom:6px">Top Days</div>'
-    +'<table class="ins-table" style="margin-bottom:14px"><tr><th>Date</th><th>Hit Rate</th></tr>'+dayRows(best5,'#00f5a0')+'</table>'
-    +'<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ff4d6d;margin-bottom:6px">Toughest Days</div>'
-    +'<table class="ins-table"><tr><th>Date</th><th>Hit Rate</th></tr>'+dayRows(worst5,'#ff4d6d')+'</table>';
+    '<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#00f5a0;margin-bottom:6px">Top Days</div>'+
+    '<table class="ins-table" style="margin-bottom:14px"><tr><th>Date</th><th>Hit Rate</th></tr>'+dayRows(best5,'#00f5a0')+'</table>'+
+    '<div style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#ff4d6d;margin-bottom:6px">Toughest Days</div>'+
+    '<table class="ins-table"><tr><th>Date</th><th>Hit Rate</th></tr>'+dayRows(worst5,'#ff4d6d')+'</table>';
 
-  const posDiffs = fdiffs.map(d => Math.max(d.diff, 0.001));
-  const tot = posDiffs.reduce((s,v)=>s+v,0)||1;
-  const wBars = fdiffs.map((d,i) => {
+  const posDiffs = fdiffs.map(function(d){return Math.max(d.diff, 0.001);});
+  const tot = posDiffs.reduce(function(s,v){return s+v;},0)||1;
+  const wBars = fdiffs.map(function(d,i) {
     const w = (posDiffs[i]/tot*100).toFixed(1);
-    return '<div class="factor-row">'
-      +'<div class="factor-label"><span>'+d.label+'</span><span style="color:var(--blue)">'+w+'%</span></div>'
-      +'<div class="factor-track"><div style="height:8px;border-radius:4px;width:'+w+'%;background:linear-gradient(90deg,#4facfe,#00d4ff)"></div></div>'
-      +'</div>';
+    return '<div class="factor-row">'+
+      '<div class="factor-label"><span>'+d.label+'</span><span style="color:var(--blue)">'+w+'%</span></div>'+
+      '<div class="factor-track"><div style="height:8px;border-radius:4px;width:'+w+'%;background:linear-gradient(90deg,#4facfe,#00d4ff)"></div></div>'+
+    '</div>';
   }).join('');
   document.getElementById('ins-weights').innerHTML =
-    '<p style="font-size:.79rem;color:var(--text2);margin-bottom:18px">Weights derived from correlation between each factor score and actual hit outcomes across 164 days of data.</p>'
-    +wBars
-    +'<div style="margin-top:16px;padding:14px;background:rgba(79,172,254,.06);border:1px solid rgba(79,172,254,.12);border-radius:12px;font-size:.75rem;color:var(--text2)">'
-    +'&#128161; <strong style="color:var(--blue)">Current live model</strong> uses 24H Momentum + 7D + BTC-Relative + Volume + RSI (5-factor). '
-    +'This analysis covers only the 4-factor backfill period (no RSI available).</div>';
+    '<p style="font-size:.79rem;color:var(--text2);margin-bottom:18px">Weights derived from correlation between each factor score and actual hit outcomes.</p>'+
+    wBars+
+    '<div style="margin-top:16px;padding:14px;background:rgba(79,172,254,.06);border:1px solid rgba(79,172,254,.12);border-radius:12px;font-size:.75rem;color:var(--text2)">'+
+    '&#128161; <strong style="color:var(--blue)">Current live model</strong> uses 24H Momentum(28%) + BTC-Relative(25%) + Vol-Adj 7D(22%) + RSI(15%) + Volume(10%).'+
+    '</div>';
 }
 </script>
 </body>
@@ -924,14 +1004,12 @@ if __name__ == '__main__':
     coins = fetch_coins()
     print(f"  Fetched {len(coins)} coins.")
 
-    # --- Evaluate 7-day-old prediction if it exists and hasn't been evaluated ---
     if seven_days_ago in data.get('predictions', {}) and seven_days_ago not in data.get('evaluations', {}):
         print(f"  Evaluating prediction from {seven_days_ago}...")
         ev = evaluate_prediction(data['predictions'][seven_days_ago], coins)
         data.setdefault('evaluations', {})[seven_days_ago] = ev
         print(f"  Hit rate: {ev['hit_rate']}%  |  Positive rate: {ev['positive_rate']}%")
 
-    # --- Run today's prediction (skip if already done today) ---
     if today not in data.get('predictions', {}):
         print("  Running prediction model...")
         top10 = run_prediction(coins)
@@ -955,8 +1033,6 @@ if __name__ == '__main__':
             print(f"    {c['rank']:>2}. {c['symbol'].upper():<10} confidence={c['confidence']}%")
     else:
         print(f"  Prediction for {today} already exists — skipping.")
-        for c in data['predictions'][today]['predicted_coins']:
-            print(f"    {c['rank']:>2}. {c['symbol'].upper():<10} confidence={c['confidence']}%")
 
     print("  Saving data...")
     save_data(data)
