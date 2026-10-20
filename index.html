@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CryptoTracker Pro · 10 picks a day, receipts included</title>
+<meta name="description" content="An open model picks the 10 coins most likely to outperform over the next 7 days, every day, then grades itself in public. 3.2× better than random at finding top-10 gainers.">
+<meta property="og:title" content="CryptoTracker Pro · Receipts included">
+<meta property="og:description" content="10 coin picks a day. Every pick graded 7 days later, in public.">
+<meta name="theme-color" content="#07070A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#main"><span class="mark">CT</span>CryptoTracker Pro</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#today">Today</a><a href="#receipts">Receipts</a><a href="#explorer">Time machine</a><a href="#how">How it works</a><a href="#stocks">Stocks</a>
+    </nav>
+    <a class="btn lime sm" href="prediction_dashboard.html">Live dashboard ↗</a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div>
+        <span class="chip fade-in" style="animation-delay:.05s"><span class="live-dot" aria-hidden="true"></span><b>Live</b> · <span id="updated">updated Oct 19, 2026</span></span>
+        <h1 id="hero-h">
+          <span class="w" style="animation-delay:.10s">10</span> <span class="w" style="animation-delay:.16s">coins.</span><br>
+          <span class="w" style="animation-delay:.24s">Every</span> <span class="w" style="animation-delay:.30s">day.</span><br>
+          <span class="w" style="animation-delay:.40s"><mark>Receipts</mark></span> <span class="w" style="animation-delay:.48s">included.</span>
+        </h1>
+        <p class="lede fade-in" style="animation-delay:.7s">A model scans <b>~200 coins</b> every day and picks the 10 most likely to outperform over the next 7 days. A week later it <b>grades itself, in public</b>. No hype, no hidden losses.</p>
+        <div class="ctas fade-in" style="animation-delay:.85s">
+          <a class="btn lime" href="#today">See today's picks</a>
+          <a class="btn" href="#receipts">Check the receipts</a>
+        </div>
+        <div class="proof fade-in" style="animation-delay:1s">
+          <span class="chip"><b id="p-lift">3.2×</b> random hit rate<sup class="fn"><a href="#fn-1" aria-label="Footnote 1">1</a></sup></span>
+          <span class="chip"><b id="p-days">287</b> days of picks</span>
+          <span class="chip"><b>100%</b> public results</span>
+        </div>
+        <p class="risk-line fade-in" style="animation-delay:1.1s"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span>An experiment, not financial advice. Crypto is volatile and can go to zero.</span></p>
+      </div>
+      <div class="orbit-wrap fade-in" style="animation-delay:.5s">
+        <div class="orbit" id="orbit" aria-label="Today's 10 picks" role="list"><div class="orbit-core" aria-hidden="true">Today's<br>10 picks<small>OCT 19</small></div></div>
+        <button class="btn sm orbit-ctl" id="orbit-ctl" type="button" aria-pressed="false">Pause</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" id="marquee" aria-label="Our principles">
+    <div class="track" aria-hidden="true">
+      <span>No confetti</span><span>No "up to"</span><span>No moon talk</span><span>Just receipts</span><span>Graded in public</span><span>Open source</span>
+      <span>No confetti</span><span>No "up to"</span><span>No moon talk</span><span>Just receipts</span><span>Graded in public</span><span>Open source</span>
+    </div>
+    <p class="sr">No confetti. No "up to" claims. No moon talk. Just receipts, graded in public, open source.</p>
+    <button type="button" id="marquee-ctl" aria-pressed="false">Pause</button>
+  </div>
+
+  <!-- TODAY -->
+  <section class="block" id="today" aria-labelledby="today-h">
+    <div class="wrap">
+      <p class="eyebrow">Today's drop</p>
+      <h2 class="title reveal" id="today-h">Fresh picks, <em>graded in 7 days.</em></h2>
+      <p class="intro reveal">Ranked by the model's score. Confidence is how strongly the five signals agree. Check back next week to see how they did.</p>
+      <div class="picks-meta" id="picks-meta"><span class="chip">Picked <b id="pk-date">Oct 19</b></span><span class="chip">Graded <b id="pk-due">Oct 26</b></span></div>
+      <div class="picks" id="picks" aria-live="polite">
+        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+      <p class="risk-line"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span>Picks are model output for research, not recommendations to buy. Most picks don't land in the top 10, and many go down.</span></p>
+    </div>
+  </section>
+
+  <!-- RECEIPTS -->
+  <section class="block" id="receipts" aria-labelledby="rc-h" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">The receipts</p>
+      <h2 class="title reveal" id="rc-h">The scoreboard, <em>good and bad.</em></h2>
+      <p class="intro reveal">Every pick gets graded 7 days later. Here's the full record, including the parts that don't flatter us.</p>
+      <div class="bento">
+        <article class="card c7 reveal" id="vs-card">
+          <p class="k">Hit rate · finding the week's top-10 gainers</p>
+          <p class="big num"><span id="r-lift">3.2</span><small>× random</small></p>
+          <div class="vs">
+            <div class="vs-row me"><span>The model</span><span class="track"><i id="bar-me" style="--w:.82"></i></span><b class="num" id="r-hit">16.3%</b></div>
+            <div class="vs-row"><span>Random picks</span><span class="track"><i id="bar-rand" style="--w:.26"></i></span><b class="num" id="r-base">5.1%</b></div>
+          </div>
+          <p>On an average day, <b><span id="r-hits-per">1.6</span> of 10 picks</b> end up in the real top 10. Random picks would land about <b id="r-rand-per">0.5</b>.<sup class="fn"><a href="#fn-1" aria-label="Footnote 1">1</a></sup></p>
+        </article>
+        <article class="card c5 lime reveal">
+          <p class="k">Track record</p>
+          <p class="big num" id="r-days">287</p>
+          <p><b>Days of picks</b> since <span id="r-since">Dec 28, 2025</span>. <span id="r-graded">271</span> already graded. Every day is listed in the time machine below.</p>
+        </article>
+        <article class="card c5 reveal">
+          <div class="honest"><span class="ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.01"/></svg></span>
+            <div><p class="k">Real talk</p><p style="margin-top:6px">It finds big movers, but it's <b>not a money printer</b>. <b id="r-pos">44.7%</b> of picks went up over 7 days, versus <b id="r-mkt">47.5%</b> of all tracked coins.<sup class="fn"><a href="#fn-2" aria-label="Footnote 2">2</a></sup></p></div>
+          </div>
+        </article>
+        <article class="card c7 reveal">
+          <p class="k">Best single day</p>
+          <p class="big num" id="r-best">50%</p>
+          <p><b id="r-best-date">Mar 13, 2026</b>: 5 of 10 picks landed in the top 10. The worst days score zero, and those are in the record too.</p>
+        </article>
+        <article class="card c12 reveal">
+          <p class="k">Hit rate over time · 14-day rolling average</p>
+          <div class="chart-box"><canvas id="chart" role="img" aria-label="Line chart of the model's 14-day rolling hit rate compared with the random baseline"></canvas></div>
+          <div class="legend"><span><i style="background:var(--lime)"></i>Model hit rate</span><span><i style="background:var(--fg-2)"></i>Random baseline</span></div>
+          <p class="method" id="chart-summary">Loading the full history…</p>
+          <details class="table"><summary>Show monthly numbers as a table</summary><table id="month-table"><thead><tr><th>Month</th><th>Days</th><th>Hit rate</th><th>Random</th><th>Went up</th></tr></thead><tbody></tbody></table></details>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPLORER -->
+  <section class="block" id="explorer" aria-labelledby="ex-h" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">Time machine</p>
+      <h2 class="title reveal" id="ex-h">Scrub any day. <em>See what happened.</em></h2>
+      <p class="intro reveal">Drag through every graded day. Lime rows made the real top 10. Returns are the coin's 7-day price change.</p>
+      <div class="explorer reveal">
+        <div class="ex-head">
+          <p class="ex-date" id="ex-date">Loading…<small id="ex-sub">&nbsp;</small></p>
+          <div class="ex-score" id="ex-score"></div>
+        </div>
+        <div class="ex-ctl">
+          <button class="btn sm" type="button" id="ex-prev" aria-label="Previous day">←</button>
+          <label class="sr" for="ex-range">Choose a graded day</label>
+          <input type="range" id="ex-range" min="0" max="0" value="0">
+          <button class="btn sm" type="button" id="ex-next" aria-label="Next day">→</button>
+          <button class="btn sm" type="button" id="ex-best">Best day</button>
+          <button class="btn sm" type="button" id="ex-worst">Worst day</button>
+        </div>
+        <div class="ex-grid">
+          <ol class="ex-list" id="ex-list" aria-live="polite"></ol>
+          <div class="ex-side"><h3>The real top 10 that week</h3><ol id="ex-actual"></ol></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="block" id="how" aria-labelledby="how-h" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2 class="title reveal" id="how-h">Five signals. <em>One score.</em></h2>
+      <p class="intro reveal">Every day the model scores ~200 coins on five signals, blends them with these weights and ranks the top 10. The weights are public, and so is the code.</p>
+      <div class="weights reveal" role="img" aria-label="Signal weights: 24h momentum 28%, BTC-relative 25%, volatility-adjusted momentum 22%, RSI 15%, volume surge 10%">
+        <div style="flex:28;background:#D4FF3A">28%</div><div style="flex:25;background:#B9E62E">25%</div><div style="flex:22;background:#9BC425">22%</div><div style="flex:15;background:#C9B8FF">15%</div><div style="flex:10;background:#8B6CFF">10%</div>
+      </div>
+      <div class="factors">
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#D4FF3A"></span>28%</p><h3>24h momentum</h3><p>What's already moving today. Momentum tends to carry for a few days.</p></article>
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#B9E62E"></span>25%</p><h3>BTC-relative</h3><p>Beating Bitcoin matters more than rising with it. It filters out "everything is up" days.</p></article>
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#9BC425"></span>22%</p><h3>Vol-adjusted momentum</h3><p>Gains divided by how wild the ride is, so steady climbers outrank random spikes.</p></article>
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#C9B8FF"></span>15%</p><h3>RSI</h3><p>A brake on hype. Coins over 70 (overheated) are marked down, and coins under 30 get a second look.</p></article>
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#8B6CFF"></span>10%</p><h3>Volume surge</h3><p>Trading volume against its normal level. Real moves usually bring real volume.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- STOCKS -->
+  <section class="block" id="stocks" aria-labelledby="st-h" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">Also doing stocks</p>
+      <h2 class="title reveal" id="st-h">Same idea. <em>Smaller edge.</em></h2>
+      <div class="bento">
+        <article class="card c6 reveal">
+          <p class="k">Stock hit rate vs random</p>
+          <p class="big num"><span id="s-lift">1.3</span><small>× random</small></p>
+          <div class="vs">
+            <div class="vs-row me"><span>The model</span><span class="track"><i style="--w:.5" id="s-bar-me"></i></span><b class="num" id="s-hit">12.7%</b></div>
+            <div class="vs-row"><span>Random picks</span><span class="track"><i style="--w:.4" id="s-bar-rand"></i></span><b class="num" id="s-base">10.1%</b></div>
+          </div>
+          <p>Large-cap stocks move together more than coins do, so the edge is smaller. We'd rather tell you than hide it.</p>
+        </article>
+        <article class="card c6 reveal">
+          <p class="k">Stock track record</p>
+          <p class="big num" id="s-days">110</p>
+          <p><b>Days of stock picks</b> from a universe of <span id="s-n">~100</span> large caps. <b id="s-pos">49.9%</b> of picks rose over 7 days.</p>
+          <p style="margin-top:22px"><a class="btn sm" href="stock_dashboard.html">Open the stock dashboard ↗</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section class="block" aria-labelledby="pr-h" style="padding-top:20px">
+    <div class="wrap">
+      <p class="eyebrow">House rules</p>
+      <h2 class="title reveal" id="pr-h">Built different, <em>on purpose.</em></h2>
+      <div class="rules">
+        <article class="rule reveal"><span class="no">01</span><h3>No confetti</h3><p>No streaks, points or celebrations for trading. Regulator studies show that stuff makes people take more risk.</p></article>
+        <article class="rule reveal"><span class="no">02</span><h3>Every pick graded</h3><p>Wins and misses, every single day, with the method written down. No deleting bad weeks.</p></article>
+        <article class="rule reveal"><span class="no">03</span><h3>Open source</h3><p>The model, weights and data are on GitHub. Don't trust us; read the code.</p></article>
+        <article class="rule reveal"><span class="no">04</span><h3>Honest baselines</h3><p>Every number comes with what random picks or the whole market would have done.</p></article>
+        <article class="rule reveal"><span class="no">05</span><h3>You stay in control</h3><p>No auto-trading, no "buy now" buttons. It's information. What you do with it is your call.</p></article>
+        <article class="rule reveal"><span class="no">06</span><h3>Motion you can stop</h3><p>Anything that moves on this page can be paused, and it respects your reduced-motion setting.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="fin-h">
+    <div class="wrap">
+      <h2 id="fin-h" class="reveal">Watch it<br><em>grade itself.</em></h2>
+      <p class="reveal">New picks every day. Every pick scored a week later. Bookmark the live dashboard and keep us honest.</p>
+      <div class="ctas reveal"><a class="btn lime" href="prediction_dashboard.html">Open the live dashboard ↗</a><a class="btn" href="https://github.com/MahammadshaikSM/Crypto_Prediction_Engine" target="_blank" rel="noopener">Read the code on GitHub</a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="legal">
+  <div class="wrap">
+    <div class="who">
+      <b>CryptoTracker Pro</b>
+      <span>Built by <a href="https://mahammadshaiksm.github.io/MahammadShaikWebsite/">Shaik Mahammad</a></span>
+      <span>Crypto price data from <a href="https://www.coingecko.com/" target="_blank" rel="noopener">CoinGecko</a></span>
+      <span>© <span id="yr">2026</span></span>
+    </div>
+    <ol>
+      <li id="fn-1">Hit = a picked coin appears in the real top-10 gainers 7 days later. Random baseline = 10 ÷ number of coins tracked that day (about 200), the average overlap a random set of 10 would get. Figures update automatically from the published prediction data.</li>
+      <li id="fn-2">"Went up" compares each pick's price 7 days later with its price at prediction. The market figure is the share of all tracked coins that rose over the same windows.</li>
+      <li id="fn-3">CryptoTracker Pro is a personal research project. It is not a broker-dealer, investment adviser or exchange, holds no funds and executes no trades. Nothing here is financial advice. Past model performance does not predict future results. Crypto assets are highly volatile and you can lose all the money you invest.</li>
+    </ol>
+  </div>
+</footer>
+
+<script src="site/app.js"></script>
+</body>
+</html>

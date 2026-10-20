@@ -41,12 +41,16 @@ jobs:
       - name: Run stock prediction tracker
         run: python stock_tracker.py
 
+      - name: Build landing page data
+        run: python site/build_summary.py
+
       - name: Commit and push updated files
         run: |
           git config user.name  "GitHub Actions"
           git config user.email "actions@github.com"
           git add prediction_data.json prediction_dashboard.html \
-                  stock_data.json stock_dashboard.html
+                  stock_data.json stock_dashboard.html \
+                  site/summary.json site/history.json
           # Only commit if something changed
           if git diff --staged --quiet; then
             echo "No changes to commit."
