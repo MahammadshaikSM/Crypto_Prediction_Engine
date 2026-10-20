@@ -45,7 +45,7 @@ jobs:
         run: |
           git config user.name  "GitHub Actions"
           git config user.email "actions@github.com"
-          git add prediction_data.json prediction_dashboard.html \
+          git add prediction_data.json prediction_dashboard.html prediction_dashboard_3d.html \
                   stock_data.json stock_dashboard.html \
                   site/summary.json site/history.json
           git add site/forecast.json 2>/dev/null || true

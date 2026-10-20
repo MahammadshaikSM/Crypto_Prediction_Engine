@@ -29,6 +29,7 @@ from pathlib import Path
 SCRIPT_DIR   = Path(__file__).parent
 DATA_FILE    = SCRIPT_DIR / "prediction_data.json"
 DASHBOARD    = SCRIPT_DIR / "prediction_dashboard.html"
+DASHBOARD_3D = SCRIPT_DIR / "prediction_dashboard_3d.html"
 
 # -- Stablecoin exclusion ------------------------------------------------------
 STABLECOINS = {
@@ -109,7 +110,27 @@ def rsi_score(rsi):
     return 100.0
 
 # -- Prediction model ----------------------------------------------------------
-def run_prediction(coins):
+# Model weights (% per signal). 7-day = current live model; 3-day = tuned by
+# backtest/backtest_weights.py on 3 years of CoinMarketCap data (results.json).
+WEIGHTS_7D = {'vol_adj_mom': 22, 'mom24h': 28, 'btc_rel': 25, 'vol_surge': 10, 'rsi_s': 15}
+WEIGHTS_3D_DEFAULT = {'vol_adj_mom': 0, 'mom24h': 14.8, 'btc_rel': 79.1, 'vol_surge': 6.0, 'rsi_s': 0.1}
+BACKTEST_FILE = SCRIPT_DIR / "backtest" / "results.json"
+
+def load_backtest():
+    try:
+        return json.loads(BACKTEST_FILE.read_text(encoding='utf-8'))
+    except Exception:
+        return None
+
+def weights_3d():
+    bt = load_backtest()
+    try:
+        return {k: float(v) for k, v in bt['horizons']['3']['weights'].items()}
+    except Exception:
+        return dict(WEIGHTS_3D_DEFAULT)
+
+def run_prediction(coins, weights=None):
+    w = {k: v / 100 for k, v in (weights or WEIGHTS_7D).items()}
     eligible = [
         c for c in coins
         if c.get('price_change_percentage_7d_in_currency') is not None
@@ -162,11 +183,11 @@ def run_prediction(coins):
 
     for x in scored:
         x['score'] = (
-            0.22 * x['vol_adj_mom_n']  +
-            0.28 * x['mom24h_n']       +
-            0.25 * x['btc_relative_n'] +
-            0.10 * x['vol_surge_n']    +
-            0.15 * x['rsi_s']
+            w['vol_adj_mom'] * x['vol_adj_mom_n']  +
+            w['mom24h']      * x['mom24h_n']       +
+            w['btc_rel']     * x['btc_relative_n'] +
+            w['vol_surge']   * x['vol_surge_n']    +
+            w['rsi_s']       * x['rsi_s']
         )
         x['confidence'] = min(72.0, x['score'] * 0.72)
 
@@ -317,9 +338,33 @@ def save_data(data):
     DATA_FILE.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding='utf-8')
 
 # -- Dashboard HTML generator --------------------------------------------------
+LABELS = {'mom24h': ('&#128640;', '24H Momentum', '24H-Mom'), 'btc_rel': ('&#8383;', 'BTC-Relative', 'BTC-Rel'),
+          'vol_adj_mom': ('&#9889;', 'Vol-Adj Momentum', 'Vol-Adj Momentum'), 'rsi_s': ('&#128201;', 'RSI Score', 'RSI'),
+          'vol_surge': ('&#128202;', 'Volume Surge', 'Volume')}
+
+def _fmt_w(v):
+    return f"{v:g}%"
+
 def generate_dashboard(data):
-    predictions = data.get('predictions', {})
-    evaluations = data.get('evaluations', {})
+    """Render the 7-day page and the 3-day page from the same template."""
+    bt = load_backtest() or {}
+    def bt_note(h, which):
+        try:
+            t = bt['horizons'][str(h)][which]['test']
+            return (f"Backtest of these exact weights on held-out CoinMarketCap data "
+                    f"(Oct 2025 &ndash; Sep 2026, {t['days']} days): <strong>{t['hit']:.1f}%</strong> hit rate vs "
+                    f"{t['base']:.1f}% for random picks.")
+        except Exception:
+            return ""
+    pages = [
+        (7, data.get('predictions', {}), data.get('evaluations', {}), DASHBOARD, WEIGHTS_7D, bt_note(7, 'live')),
+        (3, data.get('predictions_3d', {}), data.get('evaluations_3d', {}), DASHBOARD_3D, weights_3d(), bt_note(3, 'tuned')),
+    ]
+    for horizon, predictions, evaluations, out_path, weights, note in pages:
+        _render_page(horizon, predictions, evaluations, out_path, weights, note)
+
+
+def _render_page(horizon, predictions, evaluations, out_path, weights, note):
 
     total_preds  = len(predictions)
     total_evals  = len(evaluations)
@@ -358,22 +403,25 @@ def generate_dashboard(data):
     best_disp  = (f"{best_eval['hit_rate']:.0f}% ({best_eval['prediction_date']})"
                   if best_eval else "-")
 
-    DASHBOARD.write_text(
-        _build_html(tl_json, chart_json, updated_at, hit_disp, pos_disp,
-                    best_disp, total_preds),
+    ordered = sorted(weights.items(), key=lambda kv: -kv[1])
+    badges = "\n      ".join(f'<span class="mbadge">{LABELS[k][0]} {LABELS[k][1]} {_fmt_w(v)}</span>' for k, v in ordered if v > 0)
+    model_text = " + ".join(f"{LABELS[k][2]}({_fmt_w(v)})" for k, v in ordered if v > 0)
+    out_path.write_text(
+        _build_html(tl_json, chart_json, updated_at, hit_disp, pos_disp, best_disp, total_preds,
+                    horizon=horizon, badges=badges, model_text=model_text, note=note),
         encoding='utf-8'
     )
-    print(f"  Dashboard -> {DASHBOARD}")
+    print(f"  Dashboard ({horizon}-day) -> {out_path}")
 
 
 def _build_html(tl_json, chart_json, updated_at, hit_disp, pos_disp,
-                best_disp, total_preds):
+                best_disp, total_preds, horizon=7, badges='', model_text='', note=''):
     html = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prediction Accuracy Dashboard - CryptoTracker Pro</title>
+<title>__H__-Day Prediction Dashboard - CryptoTracker Pro</title>
 <style>
 :root {
   --void:#020510; --deep:#070d1e; --surface:#0c1428;
@@ -498,6 +546,10 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 .pick-stat-val{font-weight:700}
 .pick-conf-bar{margin-top:8px;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
 .pick-conf-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#4facfe,#00d4aa);transition:width .6s ease}
+.horizon-tabs{display:flex;gap:8px;padding:18px 32px 0;max-width:1400px;margin:0 auto;flex-wrap:wrap}
+.htab{padding:10px 20px;border-radius:999px;font-size:.85rem;font-weight:700;letter-spacing:.02em;text-decoration:none;color:#8b9cc8;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);transition:all .2s}
+.htab:hover{color:#e8eaf6;border-color:rgba(79,172,254,.4)}
+.htab.active{color:#020510;background:linear-gradient(90deg,#4facfe,#00d4aa);border-color:transparent}
 .pick-footer{display:flex;justify-content:space-between;align-items:center;margin-top:5px;font-size:.6rem;color:var(--muted)}
 </style>
 </head>
@@ -514,11 +566,15 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
   </div>
   <div class="hdr-right">Last updated: __UPDATED_AT__</div>
 </header>
+<nav class="horizon-tabs" aria-label="Prediction horizon">
+  <a href="prediction_dashboard.html" class="htab __ACTIVE7__">&#128197; 7-Day Prediction</a>
+  <a href="prediction_dashboard_3d.html" class="htab __ACTIVE3__">&#9889; 3-Day Prediction</a>
+</nav>
 <div class="wrap">
 
   <!-- ── Today's 3-Day Picks ───────────────────────────────────── -->
   <div style="margin-bottom:52px">
-    <div class="section-label">&#128293; 3-Day Spotlight</div>
+    <div class="section-label">&#128293; __H__-Day Spotlight</div>
     <h2 class="section-h">Today's Top Picks</h2>
     <p class="section-sub" id="picks-subtitle" style="margin-bottom:18px">Loading...</p>
     <div class="picks-grid" id="picks-grid"></div>
@@ -528,16 +584,13 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
     <div class="section-label">Model Performance</div>
     <h2 class="section-h">Prediction Accuracy</h2>
     <p class="section-sub">
-      Each day the model predicts the top&nbsp;10 coins most likely to outperform over the next 7&nbsp;days.
-      A "hit" = coin appeared in the real top&nbsp;10 gainers 7&nbsp;days later.
+      Each day the model predicts the top&nbsp;10 coins most likely to outperform over the next __H__&nbsp;days.
+      A "hit" = coin appeared in the real top&nbsp;10 gainers __H__&nbsp;days later.
     </p>
     <div class="model-badge">
-      <span class="mbadge">&#128640; 24H Momentum 28%</span>
-      <span class="mbadge">&#8383; BTC-Relative 25%</span>
-      <span class="mbadge">&#9889; Vol-Adj Momentum 22%</span>
-      <span class="mbadge">&#128201; RSI Score 15%</span>
-      <span class="mbadge">&#128202; Volume Surge 10%</span>
+      __BADGES__
     </div>
+    <p class="section-sub" style="margin-top:10px;font-size:.78rem">__BT_NOTE__</p>
   </div>
   <div class="stats">
     <div class="stat c-blue entry-anim" style="animation-delay:.05s">
@@ -645,7 +698,7 @@ function rsiTag(rsi) {
   const subtitle = document.getElementById('picks-subtitle');
   const grid     = document.getElementById('picks-grid');
   if (!TIMELINE.length) {
-    subtitle.textContent = 'No prediction data yet.';
+    subtitle.textContent = 'No predictions yet. New picks are made daily at 11:30 UTC.';
     return;
   }
   const today  = TIMELINE[0];
@@ -664,7 +717,7 @@ function rsiTag(rsi) {
     subtitle.innerHTML =
       'Matures in <strong style="color:var(--blue)">' + daysLeft + ' day' + (daysLeft!==1?'s':'') + '</strong>' +
       ' (' + fmtDate(today.maturity_date) + ')' +
-      ' &middot; Model: Vol-Adj Momentum(22%) + 24H-Mom(28%) + BTC-Rel(25%) + RSI(15%) + Volume(10%)';
+      ' &middot; Model: __MODEL_TEXT__';
   }
 
   coins.forEach(function(c) {
@@ -1012,13 +1065,19 @@ function buildInsights() {
     '<p style="font-size:.79rem;color:var(--text2);margin-bottom:18px">Weights derived from correlation between each factor score and actual hit outcomes.</p>'+
     wBars+
     '<div style="margin-top:16px;padding:14px;background:rgba(79,172,254,.06);border:1px solid rgba(79,172,254,.12);border-radius:12px;font-size:.75rem;color:var(--text2)">'+
-    '&#128161; <strong style="color:var(--blue)">Current live model</strong> uses 24H Momentum(28%) + BTC-Relative(25%) + Vol-Adj 7D(22%) + RSI(15%) + Volume(10%).'+
+    '&#128161; <strong style="color:var(--blue)">Current live model</strong> uses __MODEL_TEXT__.'+
     '</div>';
 }
 </script>
 </body>
 </html>"""
     return (html
+        .replace('__H__',           str(horizon))
+        .replace('__ACTIVE7__',     'active' if horizon == 7 else '')
+        .replace('__ACTIVE3__',     'active' if horizon == 3 else '')
+        .replace('__BADGES__',      badges)
+        .replace('__MODEL_TEXT__',  model_text)
+        .replace('__BT_NOTE__',     note)
         .replace('__UPDATED_AT__',  updated_at)
         .replace('__TOTAL_PREDS__', str(total_preds))
         .replace('__HIT_DISP__',    hit_disp)
@@ -1077,6 +1136,37 @@ if __name__ == '__main__':
             print(f"    {c['rank']:>2}. {c['symbol'].upper():<10} confidence={c['confidence']}%")
     else:
         print(f"  Prediction for {today} already exists — skipping.")
+
+    # -- 3-day track: same signals, tuned 3-day weights, graded 3 days later --
+    three_days_ago = (datetime.now() - timedelta(days=3)).strftime('%Y-%m-%d')
+    p3, e3 = data.setdefault('predictions_3d', {}), data.setdefault('evaluations_3d', {})
+    if three_days_ago in p3 and three_days_ago not in e3:
+        print(f"  Evaluating 3-day prediction from {three_days_ago}...")
+        entry = dict(p3[three_days_ago])
+        entry.setdefault('price_snapshot', data['predictions'].get(three_days_ago, {}).get('price_snapshot', {}))
+        missing = unresolved_picks(entry, coins)
+        extra = {}
+        if missing:
+            try:
+                extra = prices_by_symbol(missing)
+            except Exception as e:
+                print(f"  Could not price picks outside the top 200: {e}")
+        ev3 = evaluate_prediction(entry, coins, extra)
+        e3[three_days_ago] = ev3
+        print(f"  3-day hit rate: {ev3['hit_rate']}%  |  Positive rate: {ev3['positive_rate']}%")
+    if today not in p3:
+        top3 = run_prediction(coins, weights_3d())
+        if top3:
+            p3[today] = {
+                'date':            today,
+                'maturity_date':   (datetime.now() + timedelta(days=3)).strftime('%Y-%m-%d'),
+                'predicted_coins': top3,
+                'fetched_at':      datetime.now().isoformat(),
+            }
+            # reuse today's 7-day snapshot; store one only if it is missing
+            if today not in data['predictions']:
+                p3[today]['price_snapshot'] = {c['id']: c['current_price'] for c in coins if c.get('current_price')}
+            print("  Today's 3-day top 10: " + ", ".join(c['symbol'].upper() for c in top3))
 
     print("  Saving data...")
     save_data(data)

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prediction Accuracy Dashboard - CryptoTracker Pro</title>
+<title>7-Day Prediction Dashboard - CryptoTracker Pro</title>
 <style>
 :root {
   --void:#020510; --deep:#070d1e; --surface:#0c1428;
@@ -128,6 +128,10 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 .pick-stat-val{font-weight:700}
 .pick-conf-bar{margin-top:8px;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
 .pick-conf-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#4facfe,#00d4aa);transition:width .6s ease}
+.horizon-tabs{display:flex;gap:8px;padding:18px 32px 0;max-width:1400px;margin:0 auto;flex-wrap:wrap}
+.htab{padding:10px 20px;border-radius:999px;font-size:.85rem;font-weight:700;letter-spacing:.02em;text-decoration:none;color:#8b9cc8;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);transition:all .2s}
+.htab:hover{color:#e8eaf6;border-color:rgba(79,172,254,.4)}
+.htab.active{color:#020510;background:linear-gradient(90deg,#4facfe,#00d4aa);border-color:transparent}
 .pick-footer{display:flex;justify-content:space-between;align-items:center;margin-top:5px;font-size:.6rem;color:var(--muted)}
 </style>
 </head>
@@ -142,13 +146,17 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
     <div class="logo-name">CryptoTracker Pro</div>
     <div class="logo-sub">Prediction Accuracy Dashboard</div>
   </div>
-  <div class="hdr-right">Last updated: Oct 20, 2026 at 02:39</div>
+  <div class="hdr-right">Last updated: Oct 19, 2026 at 21:54</div>
 </header>
+<nav class="horizon-tabs" aria-label="Prediction horizon">
+  <a href="prediction_dashboard.html" class="htab active">&#128197; 7-Day Prediction</a>
+  <a href="prediction_dashboard_3d.html" class="htab ">&#9889; 3-Day Prediction</a>
+</nav>
 <div class="wrap">
 
   <!-- ── Today's 3-Day Picks ───────────────────────────────────── -->
   <div style="margin-bottom:52px">
-    <div class="section-label">&#128293; 3-Day Spotlight</div>
+    <div class="section-label">&#128293; 7-Day Spotlight</div>
     <h2 class="section-h">Today's Top Picks</h2>
     <p class="section-sub" id="picks-subtitle" style="margin-bottom:18px">Loading...</p>
     <div class="picks-grid" id="picks-grid"></div>
@@ -168,6 +176,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
       <span class="mbadge">&#128201; RSI Score 15%</span>
       <span class="mbadge">&#128202; Volume Surge 10%</span>
     </div>
+    <p class="section-sub" style="margin-top:10px;font-size:.78rem">Backtest of these exact weights on held-out CoinMarketCap data (Oct 2025 &ndash; Sep 2026, 358 days): <strong>13.8%</strong> hit rate vs 5.7% for random picks.</p>
   </div>
   <div class="stats">
     <div class="stat c-blue entry-anim" style="animation-delay:.05s">
@@ -275,7 +284,7 @@ function rsiTag(rsi) {
   const subtitle = document.getElementById('picks-subtitle');
   const grid     = document.getElementById('picks-grid');
   if (!TIMELINE.length) {
-    subtitle.textContent = 'No prediction data yet.';
+    subtitle.textContent = 'No predictions yet. New picks are made daily at 11:30 UTC.';
     return;
   }
   const today  = TIMELINE[0];
@@ -294,7 +303,7 @@ function rsiTag(rsi) {
     subtitle.innerHTML =
       'Matures in <strong style="color:var(--blue)">' + daysLeft + ' day' + (daysLeft!==1?'s':'') + '</strong>' +
       ' (' + fmtDate(today.maturity_date) + ')' +
-      ' &middot; Model: Vol-Adj Momentum(22%) + 24H-Mom(28%) + BTC-Rel(25%) + RSI(15%) + Volume(10%)';
+      ' &middot; Model: 24H-Mom(28%) + BTC-Rel(25%) + Vol-Adj Momentum(22%) + RSI(15%) + Volume(10%)';
   }
 
   coins.forEach(function(c) {
@@ -642,7 +651,7 @@ function buildInsights() {
     '<p style="font-size:.79rem;color:var(--text2);margin-bottom:18px">Weights derived from correlation between each factor score and actual hit outcomes.</p>'+
     wBars+
     '<div style="margin-top:16px;padding:14px;background:rgba(79,172,254,.06);border:1px solid rgba(79,172,254,.12);border-radius:12px;font-size:.75rem;color:var(--text2)">'+
-    '&#128161; <strong style="color:var(--blue)">Current live model</strong> uses 24H Momentum(28%) + BTC-Relative(25%) + Vol-Adj 7D(22%) + RSI(15%) + Volume(10%).'+
+    '&#128161; <strong style="color:var(--blue)">Current live model</strong> uses 24H-Mom(28%) + BTC-Rel(25%) + Vol-Adj Momentum(22%) + RSI(15%) + Volume(10%).'+
     '</div>';
 }
 </script>
