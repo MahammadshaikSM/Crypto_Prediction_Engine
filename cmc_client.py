@@ -9,8 +9,9 @@ Coins are returned in the shape the tracker already uses:
   total_volume, market_cap, tags, daily_closes (oldest -> newest, today last)
 
 Credit use per run (CMC "1 credit per 100 records"):
-  listings/latest limit=250            ~3 credits
-  quotes/historical, 16 days x ~250    ~40 credits
+  listings/latest limit=200            ~2 credits
+  quotes/historical, 32 days x 200     ~64 credits   (prices, volumes, market caps)
+  global-metrics + fear-and-greed      ~2 credits    (model v2 market regime)
 """
 import os, time
 from datetime import datetime, timedelta, timezone
@@ -67,8 +68,8 @@ def listings(limit=250):
     return out
 
 
-def daily_closes(cmc_ids, days=16, batch=100):
-    """{cmc_id: [daily close, ...]} for the last `days` days (UTC midnight snapshots)."""
+def daily_history(cmc_ids, days=32, batch=100):
+    """{cmc_id: [{"date", "price", "volume", "mcap"}, ...]} daily UTC snapshots, oldest -> newest."""
     end = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
     start = end - timedelta(days=days)
     out = {}
@@ -79,12 +80,42 @@ def daily_closes(cmc_ids, days=16, batch=100):
             "time_start": start.isoformat(), "time_end": end.isoformat()})
         for cid, obj in (data or {}).items():
             obj = obj[0] if isinstance(obj, list) and obj else obj
-            quotes = (obj or {}).get("quotes") or []
-            prices = [q["quote"]["USD"]["price"] for q in sorted(quotes, key=lambda q: q["timestamp"])
-                      if q.get("quote", {}).get("USD", {}).get("price")]
-            out[int(cid)] = prices
+            rows = []
+            for q in sorted((obj or {}).get("quotes") or [], key=lambda q: q["timestamp"]):
+                u = q.get("quote", {}).get("USD", {})
+                if u.get("price"):
+                    rows.append({"date": q["timestamp"][:10], "price": u["price"],
+                                 "volume": u.get("volume_24h"), "mcap": u.get("market_cap")})
+            out[int(cid)] = rows
         time.sleep(2.1)  # stay under the per-minute rate limit
     return out
+
+
+def daily_closes(cmc_ids, days=16, batch=100):
+    """{cmc_id: [daily close, ...]} for the last `days` days."""
+    return {cid: [r["price"] for r in rows] for cid, rows in daily_history(cmc_ids, days, batch).items()}
+
+
+def market_regime():
+    """Fear & Greed, BTC dominance and total market cap for the latest day and 7 days earlier."""
+    end = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+    g = _get("/v1/global-metrics/quotes/historical", {
+        "time_start": (end - timedelta(days=10)).isoformat(), "time_end": end.isoformat(),
+        "interval": "daily", "convert": "USD"})
+    glob = {q["timestamp"][:10]: (q["btc_dominance"], q["quote"]["USD"]["total_market_cap"])
+            for q in (g or {}).get("quotes", []) if q.get("btc_dominance")}
+    f = _get("/v3/fear-and-greed/historical", {"start": 1, "limit": 12})
+    fng = {}
+    for d in f or []:
+        ts = str(d.get("timestamp"))
+        day = datetime.fromtimestamp(int(ts), timezone.utc).date().isoformat() if ts.isdigit() else ts[:10]
+        fng[day] = float(d["value"])
+    day = max(set(glob) & set(fng))
+    day7 = (datetime.fromisoformat(day) - timedelta(days=7)).date().isoformat()
+    if day7 not in glob or day7 not in fng:
+        raise RuntimeError(f"market regime: no data for {day7}")
+    return {"date": day, "fng": fng[day], "fng_7": fng[day7], "dom": glob[day][0], "dom_7": glob[day7][0],
+            "mcap_total": glob[day][1], "mcap_total_7": glob[day7][1]}
 
 
 def prices_by_symbol(wanted):
@@ -111,11 +142,12 @@ def prices_by_symbol(wanted):
 
 
 def fetch_market(limit=250, days=16):
-    """Listings plus daily closes; today's live price is appended as the latest close."""
+    """Listings plus daily history; today's live price is appended to daily_closes."""
     coins = listings(limit)
-    hist = daily_closes([c["cmc_id"] for c in coins], days=days)
+    hist = daily_history([c["cmc_id"] for c in coins], days=days)
     for c in coins:
-        closes = list(hist.get(c["cmc_id"], []))
+        c["daily_history"] = hist.get(c["cmc_id"], [])
+        closes = [r["price"] for r in c["daily_history"]]
         if c["current_price"]:
             closes.append(c["current_price"])
         c["daily_closes"] = closes

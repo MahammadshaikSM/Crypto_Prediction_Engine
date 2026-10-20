@@ -180,6 +180,13 @@ function renderForecast(fc) {
     $(".fc-side .card").classList.add("in");
     $("#fc-note").innerHTML = `Graded ${h} days later over <b>${t.days} days</b> (Oct 2025 to Sep 2026) the tuning never saw. Picks rose <b>${pct1(t.pos)}</b> of the time and beat the average coin by <b>${signed.format(t.edge)} pts</b> per ${h}-day window.`;
     const w = f.weights;
+    $("#fc-weights").style.display = w ? "" : "none";
+    if (!w) {  // model v2: no fixed weights, show what drives it instead
+      set("#fc-wtitle", "What drives " + (f.model && f.model.name || "the model"));
+      $("#fc-wlist").innerHTML = (f.model && f.model.drivers || []).map((d) => `<li><span>${esc(d)}</span></li>`).join("");
+      return;
+    }
+    set("#fc-wtitle", "Tuned weights");
     $("#fc-weights").innerHTML = FEAT.map(([k, , col]) => w[k] > 0 ? `<div style="flex:${w[k]};background:${col}">${w[k] >= 7 ? w[k].toFixed(1) + "%" : ""}</div>` : "").join("");
     $("#fc-weights").setAttribute("aria-label", "Tuned weights: " + FEAT.map(([k, n]) => `${n} ${w[k].toFixed(1)}%`).join(", "));
     $("#fc-wlist").innerHTML = FEAT.map(([k, n, col]) => `<li><span><span class="sw" style="background:${col};display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px"></span>${n}</span><span><del>${OLD_W[k]}%</del><b>${w[k].toFixed(1)}%</b></span></li>`).join("");

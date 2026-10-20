@@ -21,7 +21,9 @@ Also tracks "positive rate" = % of predicted coins that simply went up.
 
 import json, os, sys, time, math
 import requests
-from cmc_client import fetch_market, prices_by_symbol
+from cmc_client import fetch_market, prices_by_symbol, market_regime
+import numpy as np
+import model_v2
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -52,7 +54,7 @@ def fetch_coins():
     """Top 200 coins from CoinMarketCap, each with ~16 daily closes for RSI/volatility."""
     for attempt in range(3):
         try:
-            coins = fetch_market(limit=200, days=16)
+            coins = fetch_market(limit=200, days=32)   # 31 daily points for model v2
             if coins:
                 return coins
             raise ValueError("Empty CoinMarketCap response")
@@ -214,6 +216,49 @@ def run_prediction(coins, weights=None):
         })
     return result
 
+def run_prediction_v2(coins, regime):
+    """7-day picks from model v2 (18 signals + market regime). Raises if inputs are incomplete."""
+    btc = next(c for c in coins if c['id'] == 'bitcoin')
+    ref_dates = [r['date'] for r in btc.get('daily_history', [])][-model_v2.HISTORY_DAYS:]
+    if len(ref_dates) < model_v2.HISTORY_DAYS:
+        raise ValueError("not enough BTC history for model v2")
+    rows = []
+    for c in coins:
+        if is_stable(c):
+            continue
+        h = {r['date']: r for r in c.get('daily_history', [])}
+        seq = [h.get(d) for d in ref_dates]
+        if any(r is None or not r['price'] or r['price'] <= 0 or r.get('volume') is None for r in seq):
+            continue
+        if not (seq[-1].get('volume') or 0) > 0 or not (seq[-1].get('mcap') or 0) > 0:
+            continue
+        rows.append((c, seq))
+    if len(rows) < 40:
+        raise ValueError(f"only {len(rows)} coins with full history")
+    closes = np.array([[r['price'] for r in seq] for _, seq in rows]).T
+    vols   = np.array([[r['volume'] for r in seq] for _, seq in rows]).T
+    mcaps  = np.array([seq[-1]['mcap'] for _, seq in rows])
+    b      = next(i for i, (c, _) in enumerate(rows) if c['id'] == 'bitcoin')
+    prob, raw = model_v2.score_day(closes, vols, mcaps, b, regime)
+    order = np.argsort(-prob)[:10]
+    result = []
+    for rank, i in enumerate(order, 1):
+        c = rows[i][0]
+        result.append({
+            'rank': rank, 'id': c['id'], 'symbol': c['symbol'], 'name': c['name'], 'image': c.get('image', ''),
+            'price_at_prediction': c['current_price'],
+            'score':          round(float(prob[i]) * 100, 2),      # model's chance of a top-10 finish
+            'confidence':     round(float(prob[i]) * 100, 2),
+            'mom7d':          round(c.get('price_change_percentage_7d_in_currency') or 0, 2),
+            'mom24h':         round(c.get('price_change_percentage_24h') or 0, 2),
+            'vol_ratio_pct':  round(c['total_volume'] / c['market_cap'] * 100, 4) if c.get('market_cap') else 0,
+            'btc_relative':   round(float(raw['btcrel7'][i]), 2),
+            'rsi':            round(float(raw['rsi'][i]), 1),
+            'volatility_pct': round(float(raw['vol7'][i]) * 100, 2),
+            'model':          'v2',
+        })
+    return result
+
 # -- Evaluate a past prediction ------------------------------------------------
 # Predictions saved before the CoinMarketCap switch use CoinGecko ids. Most match the
 # CMC slug; these are the common top-200 exceptions (CoinGecko id -> CMC slug).
@@ -356,15 +401,30 @@ def generate_dashboard(data):
                     f"{t['base']:.1f}% for random picks.")
         except Exception:
             return ""
+    preds7 = data.get('predictions', {})
+    v2_days = sorted(d for d, p in preds7.items() if p.get('model') == 'v2')
+    override7 = None
+    if v2_days and preds7[max(preds7)].get('model') == 'v2':
+        try:
+            ho = model_v2.load_model()['heldout']
+            note7 = (f"Model v2 backtest on held-out CoinMarketCap data (Oct 2025 &ndash; Sep 2026, {ho['days']} days): "
+                     f"<strong>{ho['hit']:.1f}%</strong> hit rate vs {ho['current_formula_hit']:.1f}% for the previous "
+                     f"formula and {ho['base']:.1f}% for random picks.")
+        except Exception:
+            note7 = ""
+        note7 += f" Model v2 live since {v2_days[0]}; earlier picks used the v1 formula."
+        override7 = dict(
+            badges="\n      ".join(f'<span class="mbadge">{ic} {txt}</span>' for ic, txt in model_v2.DRIVERS),
+            model_text="Model v2 (18 signals + market regime)", note=note7)
     pages = [
-        (7, data.get('predictions', {}), data.get('evaluations', {}), DASHBOARD, WEIGHTS_7D, bt_note(7, 'live')),
-        (3, data.get('predictions_3d', {}), data.get('evaluations_3d', {}), DASHBOARD_3D, weights_3d(), bt_note(3, 'tuned')),
+        (7, preds7, data.get('evaluations', {}), DASHBOARD, WEIGHTS_7D, bt_note(7, 'live'), override7),
+        (3, data.get('predictions_3d', {}), data.get('evaluations_3d', {}), DASHBOARD_3D, weights_3d(), bt_note(3, 'tuned'), None),
     ]
-    for horizon, predictions, evaluations, out_path, weights, note in pages:
-        _render_page(horizon, predictions, evaluations, out_path, weights, note)
+    for horizon, predictions, evaluations, out_path, weights, note, override in pages:
+        _render_page(horizon, predictions, evaluations, out_path, weights, note, override)
 
 
-def _render_page(horizon, predictions, evaluations, out_path, weights, note):
+def _render_page(horizon, predictions, evaluations, out_path, weights, note, override=None):
 
     total_preds  = len(predictions)
     total_evals  = len(evaluations)
@@ -406,6 +466,8 @@ def _render_page(horizon, predictions, evaluations, out_path, weights, note):
     ordered = sorted(weights.items(), key=lambda kv: -kv[1])
     badges = "\n      ".join(f'<span class="mbadge">{LABELS[k][0]} {LABELS[k][1]} {_fmt_w(v)}</span>' for k, v in ordered if v > 0)
     model_text = " + ".join(f"{LABELS[k][2]}({_fmt_w(v)})" for k, v in ordered if v > 0)
+    if override:
+        badges, model_text, note = override['badges'], override['model_text'], override['note']
     out_path.write_text(
         _build_html(tl_json, chart_json, updated_at, hit_disp, pos_disp, best_disp, total_preds,
                     horizon=horizon, badges=badges, model_text=model_text, note=note),
@@ -1114,8 +1176,15 @@ if __name__ == '__main__':
         print(f"  Hit rate: {ev['hit_rate']}%  |  Positive rate: {ev['positive_rate']}%")
 
     if today not in data.get('predictions', {}):
-        print("  Running prediction model...")
-        top10 = run_prediction(coins)
+        print("  Running prediction model v2 (18 signals + market regime)...")
+        model_used = 'v2'
+        try:
+            regime = market_regime()
+            top10 = run_prediction_v2(coins, regime)
+        except Exception as e:
+            print(f"  Model v2 unavailable ({e}); falling back to the v1 formula.")
+            model_used, regime = 'v1', None
+            top10 = run_prediction(coins)
         if not top10:
             print("  ERROR: prediction model returned no results.")
             sys.exit(1)
@@ -1129,9 +1198,11 @@ if __name__ == '__main__':
             'predicted_coins': top10,
             'price_snapshot':  price_snapshot,
             'fetched_at':      datetime.now().isoformat(),
+            'model':           model_used,
+            'regime':          regime,
         }
 
-        print(f"  Today's top 10:")
+        print(f"  Today's top 10 (model {model_used}):")
         for c in top10:
             print(f"    {c['rank']:>2}. {c['symbol'].upper():<10} confidence={c['confidence']}%")
     else:

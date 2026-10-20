@@ -78,19 +78,31 @@ def main():
             r["_s"] = (w["vol_adj_mom"] * r["vol_adj_mom_n"] + w["mom24h"] * r["mom24h_n"] + w["btc_rel"] * r["btc_rel_n"]
                        + w["vol_surge"] * r["vol_surge_n"] + w["rsi_s"] * r["rsi_s"]) / 100
         top = sorted(rows, key=lambda r: -r["_s"])[:10]
-        # Keep the homepage's 3-day list identical to the dashboard's 3-day picks for the day
-        tracked = data3.get(as_of.strftime("%Y-%m-%d"), {}).get("predicted_coins") if h == "3" else None
+        # Keep the homepage lists identical to the dashboard's picks for the day
+        day = as_of.strftime("%Y-%m-%d")
+        entry = data3.get(day, {}) if h == "3" else snaps.get(day, {})
+        v2 = h == "7" and entry.get("model") == "v2"
+        tracked = entry.get("predicted_coins") if (h == "3" or v2) else None
         if tracked:
             by_id = {r["id"]: r for r in rows}
             top = [dict(by_id.get(c["id"], {}), id=c["id"], symbol=c["symbol"].upper(), name=c["name"], image=c.get("image"),
                         price=c.get("price_at_prediction"), mom24h=c.get("mom24h"), mom7d=c.get("mom7d"), rsi=c.get("rsi"),
                         _s=c.get("score", 0)) for c in tracked]
+        backtest = dict(test=info["tuned"]["test"], train=info["tuned"]["train"], live_test=info["live"]["test"],
+                        train_end=bt["train_end"], range=bt["range"])
+        model = dict(name="tuned 5-signal formula")
+        if v2:
+            ho = json.loads((ROOT / "backtest" / "model_v2_7d.json").read_text(encoding="utf-8"))["heldout"]
+            backtest = dict(test={k: ho[k] for k in ("hit", "base", "pos", "edge", "days")},
+                            live_test=dict(hit=ho["current_formula_hit"]), train_end=bt["train_end"], range=bt["range"])
+            model = dict(name="model v2", drivers=["Moves on its own (low peer correlation)", "High recent volatility",
+                                                   "Smaller market cap", "Rising volume vs 7 & 30 days",
+                                                   "Market mood: Fear & Greed, BTC dominance"])
         out["horizons"][h] = dict(
             target_date=(as_of + timedelta(days=int(h))).strftime("%Y-%m-%d"),
             # exact moment the window closes; the site shows it in the viewer's time zone
-            target_at=(now + timedelta(days=int(h))).isoformat(timespec="minutes"), weights=w,
-            backtest=dict(test=info["tuned"]["test"], train=info["tuned"]["train"], live_test=info["live"]["test"],
-                          train_end=bt["train_end"], range=bt["range"]),
+            target_at=(now + timedelta(days=int(h))).isoformat(timespec="minutes"),
+            weights=None if v2 else w, model=model, backtest=backtest,
             picks=[dict(rank=i + 1, **{k: (round(v, 3) if isinstance(v, float) else v) for k, v in r.items()
                                       if k in ("id", "symbol", "name", "image", "price", "mom24h", "mom7d", "rsi")},
                         score=round(r["_s"], 1)) for i, r in enumerate(top)])

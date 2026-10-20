@@ -71,7 +71,7 @@
     <div class="wrap">
       <p class="eyebrow">Today's drop</p>
       <h2 class="title reveal" id="today-h">Fresh picks, <em>graded in 7 days.</em></h2>
-      <p class="intro reveal">Ranked by the model's score. Confidence is how strongly the five signals agree. Check back next week to see how they did.</p>
+      <p class="intro reveal">Ranked by model v2. Confidence is the model's estimated chance that a coin finishes in the week's top 10 gainers. Check back next week to see how they did.</p>
       <div class="picks-meta" id="picks-meta"><span class="chip">Picked <b id="pk-date">Oct 19</b></span><span class="chip">Graded <b id="pk-due">Oct 26</b></span></div>
       <div class="picks" id="picks" aria-live="polite">
         <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
@@ -99,13 +99,13 @@
               <p class="big num" style="font-size:clamp(48px,6vw,84px)"><span id="fc-lift">–</span><small>× random</small></p>
               <div class="vs">
                 <div class="vs-row me"><span>Tuned model</span><span class="track"><i id="fc-bar-me"></i></span><b class="num" id="fc-hit">–</b></div>
-                <div class="vs-row"><span>Old weights</span><span class="track"><i id="fc-bar-old"></i></span><b class="num" id="fc-old">–</b></div>
+                <div class="vs-row"><span>Previous formula</span><span class="track"><i id="fc-bar-old"></i></span><b class="num" id="fc-old">–</b></div>
                 <div class="vs-row"><span>Random picks</span><span class="track"><i id="fc-bar-rand"></i></span><b class="num" id="fc-base">–</b></div>
               </div>
               <p id="fc-note">Loading backtest…</p>
             </article>
             <article class="card">
-              <p class="k">Tuned weights</p>
+              <p class="k" id="fc-wtitle">Tuned weights</p>
               <div class="weights fc-weights" id="fc-weights" role="img" aria-label="Tuned signal weights"></div>
               <ul class="fc-wlist" id="fc-wlist"></ul>
             </article>
@@ -190,7 +190,7 @@
     <div class="wrap">
       <p class="eyebrow">How it works</p>
       <h2 class="title reveal" id="how-h">Five signals. <em>One score.</em></h2>
-      <p class="intro reveal">Every day the model scores ~200 coins on five signals, blends them with these weights and ranks the top 10. The weights are public, and so is the code.</p>
+      <p class="intro reveal">These five signals are the building blocks, shown with the original weights. The 3-day model now uses backtest-tuned weights (BTC-relative 79%). The 7-day model v2 adds 13 more signals, such as peer momentum, volume trend and size, and adjusts for market mood using Fear &amp; Greed and BTC dominance. Everything is public, including the code.</p>
       <div class="weights reveal" role="img" aria-label="Signal weights: 24h momentum 28%, BTC-relative 25%, volatility-adjusted momentum 22%, RSI 15%, volume surge 10%">
         <div style="flex:28;background:#D4FF3A">28%</div><div style="flex:25;background:#B9E62E">25%</div><div style="flex:22;background:#9BC425">22%</div><div style="flex:15;background:#C9B8FF">15%</div><div style="flex:10;background:#8B6CFF">10%</div>
       </div>
