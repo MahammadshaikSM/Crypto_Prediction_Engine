@@ -28,7 +28,7 @@ Each call shows the start and end date. On the end date we post the results, goo
 
 • Prices are locked at pick time
 • Every call is graded in public: wins and misses
-• The model and full history are open source
+• Every call and its result stays public
 
 Track everything at {SITE}
 #CryptoTrackerPro #3DayCall #7DayCall
