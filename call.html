@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calls · CryptoTracker Pro</title>
+<meta name="description" content="Every 3-day and 7-day call from CryptoTracker Pro: picked coins, prices at pick time, live progress and public results.">
+<meta name="theme-color" content="#07070A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site/style.css">
+<style>
+  .call-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
+  .range { font: 800 clamp(40px, 6vw, 80px)/.95 var(--display); letter-spacing: -.04em; margin-top: 14px; }
+  .range em { font-style: normal; color: var(--lime); }
+  .tl { margin-top: 34px; }
+  .tl-bar { position: relative; height: 10px; border-radius: 5px; background: #FFFFFF14; }
+  .tl-bar i { position: absolute; inset: 0 auto 0 0; border-radius: 5px; background: var(--lime); }
+  .tl-bar b { position: absolute; top: 50%; width: 26px; height: 26px; border-radius: 50%; transform: translate(-50%, -50%); background: var(--lime); }
+  .tl-bar b.end { left: 100%; background: var(--bg); border: 4px solid var(--lime); }
+  .tl-bar b.end.done { background: var(--lime); }
+  .tl-lab { display: flex; justify-content: space-between; margin-top: 16px; font: 600 13px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--fg-2); }
+  .tl-lab strong { color: var(--fg); }
+  .ctable { width: 100%; border-collapse: separate; border-spacing: 0 8px; margin-top: 30px; font-variant-numeric: tabular-nums; }
+  .ctable th { text-align: left; font: 600 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-2); padding: 0 16px; }
+  .ctable td { background: var(--surface); padding: 14px 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .ctable td:first-child { border-left: 1px solid var(--line); border-radius: 16px 0 0 16px; font: 600 14px var(--mono); color: var(--fg-2); }
+  .ctable td:last-child { border-right: 1px solid var(--line); border-radius: 0 16px 16px 0; text-align: right; }
+  .ctable td:nth-child(3), .ctable td:nth-child(4), .ctable td:nth-child(5), .ctable th:nth-child(3), .ctable th:nth-child(4), .ctable th:nth-child(5) { text-align: right; }
+  .ctable tr.hit td { background: #D4FF3A14; border-color: #D4FF3A66; }
+  .coin { display: flex; align-items: center; gap: 12px; }
+  .coin img { width: 32px; height: 32px; border-radius: 50%; background: #fff1; }
+  .coin b { font: 800 18px var(--display); }
+  .coin span { display: block; font-size: 13px; color: var(--fg-2); }
+  .pill { display: inline-block; min-width: 70px; text-align: center; padding: 6px 12px; border-radius: 999px; font: 700 12px var(--mono); letter-spacing: .06em; }
+  .pill.hit { background: var(--lime); color: var(--on-lime); }
+  .pill.miss { background: #FFFFFF14; color: var(--fg-2); }
+  .pill.open { border: 1px solid var(--line); color: var(--fg-2); }
+  .list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 24px; }
+  .list a { display: block; padding: 18px 20px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); text-decoration: none; transition: border-color .2s, transform .2s; }
+  .list a:hover { border-color: #D4FF3A66; transform: translateY(-2px); }
+  .list a.current { border-color: var(--lime); }
+  .list .k { font: 600 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--fg-2); }
+  .list b { display: block; font: 800 22px var(--display); margin: 6px 0 4px; }
+  .list .s { font-size: 14px; color: var(--fg-2); }
+  .filters { display: inline-flex; gap: 6px; padding: 6px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); margin-top: 26px; }
+  .filters button { min-height: 40px; padding: 0 18px; border-radius: 999px; border: 0; background: none; color: var(--fg-2); font-weight: 700; cursor: pointer; }
+  .filters button[aria-pressed="true"] { background: var(--lime); color: var(--on-lime); }
+  @media (max-width: 720px) { .ctable .hide-m { display: none; } .ctable td, .ctable th { padding-inline: 10px; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="mark">CT</span>CryptoTracker Pro</a>
+    <nav class="nav-links" aria-label="Primary"><a href="./#today">Today</a><a href="call.html">Calls</a><a href="./#receipts">Receipts</a><a href="prediction_dashboard.html">7-Day</a><a href="prediction_dashboard_3d.html">3-Day</a></nav>
+    <a class="btn lime sm" href="prediction_dashboard.html">Live dashboard ↗</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="block" style="padding-top:56px">
+    <div class="wrap" id="view"><p class="intro">Loading calls…</p></div>
+  </section>
+</main>
+
+<footer class="legal">
+  <div class="wrap">
+    <div class="who"><b>CryptoTracker Pro</b><span>Data from <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">CoinMarketCap</a></span></div>
+    <ol>
+      <li>A call is 10 coins picked on the start date. Prices are locked at pick time. A <strong>hit</strong> is a pick that finishes in the real top 10 gainers (of ~200 coins) by the end date.</li>
+      <li>"Now" prices update once a day with the daily run. Coins that leave the top 200 may show no current price until graded.</li>
+      <li>Personal research project. Not a broker, adviser or exchange. Nothing here is financial advice; crypto can lose all of its value.</li>
+    </ol>
+  </div>
+</footer>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const D = (iso) => new Date(iso + "T11:30:00Z");                 // daily run time (UTC)
+const md = (iso, wd) => D(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", ...(wd ? { weekday: "short" } : {}) });
+const money = (p) => p == null ? "–" : p >= 1000 ? "$" + p.toLocaleString("en-US", { maximumFractionDigits: 0 }) : p >= 1 ? "$" + p.toFixed(2) : "$" + Number(p.toPrecision(4));
+const UP = '<svg width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5l8 12H4z" fill="currentColor"/></svg>';
+const DN = '<svg width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19L4 7h16z" fill="currentColor"/></svg>';
+const chg = (v) => v == null ? '<span class="chg flat">–</span>' : `<span class="chg ${v > 0 ? "up" : v < 0 ? "down" : "flat"}">${v > 0 ? UP : v < 0 ? DN : ""}${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(1)}%<span class="sr">${v > 0 ? " gain" : v < 0 ? " loss" : ""}</span></span>`;
+const q = new URLSearchParams(location.search);
+
+function list(calls, current, filter) {
+  const shown = calls.filter((c) => !filter || c.horizon === filter);
+  return `<div class="list">${shown.map((c) => {
+    const s = c.status === "graded" ? `${c.hits}/10 hits · ${c.up}/10 up` : `Results ${md(c.end, true)}`;
+    return `<a href="call.html?d=${c.date}&h=${c.horizon}" class="${current && c.date === current.date && c.horizon === current.horizon ? "current" : ""}">
+      <span class="k">${c.horizon}-Day Call · ${c.status === "graded" ? "Graded" : "Open"}</span><b>${md(c.date)} → ${md(c.end)}</b><span class="s">${esc(s)}</span></a>`;
+  }).join("")}</div>`;
+}
+
+function render(data) {
+  const calls = data.calls, d = q.get("d"), h = +q.get("h");
+  const c = calls.find((x) => x.date === d && x.horizon === h);
+  if (!c) {
+    document.title = "All calls · CryptoTracker Pro";
+    $("#view").innerHTML = `<p class="eyebrow">Every call, in public</p><h1 class="title">Calls &amp; <em>receipts</em></h1>
+      <p class="intro">Each day we publish 10 coins for 3 days and 10 for 7 days. Each call shows its start and end date, and on the end date it's graded, good or bad.</p>
+      <div class="filters" role="group" aria-label="Filter calls"><button aria-pressed="true" data-f="0">All</button><button aria-pressed="false" data-f="7">7-Day</button><button aria-pressed="false" data-f="3">3-Day</button></div>
+      <div id="lst">${list(calls)}</div>`;
+    document.querySelectorAll(".filters button").forEach((b) => b.addEventListener("click", () => {
+      document.querySelectorAll(".filters button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      $("#lst").innerHTML = list(calls, null, +b.dataset.f);
+    }));
+    return;
+  }
+  document.title = `${c.horizon}-Day Call ${md(c.date)} → ${md(c.end)} · CryptoTracker Pro`;
+  const total = (D(c.end) - D(c.date)), done = c.status === "graded" ? 1 : Math.min(1, Math.max(0, (Date.now() - D(c.date)) / total));
+  const daysLeft = Math.max(0, Math.floor((D(c.end) - Date.now()) / 864e5));
+  const priced = c.picks.filter((p) => p.change != null), up = priced.filter((p) => p.change > 0).length;
+  const status = c.status === "graded"
+    ? `<span class="chip"><b>${c.hits}/10</b> in the top 10</span><span class="chip"><b>${c.up}/10</b> went up</span><span class="chip">Graded ${md(c.graded_on || c.end)}</span>`
+    : `<span class="chip"><span class="live-dot" aria-hidden="true"></span><b>${daysLeft === 0 ? "Grading today" : daysLeft + " day" + (daysLeft === 1 ? "" : "s") + " left"}</b></span><span class="chip"><b>${up}/${priced.length}</b> up so far</span>`;
+  $("#view").innerHTML = `
+    <p class="eyebrow">${c.horizon}-Day Call${c.horizon === 7 && c.model === "v2" ? " · model v2" : ""}</p>
+    <div class="call-head"><h1 class="range">${md(c.date)} <em>→</em> ${md(c.end)}</h1><div class="chips">${status}</div></div>
+    <div class="tl" aria-label="Call progress ${Math.round(done * 100)}%"><div class="tl-bar"><i style="width:${done * 100}%"></i><b style="left:0"></b><b class="end ${done >= 1 ? "done" : ""}"></b></div>
+      <div class="tl-lab"><span><strong>${md(c.date, true)}</strong> · picked</span><span>results · <strong>${md(c.end, true)}</strong></span></div></div>
+    <table class="ctable"><caption class="sr">Picks for this call</caption>
+      <thead><tr><th scope="col">#</th><th scope="col">Coin</th><th scope="col" class="hide-m">Price at pick</th><th scope="col" class="hide-m">${c.status === "graded" ? "Final" : "Now"}</th><th scope="col">${c.status === "graded" ? c.horizon + "-day return" : "So far"}</th><th scope="col">Status</th></tr></thead>
+      <tbody>${c.picks.map((p) => `<tr class="${p.hit ? "hit" : ""}"><td>#${p.rank}</td>
+        <td><span class="coin"><img src="${esc(p.image)}" alt="" width="32" height="32" loading="lazy" referrerpolicy="no-referrer"><span><b>${esc(p.symbol)}</b><span>${esc(p.name)}</span></span></span></td>
+        <td class="hide-m">${money(p.start)}</td><td class="hide-m">${money(p.now)}</td><td>${chg(p.change)}</td>
+        <td>${p.hit === true ? '<span class="pill hit">HIT</span>' : p.hit === false ? '<span class="pill miss">MISS</span>' : '<span class="pill open">Pending</span>'}</td></tr>`).join("")}</tbody></table>
+    ${c.status === "graded" && c.actual_top10.length ? `<p class="method">The real top 10 that window: ${c.actual_top10.map(esc).join(", ")}</p>` : ""}
+    <p class="risk-line"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span>Model output for research, not a recommendation. Most picks miss, and many fall.</span></p>
+    <h2 class="title" style="font-size:clamp(28px,3.4vw,44px);margin-top:70px">Other <em>calls</em></h2>
+    ${list(calls.slice(0, 12), c)}
+    <p style="margin-top:20px"><a class="btn sm" href="call.html">See all calls</a></p>`;
+}
+
+fetch("site/calls.json", { cache: "no-cache" }).then((r) => r.json()).then(render)
+  .catch(() => { $("#view").innerHTML = '<p class="intro">Calls are being updated. Try again in a minute.</p>'; });
+})();
+</script>
+</body>
+</html>

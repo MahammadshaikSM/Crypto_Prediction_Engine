@@ -1,0 +1,12 @@
+📌 How CryptoTracker Pro works
+
+Every day we publish 10 coins for 3 days and 10 for 7 days.
+Each call shows the start and end date. On the end date we post the results, good or bad.
+
+• Prices are locked at pick time
+• Every call is graded in public: wins and misses
+• The model and full history are open source
+
+Track everything at https://mahammadshaiksm.github.io/Crypto_Prediction_Engine/
+#CryptoTrackerPro #3DayCall #7DayCall
+Not financial advice. Crypto is volatile and you can lose money.

@@ -22,7 +22,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests yfinance pandas numpy
+        run: pip install requests yfinance pandas numpy pillow
 
       - name: Run crypto prediction tracker (CoinMarketCap)
         run: python prediction_tracker.py
@@ -41,6 +41,10 @@ jobs:
           CMC_API_KEY: ${{ secrets.CMC_API_KEY }}
         continue-on-error: true   # an API hiccup here should not block the daily update
 
+      - name: Build post kit (captions + share images) and call pages data
+        run: python site/build_posts.py
+        continue-on-error: true
+
       - name: Commit and push updated files
         run: |
           git config user.name  "GitHub Actions"
@@ -49,6 +53,7 @@ jobs:
                   stock_data.json stock_dashboard.html \
                   site/summary.json site/history.json
           git add site/forecast.json 2>/dev/null || true
+          git add -A posts site/calls.json 2>/dev/null || true
           # Only commit if something changed
           if git diff --staged --quiet; then
             echo "No changes to commit."
