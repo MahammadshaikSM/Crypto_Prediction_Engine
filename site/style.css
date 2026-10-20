@@ -257,3 +257,24 @@ sup.fn a { color: var(--lime); text-decoration: none; font-size: .75em; padding:
   header.nav .btn.sm { padding: 0 14px; font-size: 14px; }
   .hero h1 { font-size: clamp(44px, 13vw, 64px); }
 }
+
+/* forecast */
+.fc-tabs { display: inline-flex; gap: 6px; margin-top: 30px; padding: 6px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); }
+.fc-tab { min-height: 46px; padding: 0 20px; border-radius: 999px; border: 0; background: none; font-weight: 700; cursor: pointer; color: var(--fg-2); transition: background .2s, color .2s; }
+.fc-tab[aria-selected="true"] { background: var(--lime); color: var(--on-lime); }
+.fc-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 16px; margin-top: 20px; }
+.fc-list { list-style: none; display: grid; gap: 8px; }
+.fc-list li:not(.skeleton) { display: grid; grid-template-columns: 34px 34px 1fr auto auto; gap: 12px; align-items: center; padding: 12px 16px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); transition: border-color .3s, transform .3s var(--ease); }
+.fc-list li:not(.skeleton):hover { border-color: #D4FF3A55; transform: translateX(4px); }
+.fc-list .r { font: 700 14px var(--mono); color: var(--fg-2); }
+.fc-list img { width: 34px; height: 34px; border-radius: 50%; background: #fff1; }
+.fc-list .nm b { font: 800 18px var(--display); text-transform: uppercase; }
+.fc-list .nm span { display: block; font-size: 13px; color: var(--fg-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fc-list .sc { font: 700 15px var(--mono); }
+.fc-side { display: grid; gap: 16px; align-content: start; }
+.fc-weights { margin-top: 16px; height: 44px; }
+.fc-wlist { list-style: none; margin-top: 14px; display: grid; gap: 6px; font-size: 15px; }
+.fc-wlist li { display: flex; justify-content: space-between; gap: 10px; color: var(--fg-2); }
+.fc-wlist b { color: var(--fg); font-family: var(--mono); }
+.fc-wlist del { color: var(--fg-2); font-family: var(--mono); font-size: 13px; margin-right: 8px; }
+@media (max-width: 900px) { .fc-grid { grid-template-columns: 1fr; } .fc-list li:not(.skeleton) { grid-template-columns: 28px 30px 1fr auto; } .fc-list .m24 { display: none; } }

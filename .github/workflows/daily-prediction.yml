@@ -24,25 +24,22 @@ jobs:
       - name: Install dependencies
         run: pip install requests yfinance pandas
 
-      - name: Write CoinGecko API key (if secret is set)
-        run: |
-          if [ -n "$COINGECKO_API_KEY" ]; then
-            echo "$COINGECKO_API_KEY" > .coingecko_key
-            echo "API key loaded."
-          else
-            echo "No API key set — using public endpoint (may be rate-limited)."
-          fi
-        env:
-          COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
-
-      - name: Run crypto prediction tracker
+      - name: Run crypto prediction tracker (CoinMarketCap)
         run: python prediction_tracker.py
+        env:
+          CMC_API_KEY: ${{ secrets.CMC_API_KEY }}
 
       - name: Run stock prediction tracker
         run: python stock_tracker.py
 
       - name: Build landing page data
         run: python site/build_summary.py
+
+      - name: Build 3-day and 7-day forecast (CoinMarketCap + tuned weights from backtest/results.json)
+        run: python site/build_forecast.py
+        env:
+          CMC_API_KEY: ${{ secrets.CMC_API_KEY }}
+        continue-on-error: true   # an API hiccup here should not block the daily update
 
       - name: Commit and push updated files
         run: |
@@ -51,6 +48,7 @@ jobs:
           git add prediction_data.json prediction_dashboard.html \
                   stock_data.json stock_dashboard.html \
                   site/summary.json site/history.json
+          git add site/forecast.json 2>/dev/null || true
           # Only commit if something changed
           if git diff --staged --quiet; then
             echo "No changes to commit."

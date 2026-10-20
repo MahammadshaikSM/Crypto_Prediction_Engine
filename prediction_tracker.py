@@ -3,7 +3,7 @@
 Crypto Prediction Tracker
 ─────────────────────────
 Runs daily to:
-  1. Fetch top 200 coins from CoinGecko (with sparkline data)
+  1. Fetch top 200 coins from CoinMarketCap (listings + 16 days of daily closes)
   2. Run 5-factor model:
        * Volatility-Adjusted Momentum  30%  (mom7d / price_volatility)
        * Volume Surge                  20%  (volume / market_cap)
@@ -21,6 +21,7 @@ Also tracks "positive rate" = % of predicted coins that simply went up.
 
 import json, os, sys, time, math
 import requests
+from cmc_client import fetch_market
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -28,14 +29,6 @@ from pathlib import Path
 SCRIPT_DIR   = Path(__file__).parent
 DATA_FILE    = SCRIPT_DIR / "prediction_data.json"
 DASHBOARD    = SCRIPT_DIR / "prediction_dashboard.html"
-API_KEY_FILE = SCRIPT_DIR / ".coingecko_key"
-
-# -- CoinGecko URL -------------------------------------------------------------
-CG_URL = (
-    "https://api.coingecko.com/api/v3/coins/markets"
-    "?vs_currency=usd&order=market_cap_desc&per_page=250&page=1"
-    "&sparkline=true&price_change_percentage=7d"
-)
 
 # -- Stablecoin exclusion ------------------------------------------------------
 STABLECOINS = {
@@ -47,40 +40,26 @@ STABLECOINS = {
 
 def is_stable(coin):
     sym = (coin.get('symbol') or '').lower()
-    if sym in STABLECOINS:
+    if sym in STABLECOINS or 'stablecoin' in (coin.get('tags') or []):
         return True
     chg7  = abs(coin.get('price_change_percentage_7d_in_currency') or 0)
     chg24 = abs(coin.get('price_change_percentage_24h') or 0)
     return chg7 < 0.6 and chg24 < 0.3
 
-# -- Fetch coins ---------------------------------------------------------------
+# -- Fetch coins (CoinMarketCap) -----------------------------------------------
 def fetch_coins():
-    api_key = None
-    if API_KEY_FILE.exists():
-        api_key = API_KEY_FILE.read_text().strip() or None
-
-    url     = CG_URL + (f"&x_cg_demo_api_key={api_key}" if api_key else "")
-    headers = {"x-cg-demo-api-key": api_key} if api_key else {}
-
+    """Top 200 coins from CoinMarketCap, each with ~16 daily closes for RSI/volatility."""
     for attempt in range(3):
         try:
-            r = requests.get(url, headers=headers, timeout=20)
-            if r.status_code == 429:
-                wait = int(r.headers.get("Retry-After", 60))
-                print(f"  Rate limited - waiting {wait}s...")
-                time.sleep(wait)
-                continue
-            r.raise_for_status()
-            data = r.json()
-            if isinstance(data, list) and data:
-                return data[:200]
-            raise ValueError("Empty or unexpected API response")
+            coins = fetch_market(limit=200, days=16)
+            if coins:
+                return coins
+            raise ValueError("Empty CoinMarketCap response")
         except Exception as e:
             print(f"  Attempt {attempt+1}/3 failed: {e}")
             if attempt < 2:
-                time.sleep(15)
-
-    raise RuntimeError("Could not fetch coin data after 3 attempts.")
+                time.sleep(30)
+    raise RuntimeError("Could not fetch coin data from CoinMarketCap after 3 attempts.")
 
 # -- Technical helpers ---------------------------------------------------------
 def calc_rsi(prices, period=14):
@@ -112,6 +91,15 @@ def calc_volatility(prices):
     variance = sum((r - mean) ** 2 for r in returns) / n
     return max(math.sqrt(variance), 0.0001)
 
+def calc_daily_volatility(closes):
+    """Std-dev of the last 7 daily returns (matches backtest/backtest_weights.py)."""
+    c = [p for p in closes[-8:] if p and p > 0]
+    if len(c) < 3:
+        return 0.01
+    rets = [(c[i] - c[i-1]) / c[i-1] for i in range(1, len(c))]
+    mean = sum(rets) / len(rets)
+    return max(math.sqrt(sum((r - mean) ** 2 for r in rets) / len(rets)), 0.0001)
+
 def rsi_score(rsi):
     if rsi >= 80:  return 0.0
     if rsi >= 70:  return 20.0
@@ -142,9 +130,9 @@ def run_prediction(coins):
         mom24h  = c['price_change_percentage_24h']
         vol_rat = c['total_volume'] / c['market_cap']
 
-        sparkline_prices = (c.get('sparkline_in_7d') or {}).get('price') or []
-        volatility = calc_volatility(sparkline_prices)
-        rsi        = calc_rsi(sparkline_prices)
+        closes     = c.get('daily_closes') or []
+        volatility = calc_daily_volatility(closes)
+        rsi        = calc_rsi(closes)            # RSI-14 on daily closes
 
         vol_adj_mom  = mom7d / (volatility * 100 + 1)
         vol_surge    = vol_rat
@@ -206,9 +194,42 @@ def run_prediction(coins):
     return result
 
 # -- Evaluate a past prediction ------------------------------------------------
+# Predictions saved before the CoinMarketCap switch use CoinGecko ids. Most match the
+# CMC slug; these are the common top-200 exceptions (CoinGecko id -> CMC slug).
+CG_TO_CMC = {
+    'binancecoin': 'bnb', 'ripple': 'xrp', 'avalanche-2': 'avalanche', 'the-open-network': 'toncoin',
+    'polkadot': 'polkadot-new', 'hedera-hashgraph': 'hedera', 'crypto-com-chain': 'cronos',
+    'near': 'near-protocol', 'render-token': 'render', 'matic-network': 'polygon',
+    'polygon-ecosystem-token': 'polygon-ecosystem-token', 'internet-computer': 'internet-computer',
+    'leo-token': 'unus-sed-leo', 'hyperliquid': 'hyperliquid', 'sui': 'sui', 'wrapped-bitcoin': 'wrapped-bitcoin',
+    'elrond-erd-2': 'multiversx-egld', 'fetch-ai': 'artificial-superintelligence-alliance',
+    'injective-protocol': 'injective', 'theta-token': 'theta-network', 'kucoin-shares': 'kucoin-token',
+    'okb': 'okb', 'blockstack': 'stacks', 'havven': 'synthetix', 'immutable-x': 'immutable-x',
+}
+
+def _to_current_id(cid, cur_map):
+    if cid in cur_map:
+        return cid
+    alt = CG_TO_CMC.get(cid)
+    return alt if alt in cur_map else None
+
 def evaluate_prediction(pred_entry, current_coins):
-    old_prices = pred_entry.get('price_snapshot', {})
-    pred_coins = pred_entry['predicted_coins']
+    current_ids = {c['id'] for c in current_coins}
+    by_symbol   = {}
+    for c in current_coins:
+        by_symbol.setdefault(c['symbol'].lower(), c['id'])
+    # translate ids saved by an older data source (CoinGecko) to today's ids
+    old_prices = {}
+    for cid, p in pred_entry.get('price_snapshot', {}).items():
+        new_id = _to_current_id(cid, current_ids)
+        if new_id:
+            old_prices[new_id] = p
+    pred_coins = []
+    for pc in pred_entry['predicted_coins']:
+        new_id = _to_current_id(pc['id'], current_ids) or by_symbol.get(pc['symbol'].lower(), pc['id'])
+        if new_id not in old_prices and pc.get('price_at_prediction'):
+            old_prices[new_id] = pc['price_at_prediction']
+        pred_coins.append(dict(pc, id=new_id))
     pred_ids   = {c['id'] for c in pred_coins}
 
     cur_map    = {c['id']: c['current_price'] for c in current_coins}
@@ -597,7 +618,7 @@ function fmtPct(v) {
   return (v>=0?'+':'')+v.toFixed(2)+'%';
 }
 function coinImg(img,sym) {
-  return '<img class="coin-img" src="'+img+'" alt="'+sym+'" onerror="this.style.visibility=\'hidden\'" loading="lazy">';
+  return '<img class="coin-img" src="'+img+'" alt="'+sym+'" onerror="this.style.visibility=\\'hidden\\'" loading="lazy">';
 }
 function rsiTag(rsi) {
   if (rsi==null) return '';
@@ -655,7 +676,7 @@ function rsiTag(rsi) {
     grid.insertAdjacentHTML('beforeend',
       '<div class="pick-card ' + cardCls + '">' +
         '<span class="pick-rank">#' + c.rank + '</span>' +
-        '<img class="pick-img" src="' + (c.image||'') + '" alt="' + c.symbol + '" onerror="this.style.visibility=\'hidden\'" loading="lazy">' +
+        '<img class="pick-img" src="' + (c.image||'') + '" alt="' + c.symbol + '" onerror="this.style.visibility=\\'hidden\\'" loading="lazy">' +
         '<div class="pick-name">' + c.name + '</div>' +
         '<div class="pick-sym">' + c.symbol.toUpperCase() + '</div>' +
         '<div class="pick-stat"><span>7D</span><span class="pick-stat-val" style="color:'+m7col+'">' + (c.mom7d>=0?'+':'') + c.mom7d.toFixed(1) + '%</span></div>' +
@@ -1000,7 +1021,7 @@ if __name__ == '__main__':
     print(f"[{today}] Loading data...")
     data = load_data()
 
-    print("  Fetching coins from CoinGecko...")
+    print("  Fetching coins from CoinMarketCap...")
     coins = fetch_coins()
     print(f"  Fetched {len(coins)} coins.")
 

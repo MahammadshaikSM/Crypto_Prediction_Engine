@@ -142,7 +142,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
     <div class="logo-name">CryptoTracker Pro</div>
     <div class="logo-sub">Prediction Accuracy Dashboard</div>
   </div>
-  <div class="hdr-right">Last updated: Oct 19, 2026 at 17:35</div>
+  <div class="hdr-right">Last updated: Oct 19, 2026 at 21:13</div>
 </header>
 <div class="wrap">
 
@@ -262,7 +262,7 @@ function fmtPct(v) {
   return (v>=0?'+':'')+v.toFixed(2)+'%';
 }
 function coinImg(img,sym) {
-  return '<img class="coin-img" src="'+img+'" alt="'+sym+'" onerror="this.style.visibility='hidden'" loading="lazy">';
+  return '<img class="coin-img" src="'+img+'" alt="'+sym+'" onerror="this.style.visibility=\'hidden\'" loading="lazy">';
 }
 function rsiTag(rsi) {
   if (rsi==null) return '';
@@ -320,7 +320,7 @@ function rsiTag(rsi) {
     grid.insertAdjacentHTML('beforeend',
       '<div class="pick-card ' + cardCls + '">' +
         '<span class="pick-rank">#' + c.rank + '</span>' +
-        '<img class="pick-img" src="' + (c.image||'') + '" alt="' + c.symbol + '" onerror="this.style.visibility='hidden'" loading="lazy">' +
+        '<img class="pick-img" src="' + (c.image||'') + '" alt="' + c.symbol + '" onerror="this.style.visibility=\'hidden\'" loading="lazy">' +
         '<div class="pick-name">' + c.name + '</div>' +
         '<div class="pick-sym">' + c.symbol.toUpperCase() + '</div>' +
         '<div class="pick-stat"><span>7D</span><span class="pick-stat-val" style="color:'+m7col+'">' + (c.mom7d>=0?'+':'') + c.mom7d.toFixed(1) + '%</span></div>' +
