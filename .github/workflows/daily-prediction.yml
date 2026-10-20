@@ -43,6 +43,8 @@ jobs:
 
       - name: Build post kit (captions + share images) and call pages data
         run: python site/build_posts.py
+        env:
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}   # empty = posts carry no link
         continue-on-error: true
 
       - name: Commit and push updated files

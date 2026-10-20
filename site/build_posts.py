@@ -10,14 +10,19 @@ Writes
 
 Post kits older than 14 days are removed. Runs in the daily GitHub Action after the trackers.
 """
-import json, re, shutil
+import json, os, re, shutil
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = "https://mahammadshaiksm.github.io/Crypto_Prediction_Engine/"
-SHORT = "mahammadshaiksm.github.io/Crypto_Prediction_Engine"
+# Public website address for posts. Empty = posts carry no link at all.
+# Set the repository variable PUBLIC_SITE_URL (Settings > Secrets and variables > Actions > Variables)
+# once you have your own domain; nothing else needs to change.
+SITE = os.environ.get("PUBLIC_SITE_URL", "").strip()
+if SITE and not SITE.endswith("/"):
+    SITE += "/"
+SHORT = SITE.replace("https://", "").replace("http://", "").rstrip("/")
 KEEP_DAYS, CALL_DAYS = 14, 40
 TAG = {7: "#7DayCall", 3: "#3DayCall"}
 
@@ -30,13 +35,13 @@ Each call shows the start and end date. On the end date we post the results, goo
 • Every call is graded in public: wins and misses
 • Every call and its result stays public
 
-Track everything at {SITE}
+{f"Track everything at {SITE}" if SITE else "Follow for a new call every day and every result."}
 #CryptoTrackerPro #3DayCall #7DayCall
 Not financial advice. Crypto is volatile and you can lose money."""
 
 
-PROFILE = f"""Daily crypto calls: 10 coins for 3 days + 10 for 7 days. Every call graded in public, wins and misses. NFA.
-{SITE}"""
+PROFILE = ("Daily crypto calls: 10 coins for 3 days + 10 for 7 days. Every call graded in public, wins and misses. NFA."
+           + (f"\n{SITE}" if SITE else ""))
 
 
 # ---------- formatting ----------
@@ -181,7 +186,7 @@ def card(call, mode, today):
     # footer
     fy = H - 118
     g.line([X, fy, W - X, fy], fill=LINE, width=2)
-    g.text((X, fy + 22), SHORT, font=font("bold", 26), fill=LIME)
+    g.text((X, fy + 22), SHORT or "CRYPTOTRACKER PRO · NEW CALLS DAILY", font=font("bold", 26), fill=LIME)
     note = "Not financial advice · Data: CoinMarketCap"
     g.text((X, fy + 64), note, font=font("reg", 22), fill=FG2)
     tag = f"#CryptoTrackerPro {TAG[h]}"
@@ -191,7 +196,12 @@ def card(call, mode, today):
 
 # ---------- captions ----------
 def link(call):
-    return f"{SITE}call.html?d={call['date']}&h={call['horizon']}"
+    return f"{SITE}call.html?d={call['date']}&h={call['horizon']}" if SITE else ""
+
+
+def arrow(call):
+    """' 👉 <link>' when a public site URL is configured, else nothing."""
+    return f" 👉 {link(call)}" if SITE else ""
 
 
 def coin_tag(name):
@@ -208,16 +218,16 @@ def caption(call, mode):
     cash = " ".join(f"${p['symbol']}" for p in call["picks"])
     rng = f"{md(call['date'])} → {md(call['end'])}"
     if mode == "call":
-        head, body = f"🎯 {h}-Day Call · {rng}", f"{cash}\nResults {md(call['end'])} 👉 {link(call)}"
+        head, body = f"🎯 {h}-Day Call · {rng}", f"{cash}\nResults {md(call['end'])}{arrow(call)}"
     else:
         ranked = sorted([p for p in call["picks"] if p["change"] is not None], key=lambda p: -p["change"])
         if mode == "update":
             lead = ", ".join(f"${p['symbol']} {pct(p['change'])}" for p in ranked[:3])
-            head, body = f"⏳ Results tomorrow · {h}-Day Call {rng}", f"Leading: {lead}\n👉 {link(call)}"
+            head, body = f"⏳ Results tomorrow · {h}-Day Call {rng}", f"Leading: {lead}{arrow(call)}"
         else:
             hits = ", ".join(f"${p['symbol']} {pct(p['change'])}" for p in ranked if p["hit"]) or "none"
             head = f"✅ {h}-Day results · {rng}"
-            body = f"{call['hits']}/10 hit the top 10: {hits} · {call['up']}/10 up\n👉 {link(call)}"
+            body = f"{call['hits']}/10 hit the top 10: {hits} · {call['up']}/10 up{arrow(call)}"
     return f"{head}\n{body}\n{tags}\nNFA"
 
 
