@@ -22,7 +22,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests yfinance pandas numpy pillow
+        run: pip install requests yfinance pandas numpy pillow tweepy
 
       - name: Run crypto prediction tracker (CoinMarketCap)
         run: python prediction_tracker.py
@@ -45,6 +45,18 @@ jobs:
         run: python site/build_posts.py
         env:
           PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}   # empty = posts carry no link
+        continue-on-error: true
+
+      - name: Publish (Telegram DM + channel, X); each runs only if its secrets are set
+        run: python site/publish.py
+        env:
+          TELEGRAM_BOT_TOKEN:  ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:    ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          X_API_KEY:           ${{ secrets.X_API_KEY }}
+          X_API_SECRET:        ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN:      ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET:     ${{ secrets.X_ACCESS_SECRET }}
         continue-on-error: true
 
       - name: Commit and push updated files

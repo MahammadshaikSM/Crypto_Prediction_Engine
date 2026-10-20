@@ -210,11 +210,30 @@ def coin_tag(name):
     return "#" + "".join(w[:1].upper() + w[1:] for w in words) if words else ""
 
 
-def caption(call, mode):
-    """Short daily captions; the explanation lives once on the profile (PROFILE.txt / PINNED.txt)."""
+def x_len(text):
+    """Length as X counts it: most symbols/emoji above U+10FF weigh 2, links weigh 23."""
+    text = re.sub(r"https?://\S+", "x" * 23, text)
+    return sum(2 if ord(ch) > 0x10FF else 1 for ch in text)
+
+
+def caption(call, mode, limit=None):
+    """Short daily captions; the explanation lives once on the profile (PROFILE.txt / PINNED.txt).
+    With `limit` (X = 280), coin hashtags are added only while the post still fits."""
+    all_tags = list(dict.fromkeys(t for t in (coin_tag(p["name"]) for p in call["picks"]) if t))
+    if limit:
+        kept = []
+        for t in all_tags:
+            trial = caption_with(call, mode, kept + [t])
+            if x_len(trial) > limit:
+                break
+            kept.append(t)
+        return caption_with(call, mode, kept)
+    return caption_with(call, mode, all_tags)
+
+
+def caption_with(call, mode, coin_tags):
     h = call["horizon"]
-    coin_tags = " ".join(dict.fromkeys(t for t in (coin_tag(p["name"]) for p in call["picks"]) if t))
-    tags = f"#CryptoTrackerPro {TAG[h]} {coin_tags}"
+    tags = " ".join([f"#CryptoTrackerPro {TAG[h]}"] + coin_tags)
     cash = " ".join(f"${p['symbol']}" for p in call["picks"])
     rng = f"{md(call['date'])} → {md(call['end'])}"
     if mode == "call":
@@ -260,6 +279,7 @@ def main():
     lines = [f"# Post kit · {today}", "", "Post in this order. Each post: paste the caption and attach the image.", ""]
     for name, c, mode in sorted(plan, key=lambda x: x[0]):
         (out / f"{name}.txt").write_text(caption(c, mode), encoding="utf-8")
+        (out / f"{name}.x.txt").write_text(caption(c, mode, limit=280), encoding="utf-8")
         card(c, mode, today).save(out / f"{name}.png", optimize=True)
         lines.append(f"- **{name}**: {mode} for the {c['horizon']}-day call {md(c['date'])} → {md(c['end'])}")
     (out / "README.md").write_text("\n".join(lines + ["", "Pinned profile post: ../PINNED.txt"]), encoding="utf-8")
