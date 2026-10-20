@@ -87,6 +87,29 @@ def daily_closes(cmc_ids, days=16, batch=100):
     return out
 
 
+def prices_by_symbol(wanted):
+    """Current USD price for coins outside the top listing, matched by symbol then name.
+
+    wanted: list of (symbol, name). Returns {symbol_lower: price}. Costs ~1 credit.
+    When several coins share a symbol, the one whose name matches wins, else the largest.
+    """
+    if not wanted:
+        return {}
+    data = _get("/v2/cryptocurrency/quotes/latest",
+                {"symbol": ",".join(sorted({s.upper() for s, _ in wanted})), "convert": "USD", "skip_invalid": "true"})
+    out = {}
+    for sym, name in wanted:
+        cands = data.get(sym.upper()) or []
+        cands = cands if isinstance(cands, list) else [cands]
+        cands = [c for c in cands if (c.get("quote") or {}).get("USD", {}).get("price")]
+        if not cands:
+            continue
+        named = [c for c in cands if c.get("name", "").lower() == (name or "").lower()]
+        best = (named or sorted(cands, key=lambda c: -(c["quote"]["USD"].get("market_cap") or 0)))[0]
+        out[sym.lower()] = best["quote"]["USD"]["price"]
+    return out
+
+
 def fetch_market(limit=250, days=16):
     """Listings plus daily closes; today's live price is appended as the latest close."""
     coins = listings(limit)

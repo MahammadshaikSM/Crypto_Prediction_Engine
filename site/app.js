@@ -41,7 +41,7 @@ function renderHero(sum) {
   orbit.innerHTML = coins.map((c, i) => `
     <div class="pick3d" role="listitem" style="${narrow ? "" : `transform: rotateY(${i * 36}deg) translateZ(${R}px)`}">
       <span class="rk">#${c.rank ?? i + 1}</span>
-      <img src="${esc(c.image)}" alt="" width="58" height="58" loading="lazy" referrerpolicy="no-referrer">
+      <img src="${esc(c.image)}" alt="" width="58" height="58" loading="eager" referrerpolicy="no-referrer">
       <b>${esc(c.symbol)}</b><span>${esc(c.name)}</span>
       <span class="sc">score <strong class="num">${Number(c.score).toFixed(0)}</strong></span>
     </div>`).join("") + `<div class="orbit-core" aria-hidden="true">Today's<br>10 picks<small>${esc(fmtDate(sum.date, false).toUpperCase())}</small></div>`;
@@ -166,7 +166,9 @@ const FEAT = [["vol_adj_mom", "Vol-adj momentum", "#9BC425"], ["mom24h", "24h mo
 const OLD_W = { vol_adj_mom: 22, mom24h: 28, btc_rel: 25, vol_surge: 10, rsi_s: 15 };
 function renderForecast(fc) {
   const tabs = $$(".fc-tab");
-  $$(".fc-date").forEach((el) => { const h = fc.horizons[el.dataset.h]; if (h) el.textContent = fmtDate(h.target_date, false); });
+  // target_at is UTC; show it in the viewer's own time zone (falls back to the UTC date)
+  const localDay = (h) => h.target_at ? new Date(h.target_at).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : fmtDate(h.target_date, false);
+  $$(".fc-date").forEach((el) => { const h = fc.horizons[el.dataset.h]; if (h) el.textContent = localDay(h); });
   const show = (h) => {
     const f = fc.horizons[h]; if (!f) return;
     tabs.forEach((t) => t.setAttribute("aria-selected", t.dataset.h === String(h)));

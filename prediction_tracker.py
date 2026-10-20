@@ -21,7 +21,7 @@ Also tracks "positive rate" = % of predicted coins that simply went up.
 
 import json, os, sys, time, math
 import requests
-from cmc_client import fetch_market
+from cmc_client import fetch_market, prices_by_symbol
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -213,7 +213,17 @@ def _to_current_id(cid, cur_map):
     alt = CG_TO_CMC.get(cid)
     return alt if alt in cur_map else None
 
-def evaluate_prediction(pred_entry, current_coins):
+def unresolved_picks(pred_entry, current_coins):
+    """(symbol, name) of picks that are not in today's top-200 listing."""
+    ids = {c['id'] for c in current_coins}
+    syms = {c['symbol'].lower() for c in current_coins}
+    return [(pc['symbol'], pc['name']) for pc in pred_entry['predicted_coins']
+            if not _to_current_id(pc['id'], ids) and pc['symbol'].lower() not in syms]
+
+def evaluate_prediction(pred_entry, current_coins, extra_prices=None):
+    """extra_prices: {symbol_lower: price} for picks outside today's top 200. They count
+    toward each pick's return and positive rate, but not toward the actual top-10 ranking."""
+    extra_prices = extra_prices or {}
     current_ids = {c['id'] for c in current_coins}
     by_symbol   = {}
     for c in current_coins:
@@ -249,6 +259,10 @@ def evaluate_prediction(pred_entry, current_coins):
     for pc in pred_coins:
         cid           = pc['id']
         actual_return = all_returns.get(cid)
+        eval_price    = cur_map.get(cid)
+        if eval_price is None and pc['symbol'].lower() in extra_prices and pc.get('price_at_prediction'):
+            eval_price    = extra_prices[pc['symbol'].lower()]
+            actual_return = (eval_price - pc['price_at_prediction']) / pc['price_at_prediction'] * 100
         coin_results.append({
             'id':                  cid,
             'symbol':              pc['symbol'],
@@ -258,7 +272,7 @@ def evaluate_prediction(pred_entry, current_coins):
             'score':               pc.get('score'),
             'confidence':          pc.get('confidence'),
             'price_at_prediction': pc['price_at_prediction'],
-            'price_at_evaluation': cur_map.get(cid),
+            'price_at_evaluation': eval_price,
             'actual_return_pct':   round(actual_return, 2) if actual_return is not None else None,
             'in_actual_top10':     cid in actual_top10_ids,
             'went_positive':       (actual_return or 0) > 0,
@@ -1027,7 +1041,16 @@ if __name__ == '__main__':
 
     if seven_days_ago in data.get('predictions', {}) and seven_days_ago not in data.get('evaluations', {}):
         print(f"  Evaluating prediction from {seven_days_ago}...")
-        ev = evaluate_prediction(data['predictions'][seven_days_ago], coins)
+        pred_entry = data['predictions'][seven_days_ago]
+        missing = unresolved_picks(pred_entry, coins)
+        extra = {}
+        if missing:
+            try:
+                extra = prices_by_symbol(missing)
+                print(f"  Priced {len(extra)}/{len(missing)} picks outside today's top 200 via CMC quotes.")
+            except Exception as e:
+                print(f"  Could not price picks outside the top 200: {e}")
+        ev = evaluate_prediction(pred_entry, coins, extra)
         data.setdefault('evaluations', {})[seven_days_ago] = ev
         print(f"  Hit rate: {ev['hit_rate']}%  |  Positive rate: {ev['positive_rate']}%")
 

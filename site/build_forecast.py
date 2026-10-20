@@ -78,7 +78,9 @@ def main():
                        + w["vol_surge"] * r["vol_surge_n"] + w["rsi_s"] * r["rsi_s"]) / 100
         top = sorted(rows, key=lambda r: -r["_s"])[:10]
         out["horizons"][h] = dict(
-            target_date=(as_of + timedelta(days=int(h))).strftime("%Y-%m-%d"), weights=w,
+            target_date=(as_of + timedelta(days=int(h))).strftime("%Y-%m-%d"),
+            # exact moment the window closes; the site shows it in the viewer's time zone
+            target_at=(now + timedelta(days=int(h))).isoformat(timespec="minutes"), weights=w,
             backtest=dict(test=info["tuned"]["test"], train=info["tuned"]["train"], live_test=info["live"]["test"],
                           train_end=bt["train_end"], range=bt["range"]),
             picks=[dict(rank=i + 1, **{k: (round(v, 3) if isinstance(v, float) else v) for k, v in r.items()
