@@ -10,7 +10,7 @@ Writes
 
 Post kits older than 14 days are removed. Runs in the daily GitHub Action after the trackers.
 """
-import json, shutil
+import json, re, shutil
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
@@ -190,8 +190,16 @@ def link(call):
     return f"{SITE}call.html?d={call['date']}&h={call['horizon']}"
 
 
+def coin_tag(name):
+    """'Basic Attention Token' -> '#BasicAttentionToken' (letters and digits only)."""
+    words = re.findall(r"[A-Za-z0-9]+", name)
+    return "#" + "".join(w[:1].upper() + w[1:] for w in words) if words else ""
+
+
 def caption(call, mode):
-    h = call["horizon"]; tags = f"#CryptoTrackerPro {TAG[h]}"
+    h = call["horizon"]
+    coin_tags = " ".join(dict.fromkeys(t for t in (coin_tag(p["name"]) for p in call["picks"]) if t))
+    tags = f"#CryptoTrackerPro {TAG[h]} #Crypto\n{coin_tags}"
     cash = " ".join(f"${p['symbol']}" for p in call["picks"])
     rng = f"{md(call['date'])} → {md(call['end'])}"
     if mode == "call":
