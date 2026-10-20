@@ -35,6 +35,10 @@ Track everything at {SITE}
 Not financial advice. Crypto is volatile and you can lose money."""
 
 
+PROFILE = f"""Daily crypto calls: 10 coins for 3 days + 10 for 7 days. Every call graded in public, wins and misses. NFA.
+{SITE}"""
+
+
 # ---------- formatting ----------
 def d(s):
     return datetime.strptime(s, "%Y-%m-%d").date()
@@ -197,31 +201,24 @@ def coin_tag(name):
 
 
 def caption(call, mode):
+    """Short daily captions; the explanation lives once on the profile (PROFILE.txt / PINNED.txt)."""
     h = call["horizon"]
     coin_tags = " ".join(dict.fromkeys(t for t in (coin_tag(p["name"]) for p in call["picks"]) if t))
-    tags = f"#CryptoTrackerPro {TAG[h]} #Crypto\n{coin_tags}"
+    tags = f"#CryptoTrackerPro {TAG[h]} {coin_tags}"
     cash = " ".join(f"${p['symbol']}" for p in call["picks"])
     rng = f"{md(call['date'])} → {md(call['end'])}"
     if mode == "call":
-        return (f"🎯 {h}-Day Call · {rng}\n10 coins we expect to outperform by {wmd(call['end'])}:\n{cash}\n\n"
-                f"Prices locked at pick time. Results posted {md(call['end'])}, wins and misses.\n"
-                f"🔗 {link(call)}\n{tags}\nNot financial advice.")
-    ranked = sorted([p for p in call["picks"] if p["change"] is not None], key=lambda p: -p["change"])
-    if mode == "update":
-        up = sum(1 for p in ranked if p["change"] > 0)
-        lead = ", ".join(f"${p['symbol']} {pct(p['change'])}" for p in ranked[:3])
-        of = "10" if len(ranked) == 10 else f"{len(ranked)} coins with a live price"
-        return (f"⏳ Graded tomorrow · {h}-Day Call {rng}\nSo far {up} of {of} are up. Leaders: {lead}\n"
-                f"Final results tomorrow, wins and misses.\n🔗 {link(call)}\n{tags}\nNot financial advice.")
-    hits = [p for p in ranked if p["hit"]]
-    worst = sorted([p for p in ranked if not p["hit"]], key=lambda p: p["change"])[:3]   # lowest returns
-    hit_txt = ", ".join(f"${p['symbol']} {pct(p['change'])}" for p in hits) or "none this time"
-    miss_txt = ", ".join(f"${p['symbol']} {pct(p['change'])}" for p in worst)
-    unpriced = 10 - len(ranked)
-    gap = f" ({unpriced} coins had no final price available)" if unpriced else ""
-    return (f"✅ {h}-Day Call results · {rng}\n{call['hits']}/10 finished in the top 10 gainers: {hit_txt}\n"
-            f"{call['up']}/10 went up{gap}. Weakest: {miss_txt}\n"
-            f"All 10 coins and the original call: {link(call)}\n{tags}\nNot financial advice.")
+        head, body = f"🎯 {h}-Day Call · {rng}", f"{cash}\nResults {md(call['end'])} 👉 {link(call)}"
+    else:
+        ranked = sorted([p for p in call["picks"] if p["change"] is not None], key=lambda p: -p["change"])
+        if mode == "update":
+            lead = ", ".join(f"${p['symbol']} {pct(p['change'])}" for p in ranked[:3])
+            head, body = f"⏳ Results tomorrow · {h}-Day Call {rng}", f"Leading: {lead}\n👉 {link(call)}"
+        else:
+            hits = ", ".join(f"${p['symbol']} {pct(p['change'])}" for p in ranked if p["hit"]) or "none"
+            head = f"✅ {h}-Day results · {rng}"
+            body = f"{call['hits']}/10 hit the top 10: {hits} · {call['up']}/10 up\n👉 {link(call)}"
+    return f"{head}\n{body}\n{tags}\nNFA"
 
 
 # ---------- main ----------
@@ -233,6 +230,7 @@ def main():
     posts = ROOT / "posts"; out = posts / today
     out.mkdir(parents=True, exist_ok=True)
     (posts / "PINNED.txt").write_text(PINNED, encoding="utf-8")
+    (posts / "PROFILE.txt").write_text(PROFILE, encoding="utf-8")
     for old in posts.iterdir():
         try:
             if old.is_dir() and d(old.name) < d(today) - timedelta(days=KEEP_DAYS):
