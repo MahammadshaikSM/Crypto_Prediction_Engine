@@ -103,6 +103,12 @@ def main():
     token, me, channel = env("TELEGRAM_BOT_TOKEN"), env("TELEGRAM_CHAT_ID"), env("TELEGRAM_CHANNEL_ID")
     x = x_clients()
     targets = [t for t, on in (("telegram_me", token and me), ("telegram_channel", token and channel), ("x", x)) if on]
+    status = {"date": day.name, "secrets_visible": {k: bool(env(k)) for k in (
+        "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID", "TELEGRAM_CHANNEL_ID", "X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_SECRET")},
+        "targets": targets, "errors": {}}
+    def save_status():
+        (POSTS / "status.json").write_text(json.dumps(status, indent=1), encoding="utf-8")
+    save_status()
     if not targets:
         print("no destinations configured (set Telegram / X secrets to enable)"); return
 
@@ -132,8 +138,10 @@ def main():
                 time.sleep(2)
         except Exception as e:
             print(f"{target}: FAILED: {e}")
+            status["errors"][target] = f"{type(e).__name__}: {e}"[:400]
         finally:
             LEDGER.write_text(json.dumps(ledger, indent=1), encoding="utf-8")
+            save_status()
 
 
 if __name__ == "__main__":

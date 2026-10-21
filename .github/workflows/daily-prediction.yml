@@ -47,6 +47,13 @@ jobs:
           PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}   # empty = posts carry no link
         continue-on-error: true
 
+      - name: Diagnose model v2 (manual runs only; writes posts/diag_v2.json)
+        if: github.event_name == 'workflow_dispatch'
+        run: python diag_v2.py
+        env:
+          CMC_API_KEY: ${{ secrets.CMC_API_KEY }}
+        continue-on-error: true
+
       - name: Publish (Telegram DM + channel, X); each runs only if its secrets are set
         run: python site/publish.py
         env:

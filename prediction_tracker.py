@@ -1177,13 +1177,14 @@ if __name__ == '__main__':
 
     if today not in data.get('predictions', {}):
         print("  Running prediction model v2 (18 signals + market regime)...")
-        model_used = 'v2'
+        model_used, model_error = 'v2', None
         try:
             regime = market_regime()
             top10 = run_prediction_v2(coins, regime)
         except Exception as e:
+            import traceback; traceback.print_exc()
             print(f"  Model v2 unavailable ({e}); falling back to the v1 formula.")
-            model_used, regime = 'v1', None
+            model_used, regime, model_error = 'v1', None, f"{type(e).__name__}: {e}"[:400]
             top10 = run_prediction(coins)
         if not top10:
             print("  ERROR: prediction model returned no results.")
@@ -1200,6 +1201,7 @@ if __name__ == '__main__':
             'fetched_at':      datetime.now().isoformat(),
             'model':           model_used,
             'regime':          regime,
+            'model_error':     model_error,
         }
 
         print(f"  Today's top 10 (model {model_used}):")
