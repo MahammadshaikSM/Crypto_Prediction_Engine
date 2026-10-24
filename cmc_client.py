@@ -42,7 +42,8 @@ def _get(path, params, retries=4):
                 continue
             body = r.json()
             status = body.get("status", {})
-            if r.status_code != 200 or status.get("error_code"):
+            # v1/v2 endpoints send error_code 0; v3 (fear-and-greed) sends the string "0" on success
+            if r.status_code != 200 or str(status.get("error_code") or 0).strip() not in ("0", ""):
                 raise RuntimeError(f"CMC {path} {r.status_code}: {status.get('error_message')}")
             return body["data"]
         except (requests.RequestException, ValueError) as e:
