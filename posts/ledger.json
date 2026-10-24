@@ -1,6 +1,24 @@
 {
  "sent": {
-  "2026-10-24": {}
+  "2026-10-24": {
+   "telegram_me": [
+    "1_call_7d",
+    "2_call_3d"
+   ],
+   "telegram_channel": [
+    "1_call_7d",
+    "2_call_3d"
+   ]
+  }
  },
- "calls": {}
+ "calls": {
+  "7d_2026-10-24": {
+   "telegram_me": 4,
+   "telegram_channel": 2
+  },
+  "3d_2026-10-24": {
+   "telegram_me": 5,
+   "telegram_channel": 3
+  }
+ }
 }

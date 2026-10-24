@@ -13,8 +13,5 @@
   "telegram_me",
   "telegram_channel"
  ],
- "errors": {
-  "telegram_me": "RuntimeError: Telegram sendMessage: Bad Request: chat not found",
-  "telegram_channel": "RuntimeError: Telegram sendPhoto: Forbidden: bot is not a member of the channel chat"
- }
+ "errors": {}
 }
