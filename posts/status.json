@@ -2,8 +2,8 @@
  "date": "2026-10-24",
  "secrets_visible": {
   "TELEGRAM_BOT_TOKEN": false,
-  "TELEGRAM_CHAT_ID": false,
-  "TELEGRAM_CHANNEL_ID": false,
+  "TELEGRAM_CHAT_ID": true,
+  "TELEGRAM_CHANNEL_ID": true,
   "X_API_KEY": false,
   "X_API_SECRET": false,
   "X_ACCESS_TOKEN": false,
