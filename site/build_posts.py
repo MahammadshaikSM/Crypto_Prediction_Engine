@@ -1,4 +1,4 @@
-"""Daily post kit + live call data for CryptoTracker Pro.
+"""Daily post kit + live call data for Ichnora.
 
 Writes
   site/calls.json           recent 3-day and 7-day calls with pick prices, latest prices and grades
@@ -16,6 +16,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
+ICON = ROOT / "brand" / "ichnora" / "icon-192.png"
 # Public website address for posts. Empty = posts carry no link at all.
 # Set the repository variable PUBLIC_SITE_URL (Settings > Secrets and variables > Actions > Variables)
 # once you have your own domain; nothing else needs to change.
@@ -26,7 +27,9 @@ SHORT = SITE.replace("https://", "").replace("http://", "").rstrip("/")
 KEEP_DAYS, CALL_DAYS = 14, 40
 TAG = {7: "#7DayCall", 3: "#3DayCall"}
 
-PINNED = f"""📌 How CryptoTracker Pro works
+PINNED = f"""📌 How Ichnora works
+
+Ichnora (from Greek íchnos, "track"): every call leaves a footprint.
 
 Every day we publish 10 coins for 3 days and 10 for 7 days.
 Each call shows the start and end date. On the end date we post the results, good or bad.
@@ -36,11 +39,11 @@ Each call shows the start and end date. On the end date we post the results, goo
 • Every call and its result stays public
 
 {f"Track everything at {SITE}" if SITE else "Follow for a new call every day and every result."}
-#CryptoTrackerPro #3DayCall #7DayCall
+#Ichnora #3DayCall #7DayCall
 Not financial advice. Crypto is volatile and you can lose money."""
 
 
-PROFILE = ("Daily crypto calls: 10 coins for 3 days + 10 for 7 days. Every call graded in public, wins and misses. NFA."
+PROFILE = ("Ichnora · Every call leaves a footprint. Daily crypto calls: 10 coins for 3 days + 10 for 7 days, graded in public. NFA."
            + (f"\n{SITE}" if SITE else ""))
 
 
@@ -130,8 +133,15 @@ def card(call, mode, today):
     W, H = 1080, 1350
     im = Image.new("RGB", (W, H), BG); g = ImageDraw.Draw(im)
     h = call["horizon"]; X = 70
-    g.rectangle([0, 0, W, 12], fill=LIME)
-    g.text((X, 62), "CRYPTOTRACKER PRO", font=font("bold", 26), fill=LIME)
+    band = Image.new("RGB", (W, 12))
+    for x in range(W):
+        t = x / (W - 1)
+        band.paste(tuple(round(a + (b - a) * t) for a, b in zip((0xD4, 0xFF, 0x3A), (0x3D, 0xE8, 0xFF))), (x, 0, x + 1, 12))
+    im.paste(band, (0, 0))
+    if ICON.exists():
+        logo = Image.open(ICON).convert("RGBA").resize((44, 44), Image.LANCZOS)
+        im.paste(logo, (X, 52), logo)
+    g.text((X + 58, 60), "ICHNORA", font=font("bold", 30), fill=FG)
     title = {"call": f"{h}-DAY CALL", "update": "GRADED TOMORROW", "result": f"{h}-DAY RESULTS"}[mode]
     g.text((X, 100), title, font=font("bold", 92), fill=FG)
     sub = f"{h}-Day Call · {md(call['date'])} → {md(call['end'])}"
@@ -186,10 +196,10 @@ def card(call, mode, today):
     # footer
     fy = H - 118
     g.line([X, fy, W - X, fy], fill=LINE, width=2)
-    g.text((X, fy + 22), SHORT or "CRYPTOTRACKER PRO · NEW CALLS DAILY", font=font("bold", 26), fill=LIME)
+    g.text((X, fy + 22), SHORT or "ICHNORA · EVERY CALL LEAVES A FOOTPRINT", font=font("bold", 26), fill=LIME)
     note = "Not financial advice · Data: CoinMarketCap"
     g.text((X, fy + 64), note, font=font("reg", 22), fill=FG2)
-    tag = f"#CryptoTrackerPro {TAG[h]}"
+    tag = f"#Ichnora {TAG[h]}"
     g.text((W - X - g.textlength(tag, font=font("bold", 22)), fy + 64), tag, font=font("bold", 22), fill=FG)
     return im
 
@@ -233,7 +243,7 @@ def caption(call, mode, limit=None):
 
 def caption_with(call, mode, coin_tags):
     h = call["horizon"]
-    tags = " ".join([f"#CryptoTrackerPro {TAG[h]}"] + coin_tags)
+    tags = " ".join([f"#Ichnora {TAG[h]}"] + coin_tags)
     cash = " ".join(f"${p['symbol']}" for p in call["picks"])
     rng = f"{md(call['date'])} → {md(call['end'])}"
     if mode == "call":

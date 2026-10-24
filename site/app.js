@@ -1,4 +1,4 @@
-// CryptoTracker Pro landing page: reads the same JSON the dashboards publish.
+// Ichnora landing page: reads the same JSON the dashboards publish.
 (() => {
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;

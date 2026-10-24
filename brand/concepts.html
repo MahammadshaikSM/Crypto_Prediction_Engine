@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ichnora · Logo concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --lime: #D4FF3A; --ink: #07070A; --fg: #F4F4EF; --fg2: #A1A1AC; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 1600px; background: #1a1a20; font-family: Inter, sans-serif; color: var(--fg); padding: 56px; }
+  h1 { font: 800 44px "Bricolage Grotesque"; letter-spacing: -.03em; }
+  h1 span { color: var(--lime); }
+  .sub { color: var(--fg2); margin-top: 8px; font-size: 18px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
+  .concept { border-radius: 26px; overflow: hidden; border: 1px solid #ffffff1a; }
+  .dark, .light { padding: 36px 32px; display: flex; flex-direction: column; gap: 26px; }
+  .dark { background: var(--ink); }
+  .light { background: #F7F6F1; color: #0B0B0F; }
+  .lockup { display: flex; align-items: center; gap: 16px; }
+  .lockup svg.mark { width: 76px; height: 76px; flex: none; }
+  .word { font: 800 58px/1 "Bricolage Grotesque"; letter-spacing: -.035em; }
+  .tag { font: 500 15px "JetBrains Mono"; letter-spacing: .04em; text-transform: uppercase; color: var(--fg2); margin-top: 6px; }
+  .light .tag { color: #555; }
+  .sizes { display: flex; align-items: end; gap: 18px; }
+  .sizes svg { display: block; }
+  .meta { background: #111116; padding: 22px 32px; }
+  .meta b { font: 800 22px "Bricolage Grotesque"; }
+  .meta p { color: var(--fg2); font-size: 15px; margin-top: 6px; line-height: 1.5; }
+  .taglines { margin-top: 30px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .tl { background: var(--ink); border: 1px solid #ffffff1a; border-radius: 20px; padding: 22px 24px; }
+  .tl q { font: 800 26px/1.15 "Bricolage Grotesque"; letter-spacing: -.02em; quotes: none; }
+  .tl q em { font-style: normal; color: var(--lime); }
+  .tl small { display: block; color: var(--fg2); margin-top: 8px; font-size: 14px; }
+</style>
+</head>
+<body>
+<h1>Ichnora · <span>logo concepts</span></h1>
+<p class="sub">From Greek <em>íchnos</em>: track, footprint, trail. Each mark is tested at 76px, 40px and 20px (favicon size).</p>
+
+<!-- reusable marks -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- A · Rising Trail: footprints climbing to a target -->
+    <symbol id="A" viewBox="0 0 120 120">
+      <rect width="120" height="120" rx="30" fill="#0B0B0F"/>
+      <path d="M24 94 C40 90 48 76 58 66 S80 42 90 31" fill="none" stroke="#D4FF3A" stroke-opacity=".35" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 9"/>
+      <circle cx="26" cy="93" r="6" fill="#D4FF3A" fill-opacity=".35"/>
+      <circle cx="46" cy="80" r="7" fill="#D4FF3A" fill-opacity=".55"/>
+      <circle cx="64" cy="61" r="8.5" fill="#D4FF3A" fill-opacity=".8"/>
+      <circle cx="91" cy="30" r="17" fill="none" stroke="#D4FF3A" stroke-opacity=".3" stroke-width="3"/>
+      <circle cx="91" cy="30" r="11" fill="#D4FF3A"/>
+    </symbol>
+    <!-- B · Trail i: the letter i whose stem is a trail of footprints -->
+    <symbol id="B" viewBox="0 0 120 120">
+      <rect width="120" height="120" rx="30" fill="#0B0B0F"/>
+      <circle cx="60" cy="31" r="14" fill="#D4FF3A"/>
+      <rect x="51" y="54" width="18" height="15" rx="7.5" fill="#F4F4EF"/>
+      <rect x="51" y="74" width="18" height="13" rx="6.5" fill="#F4F4EF" fill-opacity=".6"/>
+      <rect x="51" y="92" width="18" height="11" rx="5.5" fill="#F4F4EF" fill-opacity=".32"/>
+    </symbol>
+    <!-- C · Tracking Lens: a trail leading into a lens -->
+    <symbol id="C" viewBox="0 0 120 120">
+      <rect width="120" height="120" rx="30" fill="#0B0B0F"/>
+      <circle cx="22" cy="98" r="5" fill="#D4FF3A" fill-opacity=".35"/>
+      <circle cx="35" cy="85" r="6" fill="#D4FF3A" fill-opacity=".6"/>
+      <circle cx="49" cy="71" r="7" fill="#D4FF3A" fill-opacity=".85"/>
+      <circle cx="74" cy="46" r="25" fill="none" stroke="#D4FF3A" stroke-width="8"/>
+      <circle cx="74" cy="46" r="7" fill="#F4F4EF"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="grid">
+  <section class="concept">
+    <div class="dark">
+      <div class="lockup"><svg class="mark"><use href="#A"/></svg><div><div class="word">ichnora</div><div class="tag">Every call leaves a footprint</div></div></div>
+      <div class="sizes"><svg width="76" height="76"><use href="#A"/></svg><svg width="40" height="40"><use href="#A"/></svg><svg width="20" height="20"><use href="#A"/></svg></div>
+    </div>
+    <div class="light"><div class="lockup"><svg class="mark"><use href="#A"/></svg><div><div class="word">ichnora</div><div class="tag">Every call leaves a footprint</div></div></div></div>
+    <div class="meta"><b>A · Rising Trail</b><p>Footprints that grow as they climb to a lit target: tracking, progress and a hit, all in one. Reads as "gain" without using a cliché arrow.</p></div>
+  </section>
+
+  <section class="concept">
+    <div class="dark">
+      <div class="lockup"><svg class="mark"><use href="#B"/></svg><div><div class="word">ichnora</div><div class="tag">Follow the tracks</div></div></div>
+      <div class="sizes"><svg width="76" height="76"><use href="#B"/></svg><svg width="40" height="40"><use href="#B"/></svg><svg width="20" height="20"><use href="#B"/></svg></div>
+    </div>
+    <div class="light"><div class="lockup"><svg class="mark"><use href="#B"/></svg><div><div class="word">ichnora</div><div class="tag">Follow the tracks</div></div></div></div>
+    <div class="meta"><b>B · Trail i</b><p>The "i" of ichnora drawn as fading footprints under a lime dot, the signal you're following. A monogram that works as an app icon.</p></div>
+  </section>
+
+  <section class="concept">
+    <div class="dark">
+      <div class="lockup"><svg class="mark"><use href="#C"/></svg><div><div class="word">ichnora</div><div class="tag">Calls you can trace</div></div></div>
+      <div class="sizes"><svg width="76" height="76"><use href="#C"/></svg><svg width="40" height="40"><use href="#C"/></svg><svg width="20" height="20"><use href="#C"/></svg></div>
+    </div>
+    <div class="light"><div class="lockup"><svg class="mark"><use href="#C"/></svg><div><div class="word">ichnora</div><div class="tag">Calls you can trace</div></div></div></div>
+    <div class="meta"><b>C · Tracking Lens</b><p>A trail of footprints leading into a lens: we follow the market's tracks, and you can inspect every call. Bold and very legible small.</p></div>
+  </section>
+</div>
+
+<div class="taglines">
+  <div class="tl"><q>Every call leaves <em>a footprint.</em></q><small>Recommended. Ties the Greek meaning to your public receipts.</small></div>
+  <div class="tl"><q>Follow <em>the tracks.</em></q><small>Shortest. Great for the X / Telegram bio and the hero.</small></div>
+  <div class="tl"><q>Calls you can <em>trace.</em></q><small>Leans on trust: nothing hidden, every result checkable.</small></div>
+</div>
+</body>
+</html>

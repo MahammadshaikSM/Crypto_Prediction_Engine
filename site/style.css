@@ -1,4 +1,4 @@
-/* CryptoTracker Pro landing page
+/* Ichnora landing page
    Dark canvas, one acid accent (lime), violet used only as ambient glow. */
 :root {
   --bg: #07070A;
@@ -278,3 +278,11 @@ sup.fn a { color: var(--lime); text-decoration: none; font-size: .75em; padding:
 .fc-wlist b { color: var(--fg); font-family: var(--mono); }
 .fc-wlist del { color: var(--fg-2); font-family: var(--mono); font-size: 13px; margin-right: 8px; }
 @media (max-width: 900px) { .fc-grid { grid-template-columns: 1fr; } .fc-list li:not(.skeleton) { grid-template-columns: 28px 30px 1fr auto; } .fc-list .m24 { display: none; } }
+
+/* Ichnora brand: logo + lime -> cyan gradient on primary actions */
+:root { --cyan: #3DE8FF; --brand-grad: linear-gradient(135deg, #D4FF3A, #3DE8FF); }
+.brand-icon { width: 34px; height: 34px; border-radius: 10px; display: block; }
+.brand { font-size: 21px; letter-spacing: -.02em; }
+.btn.lime { background: var(--brand-grad); border-color: transparent; }
+.hero h1 mark::before { background: var(--brand-grad); }
+.marquee { background: var(--brand-grad); }

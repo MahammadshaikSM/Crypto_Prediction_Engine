@@ -1,4 +1,6 @@
-📌 How CryptoTracker Pro works
+📌 How Ichnora works
+
+Ichnora (from Greek íchnos, "track"): every call leaves a footprint.
 
 Every day we publish 10 coins for 3 days and 10 for 7 days.
 Each call shows the start and end date. On the end date we post the results, good or bad.
@@ -8,5 +10,5 @@ Each call shows the start and end date. On the end date we post the results, goo
 • Every call and its result stays public
 
 Follow for a new call every day and every result.
-#CryptoTrackerPro #3DayCall #7DayCall
+#Ichnora #3DayCall #7DayCall
 Not financial advice. Crypto is volatile and you can lose money.

@@ -483,7 +483,9 @@ def _build_html(tl_json, chart_json, updated_at, hit_disp, pos_disp,
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>__H__-Day Prediction Dashboard - CryptoTracker Pro</title>
+<title>__H__-Day Calls · Ichnora</title>
+<link rel="icon" href="brand/ichnora/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/ichnora/apple-touch-icon.png">
 <style>
 :root {
   --void:#020510; --deep:#070d1e; --surface:#0c1428;
@@ -500,10 +502,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 ::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px}
 .header{background:rgba(2,5,16,.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);
         padding:18px 40px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
-.logo-mark{width:36px;height:36px;background:linear-gradient(135deg,#4facfe,#00d4ff);
-           border-radius:11px;display:flex;align-items:center;justify-content:center;
-           font-weight:900;color:var(--void);font-size:1rem}
-.logo-name{font-size:.95rem;font-weight:800;background:linear-gradient(135deg,#4facfe,#00d4ff);
+.logo-mark{width:36px;height:36px;border-radius:11px;display:block}
+.logo-name{font-size:1.05rem;font-weight:800;letter-spacing:-.01em;background:linear-gradient(135deg,#D4FF3A,#3DE8FF);
            -webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .logo-sub{font-size:.6rem;color:var(--muted);text-transform:uppercase;-webkit-text-fill-color:var(--muted)}
 .hdr-right{margin-left:auto;font-size:.72rem;color:var(--muted)}
@@ -611,7 +611,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 .horizon-tabs{display:flex;gap:8px;padding:18px 32px 0;max-width:1400px;margin:0 auto;flex-wrap:wrap}
 .htab{padding:10px 20px;border-radius:999px;font-size:.85rem;font-weight:700;letter-spacing:.02em;text-decoration:none;color:#8b9cc8;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);transition:all .2s}
 .htab:hover{color:#e8eaf6;border-color:rgba(79,172,254,.4)}
-.htab.active{color:#020510;background:linear-gradient(90deg,#4facfe,#00d4aa);border-color:transparent}
+.htab.active{color:#020510;background:linear-gradient(135deg,#D4FF3A,#3DE8FF);border-color:transparent}
 .pick-footer{display:flex;justify-content:space-between;align-items:center;margin-top:5px;font-size:.6rem;color:var(--muted)}
 </style>
 </head>
@@ -621,10 +621,10 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
   <a href="stock_dashboard.html" style="padding:10px 24px;border-radius:10px 10px 0 0;font-size:.85rem;font-weight:600;letter-spacing:.04em;color:#8b9cc8;text-decoration:none">&#128200; Stocks</a>
 </div>
 <header class="header">
-  <div class="logo-mark">CT</div>
+  <img class="logo-mark" src="brand/ichnora/icon.svg" alt="" width="36" height="36">
   <div>
-    <div class="logo-name">CryptoTracker Pro</div>
-    <div class="logo-sub">Prediction Accuracy Dashboard</div>
+    <div class="logo-name">ichnora</div>
+    <div class="logo-sub">Every call leaves a footprint</div>
   </div>
   <div class="hdr-right">Last updated: __UPDATED_AT__</div>
 </header>

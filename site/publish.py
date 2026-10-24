@@ -2,7 +2,7 @@
 
 Destinations (each switches on only when its secrets are set):
   Telegram DM to you      TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID       the whole kit, to copy into the CMC app
-  Telegram channel        TELEGRAM_BOT_TOKEN + TELEGRAM_CHANNEL_ID    e.g. @CryptoTrackerPro (bot must be an admin)
+  Telegram channel        TELEGRAM_BOT_TOKEN + TELEGRAM_CHANNEL_ID    e.g. @IchnoraCalls (bot must be an admin)
   X (Twitter)             X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_SECRET   (app with Read+Write)
 
 Rules

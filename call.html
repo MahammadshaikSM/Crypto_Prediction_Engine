@@ -3,9 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Calls · CryptoTracker Pro</title>
-<meta name="description" content="Every 3-day and 7-day call from CryptoTracker Pro: picked coins, prices at pick time, live progress and public results.">
+<title>Calls · Ichnora</title>
+<meta name="description" content="Every 3-day and 7-day call from Ichnora: picked coins, prices at pick time, live progress and public results.">
 <meta name="theme-color" content="#07070A">
+<link rel="icon" href="brand/ichnora/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="brand/ichnora/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="brand/ichnora/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -55,7 +58,7 @@
 <div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="./"><span class="mark">CT</span>CryptoTracker Pro</a>
+    <a class="brand" href="./"><img class="brand-icon" src="brand/ichnora/icon.svg" alt="" width="34" height="34">ichnora</a>
     <nav class="nav-links" aria-label="Primary"><a href="./#today">Today</a><a href="call.html">Calls</a><a href="./#receipts">Receipts</a><a href="prediction_dashboard.html">7-Day</a><a href="prediction_dashboard_3d.html">3-Day</a></nav>
     <a class="btn lime sm" href="prediction_dashboard.html">Live dashboard ↗</a>
   </div>
@@ -69,7 +72,7 @@
 
 <footer class="legal">
   <div class="wrap">
-    <div class="who"><b>CryptoTracker Pro</b><span>Data from <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">CoinMarketCap</a></span></div>
+    <div class="who"><b>Ichnora</b><span>Data from <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">CoinMarketCap</a></span></div>
     <ol>
       <li>A call is 10 coins picked on the start date. Prices are locked at pick time. A <strong>hit</strong> is a pick that finishes in the real top 10 gainers (of ~200 coins) by the end date.</li>
       <li>"Now" prices update once a day with the daily run. Coins that leave the top 200 may show no current price until graded.</li>
@@ -103,7 +106,7 @@ function render(data) {
   const calls = data.calls, d = q.get("d"), h = +q.get("h");
   const c = calls.find((x) => x.date === d && x.horizon === h);
   if (!c) {
-    document.title = "All calls · CryptoTracker Pro";
+    document.title = "All calls · Ichnora";
     $("#view").innerHTML = `<p class="eyebrow">Every call, in public</p><h1 class="title">Calls &amp; <em>receipts</em></h1>
       <p class="intro">Each day we publish 10 coins for 3 days and 10 for 7 days. Each call shows its start and end date, and on the end date it's graded, good or bad.</p>
       <div class="filters" role="group" aria-label="Filter calls"><button aria-pressed="true" data-f="0">All</button><button aria-pressed="false" data-f="7">7-Day</button><button aria-pressed="false" data-f="3">3-Day</button></div>
@@ -114,7 +117,7 @@ function render(data) {
     }));
     return;
   }
-  document.title = `${c.horizon}-Day Call ${md(c.date)} → ${md(c.end)} · CryptoTracker Pro`;
+  document.title = `${c.horizon}-Day Call ${md(c.date)} → ${md(c.end)} · Ichnora`;
   const total = (D(c.end) - D(c.date)), done = c.status === "graded" ? 1 : Math.min(1, Math.max(0, (Date.now() - D(c.date)) / total));
   const daysLeft = Math.max(0, Math.floor((D(c.end) - Date.now()) / 864e5));
   const priced = c.picks.filter((p) => p.change != null), up = priced.filter((p) => p.change > 0).length;
