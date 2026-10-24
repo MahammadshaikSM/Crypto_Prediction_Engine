@@ -1,7 +1,7 @@
 {
  "date": "2026-10-24",
  "secrets_visible": {
-  "TELEGRAM_BOT_TOKEN": false,
+  "TELEGRAM_BOT_TOKEN": true,
   "TELEGRAM_CHAT_ID": true,
   "TELEGRAM_CHANNEL_ID": true,
   "X_API_KEY": false,
@@ -9,6 +9,12 @@
   "X_ACCESS_TOKEN": false,
   "X_ACCESS_SECRET": false
  },
- "targets": [],
- "errors": {}
+ "targets": [
+  "telegram_me",
+  "telegram_channel"
+ ],
+ "errors": {
+  "telegram_me": "RuntimeError: Telegram sendMessage: Bad Request: chat not found",
+  "telegram_channel": "RuntimeError: Telegram sendPhoto: Forbidden: bot is not a member of the channel chat"
+ }
 }
