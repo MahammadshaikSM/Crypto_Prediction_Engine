@@ -98,20 +98,26 @@ def daily_closes(cmc_ids, days=16, batch=100):
     return {cid: [r["price"] for r in rows] for cid, rows in daily_history(cmc_ids, days, batch).items()}
 
 
-def market_regime():
-    """Fear & Greed, BTC dominance and total market cap for the latest day and 7 days earlier."""
+def regime_history(days):
+    """({date: (BTC dominance, total market cap)}, {date: Fear & Greed}) for the last `days` days."""
     end = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
     g = _get("/v1/global-metrics/quotes/historical", {
-        "time_start": (end - timedelta(days=10)).isoformat(), "time_end": end.isoformat(),
+        "time_start": (end - timedelta(days=days)).isoformat(), "time_end": end.isoformat(),
         "interval": "daily", "convert": "USD"})
     glob = {q["timestamp"][:10]: (q["btc_dominance"], q["quote"]["USD"]["total_market_cap"])
             for q in (g or {}).get("quotes", []) if q.get("btc_dominance")}
-    f = _get("/v3/fear-and-greed/historical", {"start": 1, "limit": 12})
+    f = _get("/v3/fear-and-greed/historical", {"start": 1, "limit": min(days + 2, 500)})
     fng = {}
     for d in f or []:
         ts = str(d.get("timestamp"))
         day = datetime.fromtimestamp(int(ts), timezone.utc).date().isoformat() if ts.isdigit() else ts[:10]
         fng[day] = float(d["value"])
+    return glob, fng
+
+
+def market_regime():
+    """Fear & Greed, BTC dominance and total market cap for the latest day and 7 days earlier."""
+    glob, fng = regime_history(10)
     day = max(set(glob) & set(fng))
     day7 = (datetime.fromisoformat(day) - timedelta(days=7)).date().isoformat()
     if day7 not in glob or day7 not in fng:

@@ -8,7 +8,8 @@ Outcomes over the next 60 days:
 
 1. Held-out test: fit on events whose outcome is known by 2025-09-30, score Oct 2025 onwards,
    rank each day's coins and report outcomes by verdict (Comeback / Watching / Unlikely).
-2. Refit on every event with a known outcome and export the coefficients.
+2. Refit on every event with a known outcome and export the coefficients. The train-only fit is
+   exported too, as replay_model, for replaying past days honestly (see rebound_tracker.py).
 
 A second model for "falls another 20%" ranked well across time (AUC ~0.72) but not between the
 coins of the same day, and absolute probabilities drifted between years, so it is not used.
@@ -107,7 +108,9 @@ def main():
                decline=rm.DECLINE, horizon_days=rm.HORIZON, bounce=rm.BOUNCE, fell=rm.FELL,
                heldout=dict(period=f"{dates[cut + 1]} to {dates[int(D[te].max())]}", events=int(te.sum()),
                             auc=auc, groups=groups, all=allg),
-               model=final)
+               model=final,
+               # used only to replay past days on the first live run: it has seen nothing after this date
+               replay_model=dict(m, trained_until=dates[cut]))
     (HERE / "rebound_model.json").write_text(json.dumps(out, indent=1))
     print(f"exported backtest/rebound_model.json ({lab.sum()} events)")
 

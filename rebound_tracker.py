@@ -14,12 +14,18 @@ Daily run:
        Still down    anything else after 60 days
   5. Write rebound_data.json and rebound_dashboard.html.
 
-Credits: listings ~2, market regime ~2, 92 days of history for the flagged coins ~1 per coin.
+First run (no rebound_data.json yet): before today, every day from REPLAY_FROM is replayed on
+CoinMarketCap history, flagging and grading coins as if the radar had been running. The replay
+scores with replay_model, which was trained only on data up to Sep 2025, so it has never seen
+the replayed months. Replayed entries are tagged and kept that way.
+
+Credits: daily ~2 listings + ~2 market regime + ~1 per flagged coin (92 days of history).
+First run adds ~2 per coin for the replay (today's top 200, history back to REPLAY_FROM - 90 days).
 """
 import html, json
-from datetime import date, datetime, timezone
+from bisect import bisect_right
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
-import numpy as np
 
 import cmc_client as cmc
 import rebound_model as rm
@@ -27,6 +33,7 @@ import rebound_model as rm
 ROOT = Path(__file__).resolve().parent
 DATA = ROOT / "rebound_data.json"
 PAGE = ROOT / "rebound_dashboard.html"
+REPLAY_FROM = "2026-07-01"
 OUTCOMES = {
     "recovered": ("Recovered", "green"),
     "bounced": ("Bounced +25%", "blue"),
@@ -35,40 +42,45 @@ OUTCOMES = {
 }
 
 
-def scan(model):
-    regime = cmc.market_regime()
-    coins = cmc.listings(200)
-    pre = [c for c in coins if c["cmc_id"] != 1 and "stablecoin" not in c["tags"]
-           and (c.get("price_change_percentage_30d") or 0) <= -20]  # loose pre-filter; exact test below
-    hist = cmc.daily_history([1] + [c["cmc_id"] for c in pre], days=rm.HISTORY_DAYS + 1)
-    btc = [r["price"] for r in hist.get(1, [])]
+def eligible(c):
+    return c["cmc_id"] != 1 and "stablecoin" not in c["tags"]
+
+
+def regime_on(glob, fng, day):
+    d7 = (date.fromisoformat(day) - timedelta(days=7)).isoformat()
+    if not all(k in s for k in (day, d7) for s in (glob, fng)):
+        return None
+    return {"fng": fng[day], "fng_7": fng[d7], "dom": glob[day][0], "dom_7": glob[d7][0]}
+
+
+def radar_on(model, coins, hist, day, regime, live_prices=None):
+    """Score every coin down 25%+ over the 30 days ending `day` (history rows up to and including `day`)."""
+    def upto(rows, n):
+        k = bisect_right([r["date"] for r in rows], day)
+        return rows[max(k - n, 0):k]
+    btc = [r["price"] for r in upto(hist.get(1, []), 31)]
     radar = []
-    for c in pre:
-        rows = hist.get(c["cmc_id"], [])[-rm.HISTORY_DAYS:]
-        if len(rows) < rm.HISTORY_DAYS or len(btc) < 31 or not all(r["volume"] and r["mcap"] for r in rows[-31:]):
+    for c in coins:
+        rows = upto(hist.get(c["cmc_id"], []), rm.HISTORY_DAYS)
+        if (len(rows) < rm.HISTORY_DAYS or rows[-1]["date"] != day or len(btc) < 31
+                or not all(r["volume"] and r["mcap"] for r in rows[-31:])):
             continue
         p = [r["price"] for r in rows]
         if p[-1] / p[-31] - 1 > rm.DECLINE:
             continue
-        x = rm.coin_features(p, [r["volume"] for r in rows[-31:]], rows[-1]["mcap"], btc[-31:], regime)
+        x = rm.coin_features(p, [r["volume"] for r in rows[-31:]], rows[-1]["mcap"], btc, regime)
+        price = (live_prices or {}).get(c["cmc_id"]) or p[-1]
         radar.append(dict(cmc_id=c["cmc_id"], slug=c["id"], symbol=c["symbol"].upper(), name=c["name"], image=c["image"],
-                          price=c["current_price"] or p[-1], flag_price=p[-1], ref_price=p[-31], r30=p[-1] / p[-31] - 1,
-                          hi90=p[-1] / max(p) - 1, prob=rm.prob(model["model"], x), snapshot=rows[-1]["date"]))
+                          price=price, flag_price=p[-1], ref_price=p[-31], r30=p[-1] / p[-31] - 1,
+                          hi90=p[-1] / max(p) - 1, prob=rm.prob(model, x)))
     for r, rank in zip(radar, rm.day_rank([r["prob"] for r in radar])):
         r["rank"] = round(float(rank), 1)
         r["verdict"] = rm.verdict(rank)
     radar.sort(key=lambda r: -r["prob"])
-    return coins, regime, radar
+    return radar
 
 
-def update(state, coins, radar, today):
-    prices = {c["cmc_id"]: c["current_price"] for c in coins if c["current_price"]}
-    missing = [int(k) for k in state["open"] if int(k) not in prices]
-    if missing:
-        try:
-            prices.update(cmc.prices_by_id(missing))
-        except RuntimeError as e:
-            print(f"  could not price {len(missing)} tracked coins outside the top 200: {e}")
+def update(state, prices, radar, today, replay=False):
     for key, e in list(state["open"].items()):
         price = prices.get(int(key))
         if price:
@@ -92,7 +104,48 @@ def update(state, coins, radar, today):
                 cmc_id=r["cmc_id"], symbol=r["symbol"], name=r["name"], image=r["image"], flagged=today,
                 verdict=r["verdict"], rank=r["rank"], prob=r["prob"], flag_price=r["flag_price"], ref_price=r["ref_price"],
                 r30=r["r30"], last=r["price"], last_date=today, best=max(r["price"], r["flag_price"]),
-                worst=min(r["price"], r["flag_price"]), days=0)
+                worst=min(r["price"], r["flag_price"]), days=0, replay=replay)
+
+
+def replay(state, model, today):
+    """Run every day from REPLAY_FROM to yesterday on CMC history, with the replay model."""
+    start = date.fromisoformat(REPLAY_FROM)
+    span = (date.fromisoformat(today) - start).days + rm.HISTORY_DAYS + 1
+    coins = [c for c in cmc.listings(200) if eligible(c)]
+    print(f"  replaying {REPLAY_FROM} -> {today} on {len(coins)} coins ({span} days of history)")
+    hist = cmc.daily_history([1] + [c["cmc_id"] for c in coins], days=span, batch=25)
+    glob, fng = cmc.regime_history(span)
+    by_day = {}
+    for c in coins:
+        for r in hist.get(c["cmc_id"], []):
+            by_day.setdefault(r["date"], {})[c["cmc_id"]] = r["price"]
+    for k in range((date.fromisoformat(today) - start).days):
+        day = (start + timedelta(days=k)).isoformat()
+        regime = regime_on(glob, fng, day)
+        if not regime:
+            print(f"  {day}: no market data, skipped")
+            continue
+        update(state, by_day.get(day, {}), radar_on(model, coins, hist, day, regime), day, replay=True)
+    state["replay"] = {"from": REPLAY_FROM, "to": (date.fromisoformat(today) - timedelta(days=1)).isoformat(),
+                       "model_trained_until": model["trained_until"]}
+
+
+def run_today(state, model, today):
+    regime = cmc.market_regime()
+    coins = cmc.listings(200)
+    prices = {c["cmc_id"]: c["current_price"] for c in coins if c["current_price"]}
+    pre = [c for c in coins if eligible(c) and (c.get("price_change_percentage_30d") or 0) <= -20]  # exact test in radar_on
+    hist = cmc.daily_history([1] + [c["cmc_id"] for c in pre], days=rm.HISTORY_DAYS + 1)
+    day = max((r["date"] for r in hist.get(1, [])), default=today)
+    radar = radar_on(model, pre, hist, day, regime, prices)
+    missing = [int(k) for k in state["open"] if int(k) not in prices]
+    if missing:
+        try:
+            prices.update(cmc.prices_by_id(missing))
+        except RuntimeError as e:
+            print(f"  could not price {len(missing)} tracked coins outside the top 200: {e}")
+    update(state, prices, radar, today)
+    return regime, radar
 
 
 def scorecard(closed):
@@ -108,12 +161,17 @@ def pct(x, digits=0, sign=True):
     return "&ndash;" if x is None else f"{x * 100:+.{digits}f}%" if sign else f"{x * 100:.{digits}f}%"
 
 
-def money(x):
-    return "&ndash;" if not x else f"${x:,.2f}" if x >= 1 else f"${x:.4g}"
-
-
 def esc(s):
     return html.escape(str(s))
+
+
+def fmt_day(d):
+    d = date.fromisoformat(d)
+    return f"{d:%b} {d.day}, {d.year}"
+
+
+def replay_tag(e):
+    return ' <span class="tag">replay</span>' if e.get("replay") else ""
 
 
 def coin_card(r):
@@ -144,9 +202,18 @@ def build_page(state, model):
         since = e["last"] / e["flag_price"] - 1; best = e["best"] / e["flag_price"] - 1; need = e["ref_price"] / e["last"] - 1
         return f"""<tr><td><div class="tc"><img src="{esc(e['image'])}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
           <div><b>{esc(e['symbol'])}</b><small>{esc(e['name'])}</small></div></div></td>
-          <td>{e['flagged']}</td><td><span class="pill p-{e['verdict']}">{rm.VERDICTS[e['verdict']]}</span></td>
+          <td>{e['flagged']}{replay_tag(e)}</td><td><span class="pill p-{e['verdict']}">{rm.VERDICTS[e['verdict']]}</span></td>
           <td class="{'up' if since >= 0 else 'dn'}">{pct(since)}</td><td class="up">{pct(best)}</td>
           <td>{pct(need)}</td><td>{max(rm.HORIZON - e['days'], 0)}d</td></tr>"""
+
+    def graded_row(e):
+        best = e["best"] / e["flag_price"] - 1; end = e["last"] / e["flag_price"] - 1
+        label, color = OUTCOMES[e["outcome"]]
+        return f"""<tr><td><div class="tc"><img src="{esc(e['image'])}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>{esc(e['symbol'])}</b><small>{esc(e['name'])}</small></div></div></td>
+          <td>{e['flagged']}{replay_tag(e)}</td><td><span class="pill p-{e['verdict']}">{rm.VERDICTS[e['verdict']]}</span></td>
+          <td class="up">{pct(best)}</td><td class="{'up' if end >= 0 else 'dn'}">{pct(end)}</td>
+          <td>{e['closed']}</td><td><span class="pill o-{color}">{label}</span></td></tr>"""
 
     def score_row(v):
         b, l = bt[v], live[v]
@@ -156,7 +223,13 @@ def build_page(state, model):
           <td>{l['n']}</td><td>{cell(l['recovered'])}</td><td>{cell(l['bounced'])}</td><td>{cell(l['fell'])}</td></tr>"""
 
     tracks = "".join(track_row(e) for e in open_rows) or '<tr><td colspan="7" class="empty">Nothing tracked yet.</td></tr>'
+    recent = sorted(state["closed"], key=lambda e: (e["closed"], e["flagged"]), reverse=True)[:40]
+    graded = "".join(graded_row(e) for e in recent) or '<tr><td colspan="7" class="empty">Nothing graded yet.</td></tr>'
     lift = bt["comeback"]["comeback"] / max(bt["unlikely"]["comeback"], 1e-9)
+    rp = state.get("replay")
+    replay_note = (f"""Coins tagged <span class="tag">replay</span> were flagged by replaying CoinMarketCap history from
+      {fmt_day(rp['from'])} to {fmt_day(rp['to'])}, day by day, with a copy of the model trained only on data up to
+      {fmt_day(rp['model_trained_until'])}, so it had never seen those months. Everything after that is live.""" if rp else "")
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -222,6 +295,11 @@ tr:last-child td{{border-bottom:none}}
 .tc{{display:flex;align-items:center;gap:9px}} .tc img{{width:22px;height:22px;border-radius:50%}}
 .tc b{{color:var(--text);display:block;font-size:.78rem}} .tc small{{color:var(--muted);font-size:.64rem}}
 .empty{{color:var(--muted);font-size:.8rem;padding:12px 0}}
+.tag{{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:6px;background:rgba(255,255,255,.06);color:var(--muted);margin-left:4px}}
+.o-green{{background:rgba(0,245,160,.1);color:var(--green);border-color:rgba(0,245,160,.25)}}
+.o-blue{{background:rgba(79,172,254,.1);color:var(--blue);border-color:rgba(79,172,254,.25)}}
+.o-gold{{background:rgba(255,214,10,.08);color:var(--gold);border-color:rgba(255,214,10,.22)}}
+.o-red{{background:rgba(255,77,109,.1);color:var(--red);border-color:rgba(255,77,109,.25)}}
 .note{{font-size:.76rem;color:var(--muted);max-width:860px;margin-top:10px}}
 .how{{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}}
 .how div{{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:16px 18px;font-size:.8rem;color:var(--text2)}}
@@ -269,13 +347,22 @@ tr:last-child td{{border-bottom:none}}
     {tracks}
   </table></div>
 
+  <div class="label">Graded</div>
+  <h2>Recently graded</h2>
+  <p class="sub">Recovered = got back to its price from 30 days before it was flagged. Otherwise graded after {rm.HORIZON} days
+    on the flag price: Bounced (+25% at some point), Fell further (20%+ lower at the end) or Still down.</p>
+  <div class="panel"><table>
+    <tr><th>Coin</th><th>Flagged</th><th>Verdict then</th><th>Best</th><th>At grading</th><th>Graded</th><th>Outcome</th></tr>
+    {graded}
+  </table></div>
+
   <div class="label">Scorecard</div>
   <h2>Does the verdict hold up?</h2>
   <p class="sub">Backtest: {held['events']:,} declines from {esc(held['period'])}, data the model never saw while training.
-    Live: coins graded on this page.</p>
+    Graded here: every coin this page has flagged and graded. {replay_note}</p>
   <div class="panel"><table>
     <tr><th>Verdict</th><th>Backtest recovered</th><th>Bounced +25%</th><th>Fell 20%+ more</th>
-      <th>Live graded</th><th>Recovered</th><th>Bounced</th><th>Fell further</th></tr>
+      <th>Graded here</th><th>Recovered</th><th>Bounced</th><th>Fell further</th></tr>
     {"".join(score_row(v) for v in rm.VERDICTS)}
     <tr><td><b style="color:var(--text)">All declines</b></td><td>{pct(held['all']['comeback'], 1, False)}</td>
       <td>{pct(held['all']['bounce'], 0, False)}</td><td>{pct(held['all']['falling'], 0, False)}</td>
@@ -284,7 +371,8 @@ tr:last-child td{{border-bottom:none}}
   <p class="note">Read it honestly: the model is good at telling which coins tend to win back their losses
     (candidates recover about {lift:.1f}&times; as often as "unlikely"), but about a third of every group still drops
     another 20%+. Candidates are often the more volatile coins: bigger swings both ways. The backtest only includes coins
-    still in today's top 200, so coins that died are missing and real recovery rates are lower; the live scorecard has no such gap.</p>
+    still in today's top 200, so coins that died are missing and real recovery rates are lower. The replay has a smaller
+    version of the same gap (it starts from today's top 200); coins flagged live are graded whatever happens to them.</p>
 
   <div class="label" style="margin-top:40px">How it works</div>
   <div class="how">
@@ -305,12 +393,16 @@ tr:last-child td{{border-bottom:none}}
 
 def main():
     model = rm.load()
-    state = json.loads(DATA.read_text(encoding="utf-8")) if DATA.exists() else {"open": {}, "closed": []}
     today = datetime.now(timezone.utc).date().isoformat()
+    if DATA.exists():
+        state = json.loads(DATA.read_text(encoding="utf-8"))
+    else:  # first run: replay the past on a model that never saw it, so the scorecard starts with data
+        state = {"open": {}, "closed": []}
+        replay(state, model["replay_model"], today)
+        print(f"  replay done: tracking {len(state['open'])}, graded {len(state['closed'])}")
     print("Rebound Radar: scanning top 200 for 30-day declines ...")
-    coins, regime, radar = scan(model)
+    regime, radar = run_today(state, model["model"], today)
     print(f"  {len(radar)} coins down {abs(rm.DECLINE):.0%}+ in 30 days")
-    update(state, coins, radar, today)
     state["updated"] = datetime.now(timezone.utc).strftime("%b %d, %Y at %H:%M UTC")
     state["today"] = {"date": today, "regime": regime, "coins": radar}
     state["scorecard"] = scorecard(state["closed"])
