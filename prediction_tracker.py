@@ -24,6 +24,7 @@ import requests
 from cmc_client import fetch_market, prices_by_symbol, market_regime
 import numpy as np
 import model_v2
+import trader_stats
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -421,10 +422,92 @@ def generate_dashboard(data):
         (3, data.get('predictions_3d', {}), data.get('evaluations_3d', {}), DASHBOARD_3D, weights_3d(), bt_note(3, 'tuned'), None),
     ]
     for horizon, predictions, evaluations, out_path, weights, note, override in pages:
-        _render_page(horizon, predictions, evaluations, out_path, weights, note, override)
+        extra = dict(light=_light_html(data, horizon, predictions), trader=_trader_html(data, horizon))
+        _render_page(horizon, predictions, evaluations, out_path, weights, note, override, extra)
 
 
-def _render_page(horizon, predictions, evaluations, out_path, weights, note, override=None):
+def _pct(x, sign=True, digits=1):
+    return '&ndash;' if x is None else (f"{x * 100:+.{digits}f}%" if sign else f"{x * 100:.{digits}f}%")
+
+
+def _light_html(data, horizon, predictions):
+    """Market light banner for the latest call (TRADE / CAUTION from BTC's 7-day trend)."""
+    if not predictions:
+        return ''
+    day = max(predictions)
+    lt = trader_stats.light_for(data, day, predictions[day])
+    if not lt:
+        return ''
+    name, why = trader_stats.LIGHTS[lt['state']]
+    live = trader_stats.stats(data, 7)
+    bt = (trader_stats.backtest(7) or {}).get('light', {})
+    lines = []
+    if bt:
+        lines.append(f"Backtest (held-out year): 7-day calls averaged <b>{_pct(bt['trade']['basket_mean'])}</b> on TRADE days "
+                     f"vs <b>{_pct(bt['caution']['basket_mean'])}</b> on CAUTION days, after costs.")
+    if live['trade'] and live['caution']:
+        lines.append(f"On this site so far: {_pct(live['trade']['avg'])} ({live['trade']['calls']} calls) vs "
+                     f"{_pct(live['caution']['avg'])} ({live['caution']['calls']} calls).")
+    if horizon == 3:
+        lines.append("In testing the light made no difference for 3-day calls; it is shown for context.")
+    lines.append("One input, not a guarantee.")
+    return f"""<div class="light light-{lt['state']}">
+    <div class="light-dot"></div>
+    <div><div class="light-h">Market light: <b>{name}</b> <span>Bitcoin {lt['btc7']:+.1f}% over 7 days &middot; {lt['as_of']}</span></div>
+    <div class="light-why">{why}. {' '.join(lines)}</div></div></div>"""
+
+
+def _trader_html(data, horizon):
+    """'If you followed every call' section: returns after costs vs holding Bitcoin."""
+    s = trader_stats.stats(data, horizon)
+    a = s['all']
+    if not a:
+        return ''
+    bt = trader_stats.backtest(horizon)
+    early = (f'<p class="section-sub" style="color:var(--gold)">Only {a["calls"]} graded call{"s" if a["calls"] != 1 else ""} '
+             f'so far: too early to judge.</p>') if a['calls'] < 20 else ''
+    def row(label, x):
+        if not x:
+            return f"<tr><td>{label}</td><td colspan='5'>&ndash;</td></tr>"
+        return (f"<tr><td>{label}</td><td>{x['calls']}</td><td>{_pct(x['avg'])}</td><td>{_pct(x['btc_avg'])}</td>"
+                f"<td>{_pct(x['in_profit'], False, 0)}</td><td>{_pct(x['beat_btc'], False, 0)}</td></tr>")
+    bt_row = ''
+    if bt:
+        h = bt['hold']
+        bt_row = (f"<tr><td>Backtest, held-out year ({bt['period'][0]} &ndash; {bt['period'][1]})</td><td>{h['days']}</td>"
+                  f"<td>{_pct(h['basket_mean'])}</td><td>{_pct(h['btc_mean'])}</td><td>{_pct(h['basket_win'], False, 0)}</td>"
+                  f"<td>{_pct(h['beat_btc'], False, 0)}</td></tr>")
+    return f"""
+  <div style="margin-bottom:48px">
+    <div class="section-label">&#128176; Trader view</div>
+    <h2 class="section-h">If you followed every call</h2>
+    <p class="section-sub">Buy all 10 picks in equal amounts at the call price, sell after __H__ days, minus 0.3% trading costs per coin.
+      Compared with holding Bitcoin over the same days.</p>
+    {early}
+    <div class="stats" style="margin-bottom:22px">
+      <div class="stat c-green"><div class="stat-label">Avg return per call</div><div class="stat-val green">{_pct(a['avg'])}</div>
+        <div class="stat-sub">Bitcoin over the same days: {_pct(a['btc_avg'])}</div></div>
+      <div class="stat c-blue"><div class="stat-label">Calls in profit</div><div class="stat-val blue">{_pct(a['in_profit'], False, 0)}</div>
+        <div class="stat-sub">Beat Bitcoin: {_pct(a['beat_btc'], False, 0)} of calls</div></div>
+      <div class="stat c-gold"><div class="stat-label">Winners vs losers</div><div class="stat-val gold" style="font-size:1.5rem">{_pct(a['avg_win'], True, 0)} / {_pct(a['avg_loss'], True, 0)}</div>
+        <div class="stat-sub">{_pct(a['coin_win'], False, 0)} of coins win, but winners run further</div></div>
+      <div class="stat c-purple"><div class="stat-label">Last 30 calls</div><div class="stat-val purple">{_pct(s['last30']['avg'])}</div>
+        <div class="stat-sub">avg per call &middot; {_pct(s['last30']['in_profit'], False, 0)} in profit</div></div>
+    </div>
+    <div class="ins-card"><table class="ins-table">
+      <tr><th></th><th>Calls</th><th>Avg return</th><th>Bitcoin</th><th>In profit</th><th>Beat BTC</th></tr>
+      {row('All graded calls on this site', a)}
+      {row('&#128994; Made on TRADE days', s['trade'])}
+      {row('&#128992; Made on CAUTION days', s['caution'])}
+      {bt_row}
+    </table></div>
+    <p class="section-sub" style="margin-top:12px;font-size:.76rem">The median call earned {_pct(a['median'])}: most of the gain comes from a few big
+      winners (best call {_pct(a['best_ret'])} on {a['best']}, worst {_pct(a['worst_ret'])} on {a['worst']}), so holding all 10
+      in equal size matters more than picking favourites. Past results do not guarantee future returns. Not financial advice.</p>
+  </div>"""
+
+
+def _render_page(horizon, predictions, evaluations, out_path, weights, note, override=None, extra=None):
 
     total_preds  = len(predictions)
     total_evals  = len(evaluations)
@@ -470,14 +553,14 @@ def _render_page(horizon, predictions, evaluations, out_path, weights, note, ove
         badges, model_text, note = override['badges'], override['model_text'], override['note']
     out_path.write_text(
         _build_html(tl_json, chart_json, updated_at, hit_disp, pos_disp, best_disp, total_preds,
-                    horizon=horizon, badges=badges, model_text=model_text, note=note),
+                    horizon=horizon, badges=badges, model_text=model_text, note=note, extra=extra),
         encoding='utf-8'
     )
     print(f"  Dashboard ({horizon}-day) -> {out_path}")
 
 
 def _build_html(tl_json, chart_json, updated_at, hit_disp, pos_disp,
-                best_disp, total_preds, horizon=7, badges='', model_text='', note=''):
+                best_disp, total_preds, horizon=7, badges='', model_text='', note='', extra=None):
     html = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -613,6 +696,17 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 .htab:hover{color:#e8eaf6;border-color:rgba(79,172,254,.4)}
 .htab.active{color:#020510;background:linear-gradient(135deg,#D4FF3A,#3DE8FF);border-color:transparent}
 .pick-footer{display:flex;justify-content:space-between;align-items:center;margin-top:5px;font-size:.6rem;color:var(--muted)}
+.light{display:flex;gap:16px;align-items:flex-start;border-radius:18px;padding:18px 22px;margin-bottom:36px;border:1px solid}
+.light-trade{background:rgba(0,245,160,.06);border-color:rgba(0,245,160,.25)}
+.light-caution{background:rgba(255,154,61,.07);border-color:rgba(255,154,61,.3)}
+.light-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.light-trade .light-dot{background:#00f5a0;box-shadow:0 0 14px #00f5a0}
+.light-caution .light-dot{background:#ff9a3d;box-shadow:0 0 14px #ff9a3d}
+.light-h{font-size:1.05rem;font-weight:700}
+.light-trade .light-h b{color:#00f5a0} .light-caution .light-h b{color:#ff9a3d}
+.light-h span{font-size:.75rem;color:var(--text2);font-weight:500;margin-left:6px}
+.light-why{font-size:.8rem;color:var(--text2);margin-top:4px;line-height:1.55}
+.ins-table td:first-child{color:var(--text)}
 </style>
 </head>
 <body>
@@ -634,6 +728,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
   <a href="rebound_dashboard.html" class="htab">&#129517; Rebound Radar</a>
 </nav>
 <div class="wrap">
+  __LIGHT__
 
   <!-- ── Today's 3-Day Picks ───────────────────────────────────── -->
   <div style="margin-bottom:52px">
@@ -681,6 +776,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
       <div class="stat-sub">Highest single-day hit rate</div>
     </div>
   </div>
+  __TRADER__
   <div class="tabs-bar">
     <button class="tab-btn active" onclick="switchTab('overview',this)">&#128202; Overview</button>
     <button class="tab-btn" onclick="switchTab('insights',this)">&#128300; Insights</button>
@@ -1134,7 +1230,10 @@ function buildInsights() {
 </script>
 </body>
 </html>"""
+    extra = extra or {}
     return (html
+        .replace('__LIGHT__',       extra.get('light', ''))
+        .replace('__TRADER__',      extra.get('trader', ''))
         .replace('__H__',           str(horizon))
         .replace('__ACTIVE7__',     'active' if horizon == 7 else '')
         .replace('__ACTIVE3__',     'active' if horizon == 3 else '')
@@ -1193,6 +1292,8 @@ if __name__ == '__main__':
 
         price_snapshot = {c['id']: c['current_price'] for c in coins if c.get('current_price')}
         maturity = (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')
+        btc_coin = next((c for c in coins if c['id'] == 'bitcoin'), {})
+        light = trader_stats.light_from_history(btc_coin.get('daily_history', []))
 
         data.setdefault('predictions', {})[today] = {
             'date':            today,
@@ -1203,6 +1304,7 @@ if __name__ == '__main__':
             'model':           model_used,
             'regime':          regime,
             'model_error':     model_error,
+            'market_light':    light,
         }
 
         print(f"  Today's top 10 (model {model_used}):")
@@ -1236,6 +1338,8 @@ if __name__ == '__main__':
                 'maturity_date':   (datetime.now() + timedelta(days=3)).strftime('%Y-%m-%d'),
                 'predicted_coins': top3,
                 'fetched_at':      datetime.now().isoformat(),
+                'market_light':    trader_stats.light_from_history(
+                    next((c for c in coins if c['id'] == 'bitcoin'), {}).get('daily_history', [])),
             }
             # reuse today's 7-day snapshot; store one only if it is missing
             if today not in data['predictions']:

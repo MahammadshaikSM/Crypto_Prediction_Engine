@@ -10,13 +10,15 @@ Writes
 
 Post kits older than 14 days are removed. Runs in the daily GitHub Action after the trackers.
 """
-import json, os, re, shutil
+import json, os, re, shutil, sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 ICON = ROOT / "brand" / "ichnora" / "icon-192.png"
+sys.path.insert(0, str(ROOT))
+import trader_stats  # noqa: E402
 # Public website address for posts. Empty = posts carry no link at all.
 # Set the repository variable PUBLIC_SITE_URL (Settings > Secrets and variables > Actions > Variables)
 # once you have your own domain; nothing else needs to change.
@@ -81,6 +83,7 @@ def build_calls(data):
     today = max(data["predictions"])
     latest = data["predictions"][today].get("price_snapshot", {})
     calls = []
+    graded = {h: {r["date"]: r for r in trader_stats.call_results(data, h)} for h in (7, 3)}
     for h, preds, evals in ((7, data["predictions"], data.get("evaluations", {})),
                             (3, data.get("predictions_3d", {}), data.get("evaluations_3d", {}))):
         for day in sorted(preds):
@@ -103,7 +106,9 @@ def build_calls(data):
                               horizon=h, model=p.get("model", "v1" if h == 7 else "3d-tuned"),
                               status="graded" if ev else "open", graded_on=(ev or {}).get("evaluation_date"),
                               hits=(ev or {}).get("hit_count"), up=(ev or {}).get("positive_count"),
-                              actual_top10=[a["symbol"].upper() for a in (ev or {}).get("actual_top10", [])], picks=picks))
+                              actual_top10=[a["symbol"].upper() for a in (ev or {}).get("actual_top10", [])], picks=picks,
+                              light=trader_stats.light_for(data, day, p),
+                              basket=(graded[h].get(day) or {}).get("basket"), btc=(graded[h].get(day) or {}).get("btc")))
     calls.sort(key=lambda c: (c["date"], -c["horizon"]), reverse=True)
     return today, calls
 
@@ -111,6 +116,7 @@ def build_calls(data):
 # ---------- images ----------
 BG, SURF, FG, FG2, LINE = "#07070A", "#111117", "#F4F4EF", "#A1A1AC", "#24242C"
 LIME, ONLIME, DOWN = "#D4FF3A", "#0B0B0F", "#FF7A6B"
+LIGHT_COL = {"trade": "#00F5A0", "caution": "#FF9A3D"}
 FONT_PATHS = {
     "bold": ["C:/Windows/Fonts/segoeuib.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
              "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"],
@@ -142,11 +148,21 @@ def card(call, mode, today):
         logo = Image.open(ICON).convert("RGBA").resize((44, 44), Image.LANCZOS)
         im.paste(logo, (X, 52), logo)
     g.text((X + 58, 60), "ICHNORA", font=font("bold", 30), fill=FG)
+    lt = call.get("light")
+    if mode == "call" and lt:
+        col = LIGHT_COL[lt["state"]]; lf = font("bold", 24)
+        txt = f"MARKET LIGHT · {trader_stats.LIGHTS[lt['state']][0]}"
+        w = g.textlength(txt, font=lf) + 64
+        g.rounded_rectangle([W - X - w, 50, W - X, 98], radius=24, outline=col, width=3)
+        g.ellipse([W - X - w + 20, 66, W - X - w + 36, 82], fill=col)
+        g.text((W - X - w + 46, 59), txt, font=lf, fill=col)
     title = {"call": f"{h}-DAY CALL", "update": "GRADED TOMORROW", "result": f"{h}-DAY RESULTS"}[mode]
     g.text((X, 100), title, font=font("bold", 92), fill=FG)
     sub = f"{h}-Day Call · {md(call['date'])} → {md(call['end'])}"
     if mode == "result":
         sub = f"{call['hits']}/10 finished in the top 10 · {call['up']}/10 went up"
+        if call.get("basket") is not None and call.get("btc") is not None:
+            sub = f"Basket {pct(call['basket'] * 100)} vs BTC {pct(call['btc'] * 100)} · {call['hits']}/10 in top 10"
     elif mode == "update":
         priced = [p for p in call["picks"] if p["change"] is not None]
         up = sum(1 for p in priced if p["change"] > 0)
@@ -248,6 +264,10 @@ def caption_with(call, mode, coin_tags):
     rng = f"{md(call['date'])} → {md(call['end'])}"
     if mode == "call":
         head, body = f"🎯 {h}-Day Call · {rng}", f"{cash}\nResults {md(call['end'])}{arrow(call)}"
+        lt = call.get("light")
+        if lt:
+            dot = "🟢" if lt["state"] == "trade" else "🟠"
+            body += f"\n{dot} Market light: {trader_stats.LIGHTS[lt['state']][0]} (BTC {lt['btc7']:+.1f}% 7d)"
     else:
         ranked = sorted([p for p in call["picks"] if p["change"] is not None], key=lambda p: -p["change"])
         if mode == "update":
@@ -257,6 +277,8 @@ def caption_with(call, mode, coin_tags):
             hits = ", ".join(f"${p['symbol']} {pct(p['change'])}" for p in ranked if p["hit"]) or "none"
             head = f"✅ {h}-Day results · {rng}"
             body = f"{call['hits']}/10 hit the top 10: {hits} · {call['up']}/10 up{arrow(call)}"
+            if call.get("basket") is not None and call.get("btc") is not None:
+                body += f"\nAll 10 in equal size: {pct(call['basket'] * 100)} vs BTC {pct(call['btc'] * 100)}"
     return f"{head}\n{body}\n{tags}\nNFA"
 
 

@@ -1,0 +1,305 @@
+{
+ "api_version": "1.0",
+ "generated_at": "2026-10-24T21:45:19Z",
+ "source": "CoinMarketCap",
+ "disclaimer": "Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits.",
+ "docs": "api.html",
+ "date": "2026-10-24",
+ "market_light": {
+  "state": "caution",
+  "label": "CAUTION",
+  "btc_change_7d_pct": -0.9,
+  "as_of": "2026-10-24",
+  "rule": "TRADE when Bitcoin's 7-day change is >= 0, CAUTION when it is negative.",
+  "evidence": {
+   "applies_to": "7-day calls (no measurable effect on 3-day calls in testing)",
+   "backtest_period": "2025-10-01 to 2026-09-30, held out from training",
+   "backtest_avg_return_per_call_trade": 0.0557,
+   "backtest_avg_return_per_call_caution": 0.0208,
+   "note": "Backtest edge is likely but not certain (about 88-94% bootstrap probability). Live split is in track-record.json and updates daily."
+  }
+ },
+ "calls_7d": {
+  "horizon_days": 7,
+  "date": "2026-10-24",
+  "grades_on": "2026-10-31",
+  "model": "model v2 (18 signals + market regime, logistic regression)",
+  "how_to_read": "Buy-and-hold idea for the window: the 10 coins the model rates most likely to be among the top-10 gainers of ~200 coins by the end date. Hold all 10 in equal size; returns come from a few big winners. score = model rating (7-day: chance in % of finishing top-10, 3-day: 0-100 index).",
+  "picks": [
+   {
+    "rank": 1,
+    "symbol": "IRYS",
+    "name": "Irys",
+    "cmc_slug": "irys",
+    "price_at_call": 0.08095942641014339,
+    "score": 26.86,
+    "rsi": 95.9,
+    "change_24h_pct": 191.89,
+    "change_7d_pct": 520.9
+   },
+   {
+    "rank": 2,
+    "symbol": "BEAM",
+    "name": "Beam",
+    "cmc_slug": "onbeam",
+    "price_at_call": 0.003334846530127924,
+    "score": 21.9,
+    "rsi": 67.8,
+    "change_24h_pct": 5.65,
+    "change_7d_pct": 11.87
+   },
+   {
+    "rank": 3,
+    "symbol": "PROM",
+    "name": "Prom",
+    "cmc_slug": "prom",
+    "price_at_call": 5.632427392923353,
+    "score": 18.86,
+    "rsi": 55.8,
+    "change_24h_pct": -1.14,
+    "change_7d_pct": 21.48
+   },
+   {
+    "rank": 4,
+    "symbol": "RSR",
+    "name": "Reserve Rights",
+    "cmc_slug": "reserve-rights",
+    "price_at_call": 0.001689120883199907,
+    "score": 18.52,
+    "rsi": 55.5,
+    "change_24h_pct": -6.37,
+    "change_7d_pct": -14.58
+   },
+   {
+    "rank": 5,
+    "symbol": "SENT",
+    "name": "Sentient",
+    "cmc_slug": "sentient",
+    "price_at_call": 0.022076385322936768,
+    "score": 18.06,
+    "rsi": 56.9,
+    "change_24h_pct": -2.72,
+    "change_7d_pct": 3.0
+   },
+   {
+    "rank": 6,
+    "symbol": "EDGE",
+    "name": "edgeX",
+    "cmc_slug": "edgex",
+    "price_at_call": 0.31222693695119863,
+    "score": 16.44,
+    "rsi": 39.5,
+    "change_24h_pct": -6.4,
+    "change_7d_pct": 1.57
+   },
+   {
+    "rank": 7,
+    "symbol": "S",
+    "name": "Sonic",
+    "cmc_slug": "sonic",
+    "price_at_call": 0.050233726638193185,
+    "score": 16.03,
+    "rsi": 57.6,
+    "change_24h_pct": -4.27,
+    "change_7d_pct": -10.16
+   },
+   {
+    "rank": 8,
+    "symbol": "KMNO",
+    "name": "Kamino",
+    "cmc_slug": "kamino-finance",
+    "price_at_call": 0.04268484808194191,
+    "score": 15.52,
+    "rsi": 63.8,
+    "change_24h_pct": 9.41,
+    "change_7d_pct": 3.37
+   },
+   {
+    "rank": 9,
+    "symbol": "M",
+    "name": "MemeCore",
+    "cmc_slug": "memecore",
+    "price_at_call": 1.0000218052966343,
+    "score": 15.49,
+    "rsi": 42.0,
+    "change_24h_pct": 10.5,
+    "change_7d_pct": 28.35
+   },
+   {
+    "rank": 10,
+    "symbol": "CAP",
+    "name": "Cap",
+    "cmc_slug": "cap-app",
+    "price_at_call": 0.0689940137479313,
+    "score": 14.39,
+    "rsi": 37.2,
+    "change_24h_pct": -1.96,
+    "change_7d_pct": -5.56
+   }
+  ]
+ },
+ "calls_3d": {
+  "horizon_days": 3,
+  "date": "2026-10-24",
+  "grades_on": "2026-10-27",
+  "model": "5-signal formula with weights tuned on 3 years of CMC data",
+  "how_to_read": "Buy-and-hold idea for the window: the 10 coins the model rates most likely to be among the top-10 gainers of ~200 coins by the end date. Hold all 10 in equal size; returns come from a few big winners. score = model rating (7-day: chance in % of finishing top-10, 3-day: 0-100 index).",
+  "picks": [
+   {
+    "rank": 1,
+    "symbol": "IRYS",
+    "name": "Irys",
+    "cmc_slug": "irys",
+    "price_at_call": 0.08095942641014339,
+    "score": 99.9,
+    "rsi": 96.6,
+    "change_24h_pct": 191.89,
+    "change_7d_pct": 520.9
+   },
+   {
+    "rank": 2,
+    "symbol": "M",
+    "name": "MemeCore",
+    "cmc_slug": "memecore",
+    "price_at_call": 1.0000218052966343,
+    "score": 10.26,
+    "rsi": 50.6,
+    "change_24h_pct": 10.5,
+    "change_7d_pct": 28.35
+   },
+   {
+    "rank": 3,
+    "symbol": "PROM",
+    "name": "Prom",
+    "cmc_slug": "prom",
+    "price_at_call": 5.632427392923353,
+    "score": 8.47,
+    "rsi": 54.7,
+    "change_24h_pct": -1.14,
+    "change_7d_pct": 21.48
+   },
+   {
+    "rank": 4,
+    "symbol": "CVX",
+    "name": "Convex Finance",
+    "cmc_slug": "convex-finance",
+    "price_at_call": 2.388194688796102,
+    "score": 8.29,
+    "rsi": 60.7,
+    "change_24h_pct": -5.56,
+    "change_7d_pct": 22.63
+   },
+   {
+    "rank": 5,
+    "symbol": "BEAM",
+    "name": "Beam",
+    "cmc_slug": "onbeam",
+    "price_at_call": 0.003334846530127924,
+    "score": 7.62,
+    "rsi": 67.2,
+    "change_24h_pct": 5.65,
+    "change_7d_pct": 11.87
+   },
+   {
+    "rank": 6,
+    "symbol": "PEPE",
+    "name": "Pepe",
+    "cmc_slug": "pepe",
+    "price_at_call": 4.466459769131561e-06,
+    "score": 7.18,
+    "rsi": 59.2,
+    "change_24h_pct": -3.25,
+    "change_7d_pct": 11.42
+   },
+   {
+    "rank": 7,
+    "symbol": "TRAC",
+    "name": "OriginTrail",
+    "cmc_slug": "origintrail",
+    "price_at_call": 0.4167202688084532,
+    "score": 6.91,
+    "rsi": 48.5,
+    "change_24h_pct": 10.66,
+    "change_7d_pct": 4.63
+   },
+   {
+    "rank": 8,
+    "symbol": "KMNO",
+    "name": "Kamino",
+    "cmc_slug": "kamino-finance",
+    "price_at_call": 0.04268484808194191,
+    "score": 6.65,
+    "rsi": 62.8,
+    "change_24h_pct": 9.41,
+    "change_7d_pct": 3.37
+   },
+   {
+    "rank": 9,
+    "symbol": "COMP",
+    "name": "Compound",
+    "cmc_slug": "compound",
+    "price_at_call": 23.856841823385793,
+    "score": 6.46,
+    "rsi": 45.4,
+    "change_24h_pct": -2.58,
+    "change_7d_pct": 7.99
+   },
+   {
+    "rank": 10,
+    "symbol": "JST",
+    "name": "JUST",
+    "cmc_slug": "just",
+    "price_at_call": 0.14086948456023696,
+    "score": 6.11,
+    "rsi": 56.7,
+    "change_24h_pct": 1.0,
+    "change_7d_pct": 4.04
+   }
+  ]
+ },
+ "rebound": {
+  "date": "2026-10-24",
+  "coins_on_radar": 9,
+  "definition": "Top-200 coins down 25%+ over 30 days. comeback_score = rank (0-100) among today's declining coins of the model's chance to get back to the price of 30 days ago within 60 days.",
+  "verdicts": {
+   "comeback": "top 30% of comeback scores",
+   "watch": "middle 40%",
+   "unlikely": "bottom 30%"
+  },
+  "comeback_candidates": [
+   {
+    "symbol": "CASHCAT",
+    "name": "Cash Cat",
+    "cmc_slug": "cash-cat",
+    "verdict": "comeback",
+    "comeback_score": 94.4,
+    "change_30d_pct": -36.0,
+    "from_90d_high_pct": -66.57,
+    "rise_needed_to_recover_pct": 65.51,
+    "price": 0.09381830440415773
+   },
+   {
+    "symbol": "PONS",
+    "name": "Pons",
+    "cmc_slug": "pons",
+    "verdict": "comeback",
+    "comeback_score": 83.3,
+    "change_30d_pct": -61.93,
+    "from_90d_high_pct": -73.63,
+    "rise_needed_to_recover_pct": 176.7,
+    "price": 0.22862047630556856
+   },
+   {
+    "symbol": "FARTCOIN",
+    "name": "Fartcoin",
+    "cmc_slug": "fartcoin",
+    "verdict": "comeback",
+    "comeback_score": 72.2,
+    "change_30d_pct": -26.13,
+    "from_90d_high_pct": -37.3,
+    "rise_needed_to_recover_pct": 45.96,
+    "price": 0.1263738644940376
+   }
+  ]
+ }
+}

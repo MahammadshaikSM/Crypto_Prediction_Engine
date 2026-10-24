@@ -53,6 +53,12 @@ jobs:
           PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}   # empty = posts carry no link
         continue-on-error: true
 
+      - name: Build public API (api/v1/*.json, api/openapi.json, llms.txt)
+        run: python site/build_api.py
+        env:
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
+        continue-on-error: true
+
       - name: Diagnose model v2 (manual runs only; writes posts/diag_v2.json)
         if: github.event_name == 'workflow_dispatch'
         run: python diag_v2.py
@@ -81,6 +87,7 @@ jobs:
                   site/summary.json site/history.json
           git add site/forecast.json 2>/dev/null || true
           git add rebound_data.json rebound_dashboard.html 2>/dev/null || true
+          git add -A api llms.txt 2>/dev/null || true
           git add -A posts site/calls.json 2>/dev/null || true
           # Only commit if something changed
           if git diff --staged --quiet; then

@@ -1,0 +1,30 @@
+# Ichnora
+
+> Daily crypto research calls graded in public. Each day a model scans ~200 coins on CoinMarketCap and publishes
+> 10 coins for the next 7 days and 10 for the next 3 days, a market light (TRADE / CAUTION), and a Rebound Radar
+> for coins down 25%+ in a month. Every call is graded and kept, wins and losses.
+
+Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits.
+
+## How an AI assistant should use this
+- Read api/v1/today.json first: market_light, calls_7d, calls_3d, rebound.
+- Check api/v1/track-record.json before relying on a signal: it shows average return per call after costs,
+  how often calls beat Bitcoin, and how calls made on TRADE vs CAUTION days did.
+- Treat the calls as a basket: hold all 10 in equal size for the stated window. Most of the return comes from a few
+  big winners, so single picks are unreliable.
+- The market light is based on Bitcoin's 7-day trend. In a held-out backtest 7-day calls did better on TRADE days;
+  that evidence is likely but not certain. It had no effect on 3-day calls.
+- Data refreshes once a day around 11:30 UTC. "as_of" and "generated_at" fields give the exact times.
+- Today the market light is CAUTION (Bitcoin -0.9% over 7 days).
+
+## Endpoints (JSON, no key)
+- [today.json](api/v1/today.json): market light, today's calls, Rebound Radar headline
+- [track-record.json](api/v1/track-record.json): returns after costs vs Bitcoin, by market light, plus backtest
+- [rebound.json](api/v1/rebound.json): coins down 25%+ in 30 days, comeback verdicts, scorecard
+- [calls.json](api/v1/calls.json): recent calls with grades
+- [openapi.json](api/openapi.json): OpenAPI 3.1 description
+
+## Pages for people
+- [Home](index.html), [7-day calls](prediction_dashboard.html),
+  [3-day calls](prediction_dashboard_3d.html), [Rebound Radar](rebound_dashboard.html),
+  [API docs](api.html)

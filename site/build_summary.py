@@ -7,11 +7,13 @@ This script distils it into:
 
 Runs in the daily GitHub Action right after the trackers. Standard library only.
 """
-import json
+import json, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "site"
+sys.path.insert(0, str(ROOT))
+import trader_stats  # noqa: E402
 
 
 def load(name):
@@ -56,8 +58,12 @@ def crypto():
                         "hc": ev["hit_count"], "pc": ev["positive_count"], "p": picks, "a": actual})
     today = [{k: c.get(k) for k in ("rank", "id", "symbol", "name", "image", "score", "confidence", "mom24h", "rsi")}
              for c in latest["predicted_coins"][:10]]
+    tr = trader_stats.stats(data, 7)
+    trader = {k: tr[k] and {x: rnd(v, 4) if isinstance(v, float) else v for x, v in tr[k].items()}
+              for k in ("all", "last30", "trade", "caution")}
     summary = {"date": latest["date"], "maturity": latest["maturity_date"], "fetched_at": latest.get("fetched_at"),
-               "days": len(preds), "today": today, "rows": rows}
+               "days": len(preds), "today": today, "rows": rows,
+               "light": trader_stats.light_for(data, latest["date"], latest), "trader": trader}
     return summary, {"images": images, "days": history}
 
 

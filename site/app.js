@@ -47,6 +47,15 @@ function renderHero(sum) {
     </div>`).join("") + `<div class="orbit-core" aria-hidden="true">Today's<br>10 picks<small>${esc(fmtDate(sum.date, false).toUpperCase())}</small></div>`;
   const d = latest.date;
   set("#updated", `updated ${fmtDate((latest.fetched_at || d).slice(0, 10))}`);
+  const lt = sum.light, light = $("#light");
+  if (lt && light) {
+    light.className = `chip light-chip fade-in ${lt.state}`;
+    light.innerHTML = `<span class="ld" aria-hidden="true"></span>Market light <b>${lt.state === "trade" ? "Trade" : "Caution"}</b> · BTC ${lt.btc7 >= 0 ? "+" : ""}${Number(lt.btc7).toFixed(1)}% 7d`;
+    light.title = lt.state === "trade" ? "Bitcoin is flat or up over 7 days" : "Bitcoin is down over 7 days";
+    light.hidden = false;
+  }
+  const ta = sum.trader && sum.trader.all;
+  if (ta) set("#p-ret", `${ta.avg >= 0 ? "+" : ""}${(ta.avg * 100).toFixed(1)}%`);
   set("#pk-date", fmtDate(d, false));
   set("#pk-due", fmtDate(latest.maturity_date, false));
   $("#picks").innerHTML = coins.map((c, i) => `

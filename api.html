@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API · Ichnora</title>
+<meta name="description" content="Ichnora's daily crypto calls, market light, track record and Rebound Radar as free JSON for trading bots and AI assistants.">
+<meta name="theme-color" content="#07070A">
+<link rel="icon" href="brand/ichnora/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="brand/ichnora/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="brand/ichnora/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site/style.css">
+<style>
+  .api-h { font: 800 clamp(40px, 6vw, 76px)/.95 var(--display); letter-spacing: -.04em; margin-top: 14px; }
+  .api-h em { font-style: normal; background: var(--brand-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .eps { display: grid; gap: 12px; margin-top: 28px; }
+  .ep { display: grid; grid-template-columns: minmax(0, 260px) 1fr; gap: 6px 24px; padding: 18px 20px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+  .ep a { font: 700 15px var(--mono); color: var(--lime); text-decoration: none; word-break: break-all; }
+  .ep a:hover { text-decoration: underline; }
+  .ep p { margin: 0; color: var(--fg-2); font-size: 15px; }
+  pre { background: #0B0B10; border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; overflow-x: auto; font: 500 13.5px/1.6 var(--mono); color: var(--fg); margin-top: 16px; }
+  .live { margin-top: 26px; padding: 18px 20px; border-radius: 18px; border: 1px solid var(--line); background: var(--surface); font-size: 15px; color: var(--fg-2); }
+  .live b { color: var(--fg); }
+  h2.sec { font: 800 30px var(--display); letter-spacing: -.02em; margin-top: 56px; }
+  .sec-sub { color: var(--fg-2); max-width: 760px; margin-top: 8px; }
+  ul.rules { margin-top: 14px; padding-left: 20px; color: var(--fg-2); display: grid; gap: 8px; max-width: 820px; }
+  ul.rules b { color: var(--fg); }
+  @media (max-width: 720px) { .ep { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-icon" src="brand/ichnora/icon.svg" alt="" width="34" height="34">ichnora</a>
+    <nav class="nav-links" aria-label="Primary"><a href="./#today">Today</a><a href="call.html">Calls</a><a href="prediction_dashboard.html">7-Day</a><a href="prediction_dashboard_3d.html">3-Day</a><a href="rebound_dashboard.html">Rebound</a><a href="api.html" aria-current="page">API</a></nav>
+    <a class="btn lime sm" href="prediction_dashboard.html">Live dashboard ↗</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="block" style="padding-top:56px">
+    <div class="wrap">
+      <span class="chip">For trading bots &amp; AI assistants</span>
+      <h1 class="api-h">Ask Ichnora <em>before you trade.</em></h1>
+      <p class="lede" style="margin-top:18px">Every call, the market light, the full track record and the Rebound Radar as plain JSON.
+        No key, no sign-up. Point your bot or AI assistant at it and use it next to your own analysis.</p>
+      <div class="live" id="live">Loading today's market light…</div>
+
+      <h2 class="sec">Endpoints</h2>
+      <p class="sec-sub">Static files, refreshed once a day around 11:30 UTC (5:00 PM IST). Each file has <code>generated_at</code> and a disclaimer.</p>
+      <div class="eps">
+        <div class="ep"><a href="api/v1/today.json">/api/v1/today.json</a><p>Market light, today's 7-day and 3-day calls (10 coins each, entry prices, model scores) and the Rebound Radar's comeback candidates. <b>Start here.</b></p></div>
+        <div class="ep"><a href="api/v1/track-record.json">/api/v1/track-record.json</a><p>What following every call earned after 0.3% costs, how often calls beat Bitcoin, split by market light, plus the held-out backtest. Check it before trusting a signal.</p></div>
+        <div class="ep"><a href="api/v1/rebound.json">/api/v1/rebound.json</a><p>Every top-200 coin down 25%+ in 30 days with its comeback verdict, the coins being tracked and the graded scorecard.</p></div>
+        <div class="ep"><a href="api/v1/calls.json">/api/v1/calls.json</a><p>Recent calls with entry prices, latest prices, grades and each call's basket return vs Bitcoin.</p></div>
+        <div class="ep"><a href="api/openapi.json">/api/openapi.json</a><p>OpenAPI 3.1 description, for tools that import APIs automatically.</p></div>
+        <div class="ep"><a href="llms.txt">/llms.txt</a><p>A plain-language guide written for AI assistants: what the data means and how to use it responsibly.</p></div>
+      </div>
+
+      <h2 class="sec">Use it from code</h2>
+      <pre id="code-js">const today = await fetch("api/v1/today.json").then(r =&gt; r.json());
+console.log(today.market_light.label);                 // "TRADE" or "CAUTION"
+console.log(today.calls_7d.picks.map(p =&gt; p.symbol));  // ["IRYS", "BEAM", ...]</pre>
+      <pre id="code-py">import requests
+base = "SITE"
+today = requests.get(f"{base}/api/v1/today.json", timeout=20).json()
+record = requests.get(f"{base}/api/v1/track-record.json", timeout=20).json()
+print(today["market_light"]["label"], record["calls_7d"]["all"]["avg"])</pre>
+
+      <h2 class="sec">Use it with an AI assistant</h2>
+      <p class="sec-sub">Paste this into ChatGPT, Claude or your trading agent's instructions:</p>
+      <pre id="prompt">Before suggesting any crypto trade, read SITE/llms.txt and SITE/api/v1/today.json.
+Report Ichnora's market light, whether the coin is in today's 7-day or 3-day call or on the
+Rebound Radar, and how calls like it have done in SITE/api/v1/track-record.json.
+Treat it as one input next to my own analysis and risk limits, never as the only reason to trade.</pre>
+
+      <h2 class="sec">Read it the right way</h2>
+      <ul class="rules">
+        <li><b>A call is a basket.</b> Hold all 10 coins in equal size for the stated window. Most of the return comes from a few big winners, so single picks are unreliable.</li>
+        <li><b>The market light is one input.</b> TRADE when Bitcoin is flat or up over 7 days, CAUTION when it is down. In a held-out backtest the 7-day calls did better on TRADE days; the evidence is likely, not certain, and it had no effect on 3-day calls.</li>
+        <li><b>Check the record, not the hype.</b> track-record.json shows wins and losses after costs. Past results do not guarantee future returns.</li>
+        <li><b>Not financial advice.</b> A public research experiment. Crypto is volatile and coins can go to zero. Size positions so a full loss is survivable.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="legal">
+  <div class="wrap">
+    <div class="who"><b>Ichnora</b><span>Data from <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">CoinMarketCap</a></span></div>
+    <ol>
+      <li>Free to read and use. Please credit Ichnora when you show this data to others.</li>
+      <li>Personal research project. Not a broker, adviser or exchange. Nothing here is financial advice; crypto can lose all of its value.</li>
+    </ol>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const base = location.href.replace(/[^/]*([?#].*)?$/, "").replace(/\/$/, "");
+  for (const id of ["code-py", "prompt"]) {
+    const el = document.getElementById(id); el.textContent = el.textContent.replaceAll("SITE", base);
+  }
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  fetch("api/v1/today.json", { cache: "no-cache" }).then((r) => r.json()).then((t) => {
+    const lt = t.market_light, c7 = t.calls_7d;
+    document.getElementById("live").innerHTML = lt
+      ? `Right now: market light <b>${esc(lt.label)}</b> (Bitcoin ${lt.btc_change_7d_pct >= 0 ? "+" : ""}${esc(lt.btc_change_7d_pct)}% over 7 days) · 7-day call of ${esc(c7?.date)}: <b>${(c7?.picks || []).map((p) => esc(p.symbol)).join(" ")}</b> · data generated ${esc(t.generated_at)}`
+      : "Today's data is not available yet.";
+  }).catch(() => { document.getElementById("live").textContent = "Today's data is not available yet."; });
+})();
+</script>
+</body>
+</html>

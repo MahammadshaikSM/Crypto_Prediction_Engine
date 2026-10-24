@@ -286,3 +286,11 @@ sup.fn a { color: var(--lime); text-decoration: none; font-size: .75em; padding:
 .btn.lime { background: var(--brand-grad); border-color: transparent; }
 .hero h1 mark::before { background: var(--brand-grad); }
 .marquee { background: var(--brand-grad); }
+
+/* market light chip (hero) */
+.light-chip { margin-left: 8px; text-decoration: none; }
+.light-chip .ld { width: 9px; height: 9px; border-radius: 50%; background: var(--fg-2); }
+.light-chip.trade { border-color: #00f5a055; } .light-chip.trade .ld { background: #00f5a0; box-shadow: 0 0 10px #00f5a0; } .light-chip.trade b { color: #00f5a0; }
+.light-chip.caution { border-color: #ff9a3d66; } .light-chip.caution .ld { background: #ff9a3d; box-shadow: 0 0 10px #ff9a3d; } .light-chip.caution b { color: #ff9a3d; }
+@media (max-width: 560px) { .light-chip { margin: 8px 0 0; } }
+.light-chip[hidden] { display: none; }

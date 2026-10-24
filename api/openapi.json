@@ -1,0 +1,71 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Ichnora public data",
+  "version": "1.0",
+  "description": "Daily crypto calls, market light, track record and Rebound Radar as static JSON files. No key, no rate limit beyond normal web hosting. Updated once a day around 11:30 UTC. Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits."
+ },
+ "servers": [
+  {
+   "url": "/"
+  }
+ ],
+ "paths": {
+  "/api/v1/today.json": {
+   "get": {
+    "summary": "Today's market light and calls",
+    "description": "Market light, today's 7-day and 3-day calls (10 coins each, entry prices, model scores) and the Rebound Radar headline.",
+    "responses": {
+     "200": {
+      "description": "JSON document",
+      "content": {
+       "application/json": {}
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/track-record.json": {
+   "get": {
+    "summary": "What following the calls earned",
+    "description": "Average return per call after 0.3% costs, win rates, Bitcoin over the same days, split by market light, plus the held-out backtest.",
+    "responses": {
+     "200": {
+      "description": "JSON document",
+      "content": {
+       "application/json": {}
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/rebound.json": {
+   "get": {
+    "summary": "Rebound Radar",
+    "description": "Every top-200 coin down 25%+ in 30 days with its comeback verdict, tracked coins and the graded scorecard.",
+    "responses": {
+     "200": {
+      "description": "JSON document",
+      "content": {
+       "application/json": {}
+      }
+     }
+    }
+   }
+  },
+  "/api/v1/calls.json": {
+   "get": {
+    "summary": "Recent calls",
+    "description": "Recent 7-day and 3-day calls with entry prices, latest prices, grades and basket return vs Bitcoin.",
+    "responses": {
+     "200": {
+      "description": "JSON document",
+      "content": {
+       "application/json": {}
+      }
+     }
+    }
+   }
+  }
+ }
+}
