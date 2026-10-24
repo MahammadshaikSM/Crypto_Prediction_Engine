@@ -157,6 +157,17 @@ def main():
             print(f"   at {c:.1%} round-trip cost: {costs[c]*100:+.2f}% per call (top-200 avg {f('market')*100 + (COST - c)*100:+.2f}%)")
         liq = independent([dict(r, liquid=r["liquid"]) for r in rows if np.isfinite(r["liquid"])], h, "liquid", "matched")
         print(f"   liquid picks vs matched, independent windows: {liq['mean']*100:+.2f}% (90% range {liq['lo']*100:+.2f}% .. {liq['hi']*100:+.2f}%)")
+        # execution delay: calls are published hours after the daily snapshot; buy a full day late instead
+        late = []
+        for r in rows:
+            t = r["t"] + 1
+            if t + h < P.shape[0]:
+                d = next(x for x in days if x["date"] == r["date"])
+                pick = np.argsort(-sc[h][0](d))[:10]; rr = P[t + h, d["idx"]] / P[t, d["idx"]] - 1; ok = np.isfinite(rr)
+                late.append(dict(pick=float(np.nanmean(rr[pick]) - COST), market=float(np.nanmean(rr[ok]) - COST)))
+        delay = independent(late, h, "pick", "market")
+        print(f"   bought 1 day late: {np.mean([x['pick'] for x in late])*100:+.2f}% per call;"
+              f" vs top-200 (independent) {delay['mean']*100:+.2f}% (90% range {delay['lo']*100:+.2f}% .. {delay['hi']*100:+.2f}%)")
 
         report[h] = dict(calls=len(rows), period=[rows[0]["date"], rows[-1]["date"]], cost=COST,
                          avg=dict(picks=f("pick"), matched=f("matched"), market=f("market"), btc=f("btc")),
@@ -166,6 +177,7 @@ def main():
                          liquidity=dict(median_volume_picks=float(np.median(vp)), median_volume_all=float(np.median(va)),
                                         under_1m=float(np.mean(vp < 1e6)), under_5m=float(np.mean(vp < 5e6)),
                                         liquid_only=f("liquid"), liquid_vs_matched=liq),
+                         delay_1day=dict(avg=float(np.mean([x["pick"] for x in late])), vs_market=delay),
                          cost_sensitivity={str(k): v for k, v in costs.items()})
     (HERE / "evidence_results.json").write_text(json.dumps(report, indent=1))
 

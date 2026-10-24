@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proof · Ichnora</title>
+<meta name="description" content="How Ichnora's crypto calls were tested: matched baselines, independent weeks with confidence ranges, calibration, liquidity and costs. Including what does not work.">
+<meta name="theme-color" content="#07070A">
+<link rel="icon" href="brand/ichnora/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="brand/ichnora/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="brand/ichnora/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site/style.css">
+<style>
+  .pf-h { font: 800 clamp(40px, 6vw, 76px)/.95 var(--display); letter-spacing: -.04em; margin-top: 14px; }
+  .pf-h em { font-style: normal; background: var(--brand-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 30px; }
+  .vd { padding: 22px 24px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
+  .vd.good { border-color: #D4FF3A55; } .vd.warn { border-color: #ff9a3d66; }
+  .vd .k { font: 600 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-2); }
+  .vd b.big { display: block; font: 800 40px var(--display); letter-spacing: -.03em; margin: 6px 0; }
+  .vd.good b.big { color: var(--lime); } .vd.warn b.big { color: #ff9a3d; }
+  .vd p { color: var(--fg-2); font-size: 15px; margin: 0; }
+  h2.sec { font: 800 30px var(--display); letter-spacing: -.02em; margin-top: 60px; }
+  .sec-sub { color: var(--fg-2); max-width: 780px; margin-top: 8px; }
+  .tbl { width: 100%; border-collapse: collapse; margin-top: 18px; font-variant-numeric: tabular-nums; }
+  .tblwrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 6px 18px; margin-top: 18px; }
+  .tbl th { text-align: left; font: 600 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--fg-2); padding: 12px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .tbl td { padding: 11px 10px; border-bottom: 1px solid #ffffff0a; white-space: nowrap; }
+  .tbl tr:last-child td { border-bottom: 0; }
+  .tbl td:first-child { color: var(--fg); } .tbl td { color: var(--fg-2); } .tbl b { color: var(--fg); }
+  .plain { margin-top: 16px; padding: 16px 20px; border-left: 3px solid var(--lime); background: #D4FF3A0a; border-radius: 0 14px 14px 0; color: var(--fg); max-width: 860px; }
+  .plain.warn { border-color: #ff9a3d; background: #ff9a3d0d; }
+  .cap { font-size: 13px; color: var(--fg-2); margin-top: 8px; }
+  ul.lim { margin-top: 14px; padding-left: 20px; color: var(--fg-2); display: grid; gap: 10px; max-width: 860px; }
+  ul.lim b { color: var(--fg); }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-icon" src="brand/ichnora/icon.svg" alt="" width="34" height="34">ichnora</a>
+    <nav class="nav-links" aria-label="Primary"><a href="./#today">Today</a><a href="call.html">Calls</a><a href="proof.html" aria-current="page">Proof</a><a href="rebound_dashboard.html">Rebound</a><a href="api.html">API</a></nav>
+    <a class="btn lime sm" href="prediction_dashboard.html">Live dashboard ↗</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="block" style="padding-top:56px">
+    <div class="wrap">
+      <span class="chip">Tested on a year the model never saw &middot; updated Oct 24, 2026</span>
+      <h1 class="pf-h">Don't trust us. <em>Check the tests.</em></h1>
+      <p class="lede" style="margin-top:18px">Every model looks good on the data it was built on. So we froze the models on data up to
+        Sep 2025 and tested them on the next twelve months (2025-10-02 to 2026-09-23), a falling market where Bitcoin lost about 30%.
+        All returns are after 0.3% trading costs per coin. Here is what held up, and what didn't.</p>
+
+      <div class="verdicts">
+        <div class="vd good"><span class="k">7-day calls &middot; main signal</span><b class="big">+4.1%</b>
+          <p>per call above comparable random coins (90% range +1.0% to +7.7%), positive from every start day.
+          Passed all four tests.</p></div>
+        <div class="vd warn"><span class="k">3-day calls &middot; experimental</span><b class="big">+1.0%</b>
+          <p>per call above comparable coins, but the range includes zero (-0.1% to +2.2%) and at 1% trading costs the average
+          shrinks to +0.1%. A watchlist, not a trade.</p></div>
+        <div class="vd"><span class="k">Live record &middot; 7-day</span><b class="big" style="color:var(--fg)">+4.7%</b>
+          <p>average per call on this site (276 graded calls) vs +1.2% for the top-200 average and
+          +0.2% for Bitcoin. Earlier calls came from older model versions.</p></div>
+      </div>
+
+      <h2 class="sec">1 &middot; Is it just picking wild coins?</h2>
+      <p class="sec-sub">Momentum models like volatile coins, and volatile coins land in the top-10 gainers more often by chance.
+        So each pick is compared with a random coin from the same day with similar volatility and size (200 random draws per day).</p>
+      <div class="tblwrap"><table class="tbl">
+        <tr><th></th><th>Avg return per call</th><th>Coins that went up</th><th>Top-10 hit rate</th></tr>
+        
+        <tr><td>7-day picks</td><td>+3.7%</td><td>43.0%</td><td>17.6%</td></tr>
+        <tr><td>Matched random coins</td><td>-0.4%</td><td>41.1%</td><td>8.6%</td></tr>
+        <tr><td>Top-200 average</td><td>-0.5%</td><td>43.1%</td><td>5.7%</td></tr>
+        <tr><td>Bitcoin</td><td>-0.5%</td><td>&ndash;</td><td>&ndash;</td></tr>
+      </table></div>
+      <p class="plain">Matched random coins hit the top 10 more often than pure chance (8.6% vs 5.7%), so part of the
+        headline hit rate <b>is</b> volatility. But they lost money on average (-0.4%) while the picks made
+        +3.7%. The edge in returns is not explained by volatility or size.</p>
+      <p class="plain warn">The picks do <b>not</b> go up more often: 43.0% of picked coins rose vs 43.1% of all coins.
+        The gain comes from the winners rising much further than the losers fall. Hold all 10 in equal size; single picks are a coin flip.</p>
+
+      <h2 class="sec">2 &middot; Is it luck from a few lucky weeks?</h2>
+      <p class="sec-sub">Daily 7-day calls overlap, so 356 calls are really about 51 independent weeks. We re-ran the
+        test on non-overlapping windows only, for every possible start day, and resampled the weeks 4,000 times to get a 90% range.</p>
+      <div class="tblwrap"><table class="tbl">
+        <tr><th>Edge per call</th><th>Average</th><th>90% range</th><th>Independent windows</th><th>Start days positive</th></tr>
+        <tr><td>7-day vs matched random coins</td><td><b>+4.1%</b></td><td>+1.0% to +7.7%</td><td>51</td><td>7/7</td></tr><tr><td>7-day vs top-200 average</td><td><b>+4.3%</b></td><td>+2.1% to +6.6%</td><td>50</td><td>7/7</td></tr><tr><td>7-day vs Bitcoin</td><td><b>+4.1%</b></td><td>+1.5% to +6.7%</td><td>50</td><td>7/7</td></tr><tr><td>3-day vs matched random coins</td><td><b>+1.0%</b></td><td>-0.1% to +2.2%</td><td>120</td><td>3/3</td></tr><tr><td>3-day vs top-200 average</td><td><b>+1.1%</b></td><td>+0.1% to +2.2%</td><td>120</td><td>3/3</td></tr><tr><td>3-day vs Bitcoin</td><td><b>+1.0%</b></td><td>-0.1% to +2.2%</td><td>120</td><td>3/3</td></tr>
+      </table></div>
+      <p class="plain">For the 7-day calls the whole 90% range is above zero against every yardstick, and every one of the 7 possible
+        start days is positive. For the 3-day calls the range touches zero against comparable coins and Bitcoin: not proven.</p>
+
+      <h2 class="sec">3 &middot; Does the score mean what it says?</h2>
+      <p class="sec-sub">The 7-day score is the model's chance that a coin finishes in the top 10 of ~200. A good score should come true about
+        as often as it says.</p>
+      <div class="tblwrap" style="padding:18px"><svg viewBox="0 0 640 260" style="width:100%;max-width:640px;height:auto" role="img" aria-label="Predicted vs actual chance of a top-10 finish"><rect x="53.1" y="208.0" width="29.9" height="12.0" fill="#8b9cc8" rx="3"/><rect x="88.5" y="208.4" width="29.9" height="11.6" fill="#D4FF3A" rx="3"/><text x="86.7" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">0&#8211;2%</text><text x="103.5" y="203.4" fill="#D4FF3A" font-size="10.5" text-anchor="middle">2%</text><rect x="146.4" y="195.5" width="29.9" height="24.5" fill="#8b9cc8" rx="3"/><rect x="181.9" y="200.7" width="29.9" height="19.3" fill="#D4FF3A" rx="3"/><text x="180.0" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">2&#8211;5%</text><text x="196.8" y="195.7" fill="#D4FF3A" font-size="10.5" text-anchor="middle">3%</text><rect x="239.7" y="176.7" width="29.9" height="43.3" fill="#8b9cc8" rx="3"/><rect x="275.2" y="184.2" width="29.9" height="35.8" fill="#D4FF3A" rx="3"/><text x="273.3" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">5&#8211;8%</text><text x="290.1" y="179.2" fill="#D4FF3A" font-size="10.5" text-anchor="middle">5%</text><rect x="333.1" y="153.4" width="29.9" height="66.6" fill="#8b9cc8" rx="3"/><rect x="368.5" y="159.4" width="29.9" height="60.6" fill="#D4FF3A" rx="3"/><text x="366.7" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">8&#8211;12%</text><text x="383.5" y="154.4" fill="#D4FF3A" font-size="10.5" text-anchor="middle">9%</text><rect x="426.4" y="118.6" width="29.9" height="101.4" fill="#8b9cc8" rx="3"/><rect x="461.9" y="131.6" width="29.9" height="88.4" fill="#D4FF3A" rx="3"/><text x="460.0" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">12&#8211;20%</text><text x="476.8" y="126.6" fill="#D4FF3A" font-size="10.5" text-anchor="middle">13%</text><rect x="519.7" y="63.5" width="29.9" height="156.5" fill="#8b9cc8" rx="3"/><rect x="555.2" y="68.5" width="29.9" height="151.5" fill="#D4FF3A" rx="3"/><text x="553.3" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">20&#8211;30%</text><text x="570.1" y="63.5" fill="#D4FF3A" font-size="10.5" text-anchor="middle">22%</text><line x1="40" x2="600" y1="220" y2="220" stroke="#ffffff22"/></svg><p class="cap"><span style="color:#8b9cc8">&#9632; what the score said</span> &nbsp; <span style="color:#D4FF3A">&#9632; what happened</span> &middot; grouped by score, all ~200 coins, held-out days</p></div>
+      <p class="plain">The 10 picks scored 17.7% on average and actually hit
+        17.6% of the time. Lower scores run a little optimistic (they say ~4%, reality ~3%),
+        so read small scores as "unlikely", not as exact odds.</p>
+
+      <h2 class="sec">4 &middot; Can you actually trade it?</h2>
+      <div class="tblwrap"><table class="tbl">
+        <tr><th>7-day calls</th><th>Result</th></tr>
+        <tr><td>Median 24h trading volume of picks</td><td><b>$28M</b> (all coins $25M)</td></tr>
+        <tr><td>Picks under $1M / $5M daily volume</td><td>1.9% / 9.9%</td></tr>
+        <tr><td>Thin coins (&lt;$1M) swapped for the next pick</td><td>+3.6% per call</td></tr>
+        <tr><td>At 0.3% / 1% / 2% round-trip costs</td><td>+3.7% / +3.0% / +2.0% per call</td></tr>
+        <tr><td>Bought a full day after the signal</td><td>+3.5% per call (edge vs market +1.7% to +6.4%)</td></tr>
+      </table></div>
+      <p class="plain">The picks are as liquid as the average coin, survive 2% trading costs, and still work if you buy a day late.</p>
+
+      <h2 class="sec">The market light</h2>
+      <p class="sec-sub">TRADE when Bitcoin is flat or up over 7 days, CAUTION when it is down. Held-out year, 7-day calls:
+        +5.6% per call on TRADE days vs +2.1% on CAUTION days, with smaller drops on TRADE
+        days. The difference is likely but not proven (roughly 88&ndash;94% in resampling), the site's live record shows the opposite so far,
+        and it had no effect on 3-day calls. One input, not a rule.</p>
+
+      <h2 class="sec">What could still be wrong</h2>
+      <ul class="lim">
+        <li><b>One test year.</b> Twelve months, mostly a falling market. Other conditions may behave differently.</li>
+        <li><b>Survivor data.</b> The history holds coins that are in today's top 200, so coins that collapsed and dropped out are missing.
+          This flatters every basket, picks and comparisons alike; the comparisons above are fairer than the raw returns.</li>
+        <li><b>Big-winner dependence.</b> A few large moves drive the average. A stretch without them will look poor.</li>
+        <li><b>Live record mixes model versions.</b> Calls before Oct 20, 2026 used earlier models. The live numbers will settle the question over time.</li>
+      </ul>
+      <p class="sec-sub" style="margin-top:28px">Everything is graded in public: <a href="call.html">every call</a>,
+        <a href="prediction_dashboard.html">7-day dashboard</a>, <a href="api/v1/track-record.json">track record as JSON</a>.
+        Not financial advice; crypto can lose all of its value.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="legal">
+  <div class="wrap">
+    <div class="who"><b>Ichnora</b><span>Data from <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">CoinMarketCap</a></span></div>
+    <ol>
+      <li>Backtests freeze each model on data up to Sep 30, 2025 and score it only on later days. Returns are equal-weight baskets after 0.3% costs per coin unless stated.</li>
+      <li>Personal research project. Not a broker, adviser or exchange. Nothing here is financial advice; crypto can lose all of its value.</li>
+    </ol>
+  </div>
+</footer>
+</body>
+</html>

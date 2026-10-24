@@ -79,7 +79,9 @@ def call_block(data, h):
     if not preds:
         return None
     day = max(preds); e = preds[day]
-    return dict(horizon_days=h, date=day, grades_on=e.get("maturity_date"),
+    status = ("main signal: beat comparable coins after costs in a held-out year (see proof.html)" if h == 7 else
+              "experimental: no reliable edge over comparable coins after realistic (1%) trading costs; use as a watchlist")
+    return dict(horizon_days=h, date=day, grades_on=e.get("maturity_date"), status=status,
                 model="model v2 (18 signals + market regime, logistic regression)" if e.get("model") == "v2" and h == 7
                 else "5-signal formula with weights tuned on 3 years of CMC data",
                 how_to_read=("Buy-and-hold idea for the window: the 10 coins the model rates most likely to be among the "
@@ -145,7 +147,9 @@ def llms_txt(today):
 - Check {url('api/v1/track-record.json')} before relying on a signal: it shows average return per call after costs,
   how often calls beat Bitcoin, and how calls made on TRADE vs CAUTION days did.
 - Treat the calls as a basket: hold all 10 in equal size for the stated window. Most of the return comes from a few
-  big winners, so single picks are unreliable.
+  big winners, so single picks are unreliable (picked coins go up no more often than other coins).
+- The 7-day calls are the main signal. The 3-day calls are experimental: no reliable edge after realistic costs.
+- How it was tested (matched baselines, independent weeks, calibration, liquidity): {url('proof.html')}
 - The market light is based on Bitcoin's 7-day trend. In a held-out backtest 7-day calls did better on TRADE days;
   that evidence is likely but not certain. It had no effect on 3-day calls.
 - Data refreshes once a day around 11:30 UTC. "as_of" and "generated_at" fields give the exact times.
@@ -161,7 +165,7 @@ def llms_txt(today):
 ## Pages for people
 - [Home]({url('index.html')}), [7-day calls]({url('prediction_dashboard.html')}),
   [3-day calls]({url('prediction_dashboard_3d.html')}), [Rebound Radar]({url('rebound_dashboard.html')}),
-  [API docs]({url('api.html')})
+  [Proof: how it was tested]({url('proof.html')}), [API docs]({url('api.html')})
 """
 
 

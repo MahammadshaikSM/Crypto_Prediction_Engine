@@ -157,7 +157,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
     <div class="logo-name">ichnora</div>
     <div class="logo-sub">Every call leaves a footprint</div>
   </div>
-  <div class="hdr-right">Last updated: Oct 24, 2026 at 16:42</div>
+  <div class="hdr-right">Last updated: Oct 24, 2026 at 17:26</div>
 </header>
 <nav class="horizon-tabs" aria-label="Prediction horizon">
   <a href="prediction_dashboard.html" class="htab active">&#128197; 7-Day Prediction</a>
@@ -225,28 +225,38 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
     <div class="section-label">&#128176; Trader view</div>
     <h2 class="section-h">If you followed every call</h2>
     <p class="section-sub">Buy all 10 picks in equal amounts at the call price, sell after 7 days, minus 0.3% trading costs per coin.
-      Compared with holding Bitcoin over the same days.</p>
+      Compared with the equal-weight average of the ~200 coins the model chooses from, and with Bitcoin, over the same days.</p>
     
     <div class="stats" style="margin-bottom:22px">
       <div class="stat c-green"><div class="stat-label">Avg return per call</div><div class="stat-val green">+4.7%</div>
-        <div class="stat-sub">Bitcoin over the same days: +0.2%</div></div>
-      <div class="stat c-blue"><div class="stat-label">Calls in profit</div><div class="stat-val blue">60%</div>
-        <div class="stat-sub">Beat Bitcoin: 57% of calls</div></div>
+        <div class="stat-sub">Top-200 average +1.2% &middot; Bitcoin +0.2%</div></div>
+      <div class="stat c-blue"><div class="stat-label">Beat the market</div><div class="stat-val blue">61%</div>
+        <div class="stat-sub">of calls &middot; 60% were in profit</div></div>
       <div class="stat c-gold"><div class="stat-label">Winners vs losers</div><div class="stat-val gold" style="font-size:1.5rem">+25% / -13%</div>
         <div class="stat-sub">46% of coins win, but winners run further</div></div>
       <div class="stat c-purple"><div class="stat-label">Last 30 calls</div><div class="stat-val purple">+3.5%</div>
-        <div class="stat-sub">avg per call &middot; 50% in profit</div></div>
+        <div class="stat-sub">avg per call &middot; top-200 +1.9%</div></div>
     </div>
-    <div class="ins-card"><table class="ins-table">
-      <tr><th></th><th>Calls</th><th>Avg return</th><th>Bitcoin</th><th>In profit</th><th>Beat BTC</th></tr>
-      <tr><td>All graded calls on this site</td><td>276</td><td>+4.7%</td><td>+0.2%</td><td>60%</td><td>57%</td></tr>
-      <tr><td>&#128994; Made on TRADE days</td><td>135</td><td>+4.0%</td><td>+0.3%</td><td>60%</td><td>56%</td></tr>
-      <tr><td>&#128992; Made on CAUTION days</td><td>125</td><td>+5.7%</td><td>-0.4%</td><td>60%</td><td>60%</td></tr>
-      <tr><td>Backtest, held-out year (2025-10-02 &ndash; 2026-09-23)</td><td>356</td><td>+3.7%</td><td>-0.5%</td><td>53%</td><td>59%</td></tr>
+    <div class="ins-card" style="overflow-x:auto"><table class="ins-table">
+      <tr><th></th><th>Calls</th><th>Avg return</th><th>Top-200 avg</th><th>Bitcoin</th><th>In profit</th><th>Beat market</th></tr>
+      <tr><td>All graded calls on this site</td><td>276</td><td>+4.7%</td><td>+1.2%</td><td>+0.2%</td><td>60%</td><td>61%</td></tr>
+      <tr><td>&#128994; Made on TRADE days</td><td>135</td><td>+4.0%</td><td>+0.7%</td><td>+0.3%</td><td>60%</td><td>61%</td></tr>
+      <tr><td>&#128992; Made on CAUTION days</td><td>125</td><td>+5.7%</td><td>+1.1%</td><td>-0.4%</td><td>60%</td><td>65%</td></tr>
+      <tr><td>Backtest, held-out year (2025-10-02 &ndash; 2026-09-23)</td><td>356</td><td>+3.7%</td><td>-0.5%</td><td>-0.5%</td><td>53%</td><td>&ndash;</td></tr>
     </table></div>
+    <div class="ins-card" style="margin-top:14px">
+      <div class="ins-card-title">Growth of $100, one call every 7 days</div>
+      <svg viewBox="0 0 810 220" style="width:100%;height:auto" role="img" aria-label="Equity curve of the calls vs the market and Bitcoin">
+        <line x1="34" x2="726" y1="176.4" y2="176.4" stroke="rgba(255,255,255,.15)" stroke-dasharray="4 4"/>
+        <text x="34" y="170.4" fill="#5a6b92" font-size="11">start (2026-01-10)</text>
+        <polyline fill="none" stroke="#D4FF3A" stroke-width="3" stroke-linejoin="round" points="34.0,176.0 51.7,175.8 69.5,173.9 87.2,176.1 105.0,179.9 122.7,178.5 140.5,177.2 158.2,175.1 175.9,175.3 193.7,174.0 211.4,172.5 229.2,173.7 246.9,171.5 264.7,166.5 282.4,156.4 300.2,157.8 317.9,156.0 335.6,139.0 353.4,144.3 371.1,148.2 388.9,147.4 406.6,138.5 424.4,98.9 442.1,99.1 459.8,105.1 477.6,107.8 495.3,103.1 513.1,97.7 530.8,102.0 548.6,75.1 566.3,70.3 584.1,65.8 601.8,41.2 619.5,49.7 637.3,54.4 655.0,45.8 672.8,34.0 690.5,41.7 708.3,50.0 726.0,77.2"/><text x="732.0" y="81.2" fill="#D4FF3A" font-size="12" font-weight="700">+335%</text><polyline fill="none" stroke="#8b9cc8" stroke-width="2" stroke-linejoin="round" points="34.0,175.6 51.7,174.7 69.5,176.8 87.2,178.7 105.0,182.4 122.7,181.9 140.5,181.8 158.2,182.1 175.9,181.9 193.7,181.1 211.4,181.0 229.2,182.4 246.9,182.3 264.7,180.7 282.4,178.4 300.2,178.7 317.9,178.0 335.6,174.4 353.4,175.2 371.1,176.1 388.9,176.1 406.6,178.7 424.4,176.4 442.1,175.1 459.8,175.6 477.6,176.4 495.3,177.0 513.1,177.5 530.8,177.4 548.6,177.5 566.3,172.6 584.1,172.8 601.8,170.9 619.5,171.1 637.3,167.3 655.0,163.3 672.8,163.8 690.5,164.5 708.3,166.9 726.0,168.3"/><text x="732.0" y="172.3" fill="#8b9cc8" font-size="12" font-weight="700">+28%</text><polyline fill="none" stroke="#ff9a3d" stroke-width="2" stroke-linejoin="round" points="34.0,176.3 51.7,174.6 69.5,176.6 87.2,178.3 105.0,182.8 122.7,183.4 140.5,183.7 158.2,184.4 175.9,183.6 193.7,182.7 211.4,182.8 229.2,184.2 246.9,184.0 264.7,182.0 282.4,180.7 300.2,180.6 317.9,180.3 335.6,179.7 353.4,180.0 371.1,181.2 388.9,181.9 406.6,186.0 424.4,185.1 442.1,184.3 459.8,183.7 477.6,183.7 495.3,183.7 513.1,184.1 530.8,183.4 548.6,184.1 566.3,179.2 584.1,178.9 601.8,178.3 619.5,179.1 637.3,177.6 655.0,176.8 672.8,176.5 690.5,177.1 708.3,177.7 726.0,177.9"/><text x="732.0" y="181.9" fill="#ff9a3d" font-size="12" font-weight="700">-5%</text>
+      </svg>
+      <div style="font-size:.72rem;color:var(--text2)"><span style="color:#D4FF3A">&#9632; Calls</span> &nbsp; <span style="color:#8b9cc8">&#9632; Top-200 average</span> &nbsp; <span style="color:#ff9a3d">&#9632; Bitcoin</span> &middot; 40 non-overlapping calls, after costs.
+        Ends 2026-10-24.</div></div>
     <p class="section-sub" style="margin-top:12px;font-size:.76rem">The median call earned +1.8%: most of the gain comes from a few big
       winners (best call +165.4% on 2026-06-05, worst -31.6% on 2026-06-04), so holding all 10
-      in equal size matters more than picking favourites. Past results do not guarantee future returns. Not financial advice.</p>
+      in equal size matters more than picking favourites. Calls before Oct 20, 2026 came from earlier model versions.
+      How we tested this: <a href="proof.html" style="color:var(--blue)">proof page</a>. Past results do not guarantee future returns. Not financial advice.</p>
   </div>
   <div class="tabs-bar">
     <button class="tab-btn active" onclick="switchTab('overview',this)">&#128202; Overview</button>

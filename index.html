@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ichnora · Every call leaves a footprint</title>
-<meta name="description" content="An open model picks the 10 coins most likely to outperform over the next 7 days, every day, then grades itself in public. 3.2× better than random at finding top-10 gainers.">
+<meta name="description" content="A crypto signal you can verify: every day a model picks 10 coins for the next 7 days and grades every call in public, after costs, against comparable coins and the market.">
 <meta property="og:title" content="Ichnora · Every call leaves a footprint">
-<meta property="og:description" content="10 coin picks a day. Every pick graded 7 days later, in public.">
+<meta property="og:description" content="10 coin picks a day, graded in public after costs. Tested against comparable coins on a year the model never saw.">
 <meta name="theme-color" content="#07070A">
 <link rel="icon" href="brand/ichnora/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="brand/ichnora/favicon-32.png" sizes="32x32">
@@ -24,7 +24,7 @@
   <div class="wrap">
     <a class="brand" href="#main"><img class="brand-icon" src="brand/ichnora/icon.svg" alt="" width="34" height="34">ichnora</a>
     <nav class="nav-links" aria-label="Primary">
-      <a href="#today">Today</a><a href="call.html">Calls</a><a href="#forecast">Forecast</a><a href="#receipts">Receipts</a><a href="#explorer">Time machine</a><a href="#how">How it works</a><a href="rebound_dashboard.html">Rebound Radar</a><a href="#stocks">Stocks</a><a href="api.html">API</a>
+      <a href="#today">Today</a><a href="call.html">Calls</a><a href="proof.html">Proof</a><a href="rebound_dashboard.html">Rebound</a><a href="api.html">API</a>
     </nav>
     <a class="btn lime sm" href="prediction_dashboard.html">Live dashboard ↗</a>
   </div>
@@ -35,23 +35,23 @@
   <section class="hero" aria-labelledby="hero-h">
     <div class="wrap">
       <div>
-        <span class="chip fade-in" style="animation-delay:.05s"><span class="live-dot" aria-hidden="true"></span><b>Live</b> · <span id="updated">updated Oct 19, 2026</span></span>
-        <a class="chip light-chip fade-in" id="light" href="prediction_dashboard.html" style="animation-delay:.08s" hidden></a>
+        <span class="chip fade-in" id="fresh" style="animation-delay:.05s"><span class="live-dot" aria-hidden="true"></span><b>Live</b> · <span id="updated"><!--bake:updated-->updated Oct 24, 2026<!--/bake--></span></span>
+        <!--bake:light--><a class="chip light-chip fade-in caution" id="light" href="prediction_dashboard.html" style="animation-delay:.08s"><span class="ld" aria-hidden="true"></span>Market light <b>Caution</b> · BTC -0.9% 7d</a><!--/bake-->
         <h1 id="hero-h">
           <span class="w" style="animation-delay:.10s">10</span> <span class="w" style="animation-delay:.16s">coins.</span><br>
           <span class="w" style="animation-delay:.24s">Every</span> <span class="w" style="animation-delay:.30s">day.</span><br>
           <span class="w" style="animation-delay:.40s"><mark>Receipts</mark></span> <span class="w" style="animation-delay:.48s">included.</span>
         </h1>
-        <p class="lede fade-in" style="animation-delay:.7s">A model scans <b>~200 coins</b> every day and picks the 10 most likely to outperform over the next 7 days. A week later it <b>grades itself, in public</b>. No hype, no hidden losses.</p>
+        <p class="lede fade-in" style="animation-delay:.7s">Every day a model scans <b>~200 coins</b> on CoinMarketCap and names the 10 most likely to finish among the week's <b>top-10 gainers</b>. Seven days later every call is <b>graded in public</b>, after costs, against comparable coins and the whole market. No hype, no hidden losses.</p>
+        <p class="hero-picks fade-in" style="animation-delay:.78s"><!--bake:herocall-->Today's 7-day call: <b>IRYS · BEAM · PROM · RSR · SENT · EDGE · S · KMNO · M · CAP</b> · graded Oct 31, 2026<!--/bake--></p>
         <div class="ctas fade-in" style="animation-delay:.85s">
           <a class="btn lime" href="#today">See today's picks</a>
-          <a class="btn" href="#receipts">Check the receipts</a>
+          <a class="btn" href="proof.html">See the proof</a>
         </div>
         <div class="proof fade-in" style="animation-delay:1s">
-          <span class="chip"><b id="p-lift">3.2×</b> random hit rate<sup class="fn"><a href="#fn-1" aria-label="Footnote 1">1</a></sup></span>
-          <span class="chip"><b id="p-days">287</b> days of picks</span>
-          <span class="chip"><b id="p-ret">+4.7%</b> avg per 7-day call</span>
-          <span class="chip"><b>100%</b> public results</span>
+          <a class="chip" href="proof.html"><!--bake:edge--><b>+4.1%</b> per call vs comparable coins<!--/bake--></a>
+          <span class="chip"><!--bake:ret--><b id="p-ret">+4.7%</b> avg per call vs <b>+1.2%</b> market<!--/bake--></span>
+          <span class="chip"><!--bake:days--><b id="p-days">292</b> days of calls<!--/bake--></span>
         </div>
         <p class="risk-line fade-in" style="animation-delay:1.1s"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span>An experiment, not financial advice. Crypto is volatile and can go to zero.</span></p>
       </div>
@@ -76,48 +76,10 @@
     <div class="wrap">
       <p class="eyebrow">Today's drop</p>
       <h2 class="title reveal" id="today-h">Fresh picks, <em>graded in 7 days.</em></h2>
-      <p class="intro reveal">Ranked by model v2. Confidence is the model's estimated chance that a coin finishes in the week's top 10 gainers. Check back next week to see how they did.</p>
-      <div class="picks-meta" id="picks-meta"><span class="chip">Picked <b id="pk-date">Oct 19</b></span><span class="chip">Graded <b id="pk-due">Oct 26</b></span></div>
-      <div class="picks" id="picks" aria-live="polite">
-        <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
-      </div>
+      <p class="intro reveal">Confidence is the model's chance that a coin finishes in the week's top 10 gainers of ~200. It is well calibrated: picks scored about 18% on average and hit about 18% of the time in testing. Treat the 10 as one basket: picked coins rise no more often than other coins; the edge comes from the winners running further.</p>
+      <div class="picks-meta" id="picks-meta"><span class="chip">Picked <b id="pk-date">Oct 24</b></span><span class="chip">Graded <b id="pk-due">Oct 31</b></span><a class="chip" href="prediction_dashboard_3d.html">3-day call · experimental ↗</a></div>
+      <div class="picks" id="picks" aria-live="polite"><!--bake:picks--><article class="pick"><div class="top"><span class="rk">#1</span></div><h3>IRYS</h3><p class="name">Irys</p><dl><dt>Confidence</dt><dd class="num">27%</dd></dl></article><article class="pick"><div class="top"><span class="rk">#2</span></div><h3>BEAM</h3><p class="name">Beam</p><dl><dt>Confidence</dt><dd class="num">22%</dd></dl></article><article class="pick"><div class="top"><span class="rk">#3</span></div><h3>PROM</h3><p class="name">Prom</p><dl><dt>Confidence</dt><dd class="num">19%</dd></dl></article><article class="pick"><div class="top"><span class="rk">#4</span></div><h3>RSR</h3><p class="name">Reserve Rights</p><dl><dt>Confidence</dt><dd class="num">19%</dd></dl></article><article class="pick"><div class="top"><span class="rk">#5</span></div><h3>SENT</h3><p class="name">Sentient</p><dl><dt>Confidence</dt><dd class="num">18%</dd></dl></article><article class="pick"><div class="top"><span class="rk">#6</span></div><h3>EDGE</h3><p class="name">edgeX</p><dl><dt>Confidence</dt><dd class="num">16%</dd></dl></article><article class="pick"><div class="top"><span class="rk">#7</span></div><h3>S</h3><p class="name">Sonic</p><dl><dt>Confidence</dt><dd class="num">16%</dd></dl></article><article class="pick"><div class="top"><span class="rk">#8</span></div><h3>KMNO</h3><p class="name">Kamino</p><dl><dt>Confidence</dt><dd class="num">16%</dd></dl></article><article class="pick"><div class="top"><span class="rk">#9</span></div><h3>M</h3><p class="name">MemeCore</p><dl><dt>Confidence</dt><dd class="num">15%</dd></dl></article><article class="pick"><div class="top"><span class="rk">#10</span></div><h3>CAP</h3><p class="name">Cap</p><dl><dt>Confidence</dt><dd class="num">14%</dd></dl></article><!--/bake--></div>
       <p class="risk-line"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span>Picks are model output for research, not recommendations to buy. Most picks don't land in the top 10, and many go down.</span></p>
-    </div>
-  </section>
-
-  <!-- FORECAST -->
-  <section class="block" id="forecast" aria-labelledby="fc-h" style="padding-top:20px">
-    <div class="wrap">
-      <p class="eyebrow">Forecast · tuned on 3 years of data</p>
-      <h2 class="title reveal" id="fc-h">Where we think <em>it's heading.</em></h2>
-      <p class="intro reveal">Same five signals, with weights tuned on Oct 2023 to Sep 2025 CoinMarketCap history and then tested on a year the tuning never saw. Pick a horizon.</p>
-      <div class="fc-tabs" role="tablist" aria-label="Forecast horizon">
-        <button class="fc-tab" role="tab" id="tab-3" aria-controls="fc-panel" aria-selected="true" data-h="3">3-day · <span class="fc-date" data-h="3">Oct 22</span></button>
-        <button class="fc-tab" role="tab" id="tab-7" aria-controls="fc-panel" aria-selected="false" data-h="7">7-day · <span class="fc-date" data-h="7">Oct 26</span></button>
-      </div>
-      <div class="fc-panel" id="fc-panel" role="tabpanel" aria-labelledby="tab-3">
-        <div class="fc-grid">
-          <ol class="fc-list" id="fc-list"><li class="skeleton" style="min-height:300px"></li></ol>
-          <div class="fc-side">
-            <article class="card">
-              <p class="k">Held-out year · hit rate</p>
-              <p class="big num" style="font-size:clamp(48px,6vw,84px)"><span id="fc-lift">–</span><small>× random</small></p>
-              <div class="vs">
-                <div class="vs-row me"><span>Tuned model</span><span class="track"><i id="fc-bar-me"></i></span><b class="num" id="fc-hit">–</b></div>
-                <div class="vs-row"><span>Previous formula</span><span class="track"><i id="fc-bar-old"></i></span><b class="num" id="fc-old">–</b></div>
-                <div class="vs-row"><span>Random picks</span><span class="track"><i id="fc-bar-rand"></i></span><b class="num" id="fc-base">–</b></div>
-              </div>
-              <p id="fc-note">Loading backtest…</p>
-            </article>
-            <article class="card">
-              <p class="k" id="fc-wtitle">Tuned weights</p>
-              <div class="weights fc-weights" id="fc-weights" role="img" aria-label="Tuned signal weights"></div>
-              <ul class="fc-wlist" id="fc-wlist"></ul>
-            </article>
-          </div>
-        </div>
-        <p class="risk-line"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></svg><span id="fc-risk">Model output, not advice. Backtests use today's top-200 coins, which flatters past results (survivorship bias). Most picks still miss.</span></p>
-      </div>
     </div>
   </section>
 
@@ -194,18 +156,17 @@
   <section class="block" id="how" aria-labelledby="how-h" style="padding-top:20px">
     <div class="wrap">
       <p class="eyebrow">How it works</p>
-      <h2 class="title reveal" id="how-h">Five signals. <em>One score.</em></h2>
-      <p class="intro reveal">These five signals are the building blocks, shown with the original weights. The 3-day model now uses backtest-tuned weights (BTC-relative 79%). The 7-day model v2 adds 13 more signals, such as peer momentum, volume trend and size, and adjusts for market mood using Fear &amp; Greed and BTC dominance. Every pick and every result is public.</p>
-      <div class="weights reveal" role="img" aria-label="Signal weights: 24h momentum 28%, BTC-relative 25%, volatility-adjusted momentum 22%, RSI 15%, volume surge 10%">
-        <div style="flex:28;background:#D4FF3A">28%</div><div style="flex:25;background:#B9E62E">25%</div><div style="flex:22;background:#9BC425">22%</div><div style="flex:15;background:#C9B8FF">15%</div><div style="flex:10;background:#8B6CFF">10%</div>
-      </div>
+      <h2 class="title reveal" id="how-h">18 signals. <em>One probability.</em></h2>
+      <p class="intro reveal">The 7-day call is the main signal. Each day one model (a logistic regression trained on three years of CoinMarketCap data, frozen, then tested on a year it never saw) turns 18 signals about every coin, plus the market's mood, into one number: the chance the coin finishes in the week's top 10 gainers. The 10 highest are the call. The 3-day call uses a simpler 5-signal formula and is marked experimental: in testing it showed no reliable edge after realistic trading costs.</p>
       <div class="factors">
-        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#D4FF3A"></span>28%</p><h3>24h momentum</h3><p>What's already moving today. Momentum tends to carry for a few days.</p></article>
-        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#B9E62E"></span>25%</p><h3>BTC-relative</h3><p>Beating Bitcoin matters more than rising with it. It filters out "everything is up" days.</p></article>
-        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#9BC425"></span>22%</p><h3>Vol-adjusted momentum</h3><p>Gains divided by how wild the ride is, so steady climbers outrank random spikes.</p></article>
-        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#C9B8FF"></span>15%</p><h3>RSI</h3><p>A brake on hype. Coins over 70 (overheated) are marked down, and coins under 30 get a second look.</p></article>
-        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#8B6CFF"></span>10%</p><h3>Volume surge</h3><p>Trading volume against its normal level. Real moves usually bring real volume.</p></article>
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#D4FF3A"></span>Momentum</p><h3>What's already moving</h3><p>Price change over 1, 3, 7, 14 and 30 days, and how far a coin sits from its 30-day high.</p></article>
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#B9E62E"></span>Independence</p><h3>Moving on its own</h3><p>Beating Bitcoin, and whether the coin moves with its usual crowd or breaks away from it.</p></article>
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#9BC425"></span>Volume</p><h3>Real money behind it</h3><p>Trading volume against its own normal level and against the coin's size.</p></article>
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#C9B8FF"></span>Risk</p><h3>Size and swings</h3><p>Smaller, more volatile coins move further, both ways. The model knows this and the proof page checks it isn't the whole story.</p></article>
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#8B6CFF"></span>Overheating</p><h3>Has it run too hot?</h3><p>The relative strength index (RSI): coins that rose too fast, too recently, often cool off.</p></article>
+        <article class="factor reveal"><p class="pct"><span class="sw" style="background:#3DE8FF"></span>Market mood</p><h3>The weather</h3><p>Fear &amp; Greed, Bitcoin's share of the market and its weekly trend change how much each signal counts.</p></article>
       </div>
+      <p class="intro reveal" style="margin-top:22px"><a href="proof.html">How it was tested, with the parts that don't work →</a></p>
     </div>
   </section>
 

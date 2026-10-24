@@ -263,7 +263,8 @@ def caption_with(call, mode, coin_tags):
     cash = " ".join(f"${p['symbol']}" for p in call["picks"])
     rng = f"{md(call['date'])} → {md(call['end'])}"
     if mode == "call":
-        head, body = f"🎯 {h}-Day Call · {rng}", f"{cash}\nResults {md(call['end'])}{arrow(call)}"
+        head = f"🎯 {h}-Day Call · {rng}" if h == 7 else f"🧪 {h}-Day Call (experimental) · {rng}"
+        body = f"{cash}\nResults {md(call['end'])}{arrow(call)}"
         lt = call.get("light")
         if lt:
             dot = "🟢" if lt["state"] == "trade" else "🟠"

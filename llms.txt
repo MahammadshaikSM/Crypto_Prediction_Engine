@@ -11,7 +11,9 @@ Research data from a public experiment, not financial advice. Crypto is volatile
 - Check api/v1/track-record.json before relying on a signal: it shows average return per call after costs,
   how often calls beat Bitcoin, and how calls made on TRADE vs CAUTION days did.
 - Treat the calls as a basket: hold all 10 in equal size for the stated window. Most of the return comes from a few
-  big winners, so single picks are unreliable.
+  big winners, so single picks are unreliable (picked coins go up no more often than other coins).
+- The 7-day calls are the main signal. The 3-day calls are experimental: no reliable edge after realistic costs.
+- How it was tested (matched baselines, independent weeks, calibration, liquidity): proof.html
 - The market light is based on Bitcoin's 7-day trend. In a held-out backtest 7-day calls did better on TRADE days;
   that evidence is likely but not certain. It had no effect on 3-day calls.
 - Data refreshes once a day around 11:30 UTC. "as_of" and "generated_at" fields give the exact times.
@@ -27,4 +29,4 @@ Research data from a public experiment, not financial advice. Crypto is volatile
 ## Pages for people
 - [Home](index.html), [7-day calls](prediction_dashboard.html),
   [3-day calls](prediction_dashboard_3d.html), [Rebound Radar](rebound_dashboard.html),
-  [API docs](api.html)
+  [Proof: how it was tested](proof.html), [API docs](api.html)

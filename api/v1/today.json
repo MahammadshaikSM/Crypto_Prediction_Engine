@@ -1,6 +1,6 @@
 {
  "api_version": "1.0",
- "generated_at": "2026-10-24T21:45:19Z",
+ "generated_at": "2026-10-24T22:30:11Z",
  "source": "CoinMarketCap",
  "disclaimer": "Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits.",
  "docs": "api.html",
@@ -23,6 +23,7 @@
   "horizon_days": 7,
   "date": "2026-10-24",
   "grades_on": "2026-10-31",
+  "status": "main signal: beat comparable coins after costs in a held-out year (see proof.html)",
   "model": "model v2 (18 signals + market regime, logistic regression)",
   "how_to_read": "Buy-and-hold idea for the window: the 10 coins the model rates most likely to be among the top-10 gainers of ~200 coins by the end date. Hold all 10 in equal size; returns come from a few big winners. score = model rating (7-day: chance in % of finishing top-10, 3-day: 0-100 index).",
   "picks": [
@@ -142,6 +143,7 @@
   "horizon_days": 3,
   "date": "2026-10-24",
   "grades_on": "2026-10-27",
+  "status": "experimental: no reliable edge over comparable coins after realistic (1%) trading costs; use as a watchlist",
   "model": "5-signal formula with weights tuned on 3 years of CMC data",
   "how_to_read": "Buy-and-hold idea for the window: the 10 coins the model rates most likely to be among the top-10 gainers of ~200 coins by the end date. Hold all 10 in equal size; returns come from a few big winners. score = model rating (7-day: chance in % of finishing top-10, 3-day: 0-100 index).",
   "picks": [

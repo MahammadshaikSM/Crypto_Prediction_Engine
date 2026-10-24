@@ -7,7 +7,7 @@ This script distils it into:
 
 Runs in the daily GitHub Action right after the trackers. Standard library only.
 """
-import json, sys
+import json, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -87,8 +87,51 @@ def stocks():
             "pos": rnd(avg(2), 1), "universe": round(avg(3))}
 
 
+def bake(summary):
+    """Write today's values into index.html between <!--bake:name--> markers.
+
+    The page's JavaScript refreshes them anyway; baking keeps the raw HTML current for readers that
+    don't run JavaScript (search engines, AI assistants, link previews).
+    """
+    from datetime import date
+    from html import escape
+    page = ROOT / "index.html"
+    if not page.exists():
+        return
+    html = page.read_text(encoding="utf-8")
+    fmt = lambda iso: f"{date.fromisoformat(iso):%b} {date.fromisoformat(iso).day}, {date.fromisoformat(iso).year}"
+    sign = lambda x, d=1: f"{x * 100:+.{d}f}%"
+    vals = {"updated": f"updated {fmt((summary.get('fetched_at') or summary['date'])[:10])}",
+            "days": f'<b id="p-days">{summary["days"]}</b> days of calls'}
+    picks = summary["today"]
+    vals["herocall"] = (f"Today's 7-day call: <b>{' · '.join(escape((c['symbol'] or '').upper()) for c in picks)}</b>"
+                        f" · graded {fmt(summary['maturity'])}")
+    vals["picks"] = "".join(
+        f'<article class="pick"><div class="top"><span class="rk">#{c["rank"]}</span></div>'
+        f'<h3>{escape((c["symbol"] or "").upper())}</h3><p class="name">{escape(c["name"] or "")}</p>'
+        f'<dl><dt>Confidence</dt><dd class="num">{(c.get("confidence") or 0):.0f}%</dd></dl></article>' for c in picks)
+    lt = summary.get("light")
+    if lt:
+        name = "Trade" if lt["state"] == "trade" else "Caution"
+        vals["light"] = (f'<a class="chip light-chip fade-in {lt["state"]}" id="light" href="prediction_dashboard.html" '
+                         f'style="animation-delay:.08s"><span class="ld" aria-hidden="true"></span>Market light <b>{name}</b>'
+                         f' · BTC {lt["btc7"]:+.1f}% 7d</a>')
+    ta = (summary.get("trader") or {}).get("all")
+    if ta and ta.get("market_avg") is not None:
+        vals["ret"] = f'<b id="p-ret">{sign(ta["avg"])}</b> avg per call vs <b>{sign(ta["market_avg"])}</b> market'
+    try:
+        ev = json.loads((ROOT / "backtest" / "evidence_results.json").read_text())["7"]["independent"]["vs matched"]
+        vals["edge"] = f"<b>{sign(ev['mean'])}</b> per call vs comparable coins"
+    except (OSError, KeyError, ValueError):
+        pass
+    for name, v in vals.items():
+        html = re.sub(rf"<!--bake:{name}-->.*?<!--/bake-->", lambda m: f"<!--bake:{name}-->{v}<!--/bake-->", html, flags=re.S)
+    page.write_text(html, encoding="utf-8")
+
+
 def main():
     summary, history = crypto()
+    bake(summary)
     summary["stocks"] = stocks()
     OUT.mkdir(exist_ok=True)
     (OUT / "summary.json").write_text(json.dumps(summary, separators=(",", ":")), encoding="utf-8")

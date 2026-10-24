@@ -20,6 +20,7 @@ Also tracks "positive rate" = % of predicted coins that simply went up.
 """
 
 import json, os, sys, time, math
+from html import escape as html_escape
 import requests
 from cmc_client import fetch_market, prices_by_symbol, market_regime
 import numpy as np
@@ -457,54 +458,124 @@ def _light_html(data, horizon, predictions):
     <div class="light-why">{why}. {' '.join(lines)}</div></div></div>"""
 
 
+def _equity_svg(points):
+    """Small inline SVG: growth of 1 for the calls, the market and Bitcoin (non-overlapping calls)."""
+    if len(points) < 2:
+        return ''
+    W, H, P = 760, 220, 34
+    series = [('calls', '#D4FF3A', 'Calls'), ('market', '#8b9cc8', 'Top-200 average'), ('btc', '#ff9a3d', 'Bitcoin')]
+    vals = [p[k] for p in points for k, _, _ in series]
+    lo, hi = min(vals + [1.0]), max(vals + [1.0])
+    x = lambda i: P + i * (W - 2 * P) / (len(points) - 1)
+    y = lambda v: H - P - (v - lo) / ((hi - lo) or 1) * (H - 2 * P)
+    lines = ''.join(
+        f'<polyline fill="none" stroke="{c}" stroke-width="{3 if k == "calls" else 2}" stroke-linejoin="round" '
+        f'points="{" ".join(f"{x(i):.1f},{y(p[k]):.1f}" for i, p in enumerate(points))}"/>'
+        f'<text x="{x(len(points) - 1) + 6:.1f}" y="{y(points[-1][k]) + 4:.1f}" fill="{c}" font-size="12" font-weight="700">'
+        f'{_pct(points[-1][k] - 1, True, 0)}</text>' for k, c, _ in series)
+    legend = ' &nbsp; '.join(f'<span style="color:{c}">&#9632; {name}</span>' for _, c, name in series)
+    return f"""<div class="ins-card" style="margin-top:14px">
+      <div class="ins-card-title">Growth of $100, one call every __H__ days</div>
+      <svg viewBox="0 0 {W + 50} {H}" style="width:100%;height:auto" role="img" aria-label="Equity curve of the calls vs the market and Bitcoin">
+        <line x1="{P}" x2="{W - P}" y1="{y(1):.1f}" y2="{y(1):.1f}" stroke="rgba(255,255,255,.15)" stroke-dasharray="4 4"/>
+        <text x="{P}" y="{y(1) - 6:.1f}" fill="#5a6b92" font-size="11">start ({points[0]['date']})</text>
+        {lines}
+      </svg>
+      <div style="font-size:.72rem;color:var(--text2)">{legend} &middot; {len(points)} non-overlapping calls, after costs.
+        Ends {points[-1]['date']}.</div></div>"""
+
+
+def _evidence(horizon):
+    try:
+        return json.loads((Path(__file__).resolve().parent / 'backtest' / 'evidence_results.json').read_text())[str(horizon)]
+    except (OSError, KeyError, ValueError):
+        return None
+
+
 def _trader_html(data, horizon):
-    """'If you followed every call' section: returns after costs vs holding Bitcoin."""
+    """'If you followed every call' section: returns after costs vs the market and Bitcoin."""
     s = trader_stats.stats(data, horizon)
     a = s['all']
     if not a:
         return ''
-    bt = trader_stats.backtest(horizon)
+    bt, ev = trader_stats.backtest(horizon), _evidence(horizon)
     early = (f'<p class="section-sub" style="color:var(--gold)">Only {a["calls"]} graded call{"s" if a["calls"] != 1 else ""} '
              f'so far: too early to judge.</p>') if a['calls'] < 20 else ''
+    verdict = ''
+    if horizon == 3 and ev:
+        m = ev['independent']['vs matched']
+        verdict = f"""<div class="light light-caution" style="margin-bottom:22px"><div class="light-dot"></div><div>
+      <div class="light-h">Experimental: <b>no reliable edge after realistic costs</b></div>
+      <div class="light-why">In a year of data the model never trained on, 3-day calls beat comparable coins (same volatility and size)
+        by {_pct(m['mean'])} per call, but the 90% range runs from {_pct(m['lo'])} to {_pct(m['hi'])}, and at 1% trading costs the
+        average falls to {_pct(ev['cost_sensitivity']['0.01'])}. Treat them as a watchlist, not a trade. The 7-day calls are the main signal.
+        <a href="proof.html" style="color:inherit">See the proof page</a>.</div></div></div>"""
     def row(label, x):
         if not x:
-            return f"<tr><td>{label}</td><td colspan='5'>&ndash;</td></tr>"
-        return (f"<tr><td>{label}</td><td>{x['calls']}</td><td>{_pct(x['avg'])}</td><td>{_pct(x['btc_avg'])}</td>"
-                f"<td>{_pct(x['in_profit'], False, 0)}</td><td>{_pct(x['beat_btc'], False, 0)}</td></tr>")
+            return f"<tr><td>{label}</td><td colspan='6'>&ndash;</td></tr>"
+        return (f"<tr><td>{label}</td><td>{x['calls']}</td><td>{_pct(x['avg'])}</td><td>{_pct(x['market_avg'])}</td>"
+                f"<td>{_pct(x['btc_avg'])}</td><td>{_pct(x['in_profit'], False, 0)}</td><td>{_pct(x['beat_market'], False, 0)}</td></tr>")
     bt_row = ''
-    if bt:
+    if bt and ev:
         h = bt['hold']
         bt_row = (f"<tr><td>Backtest, held-out year ({bt['period'][0]} &ndash; {bt['period'][1]})</td><td>{h['days']}</td>"
-                  f"<td>{_pct(h['basket_mean'])}</td><td>{_pct(h['btc_mean'])}</td><td>{_pct(h['basket_win'], False, 0)}</td>"
-                  f"<td>{_pct(h['beat_btc'], False, 0)}</td></tr>")
+                  f"<td>{_pct(h['basket_mean'])}</td><td>{_pct(ev['avg']['market'])}</td><td>{_pct(h['btc_mean'])}</td>"
+                  f"<td>{_pct(h['basket_win'], False, 0)}</td><td>&ndash;</td></tr>")
     return f"""
   <div style="margin-bottom:48px">
     <div class="section-label">&#128176; Trader view</div>
     <h2 class="section-h">If you followed every call</h2>
     <p class="section-sub">Buy all 10 picks in equal amounts at the call price, sell after __H__ days, minus 0.3% trading costs per coin.
-      Compared with holding Bitcoin over the same days.</p>
-    {early}
+      Compared with the equal-weight average of the ~200 coins the model chooses from, and with Bitcoin, over the same days.</p>
+    {verdict}{early}
     <div class="stats" style="margin-bottom:22px">
       <div class="stat c-green"><div class="stat-label">Avg return per call</div><div class="stat-val green">{_pct(a['avg'])}</div>
-        <div class="stat-sub">Bitcoin over the same days: {_pct(a['btc_avg'])}</div></div>
-      <div class="stat c-blue"><div class="stat-label">Calls in profit</div><div class="stat-val blue">{_pct(a['in_profit'], False, 0)}</div>
-        <div class="stat-sub">Beat Bitcoin: {_pct(a['beat_btc'], False, 0)} of calls</div></div>
+        <div class="stat-sub">Top-200 average {_pct(a['market_avg'])} &middot; Bitcoin {_pct(a['btc_avg'])}</div></div>
+      <div class="stat c-blue"><div class="stat-label">Beat the market</div><div class="stat-val blue">{_pct(a['beat_market'], False, 0)}</div>
+        <div class="stat-sub">of calls &middot; {_pct(a['in_profit'], False, 0)} were in profit</div></div>
       <div class="stat c-gold"><div class="stat-label">Winners vs losers</div><div class="stat-val gold" style="font-size:1.5rem">{_pct(a['avg_win'], True, 0)} / {_pct(a['avg_loss'], True, 0)}</div>
         <div class="stat-sub">{_pct(a['coin_win'], False, 0)} of coins win, but winners run further</div></div>
       <div class="stat c-purple"><div class="stat-label">Last 30 calls</div><div class="stat-val purple">{_pct(s['last30']['avg'])}</div>
-        <div class="stat-sub">avg per call &middot; {_pct(s['last30']['in_profit'], False, 0)} in profit</div></div>
+        <div class="stat-sub">avg per call &middot; top-200 {_pct(s['last30']['market_avg'])}</div></div>
     </div>
-    <div class="ins-card"><table class="ins-table">
-      <tr><th></th><th>Calls</th><th>Avg return</th><th>Bitcoin</th><th>In profit</th><th>Beat BTC</th></tr>
+    <div class="ins-card" style="overflow-x:auto"><table class="ins-table">
+      <tr><th></th><th>Calls</th><th>Avg return</th><th>Top-200 avg</th><th>Bitcoin</th><th>In profit</th><th>Beat market</th></tr>
       {row('All graded calls on this site', a)}
       {row('&#128994; Made on TRADE days', s['trade'])}
       {row('&#128992; Made on CAUTION days', s['caution'])}
       {bt_row}
     </table></div>
+    {_equity_svg(s['equity'])}
     <p class="section-sub" style="margin-top:12px;font-size:.76rem">The median call earned {_pct(a['median'])}: most of the gain comes from a few big
       winners (best call {_pct(a['best_ret'])} on {a['best']}, worst {_pct(a['worst_ret'])} on {a['worst']}), so holding all 10
-      in equal size matters more than picking favourites. Past results do not guarantee future returns. Not financial advice.</p>
+      in equal size matters more than picking favourites. Calls before Oct 20, 2026 came from earlier model versions.
+      How we tested this: <a href="proof.html" style="color:var(--blue)">proof page</a>. Past results do not guarantee future returns. Not financial advice.</p>
   </div>"""
+
+
+IMAGE_HOSTS = ('https://s2.coinmarketcap.com/', 'https://coin-images.coingecko.com/', 'https://assets.coingecko.com/')
+
+
+def _safe(obj, key=None):
+    """Escape third-party text (coin names, symbols, ids) before the page's JS inserts it as HTML.
+
+    Token names are chosen by whoever launches the token, so a name like '<img onerror=...>'
+    must never reach innerHTML unescaped. Image URLs are kept only from known logo hosts.
+    """
+    if isinstance(obj, dict):
+        return {k: _safe(v, k) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_safe(v, key) for v in obj]
+    if isinstance(obj, str):
+        if key == 'image':
+            return html_escape(obj) if obj.startswith(IMAGE_HOSTS) else ''
+        return html_escape(obj)
+    return obj
+
+
+def _script_json(obj):
+    """JSON that is safe inside <script>: no '</script>' or '<!--' can end the block early."""
+    return json.dumps(obj, ensure_ascii=False).replace('<', '\\u003c').replace('>', '\\u003e')
 
 
 def _render_page(horizon, predictions, evaluations, out_path, weights, note, override=None, extra=None):
@@ -538,8 +609,8 @@ def _render_page(horizon, predictions, evaluations, out_path, weights, note, ove
         chart_data['hit_rates'].append(ev['hit_rate'])
         chart_data['pos_rates'].append(ev['positive_rate'])
 
-    tl_json    = json.dumps(timeline, ensure_ascii=False)
-    chart_json = json.dumps(chart_data, ensure_ascii=False)
+    tl_json    = _script_json(_safe(timeline))
+    chart_json = _script_json(chart_data)
     updated_at = datetime.now().strftime('%b %d, %Y at %H:%M')
     hit_disp   = f"{avg_hit_rate:.1f}%" if total_evals else "-"
     pos_disp   = f"{avg_pos_rate:.1f}%" if total_evals else "-"

@@ -47,6 +47,12 @@ function renderHero(sum) {
     </div>`).join("") + `<div class="orbit-core" aria-hidden="true">Today's<br>10 picks<small>${esc(fmtDate(sum.date, false).toUpperCase())}</small></div>`;
   const d = latest.date;
   set("#updated", `updated ${fmtDate((latest.fetched_at || d).slice(0, 10))}`);
+  // freshness: the daily run lands around 11:30 UTC; flag the page if it is more than 36 hours old
+  const age = (Date.now() - Date.parse(`${d}T11:30:00Z`)) / 36e5, fresh = $("#fresh");
+  if (fresh && age > 36) {
+    fresh.classList.add("stale");
+    fresh.innerHTML = `<span class="live-dot" aria-hidden="true"></span><b>Delayed</b> · last update ${esc(fmtDate(d))}, the daily run may have failed`;
+  }
   const lt = sum.light, light = $("#light");
   if (lt && light) {
     light.className = `chip light-chip fade-in ${lt.state}`;
@@ -170,39 +176,4 @@ new IntersectionObserver(([en], obs) => {
   load("site/history.json").then(renderExplorer).catch((err) => { console.warn("history unavailable", err); $("#ex-date").textContent = "History unavailable right now"; });
 }, { rootMargin: "600px" }).observe($("#explorer"));
 
-// ---------- forecast (site/forecast.json, built daily by site/build_forecast.py) ----------
-const FEAT = [["vol_adj_mom", "Vol-adj momentum", "#9BC425"], ["mom24h", "24h momentum", "#D4FF3A"], ["btc_rel", "BTC-relative", "#B9E62E"], ["rsi_s", "RSI", "#C9B8FF"], ["vol_surge", "Volume surge", "#8B6CFF"]];
-const OLD_W = { vol_adj_mom: 22, mom24h: 28, btc_rel: 25, vol_surge: 10, rsi_s: 15 };
-function renderForecast(fc) {
-  const tabs = $$(".fc-tab");
-  // target_at is UTC; show it in the viewer's own time zone (falls back to the UTC date)
-  const localDay = (h) => h.target_at ? new Date(h.target_at).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : fmtDate(h.target_date, false);
-  $$(".fc-date").forEach((el) => { const h = fc.horizons[el.dataset.h]; if (h) el.textContent = localDay(h); });
-  const show = (h) => {
-    const f = fc.horizons[h]; if (!f) return;
-    tabs.forEach((t) => t.setAttribute("aria-selected", t.dataset.h === String(h)));
-    $("#fc-panel").setAttribute("aria-labelledby", `tab-${h}`);
-    $("#fc-list").innerHTML = f.picks.map((c) => `<li><span class="r">#${c.rank}</span><img src="${esc(c.image)}" alt="" width="34" height="34" loading="lazy" referrerpolicy="no-referrer"><span class="nm"><b>${esc(c.symbol)}</b><span>${esc(c.name)} · RSI ${c.rsi == null ? "n/a" : Math.round(c.rsi)}</span></span><span class="m24">${chg(c.mom24h)}</span><span class="sc num" title="Model score">${c.score.toFixed(1)}</span></li>`).join("");
-    const t = f.backtest.test, old = f.backtest.live_test, top = Math.max(t.hit, old.hit, t.base) * 1.2;
-    set("#fc-lift", (t.hit / t.base).toFixed(1)); set("#fc-hit", pct1(t.hit)); set("#fc-old", pct1(old.hit)); set("#fc-base", pct1(t.base));
-    [["#fc-bar-me", t.hit], ["#fc-bar-old", old.hit], ["#fc-bar-rand", t.base]].forEach(([s, v]) => $(s).style.setProperty("--w", v / top));
-    $(".fc-side .card").classList.add("in");
-    $("#fc-note").innerHTML = `Graded ${h} days later over <b>${t.days} days</b> (Oct 2025 to Sep 2026) the tuning never saw. Picks rose <b>${pct1(t.pos)}</b> of the time and beat the average coin by <b>${signed.format(t.edge)} pts</b> per ${h}-day window.`;
-    const w = f.weights;
-    $("#fc-weights").style.display = w ? "" : "none";
-    if (!w) {  // model v2: no fixed weights, show what drives it instead
-      set("#fc-wtitle", "What drives " + (f.model && f.model.name || "the model"));
-      $("#fc-wlist").innerHTML = (f.model && f.model.drivers || []).map((d) => `<li><span>${esc(d)}</span></li>`).join("");
-      return;
-    }
-    set("#fc-wtitle", "Tuned weights");
-    $("#fc-weights").innerHTML = FEAT.map(([k, , col]) => w[k] > 0 ? `<div style="flex:${w[k]};background:${col}">${w[k] >= 7 ? w[k].toFixed(1) + "%" : ""}</div>` : "").join("");
-    $("#fc-weights").setAttribute("aria-label", "Tuned weights: " + FEAT.map(([k, n]) => `${n} ${w[k].toFixed(1)}%`).join(", "));
-    $("#fc-wlist").innerHTML = FEAT.map(([k, n, col]) => `<li><span><span class="sw" style="background:${col};display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px"></span>${n}</span><span><del>${OLD_W[k]}%</del><b>${w[k].toFixed(1)}%</b></span></li>`).join("");
-  };
-  tabs.forEach((t) => t.addEventListener("click", () => show(t.dataset.h)));
-  $(".fc-tabs").addEventListener("keydown", (e) => { if (e.key === "ArrowRight" || e.key === "ArrowLeft") { const i = tabs.findIndex((t) => t.getAttribute("aria-selected") === "true"); const n = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); show(n.dataset.h); } });
-  show("3");
-}
-load("site/forecast.json").then(renderForecast).catch((err) => { console.warn("forecast unavailable", err); $("#fc-list").innerHTML = '<li class="intro">The forecast is being rebuilt. Check back after the next daily update.</li>'; });
 })();

@@ -43,6 +43,25 @@ def btc_on(data, day):
     return ((data.get("predictions", {}).get(day) or {}).get("price_snapshot") or {}).get("bitcoin")
 
 
+def market_return(data, start, end):
+    """Equal-weight average return of the coins in both daily snapshots (the ~200 tracked), minus COST.
+
+    Stablecoins and gold tokens are left out, as the model never picks them: anything priced near $1
+    that moved less than 1%, and gold-backed tokens.
+    """
+    a = (data.get("predictions", {}).get(start) or {}).get("price_snapshot") or {}
+    b = (data.get("predictions", {}).get(end) or {}).get("price_snapshot") or {}
+    r = []
+    for k in a:
+        if k not in b or not a[k] or not b[k] or "gold" in k:
+            continue
+        x = b[k] / a[k] - 1
+        if 0.9 <= a[k] <= 1.1 and abs(x) < 0.01:
+            continue
+        r.append(x)
+    return float(np.mean(r)) - COST if len(r) >= 50 else None
+
+
 def light_for(data, day, pred=None):
     """Stored light for a call, else BTC's 7-day change from the stored daily snapshots."""
     stored = (pred or {}).get("market_light") or (data.get("predictions", {}).get(day) or {}).get("market_light")
@@ -66,10 +85,12 @@ def call_results(data, horizon):
                  if c.get("actual_return_pct") is not None]
         if not coins:
             continue
-        b0, b1 = btc_on(data, day), btc_on(data, ev.get("evaluation_date", _shift(day, horizon)))
+        end = ev.get("evaluation_date", _shift(day, horizon))
+        b0, b1 = btc_on(data, day), btc_on(data, end)
         lt = light_for(data, day, preds.get(day))
-        rows.append(dict(date=day, end=ev.get("evaluation_date"), basket=float(np.mean(coins)), coins=coins,
-                         btc=(b1 / b0 - 1) if b0 and b1 else None, light=lt["state"] if lt else None))
+        rows.append(dict(date=day, end=end, basket=float(np.mean(coins)), coins=coins,
+                         btc=(b1 / b0 - 1) if b0 and b1 else None, market=market_return(data, day, end),
+                         light=lt["state"] if lt else None))
     return rows
 
 
@@ -78,10 +99,13 @@ def summarize(rows):
         return None
     b = np.array([r["basket"] for r in rows]); c = np.concatenate([r["coins"] for r in rows])
     vs = [r for r in rows if r["btc"] is not None]
+    vm = [r for r in rows if r.get("market") is not None]
     wins, losses = c[c > 0], c[c <= 0]
     return dict(calls=len(rows), avg=float(b.mean()), median=float(np.median(b)), in_profit=float((b > 0).mean()),
                 beat_btc=float(np.mean([r["basket"] > r["btc"] for r in vs])) if vs else None,
                 btc_avg=float(np.mean([r["btc"] for r in vs])) if vs else None,
+                market_avg=float(np.mean([r["market"] for r in vm])) if vm else None,
+                beat_market=float(np.mean([r["basket"] > r["market"] for r in vm])) if vm else None,
                 coin_win=float((c > 0).mean()), avg_win=float(wins.mean()) if len(wins) else 0.0,
                 avg_loss=float(losses.mean()) if len(losses) else 0.0, expectancy=float(c.mean()),
                 best=max(rows, key=lambda r: r["basket"])["date"], worst=min(rows, key=lambda r: r["basket"])["date"],
@@ -94,8 +118,25 @@ def stats(data, horizon):
     return dict(all=summarize(rows), last30=summarize(rows[-30:]),
                 trade=summarize([r for r in rows if r["light"] == "trade"]),
                 caution=summarize([r for r in rows if r["light"] == "caution"]),
+                equity=equity(rows, horizon),
                 calls=[dict(date=r["date"], end=r["end"], basket=round(r["basket"], 4),
-                            btc=None if r["btc"] is None else round(r["btc"], 4), light=r["light"]) for r in rows])
+                            btc=None if r["btc"] is None else round(r["btc"], 4),
+                            market=None if r["market"] is None else round(r["market"], 4), light=r["light"]) for r in rows])
+
+
+def equity(rows, horizon):
+    """Growth of 1 when trading one call every `horizon` days (non-overlapping, ending with the latest
+    graded call), next to Bitcoin and the equal-weight market over the same windows."""
+    if not rows:
+        return []
+    last = date.fromisoformat(rows[-1]["date"])
+    pick = [r for r in rows if (last - date.fromisoformat(r["date"])).days % horizon == 0
+            and r["btc"] is not None and r["market"] is not None]
+    out, e, b, m = [], 1.0, 1.0, 1.0
+    for r in pick:
+        e, b, m = e * (1 + r["basket"]), b * (1 + r["btc"]), m * (1 + r["market"])
+        out.append(dict(date=r["end"], calls=round(e, 4), btc=round(b, 4), market=round(m, 4)))
+    return out
 
 
 def backtest(horizon):

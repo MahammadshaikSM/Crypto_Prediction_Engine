@@ -294,3 +294,8 @@ sup.fn a { color: var(--lime); text-decoration: none; font-size: .75em; padding:
 .light-chip.caution { border-color: #ff9a3d66; } .light-chip.caution .ld { background: #ff9a3d; box-shadow: 0 0 10px #ff9a3d; } .light-chip.caution b { color: #ff9a3d; }
 @media (max-width: 560px) { .light-chip { margin: 8px 0 0; } }
 .light-chip[hidden] { display: none; }
+/* freshness + hero call line */
+#fresh.stale { border-color: #ff9a3d88; color: #ffb27a; }
+#fresh.stale .live-dot { background: #ff9a3d; box-shadow: 0 0 10px #ff9a3d; animation: none; }
+.hero-picks { margin-top: 14px; font: 500 14px/1.6 var(--mono); letter-spacing: .02em; color: var(--fg-2); }
+.hero-picks b { color: var(--lime); font-weight: 700; }
