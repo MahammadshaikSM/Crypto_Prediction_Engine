@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rebound Radar · Ichnora</title>
+<link rel="icon" href="brand/ichnora/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="brand/ichnora/apple-touch-icon.png">
+<style>
+:root{--void:#020510;--glass:rgba(255,255,255,.025);--glass2:rgba(255,255,255,.05);--border:rgba(255,255,255,.06);
+  --blue:#4facfe;--green:#00f5a0;--red:#ff4d6d;--gold:#ffd60a;--lime:#D4FF3A;--cyan:#3DE8FF;
+  --text:#e8eaf6;--text2:#8b9cc8;--muted:#5a6b92;--font:'Inter',system-ui,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--void);color:var(--text);font-family:var(--font);line-height:1.6;min-height:100vh}
+.topnav{display:flex;gap:8px;padding:20px 32px 0;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(6,13,31,.95);position:sticky;top:0;z-index:100}
+.topnav a{padding:10px 24px;border-radius:10px 10px 0 0;font-size:.85rem;font-weight:600;letter-spacing:.04em;color:#8b9cc8;text-decoration:none}
+.topnav a.on{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-bottom:1px solid #060d1f;color:#e8eaf6}
+.header{border-bottom:1px solid var(--border);padding:18px 40px;display:flex;align-items:center;gap:16px}
+.logo-mark{width:36px;height:36px;border-radius:11px;display:block}
+.logo-name{font-size:1.05rem;font-weight:800;background:linear-gradient(135deg,var(--lime),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-sub{font-size:.6rem;color:var(--muted);text-transform:uppercase}
+.hdr-right{margin-left:auto;font-size:.72rem;color:var(--muted)}
+.horizon-tabs{display:flex;gap:8px;padding:18px 32px 0;max-width:1400px;margin:0 auto;flex-wrap:wrap}
+.htab{padding:10px 20px;border-radius:999px;font-size:.85rem;font-weight:700;text-decoration:none;color:#8b9cc8;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02)}
+.htab:hover{color:#e8eaf6;border-color:rgba(79,172,254,.4)}
+.htab.active{color:#020510;background:linear-gradient(135deg,var(--lime),var(--cyan));border-color:transparent}
+.wrap{max-width:1320px;margin:0 auto;padding:36px 32px 80px}
+.label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);margin-bottom:10px}
+h1{font-size:2rem;font-weight:900;letter-spacing:-.04em;line-height:1.15}
+h2{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;margin-bottom:4px}
+.sub{font-size:.86rem;color:var(--text2);max-width:780px;margin:8px 0 22px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:26px 0 46px}
+.stat{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:20px 22px}
+.stat-l{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.stat-v{font-size:1.9rem;font-weight:900;letter-spacing:-.04em;line-height:1.2}
+.stat-s{font-size:.72rem;color:var(--text2)}
+.group{margin-bottom:30px}
+.g-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.g-n{font-weight:800;color:var(--text2)} .g-blurb{font-size:.78rem;color:var(--muted)}
+.pill{font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;border:1px solid}
+.p-comeback{background:rgba(0,245,160,.1);color:var(--green);border-color:rgba(0,245,160,.25)}
+.p-watch{background:rgba(255,214,10,.08);color:var(--gold);border-color:rgba(255,214,10,.22)}
+.p-unlikely{background:rgba(255,77,109,.1);color:var(--red);border-color:rgba(255,77,109,.25)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.card{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:14px 16px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.card.v-comeback::before{background:linear-gradient(90deg,var(--lime),var(--cyan))}
+.card.v-watch::before{background:var(--gold)} .card.v-unlikely::before{background:var(--red)}
+.card-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.card-top img{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.05)}
+.c-name{font-size:.8rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:105px}
+.c-sym{font-size:.62rem;font-weight:800;color:var(--blue)}
+.c-score{margin-left:auto;font-size:1.25rem;font-weight:900;letter-spacing:-.03em}
+.row{display:flex;justify-content:space-between;font-size:.7rem;color:var(--text2);margin-bottom:2px}
+.bar{margin-top:8px;height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--lime),var(--cyan))}
+.up{color:var(--green)} .dn{color:var(--red)}
+.panel{background:var(--glass);border:1px solid var(--border);border-radius:18px;padding:6px 18px;overflow-x:auto;margin-bottom:46px}
+table{width:100%;border-collapse:collapse;font-size:.78rem}
+th{color:var(--muted);font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;padding:12px 8px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:9px 8px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--text2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+.tc{display:flex;align-items:center;gap:9px} .tc img{width:22px;height:22px;border-radius:50%}
+.tc b{color:var(--text);display:block;font-size:.78rem} .tc small{color:var(--muted);font-size:.64rem}
+.empty{color:var(--muted);font-size:.8rem;padding:12px 0}
+.tag{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:1px 6px;border-radius:6px;background:rgba(255,255,255,.06);color:var(--muted);margin-left:4px}
+.o-green{background:rgba(0,245,160,.1);color:var(--green);border-color:rgba(0,245,160,.25)}
+.o-blue{background:rgba(79,172,254,.1);color:var(--blue);border-color:rgba(79,172,254,.25)}
+.o-gold{background:rgba(255,214,10,.08);color:var(--gold);border-color:rgba(255,214,10,.22)}
+.o-red{background:rgba(255,77,109,.1);color:var(--red);border-color:rgba(255,77,109,.25)}
+.note{font-size:.76rem;color:var(--muted);max-width:860px;margin-top:10px}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.how div{background:var(--glass);border:1px solid var(--border);border-radius:16px;padding:16px 18px;font-size:.8rem;color:var(--text2)}
+.how b{color:var(--text);display:block;margin-bottom:4px}
+@media(max-width:700px){.wrap{padding:28px 16px 60px}.header{padding:16px}.topnav,.horizon-tabs{padding-left:16px;padding-right:16px}h1{font-size:1.6rem}}
+</style>
+</head>
+<body>
+<div class="topnav"><a class="on" href="prediction_dashboard.html">&#128640; Crypto</a><a href="stock_dashboard.html">&#128200; Stocks</a></div>
+<header class="header">
+  <img class="logo-mark" src="brand/ichnora/icon.svg" alt="" width="36" height="36">
+  <div><div class="logo-name">ichnora</div><div class="logo-sub">Every call leaves a footprint</div></div>
+  <div class="hdr-right">Last updated: Oct 24, 2026 at 21:19 UTC</div>
+</header>
+<nav class="horizon-tabs" aria-label="Dashboards">
+  <a href="prediction_dashboard.html" class="htab">&#128197; 7-Day Prediction</a>
+  <a href="prediction_dashboard_3d.html" class="htab">&#9889; 3-Day Prediction</a>
+  <a href="rebound_dashboard.html" class="htab active">&#129517; Rebound Radar</a>
+</nav>
+<div class="wrap">
+  <div class="label">&#129517; Rebound Radar</div>
+  <h1>Down 25% in a month. Coming back, or not?</h1>
+  <p class="sub">Every top-200 coin that has fallen 25% or more in 30 days, ranked by its chance of getting back to
+    where it was a month ago within the next 60 days. Each coin is tracked from the day it lands here and graded in public.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-l">On the radar today</div><div class="stat-v">9</div><div class="stat-s">of the top 200, down 25%+ in 30 days</div></div>
+    <div class="stat"><div class="stat-l">Comeback candidates</div><div class="stat-v up">3</div><div class="stat-s">top 30% of today's comeback scores</div></div>
+    <div class="stat"><div class="stat-l">Being tracked</div><div class="stat-v">21</div><div class="stat-s">graded at recovery or after 60 days</div></div>
+    <div class="stat"><div class="stat-l">Backtest edge</div><div class="stat-v" style="color:var(--lime)">2.7&times;</div><div class="stat-s">comeback rate, candidates vs unlikely</div></div>
+  </div>
+
+  <div class="label">Today &middot; 2026-10-24</div>
+  <h2>Today's radar</h2>
+  <p class="sub">Big number = comeback score (0&ndash;100), this coin's rank among today's declining coins.
+    "To recover" = how far it must rise to get back to its price 30 days ago.</p>
+  <div class="group"><div class="g-head"><span class="pill p-comeback">Comeback candidate</span>
+          <span class="g-n">3</span><span class="g-blurb">Back-tested: 18% got back to their pre-drop price within 60 days</span></div><div class="cards"><div class="card v-comeback">
+      <div class="card-top"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/40809.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+        <div><div class="c-name">Cash Cat</div><div class="c-sym">CASHCAT</div></div>
+        <div class="c-score" title="Comeback score: rank among today's declining coins">94</div></div>
+      <div class="row"><span>30 days</span><b class="dn">-36%</b></div>
+      <div class="row"><span>From 90d high</span><b class="dn">-67%</b></div>
+      <div class="row"><span>To recover</span><b>+66%</b></div>
+      <div class="bar"><i style="width:94%"></i></div></div><div class="card v-comeback">
+      <div class="card-top"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/40938.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+        <div><div class="c-name">Pons</div><div class="c-sym">PONS</div></div>
+        <div class="c-score" title="Comeback score: rank among today's declining coins">83</div></div>
+      <div class="row"><span>30 days</span><b class="dn">-62%</b></div>
+      <div class="row"><span>From 90d high</span><b class="dn">-74%</b></div>
+      <div class="row"><span>To recover</span><b>+177%</b></div>
+      <div class="bar"><i style="width:83%"></i></div></div><div class="card v-comeback">
+      <div class="card-top"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/33597.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+        <div><div class="c-name">Fartcoin</div><div class="c-sym">FARTCOIN</div></div>
+        <div class="c-score" title="Comeback score: rank among today's declining coins">72</div></div>
+      <div class="row"><span>30 days</span><b class="dn">-26%</b></div>
+      <div class="row"><span>From 90d high</span><b class="dn">-37%</b></div>
+      <div class="row"><span>To recover</span><b>+46%</b></div>
+      <div class="bar"><i style="width:72%"></i></div></div></div></div>
+  <div class="group"><div class="g-head"><span class="pill p-watch">Watching</span>
+          <span class="g-n">3</span><span class="g-blurb">Back-tested: 13% recovered</span></div><div class="cards"><div class="card v-watch">
+      <div class="card-top"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/36828.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+        <div><div class="c-name">Useless Coin</div><div class="c-sym">USELESS</div></div>
+        <div class="c-score" title="Comeback score: rank among today's declining coins">61</div></div>
+      <div class="row"><span>30 days</span><b class="dn">-46%</b></div>
+      <div class="row"><span>From 90d high</span><b class="dn">-54%</b></div>
+      <div class="row"><span>To recover</span><b>+79%</b></div>
+      <div class="bar"><i style="width:61%"></i></div></div><div class="card v-watch">
+      <div class="card-top"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/38515.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+        <div><div class="c-name">DoubleZero</div><div class="c-sym">2Z</div></div>
+        <div class="c-score" title="Comeback score: rank among today's declining coins">50</div></div>
+      <div class="row"><span>30 days</span><b class="dn">-42%</b></div>
+      <div class="row"><span>From 90d high</span><b class="dn">-59%</b></div>
+      <div class="row"><span>To recover</span><b>+74%</b></div>
+      <div class="bar"><i style="width:50%"></i></div></div><div class="card v-watch">
+      <div class="card-top"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/36532.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+        <div><div class="c-name">BUILDon</div><div class="c-sym">B</div></div>
+        <div class="c-score" title="Comeback score: rank among today's declining coins">39</div></div>
+      <div class="row"><span>30 days</span><b class="dn">-37%</b></div>
+      <div class="row"><span>From 90d high</span><b class="dn">-42%</b></div>
+      <div class="row"><span>To recover</span><b>+64%</b></div>
+      <div class="bar"><i style="width:39%"></i></div></div></div></div>
+  <div class="group"><div class="g-head"><span class="pill p-unlikely">Unlikely to recover</span>
+          <span class="g-n">3</span><span class="g-blurb">Back-tested: only 7% recovered</span></div><div class="cards"><div class="card v-unlikely">
+      <div class="card-top"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/39720.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+        <div><div class="c-name">edgeX</div><div class="c-sym">EDGE</div></div>
+        <div class="c-score" title="Comeback score: rank among today's declining coins">28</div></div>
+      <div class="row"><span>30 days</span><b class="dn">-43%</b></div>
+      <div class="row"><span>From 90d high</span><b class="dn">-48%</b></div>
+      <div class="row"><span>To recover</span><b>+78%</b></div>
+      <div class="bar"><i style="width:28%"></i></div></div><div class="card v-unlikely">
+      <div class="card-top"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/38849.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+        <div><div class="c-name">Pieverse</div><div class="c-sym">PIEVERSE</div></div>
+        <div class="c-score" title="Comeback score: rank among today's declining coins">17</div></div>
+      <div class="row"><span>30 days</span><b class="dn">-38%</b></div>
+      <div class="row"><span>From 90d high</span><b class="dn">-44%</b></div>
+      <div class="row"><span>To recover</span><b>+61%</b></div>
+      <div class="bar"><i style="width:17%"></i></div></div><div class="card v-unlikely">
+      <div class="card-top"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/39125.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+        <div><div class="c-name">Lighter</div><div class="c-sym">LIT</div></div>
+        <div class="c-score" title="Comeback score: rank among today's declining coins">6</div></div>
+      <div class="row"><span>30 days</span><b class="dn">-41%</b></div>
+      <div class="row"><span>From 90d high</span><b class="dn">-41%</b></div>
+      <div class="row"><span>To recover</span><b>+67%</b></div>
+      <div class="bar"><i style="width:6%"></i></div></div></div></div>
+
+  <div class="label" style="margin-top:20px">Tracking</div>
+  <h2>Every flagged coin, followed for 60 days</h2>
+  <p class="sub">The verdict is frozen on the day a coin is flagged, so the scorecard can't be rewritten later.</p>
+  <div class="panel"><table>
+    <tr><th>Coin</th><th>Flagged</th><th>Verdict then</th><th>Since flagged</th><th>Best since</th><th>To recover</th><th>Days left</th></tr>
+    <tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/7083.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>UNI</b><small>Uniswap</small></div></div></td>
+          <td>2026-10-23 <span class="tag">replay</span></td><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td class="dn">-3%</td><td class="up">+0%</td>
+          <td>+52%</td><td>59d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/10791.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>XEC</b><small>eCash</small></div></div></td>
+          <td>2026-10-23 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+1%</td><td class="up">+1%</td>
+          <td>+42%</td><td>59d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/33597.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>FARTCOIN</b><small>Fartcoin</small></div></div></td>
+          <td>2026-10-23 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="dn">-11%</td><td class="up">+0%</td>
+          <td>+63%</td><td>59d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/39332.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>ZAMA</b><small>Zama</small></div></div></td>
+          <td>2026-10-23 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="dn">-6%</td><td class="up">+0%</td>
+          <td>+47%</td><td>59d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/9104.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>AIOZ</b><small>AIOZ Network</small></div></div></td>
+          <td>2026-10-22 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="dn">-2%</td><td class="up">+0%</td>
+          <td>+42%</td><td>58d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1437.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>ZEC</b><small>Zcash</small></div></div></td>
+          <td>2026-10-19 <span class="tag">replay</span></td><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td class="up">+5%</td><td class="up">+16%</td>
+          <td>+31%</td><td>55d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/38849.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>PIEVERSE</b><small>Pieverse</small></div></div></td>
+          <td>2026-10-19 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="dn">-2%</td><td class="up">+1%</td>
+          <td>+52%</td><td>55d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1698.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>ZEN</b><small>Horizen</small></div></div></td>
+          <td>2026-10-19 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="dn">-3%</td><td class="up">+7%</td>
+          <td>+46%</td><td>55d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/40938.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>PONS</b><small>Pons</small></div></div></td>
+          <td>2026-10-15 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="dn">-31%</td><td class="up">+1%</td>
+          <td>+183%</td><td>51d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/35491.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>M</b><small>MemeCore</small></div></div></td>
+          <td>2026-10-14 <span class="tag">replay</span></td><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td class="up">+8%</td><td class="up">+8%</td>
+          <td>+25%</td><td>50d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/36532.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>B</b><small>BUILDon</small></div></div></td>
+          <td>2026-10-10 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="dn">-11%</td><td class="up">+2%</td>
+          <td>+54%</td><td>46d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/39125.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>LIT</b><small>Lighter</small></div></div></td>
+          <td>2026-10-09 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="dn">-12%</td><td class="up">+6%</td>
+          <td>+52%</td><td>45d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/38482.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>FF</b><small>Falcon Finance</small></div></div></td>
+          <td>2026-10-09 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="dn">-7%</td><td class="up">+9%</td>
+          <td>+52%</td><td>45d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/38515.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>2Z</b><small>DoubleZero</small></div></div></td>
+          <td>2026-10-09 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="dn">-18%</td><td class="up">+6%</td>
+          <td>+72%</td><td>45d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/36828.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>USELESS</b><small>Useless Coin</small></div></div></td>
+          <td>2026-10-09 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="dn">-13%</td><td class="up">+8%</td>
+          <td>+74%</td><td>45d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/39720.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>EDGE</b><small>edgeX</small></div></div></td>
+          <td>2026-10-05 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="dn">-30%</td><td class="up">+0%</td>
+          <td>+92%</td><td>41d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/28081.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>SPX</b><small>SPX6900</small></div></div></td>
+          <td>2026-10-04 <span class="tag">replay</span></td><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td class="dn">-21%</td><td class="up">+2%</td>
+          <td>+74%</td><td>40d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/40809.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>CASHCAT</b><small>Cash Cat</small></div></div></td>
+          <td>2026-10-03 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="dn">-39%</td><td class="up">+7%</td>
+          <td>+197%</td><td>39d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/35336.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>TRUMP</b><small>OFFICIAL TRUMP</small></div></div></td>
+          <td>2026-09-29 <span class="tag">replay</span></td><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td class="dn">-17%</td><td class="up">+5%</td>
+          <td>+62%</td><td>35d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/30933.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>DOG</b><small>Dog (Bitcoin)</small></div></div></td>
+          <td>2026-09-29 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="dn">-2%</td><td class="up">+8%</td>
+          <td>+38%</td><td>35d</td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/36922.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>H</b><small>Humanity</small></div></div></td>
+          <td>2026-09-13 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="dn">-34%</td><td class="up">+12%</td>
+          <td>+103%</td><td>19d</td></tr>
+  </table></div>
+
+  <div class="label">Graded</div>
+  <h2>Recently graded</h2>
+  <p class="sub">Recovered = got back to its price from 30 days before it was flagged. Otherwise graded after 60 days
+    on the flag price: Bounced (+25% at some point), Fell further (20%+ lower at the end) or Still down.</p>
+  <div class="panel"><table>
+    <tr><th>Coin</th><th>Flagged</th><th>Verdict then</th><th>Best</th><th>At grading</th><th>Graded</th><th>Outcome</th></tr>
+    <tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/38892.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>STABLE</b><small>Stable</small></div></div></td>
+          <td>2026-08-25 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+1%</td><td class="dn">-8%</td>
+          <td>2026-10-24</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/37263.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>CC</b><small>Canton</small></div></div></td>
+          <td>2026-08-06 <span class="tag">replay</span></td><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td class="up">+32%</td><td class="up">+25%</td>
+          <td>2026-10-05</td><td><span class="pill o-blue">Bounced +25%</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/7548.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>WEMIX</b><small>WEMIX</small></div></div></td>
+          <td>2026-08-04 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+8%</td><td class="dn">-0%</td>
+          <td>2026-10-03</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/38590.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>币安人生</b><small>币安人生</small></div></div></td>
+          <td>2026-08-04 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="up">+0%</td><td class="dn">-15%</td>
+          <td>2026-10-03</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>CAP</b><small>Cap</small></div></div></td>
+          <td>2026-09-25 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="up">+40%</td><td class="up">+40%</td>
+          <td>2026-10-02</td><td><span class="pill o-green">Recovered</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/28541.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>JTO</b><small>Jito</small></div></div></td>
+          <td>2026-09-16 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+43%</td><td class="up">+43%</td>
+          <td>2026-09-27</td><td><span class="pill o-green">Recovered</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/36645.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>XPL</b><small>Plasma</small></div></div></td>
+          <td>2026-07-30 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+45%</td><td class="up">+45%</td>
+          <td>2026-09-25</td><td><span class="pill o-green">Recovered</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/10791.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>XEC</b><small>eCash</small></div></div></td>
+          <td>2026-08-18 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+46%</td><td class="up">+46%</td>
+          <td>2026-09-23</td><td><span class="pill o-green">Recovered</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/30494.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>EIGEN</b><small>EigenCloud</small></div></div></td>
+          <td>2026-08-08 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="up">+45%</td><td class="up">+45%</td>
+          <td>2026-09-23</td><td><span class="pill o-green">Recovered</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/32956.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>GRASS</b><small>Grass</small></div></div></td>
+          <td>2026-07-25 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+29%</td><td class="up">+29%</td>
+          <td>2026-09-23</td><td><span class="pill o-blue">Bounced +25%</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/7326.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>DEXE</b><small>DeXe</small></div></div></td>
+          <td>2026-07-22 <span class="tag">replay</span></td><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td class="up">+0%</td><td class="dn">-70%</td>
+          <td>2026-09-20</td><td><span class="pill o-red">Fell further</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/39064.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>NIGHT</b><small>Midnight</small></div></div></td>
+          <td>2026-07-21 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+33%</td><td class="up">+31%</td>
+          <td>2026-09-19</td><td><span class="pill o-blue">Bounced +25%</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/2394.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>TEL</b><small>Telcoin</small></div></div></td>
+          <td>2026-07-19 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+9%</td><td class="dn">-19%</td>
+          <td>2026-09-17</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/36532.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>B</b><small>BUILDon</small></div></div></td>
+          <td>2026-07-30 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+44%</td><td class="up">+44%</td>
+          <td>2026-09-15</td><td><span class="pill o-green">Recovered</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/38868.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>SENT</b><small>Sentient</small></div></div></td>
+          <td>2026-07-17 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+18%</td><td class="up">+18%</td>
+          <td>2026-09-15</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/28541.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>JTO</b><small>Jito</small></div></div></td>
+          <td>2026-07-17 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+16%</td><td class="dn">-18%</td>
+          <td>2026-09-15</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/13502.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>WLD</b><small>Worldcoin</small></div></div></td>
+          <td>2026-07-16 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+18%</td><td class="dn">-7%</td>
+          <td>2026-09-14</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/7431.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>AKT</b><small>Akash Network</small></div></div></td>
+          <td>2026-07-15 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="up">+5%</td><td class="dn">-6%</td>
+          <td>2026-09-13</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/22974.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>TAO</b><small>Bittensor</small></div></div></td>
+          <td>2026-07-15 <span class="tag">replay</span></td><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td class="up">+32%</td><td class="up">+16%</td>
+          <td>2026-09-13</td><td><span class="pill o-blue">Bounced +25%</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/39841.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>GENIUS</b><small>Genius Terminal</small></div></div></td>
+          <td>2026-07-13 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+16%</td><td class="dn">-15%</td>
+          <td>2026-09-11</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/35697.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>PI</b><small>Pi</small></div></div></td>
+          <td>2026-07-13 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="up">+8%</td><td class="up">+4%</td>
+          <td>2026-09-11</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/29270.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>AERO</b><small>Aerodrome Finance</small></div></div></td>
+          <td>2026-08-03 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="up">+55%</td><td class="up">+55%</td>
+          <td>2026-09-08</td><td><span class="pill o-green">Recovered</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/22861.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>TIA</b><small>Celestia</small></div></div></td>
+          <td>2026-08-15 <span class="tag">replay</span></td><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td class="up">+44%</td><td class="up">+44%</td>
+          <td>2026-09-07</td><td><span class="pill o-green">Recovered</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/28324.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>DYDX</b><small>dYdX</small></div></div></td>
+          <td>2026-07-04 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+6%</td><td class="dn">-16%</td>
+          <td>2026-09-02</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/36828.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>USELESS</b><small>Useless Coin</small></div></div></td>
+          <td>2026-07-25 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+69%</td><td class="up">+69%</td>
+          <td>2026-09-01</td><td><span class="pill o-green">Recovered</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1455.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>GLM</b><small>Golem</small></div></div></td>
+          <td>2026-07-02 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="up">+13%</td><td class="up">+5%</td>
+          <td>2026-08-31</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/6535.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>NEAR</b><small>NEAR Protocol</small></div></div></td>
+          <td>2026-07-02 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="up">+14%</td><td class="up">+1%</td>
+          <td>2026-08-31</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/8916.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>ICP</b><small>Internet Computer</small></div></div></td>
+          <td>2026-07-02 <span class="tag">replay</span></td><td><span class="pill p-watch">Watching</span></td>
+          <td class="up">+18%</td><td class="up">+9%</td>
+          <td>2026-08-31</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/11419.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>GRAM</b><small>Gram (prev. Toncoin)</small></div></div></td>
+          <td>2026-07-02 <span class="tag">replay</span></td><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td class="up">+14%</td><td class="dn">-14%</td>
+          <td>2026-08-31</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1896.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>ZRX</b><small>0x Protocol</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+30%</td><td class="up">+24%</td>
+          <td>2026-08-30</td><td><span class="pill o-blue">Bounced +25%</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/3964.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>RSR</b><small>Reserve Rights</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+43%</td><td class="up">+32%</td>
+          <td>2026-08-30</td><td><span class="pill o-blue">Bounced +25%</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/30636.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>ZBCN</b><small>Zebec Network</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+7%</td><td class="dn">-13%</td>
+          <td>2026-08-30</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1698.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>ZEN</b><small>Horizen</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+43%</td><td class="up">+28%</td>
+          <td>2026-08-30</td><td><span class="pill o-blue">Bounced +25%</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1966.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>MANA</b><small>Decentraland</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+23%</td><td class="up">+19%</td>
+          <td>2026-08-30</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/30083.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>ATH</b><small>Aethir</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+25%</td><td class="up">+17%</td>
+          <td>2026-08-30</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/10603.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>IMX</b><small>Immutable</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+27%</td><td class="up">+13%</td>
+          <td>2026-08-30</td><td><span class="pill o-blue">Bounced +25%</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/7226.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>INJ</b><small>Injective</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+25%</td><td class="up">+14%</td>
+          <td>2026-08-30</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/7080.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>GALA</b><small>Gala</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+12%</td><td class="dn">-20%</td>
+          <td>2026-08-30</td><td><span class="pill o-red">Fell further</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/14588.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>PEAQ</b><small>peaq</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+24%</td><td class="up">+21%</td>
+          <td>2026-08-30</td><td><span class="pill o-gold">Still down</span></td></tr><tr><td><div class="tc"><img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1376.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+          <div><b>NEO</b><small>Neo</small></div></div></td>
+          <td>2026-07-01 <span class="tag">replay</span></td><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td class="up">+22%</td><td class="up">+11%</td>
+          <td>2026-08-30</td><td><span class="pill o-gold">Still down</span></td></tr>
+  </table></div>
+
+  <div class="label">Scorecard</div>
+  <h2>Does the verdict hold up?</h2>
+  <p class="sub">Backtest: 10,840 declines from 2025-10-01 to 2026-08-01, data the model never saw while training.
+    Graded here: every coin this page has flagged and graded. Coins tagged <span class="tag">replay</span> were flagged by replaying CoinMarketCap history from
+      Jul 1, 2026 to Oct 23, 2026, day by day, with a copy of the model trained only on data up to
+      Sep 30, 2025, so it had never seen those months. Everything after that is live.</p>
+  <div class="panel"><table>
+    <tr><th>Verdict</th><th>Backtest recovered</th><th>Bounced +25%</th><th>Fell 20%+ more</th>
+      <th>Graded here</th><th>Recovered</th><th>Bounced</th><th>Fell further</th></tr>
+    <tr><td><span class="pill p-comeback">Comeback candidate</span></td>
+          <td>18.2%</td><td>22%</td><td>39%</td>
+          <td>38</td><td>42%</td><td>18%</td><td>3%</td></tr><tr><td><span class="pill p-watch">Watching</span></td>
+          <td>12.6%</td><td>20%</td><td>38%</td>
+          <td>39</td><td>44%</td><td>10%</td><td>3%</td></tr><tr><td><span class="pill p-unlikely">Unlikely to recover</span></td>
+          <td>6.7%</td><td>21%</td><td>35%</td>
+          <td>26</td><td>8%</td><td>42%</td><td>15%</td></tr>
+    <tr><td><b style="color:var(--text)">All declines</b></td><td>12.5%</td>
+      <td>21%</td><td>37%</td>
+      <td>103</td><td colspan="3"></td></tr>
+  </table></div>
+  <p class="note">Read it honestly: the model is good at telling which coins tend to win back their losses
+    (candidates recover about 2.7&times; as often as "unlikely"), but about a third of every group still drops
+    another 20%+. Candidates are often the more volatile coins: bigger swings both ways. The backtest only includes coins
+    still in today's top 200, so coins that died are missing and real recovery rates are lower. The replay has a smaller
+    version of the same gap (it starts from today's top 200); coins flagged live are graded whatever happens to them.</p>
+
+  <div class="label" style="margin-top:40px">How it works</div>
+  <div class="how">
+    <div><b>1 &middot; Flag</b>Any top-200 coin (no stablecoins) down 25%+ over 30 days on CoinMarketCap data.</div>
+    <div><b>2 &middot; Score</b>A model trained on 3 years of declines weighs 20 signals: depth of the drop, distance from its
+      90-day low and high, size, volatility, volume, RSI, Bitcoin's trend and market mood.</div>
+    <div><b>3 &middot; Rank</b>Today's declining coins are ranked against each other: top 30% Comeback candidate,
+      middle 40% Watching, bottom 30% Unlikely to recover.</div>
+    <div><b>4 &middot; Grade</b>Recovered when it gets back to its pre-drop price; otherwise after 60 days:
+      Bounced (+25% at some point), Fell further (20%+ lower) or Still down.</div>
+  </div>
+  <p class="note">An experiment, not financial advice. Crypto is volatile and coins can go to zero.</p>
+</div>
+</body>
+</html>
