@@ -631,6 +631,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 <nav class="horizon-tabs" aria-label="Prediction horizon">
   <a href="prediction_dashboard.html" class="htab __ACTIVE7__">&#128197; 7-Day Prediction</a>
   <a href="prediction_dashboard_3d.html" class="htab __ACTIVE3__">&#9889; 3-Day Prediction</a>
+  <a href="rebound_dashboard.html" class="htab">&#129517; Rebound Radar</a>
 </nav>
 <div class="wrap">
 

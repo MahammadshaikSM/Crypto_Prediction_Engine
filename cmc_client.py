@@ -63,6 +63,7 @@ def listings(limit=250):
             "image": LOGO.format(c["id"]), "current_price": q.get("price"),
             "price_change_percentage_24h": q.get("percent_change_24h"),
             "price_change_percentage_7d_in_currency": q.get("percent_change_7d"),
+            "price_change_percentage_30d": q.get("percent_change_30d"),
             "total_volume": q.get("volume_24h"), "market_cap": q.get("market_cap"),
             "tags": c.get("tags") or [],
         })
@@ -97,20 +98,26 @@ def daily_closes(cmc_ids, days=16, batch=100):
     return {cid: [r["price"] for r in rows] for cid, rows in daily_history(cmc_ids, days, batch).items()}
 
 
-def market_regime():
-    """Fear & Greed, BTC dominance and total market cap for the latest day and 7 days earlier."""
+def regime_history(days):
+    """({date: (BTC dominance, total market cap)}, {date: Fear & Greed}) for the last `days` days."""
     end = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
     g = _get("/v1/global-metrics/quotes/historical", {
-        "time_start": (end - timedelta(days=10)).isoformat(), "time_end": end.isoformat(),
+        "time_start": (end - timedelta(days=days)).isoformat(), "time_end": end.isoformat(),
         "interval": "daily", "convert": "USD"})
     glob = {q["timestamp"][:10]: (q["btc_dominance"], q["quote"]["USD"]["total_market_cap"])
             for q in (g or {}).get("quotes", []) if q.get("btc_dominance")}
-    f = _get("/v3/fear-and-greed/historical", {"start": 1, "limit": 12})
+    f = _get("/v3/fear-and-greed/historical", {"start": 1, "limit": min(days + 2, 500)})
     fng = {}
     for d in f or []:
         ts = str(d.get("timestamp"))
         day = datetime.fromtimestamp(int(ts), timezone.utc).date().isoformat() if ts.isdigit() else ts[:10]
         fng[day] = float(d["value"])
+    return glob, fng
+
+
+def market_regime():
+    """Fear & Greed, BTC dominance and total market cap for the latest day and 7 days earlier."""
+    glob, fng = regime_history(10)
     day = max(set(glob) & set(fng))
     day7 = (datetime.fromisoformat(day) - timedelta(days=7)).date().isoformat()
     if day7 not in glob or day7 not in fng:
@@ -139,6 +146,20 @@ def prices_by_symbol(wanted):
         named = [c for c in cands if c.get("name", "").lower() == (name or "").lower()]
         best = (named or sorted(cands, key=lambda c: -(c["quote"]["USD"].get("market_cap") or 0)))[0]
         out[sym.lower()] = best["quote"]["USD"]["price"]
+    return out
+
+
+def prices_by_id(cmc_ids):
+    """Current USD price by CMC id, for tracked coins that left the top listing. ~1 credit per 100 ids."""
+    out = {}
+    ids = [str(i) for i in cmc_ids]
+    for i in range(0, len(ids), 100):
+        data = _get("/v2/cryptocurrency/quotes/latest", {"id": ",".join(ids[i:i + 100]), "convert": "USD", "skip_invalid": "true"})
+        for cid, c in (data or {}).items():
+            c = c[0] if isinstance(c, list) and c else c
+            price = ((c or {}).get("quote") or {}).get("USD", {}).get("price")
+            if price:
+                out[int(cid)] = price
     return out
 
 
