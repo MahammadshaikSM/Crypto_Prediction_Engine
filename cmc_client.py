@@ -63,6 +63,7 @@ def listings(limit=250):
             "image": LOGO.format(c["id"]), "current_price": q.get("price"),
             "price_change_percentage_24h": q.get("percent_change_24h"),
             "price_change_percentage_7d_in_currency": q.get("percent_change_7d"),
+            "price_change_percentage_30d": q.get("percent_change_30d"),
             "total_volume": q.get("volume_24h"), "market_cap": q.get("market_cap"),
             "tags": c.get("tags") or [],
         })
@@ -139,6 +140,20 @@ def prices_by_symbol(wanted):
         named = [c for c in cands if c.get("name", "").lower() == (name or "").lower()]
         best = (named or sorted(cands, key=lambda c: -(c["quote"]["USD"].get("market_cap") or 0)))[0]
         out[sym.lower()] = best["quote"]["USD"]["price"]
+    return out
+
+
+def prices_by_id(cmc_ids):
+    """Current USD price by CMC id, for tracked coins that left the top listing. ~1 credit per 100 ids."""
+    out = {}
+    ids = [str(i) for i in cmc_ids]
+    for i in range(0, len(ids), 100):
+        data = _get("/v2/cryptocurrency/quotes/latest", {"id": ",".join(ids[i:i + 100]), "convert": "USD", "skip_invalid": "true"})
+        for cid, c in (data or {}).items():
+            c = c[0] if isinstance(c, list) and c else c
+            price = ((c or {}).get("quote") or {}).get("USD", {}).get("price")
+            if price:
+                out[int(cid)] = price
     return out
 
 

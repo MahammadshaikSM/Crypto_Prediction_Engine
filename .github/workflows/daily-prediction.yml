@@ -29,6 +29,12 @@ jobs:
         env:
           CMC_API_KEY: ${{ secrets.CMC_API_KEY }}
 
+      - name: Rebound Radar (coins down 25%+ in 30 days, tracked and graded)
+        run: python rebound_tracker.py
+        env:
+          CMC_API_KEY: ${{ secrets.CMC_API_KEY }}
+        continue-on-error: true   # never block the daily picks
+
       - name: Run stock prediction tracker
         run: python stock_tracker.py
 
@@ -74,6 +80,7 @@ jobs:
                   stock_data.json stock_dashboard.html \
                   site/summary.json site/history.json
           git add site/forecast.json 2>/dev/null || true
+          git add rebound_data.json rebound_dashboard.html 2>/dev/null || true
           git add -A posts site/calls.json 2>/dev/null || true
           # Only commit if something changed
           if git diff --staged --quiet; then
