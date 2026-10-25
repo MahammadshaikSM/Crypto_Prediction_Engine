@@ -9,6 +9,16 @@
     "1_call_7d",
     "2_call_3d"
    ]
+  },
+  "2026-10-25": {
+   "telegram_me": [
+    "1_call_7d",
+    "2_call_3d"
+   ],
+   "telegram_channel": [
+    "1_call_7d",
+    "2_call_3d"
+   ]
   }
  },
  "calls": {
@@ -19,6 +29,14 @@
   "3d_2026-10-24": {
    "telegram_me": 5,
    "telegram_channel": 3
+  },
+  "7d_2026-10-25": {
+   "telegram_me": 7,
+   "telegram_channel": 4
+  },
+  "3d_2026-10-25": {
+   "telegram_me": 8,
+   "telegram_channel": 5
   }
  }
 }
