@@ -1,34 +1,34 @@
 {
  "api_version": "1.0",
- "generated_at": "2026-10-25T14:59:16Z",
+ "generated_at": "2026-10-26T17:29:06Z",
  "source": "CoinMarketCap",
  "disclaimer": "Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits.",
  "docs": "api.html",
  "method": "Buy the 10 picks in equal amounts at the call price, sell at the grading price, minus 0.3% round-trip costs per coin. Bitcoin over the same days for comparison.",
  "calls_7d": {
   "all": {
-   "calls": 277,
-   "avg": 0.0462,
+   "calls": 278,
+   "avg": 0.0456,
    "median": 0.0178,
-   "in_profit": 0.5957,
-   "beat_btc": 0.5668,
-   "btc_avg": 0.0016,
-   "coin_win": 0.4577,
-   "avg_win": 0.2529,
-   "avg_loss": -0.1282,
-   "expectancy": 0.0462
+   "in_profit": 0.5935,
+   "beat_btc": 0.5647,
+   "btc_avg": 0.0015,
+   "coin_win": 0.4564,
+   "avg_win": 0.2527,
+   "avg_loss": -0.1285,
+   "expectancy": 0.0455
   },
   "last_30": {
    "calls": 30,
-   "avg": 0.0218,
-   "median": -0.009,
-   "in_profit": 0.4667,
-   "beat_btc": 0.5,
-   "btc_avg": 0.007,
-   "coin_win": 0.3717,
-   "avg_win": 0.294,
-   "avg_loss": -0.1545,
-   "expectancy": 0.0123
+   "avg": 0.0078,
+   "median": -0.0157,
+   "in_profit": 0.4333,
+   "beat_btc": 0.4667,
+   "btc_avg": 0.002,
+   "coin_win": 0.3493,
+   "avg_win": 0.2872,
+   "avg_loss": -0.1546,
+   "expectancy": -0.0003
   },
   "by_market_light": {
    "trade": {
@@ -44,16 +44,16 @@
     "expectancy": 0.0407
    },
    "caution": {
-    "calls": 126,
-    "avg": 0.055,
-    "median": 0.0223,
-    "in_profit": 0.5952,
-    "beat_btc": 0.5952,
-    "btc_avg": -0.0038,
-    "coin_win": 0.4725,
-    "avg_win": 0.2738,
-    "avg_loss": -0.143,
-    "expectancy": 0.054
+    "calls": 127,
+    "avg": 0.0534,
+    "median": 0.0216,
+    "in_profit": 0.5906,
+    "beat_btc": 0.5906,
+    "btc_avg": -0.0039,
+    "coin_win": 0.4695,
+    "avg_win": 0.2735,
+    "avg_loss": -0.1433,
+    "expectancy": 0.0524
    }
   },
   "backtest_held_out": {
@@ -2284,33 +2284,41 @@
     "btc": -0.0071,
     "market": -0.0163,
     "light": "caution"
+   },
+   {
+    "date": "2026-10-19",
+    "end": "2026-10-26",
+    "basket": -0.1425,
+    "btc": -0.02,
+    "market": -0.0253,
+    "light": "caution"
    }
   ]
  },
  "calls_3d": {
   "all": {
-   "calls": 3,
-   "avg": -0.0515,
-   "median": -0.042,
+   "calls": 4,
+   "avg": -0.0633,
+   "median": -0.0625,
    "in_profit": 0.0,
    "beat_btc": 0.0,
-   "btc_avg": -0.0129,
-   "coin_win": 0.1667,
-   "avg_win": 0.0359,
-   "avg_loss": -0.069,
-   "expectancy": -0.0515
+   "btc_avg": -0.0131,
+   "coin_win": 0.175,
+   "avg_win": 0.0371,
+   "avg_loss": -0.0846,
+   "expectancy": -0.0633
   },
   "last_30": {
-   "calls": 3,
-   "avg": -0.0515,
-   "median": -0.042,
+   "calls": 4,
+   "avg": -0.0633,
+   "median": -0.0625,
    "in_profit": 0.0,
    "beat_btc": 0.0,
-   "btc_avg": -0.0129,
-   "coin_win": 0.1667,
-   "avg_win": 0.0359,
-   "avg_loss": -0.069,
-   "expectancy": -0.0515
+   "btc_avg": -0.0131,
+   "coin_win": 0.175,
+   "avg_win": 0.0371,
+   "avg_loss": -0.0846,
+   "expectancy": -0.0633
   },
   "by_market_light": {
    "trade": {
@@ -2326,16 +2334,16 @@
     "expectancy": -0.0831
    },
    "caution": {
-    "calls": 2,
-    "avg": -0.0357,
-    "median": -0.0357,
+    "calls": 3,
+    "avg": -0.0567,
+    "median": -0.042,
     "in_profit": 0.0,
     "beat_btc": 0.0,
-    "btc_avg": -0.007,
-    "coin_win": 0.25,
-    "avg_win": 0.0359,
-    "avg_loss": -0.0596,
-    "expectancy": -0.0357
+    "btc_avg": -0.0093,
+    "coin_win": 0.2333,
+    "avg_win": 0.0371,
+    "avg_loss": -0.0852,
+    "expectancy": -0.0567
    }
   },
   "backtest_held_out": {
@@ -2373,6 +2381,14 @@
     "basket": -0.042,
     "btc": -0.0128,
     "market": -0.0406,
+    "light": "caution"
+   },
+   {
+    "date": "2026-10-23",
+    "end": "2026-10-26",
+    "basket": -0.0985,
+    "btc": -0.0138,
+    "market": -0.0365,
     "light": "caution"
    }
   ]

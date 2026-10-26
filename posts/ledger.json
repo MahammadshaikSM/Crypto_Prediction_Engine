@@ -19,6 +19,18 @@
     "1_call_7d",
     "2_call_3d"
    ]
+  },
+  "2026-10-26": {
+   "telegram_me": [
+    "1_call_7d",
+    "2_call_3d",
+    "3_update_3d_2026-10-24"
+   ],
+   "telegram_channel": [
+    "1_call_7d",
+    "2_call_3d",
+    "3_update_3d_2026-10-24"
+   ]
   }
  },
  "calls": {
@@ -37,6 +49,14 @@
   "3d_2026-10-25": {
    "telegram_me": 8,
    "telegram_channel": 5
+  },
+  "7d_2026-10-26": {
+   "telegram_me": 10,
+   "telegram_channel": 6
+  },
+  "3d_2026-10-26": {
+   "telegram_me": 11,
+   "telegram_channel": 7
   }
  }
 }
