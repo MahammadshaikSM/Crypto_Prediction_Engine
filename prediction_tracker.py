@@ -515,6 +515,20 @@ def _trader_html(data, horizon):
             return f"<tr><td>{label}</td><td colspan='6'>&ndash;</td></tr>"
         return (f"<tr><td>{label}</td><td>{x['calls']}</td><td>{_pct(x['avg'])}</td><td>{_pct(x['market_avg'])}</td>"
                 f"<td>{_pct(x['btc_avg'])}</td><td>{_pct(x['in_profit'], False, 0)}</td><td>{_pct(x['beat_market'], False, 0)}</td></tr>")
+    v2_row = ''
+    if horizon == 7:
+        rv = trader_stats.review(data)
+        v2 = trader_stats.stats(data, 7, 'v2')['all']
+        v2_row = row(f"Model v2 only (live since {rv['since']})", v2) if v2 else (
+            f"<tr><td>Model v2 only (live since {rv['since']})</td><td colspan='6'>first result on Oct 31, 2026</td></tr>")
+        label = {'collecting': 'Collecting', 'keep': 'Keep v2', 'extend': 'Review again at 16 weeks', 'retire': 'Retire v2'}[rv['status']]
+        now = (f"so far: {_pct(rv['edge'])} per call vs the top-200 average, worst drop {_pct(rv['drawdown'], True, 0)}"
+               if rv['edge'] is not None else "no weekly v2 call graded yet")
+        verdict += f"""<div class="ins-card" style="margin-bottom:22px">
+      <div class="ins-card-title">Review rule for model v2 &middot; set in advance</div>
+      <div style="font-size:.82rem;color:var(--text2);line-height:1.6">{rv['text']}
+        <br><b style="color:var(--text)">{label}</b> &middot; {rv['graded_weeks']}/{rv['weeks']} weekly calls graded ({now}).
+        Decision expected around {rv['expected']}.</div></div>"""
     bt_row = ''
     if bt and ev:
         h = bt['hold']
@@ -541,6 +555,7 @@ def _trader_html(data, horizon):
     <div class="ins-card" style="overflow-x:auto"><table class="ins-table">
       <tr><th></th><th>Calls</th><th>Avg return</th><th>Top-200 avg</th><th>Bitcoin</th><th>In profit</th><th>Beat market</th></tr>
       {row('All graded calls on this site', a)}
+      {v2_row}
       {row('&#128994; Made on TRADE days', s['trade'])}
       {row('&#128992; Made on CAUTION days', s['caution'])}
       {bt_row}

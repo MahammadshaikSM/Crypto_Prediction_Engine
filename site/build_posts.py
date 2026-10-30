@@ -27,25 +27,29 @@ if SITE and not SITE.endswith("/"):
     SITE += "/"
 SHORT = SITE.replace("https://", "").replace("http://", "").rstrip("/")
 KEEP_DAYS, CALL_DAYS = 14, 40
+# 3-day calls showed no reliable edge after costs (proof.html), so they are no longer posted.
+# They are still made and graded on the site; calls already posted still get their result post.
+POST_3D_UNTIL = "2026-10-29"
 TAG = {7: "#7DayCall", 3: "#3DayCall"}
 
 PINNED = f"""📌 How Ichnora works
 
 Ichnora (from Greek íchnos, "track"): every call leaves a footprint.
 
-Every day we publish 10 coins for 3 days and 10 for 7 days.
+Every day we publish 10 coins for the next 7 days.
 Each call shows the start and end date. On the end date we post the results, good or bad.
 
 • Prices are locked at pick time
-• Every call is graded in public: wins and misses
+• Every call is graded in public: wins and misses, after costs, against the whole market
 • Every call and its result stays public
+• Hold all 10 in equal size: the edge comes from a few big winners, not from single picks
 
-{f"Track everything at {SITE}" if SITE else "Follow for a new call every day and every result."}
-#Ichnora #3DayCall #7DayCall
+{f"How it was tested: {SITE}proof.html" if SITE else "Follow for a new call every day and every result."}
+#Ichnora #7DayCall
 Not financial advice. Crypto is volatile and you can lose money."""
 
 
-PROFILE = ("Ichnora · Every call leaves a footprint. Daily crypto calls: 10 coins for 3 days + 10 for 7 days, graded in public. NFA."
+PROFILE = ("Ichnora · Every call leaves a footprint. A daily 7-day crypto call: 10 coins, graded in public after costs. NFA."
            + (f"\n{SITE}" if SITE else ""))
 
 
@@ -303,6 +307,8 @@ def main():
     plan = []
     for c in calls:
         tag = f"{c['horizon']}d_{c['date']}"
+        if c["horizon"] == 3 and c["date"] > POST_3D_UNTIL:
+            continue
         if c["date"] == today:
             plan.append((f"{1 if c['horizon'] == 7 else 2}_call_{c['horizon']}d", c, "call"))
         elif c["status"] == "open" and c["end"] == (d(today) + timedelta(days=1)).isoformat():

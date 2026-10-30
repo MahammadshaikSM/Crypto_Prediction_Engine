@@ -182,6 +182,8 @@ def main():
                  calls_7d=call_block(data, 7), calls_3d=call_block(data, 3), rebound=rebound_block(rb))
     record = dict(meta, method="Buy the 10 picks in equal amounts at the call price, sell at the grading price, minus "
                                f"{trader_stats.COST:.1%} round-trip costs per coin. Bitcoin over the same days for comparison.")
+    v2 = trader_stats.stats(data, 7, "v2")
+    record["model_v2_live"] = dict(all=summary(v2["all"]), review=trader_stats.review(data))
     for h in (7, 3):
         s = trader_stats.stats(data, h); bt = trader_stats.backtest(h)
         record[f"calls_{h}d"] = dict(

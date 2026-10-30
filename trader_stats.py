@@ -17,6 +17,13 @@ import numpy as np
 COST = 0.003
 ROOT = Path(__file__).resolve().parent
 BACKTEST = ROOT / "backtest" / "trader_results.json"
+# Review rule for model v2, set before any v2 call was graded (published on proof.html).
+# One call a week from the first v2 call; decide once WEEKS of them are graded.
+REVIEW = dict(model="v2", since="2026-10-24", weeks=8, expected="2026-12-19",
+              keep=0.0, retire=-0.02, max_drawdown=-0.50,
+              text="After 8 weekly model-v2 calls are graded: keep v2 if its average return beats the top-200 average; "
+                   "keep it but review again at 16 weeks if it trails by less than 2 points per call; retire it if it "
+                   "trails by 2 points or more per call, or if following it weekly ever loses more than 50% from a peak.")
 LIGHTS = {
     "trade": ("TRADE", "Bitcoin is flat or up over the last 7 days"),
     "caution": ("CAUTION", "Bitcoin is down over the last 7 days"),
@@ -88,7 +95,7 @@ def call_results(data, horizon):
         end = ev.get("evaluation_date", _shift(day, horizon))
         b0, b1 = btc_on(data, day), btc_on(data, end)
         lt = light_for(data, day, preds.get(day))
-        rows.append(dict(date=day, end=end, basket=float(np.mean(coins)), coins=coins,
+        rows.append(dict(date=day, end=end, basket=float(np.mean(coins)), coins=coins, model=(preds.get(day) or {}).get("model"),
                          btc=(b1 / b0 - 1) if b0 and b1 else None, market=market_return(data, day, end),
                          light=lt["state"] if lt else None))
     return rows
@@ -112,9 +119,9 @@ def summarize(rows):
                 best_ret=float(b.max()), worst_ret=float(b.min()))
 
 
-def stats(data, horizon):
-    """Live track record overall, by market light, and for the last 30 graded calls."""
-    rows = call_results(data, horizon)
+def stats(data, horizon, model=None):
+    """Live track record overall, by market light, and for the last 30 graded calls (optionally one model only)."""
+    rows = [r for r in call_results(data, horizon) if model is None or r["model"] == model]
     return dict(all=summarize(rows), last30=summarize(rows[-30:]),
                 trade=summarize([r for r in rows if r["light"] == "trade"]),
                 caution=summarize([r for r in rows if r["light"] == "caution"]),
@@ -144,3 +151,24 @@ def backtest(horizon):
         return json.loads(BACKTEST.read_text())[str(horizon)]
     except (OSError, KeyError, ValueError):
         return None
+
+
+def review(data):
+    """Progress of the pre-set model-v2 review: weekly v2 calls graded so far and where they stand."""
+    since = date.fromisoformat(REVIEW["since"])
+    rows = [r for r in call_results(data, 7) if r["model"] == REVIEW["model"] and r["market"] is not None
+            and (date.fromisoformat(r["date"]) - since).days % 7 == 0]
+    out = dict(REVIEW, graded_weeks=len(rows), calls=[dict(date=r["date"], basket=round(r["basket"], 4),
+                                                         market=round(r["market"], 4)) for r in rows])
+    if not rows:
+        return dict(out, status="collecting", edge=None, drawdown=None)
+    edge = float(np.mean([r["basket"] - r["market"] for r in rows]))
+    eq = np.cumprod([1 + r["basket"] for r in rows])
+    dd = float((eq / np.maximum.accumulate(eq) - 1).min())
+    if dd <= REVIEW["max_drawdown"]:
+        status = "retire"
+    elif len(rows) < REVIEW["weeks"]:
+        status = "collecting"
+    else:
+        status = "keep" if edge >= REVIEW["keep"] else "retire" if edge <= REVIEW["retire"] else "extend"
+    return dict(out, status=status, edge=edge, drawdown=dd)

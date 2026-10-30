@@ -46,7 +46,13 @@ def calib_svg(bins):
 
 def main():
     ev, tr = load("backtest/evidence_results.json"), load("backtest/trader_results.json")
-    live = trader_stats.stats(load("prediction_data.json"), 7)["all"]
+    data = load("prediction_data.json")
+    st = trader_stats.stats(data, 7)
+    live, last30 = st["all"], st["last30"]
+    rv = trader_stats.review(data)
+    rv_label = {"collecting": "collecting", "keep": "keep v2", "extend": "review again at 16 weeks", "retire": "retire v2"}[rv["status"]]
+    rv_now = (f": {pct(rv['edge'])} per call vs the top-200 average, worst drop {pct(rv['drawdown'], True, 0)}"
+              if rv["edge"] is not None else ": first result on Oct 31, 2026")
     e7, e3 = ev["7"], ev["3"]
     i7, i3 = e7["independent"], e3["independent"]
     lt = tr["7"]["light"]
@@ -186,6 +192,14 @@ def main():
         {pct(lt['trade']['basket_mean'])} per call on TRADE days vs {pct(lt['caution']['basket_mean'])} on CAUTION days, with smaller drops on TRADE
         days. The difference is likely but not proven (roughly 88&ndash;94% in resampling), the site's live record shows the opposite so far,
         and it had no effect on 3-day calls. One input, not a rule.</p>
+
+      <h2 class="sec">The live test, with the rule set in advance</h2>
+      <p class="sec-sub">Model v2 has made the 7-day calls since {rv['since']}. Before any of its calls was graded, we fixed how it will be
+        judged, so a good or bad streak can't change the rules afterwards.</p>
+      <p class="plain">{rv['text']}<br><br><b>Status:</b> {rv_label} &middot; {rv['graded_weeks']}/{rv['weeks']} weekly calls graded{rv_now}.
+        Decision expected around {rv['expected']}.</p>
+      <p class="sec-sub">Calls before {rv['since']} came from earlier formulas. Their recent run was poor
+        (last 30 graded calls {pct(last30['avg'])} vs {pct(last30['market_avg'])} for the top-200 average); they stay in the record.</p>
 
       <h2 class="sec">What could still be wrong</h2>
       <ul class="lim">
