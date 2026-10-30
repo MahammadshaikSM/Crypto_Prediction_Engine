@@ -17,7 +17,7 @@ Research data from a public experiment, not financial advice. Crypto is volatile
 - The market light is based on Bitcoin's 7-day trend. In a held-out backtest 7-day calls did better on TRADE days;
   that evidence is likely but not certain. It had no effect on 3-day calls.
 - Data refreshes once a day around 11:30 UTC. "as_of" and "generated_at" fields give the exact times.
-- Today the market light is CAUTION (Bitcoin -3.3% over 7 days).
+- Today the market light is CAUTION (Bitcoin -4.3% over 7 days).
 
 ## Endpoints (JSON, no key)
 - [today.json](api/v1/today.json): market light, today's calls, Rebound Radar headline
