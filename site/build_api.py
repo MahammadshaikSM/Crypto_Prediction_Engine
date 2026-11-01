@@ -162,6 +162,8 @@ def llms_txt(today):
 - [track-record.json]({url('api/v1/track-record.json')}): returns after costs vs Bitcoin, by market light, plus backtest
 - [rebound.json]({url('api/v1/rebound.json')}): coins down 25%+ in 30 days, comeback verdicts, scorecard
 - [calls.json]({url('api/v1/calls.json')}): recent calls with grades
+- [coins.json]({url('site/coins.json')}): every top-200 coin with 92 daily closes, today's 7-day model score and rank, call
+  membership and Rebound Radar verdict (the Coin Checker page: {url('coins.html')})
 - [watchlist.json]({url('api/v1/watchlist.json')}): 23 stocks also traded as crypto perpetuals, with an experimental weekly call
 - [openapi.json]({url('api/openapi.json')}): OpenAPI 3.1 description
 

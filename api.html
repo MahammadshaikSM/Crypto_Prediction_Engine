@@ -37,7 +37,7 @@
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="./"><img class="brand-icon" src="brand/ichnora/icon.svg" alt="" width="34" height="34">ichnora</a>
-    <nav class="nav-links" aria-label="Primary"><a href="./#today">Today</a><a href="call.html">Calls</a><a href="prediction_dashboard.html">7-Day</a><a href="prediction_dashboard_3d.html">3-Day</a><a href="rebound_dashboard.html">Rebound</a><a href="api.html" aria-current="page">API</a></nav>
+    <nav class="nav-links" aria-label="Primary"><a href="./#today">Today</a><a href="call.html">Calls</a><a href="coins.html">Coin Checker</a><a href="prediction_dashboard.html">7-Day</a><a href="prediction_dashboard_3d.html">3-Day</a><a href="rebound_dashboard.html">Rebound</a><a href="api.html" aria-current="page">API</a></nav>
     <a class="btn lime sm" href="prediction_dashboard.html">Live dashboard ↗</a>
   </div>
 </header>
@@ -57,6 +57,7 @@
         <div class="ep"><a href="api/v1/today.json">/api/v1/today.json</a><p>Market light, today's 7-day and 3-day calls (10 coins each, entry prices, model scores) and the Rebound Radar's comeback candidates. <b>Start here.</b></p></div>
         <div class="ep"><a href="api/v1/track-record.json">/api/v1/track-record.json</a><p>What following every call earned after 0.3% costs, how often calls beat Bitcoin, split by market light, plus the held-out backtest. Check it before trusting a signal.</p></div>
         <div class="ep"><a href="api/v1/rebound.json">/api/v1/rebound.json</a><p>Every top-200 coin down 25%+ in 30 days with its comeback verdict, the coins being tracked and the graded scorecard.</p></div>
+        <div class="ep"><a href="site/coins.json">/site/coins.json</a><p>Every top-200 coin: price, moves, 92 daily closes, today's 7-day model score and rank, call membership and Rebound Radar verdict. Powers the Coin Checker.</p></div>
         <div class="ep"><a href="api/v1/watchlist.json">/api/v1/watchlist.json</a><p>The 23-stock watchlist (names also traded as crypto perpetuals): daily stats, this week's experimental top-5 call and its graded record.</p></div>
         <div class="ep"><a href="api/v1/calls.json">/api/v1/calls.json</a><p>Recent calls with entry prices, latest prices, grades and each call's basket return vs Bitcoin.</p></div>
         <div class="ep"><a href="api/openapi.json">/api/openapi.json</a><p>OpenAPI 3.1 description, for tools that import APIs automatically.</p></div>

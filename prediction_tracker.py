@@ -218,8 +218,11 @@ def run_prediction(coins, weights=None):
         })
     return result
 
-def run_prediction_v2(coins, regime):
-    """7-day picks from model v2 (18 signals + market regime). Raises if inputs are incomplete."""
+def run_prediction_v2(coins, regime, all_scores=None):
+    """7-day picks from model v2 (18 signals + market regime). Raises if inputs are incomplete.
+
+    all_scores, if given, is filled with every scored coin's chance of a top-10 finish (%), by coin id.
+    """
     btc = next(c for c in coins if c['id'] == 'bitcoin')
     ref_dates = [r['date'] for r in btc.get('daily_history', [])][-model_v2.HISTORY_DAYS:]
     if len(ref_dates) < model_v2.HISTORY_DAYS:
@@ -242,6 +245,8 @@ def run_prediction_v2(coins, regime):
     mcaps  = np.array([seq[-1]['mcap'] for _, seq in rows])
     b      = next(i for i, (c, _) in enumerate(rows) if c['id'] == 'bitcoin')
     prob, raw = model_v2.score_day(closes, vols, mcaps, b, regime)
+    if all_scores is not None:
+        all_scores.update({c['id']: round(float(p) * 100, 2) for (c, _), p in zip(rows, prob)})
     order = np.argsort(-prob)[:10]
     result = []
     for rank, i in enumerate(order, 1):
@@ -1367,10 +1372,10 @@ if __name__ == '__main__':
 
     if today not in data.get('predictions', {}):
         print("  Running prediction model v2 (18 signals + market regime)...")
-        model_used, model_error = 'v2', None
+        model_used, model_error, scores = 'v2', None, {}
         try:
             regime = market_regime()
-            top10 = run_prediction_v2(coins, regime)
+            top10 = run_prediction_v2(coins, regime, scores)
         except Exception as e:
             import traceback; traceback.print_exc()
             print(f"  Model v2 unavailable ({e}); falling back to the v1 formula.")
@@ -1395,6 +1400,7 @@ if __name__ == '__main__':
             'regime':          regime,
             'model_error':     model_error,
             'market_light':    light,
+            'scores':          scores,      # every scored coin's top-10 chance (%), for the Coin Checker
         }
 
         print(f"  Today's top 10 (model {model_used}):")
