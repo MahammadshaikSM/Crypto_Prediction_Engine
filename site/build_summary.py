@@ -101,7 +101,10 @@ def bake(summary):
     html = page.read_text(encoding="utf-8")
     fmt = lambda iso: f"{date.fromisoformat(iso):%b} {date.fromisoformat(iso).day}, {date.fromisoformat(iso).year}"
     sign = lambda x, d=1: f"{x * 100:+.{d}f}%"
+    short = lambda iso: f"{date.fromisoformat(iso):%b} {date.fromisoformat(iso).day}"
     vals = {"updated": f"updated {fmt((summary.get('fetched_at') or summary['date'])[:10])}",
+            "pkdate": short(summary["date"]), "pkdue": short(summary["maturity"]),
+            "rdays": str(summary["days"]), "rgraded": str(len(summary["rows"])),
             "days": f'<b id="p-days">{summary["days"]}</b> days of calls'}
     picks = summary["today"]
     vals["herocall"] = (f"Today's 7-day call: <b>{' · '.join(escape((c['symbol'] or '').upper()) for c in picks)}</b>"

@@ -876,20 +876,21 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
   <div>
     <div class="section-label">Prediction History</div>
     <h2 class="section-h">All Predictions</h2>
-    <p class="section-sub">Click any entry to expand. RSI tags: red=overbought (&gt;70), green=oversold (&lt;30).</p>
+    <p class="section-sub">Click any entry to expand. RSI tags: red=overbought (&gt;70), green=oversold (&lt;30).__RSI_NOTE__</p>
     <div class="timeline" id="timeline"></div>
     <div id="no-data" class="no-data" style="display:none">
       <div style="font-size:3rem;margin-bottom:16px">&#128302;</div>
       <div style="font-size:1rem;font-weight:700;color:var(--text2);margin-bottom:8px">No predictions yet</div>
-      <div style="font-size:.82rem">Run <code>prediction_tracker.py</code> to make the first prediction.</div>
+      <div style="font-size:.82rem">New calls are published every day around 11:30 UTC.</div>
     </div>
   </div>
   </div>
   <div id="tab-insights" style="display:none">
     <div style="margin-bottom:32px">
       <div class="section-label">Data Analysis</div>
-      <h2 class="section-h">4-Factor Model Insights</h2>
-      <p class="section-sub">Computed from 6 months of backfill data. Shows which factors actually drive hits.</p>
+      <h2 class="section-h">What separated hits from misses</h2>
+      <p class="section-sub">Four of the signals shown on each pick, averaged for picks that hit vs picks that missed, across every
+        graded call on this page. It describes past calls; it is not the model's weights.</p>
     </div>
     <div class="ins-grid">
       <div class="ins-card">
@@ -1320,6 +1321,8 @@ function buildInsights() {
     return (html
         .replace('__LIGHT__',       extra.get('light', ''))
         .replace('__TRADER__',      extra.get('trader', ''))
+        .replace('__RSI_NOTE__',    '' if horizon == 7 else
+                 ' RSI here includes the live price at call time; the 7-day page uses daily closes only, so the same coin can show a slightly different RSI.')
         .replace('__H__',           str(horizon))
         .replace('__ACTIVE7__',     'active' if horizon == 7 else '')
         .replace('__ACTIVE3__',     'active' if horizon == 3 else '')

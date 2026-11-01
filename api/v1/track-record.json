@@ -1,10 +1,45 @@
 {
  "api_version": "1.0",
- "generated_at": "2026-11-01T17:11:32Z",
+ "generated_at": "2026-11-01T20:55:47Z",
  "source": "CoinMarketCap",
  "disclaimer": "Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits.",
  "docs": "api.html",
  "method": "Buy the 10 picks in equal amounts at the call price, sell at the grading price, minus 0.3% round-trip costs per coin. Bitcoin over the same days for comparison.",
+ "model_v2_live": {
+  "all": {
+   "calls": 2,
+   "avg": -0.0645,
+   "median": -0.0645,
+   "in_profit": 0.0,
+   "beat_btc": 0.0,
+   "btc_avg": -0.0351,
+   "coin_win": 0.25,
+   "avg_win": 0.2733,
+   "avg_loss": -0.1771,
+   "expectancy": -0.0645
+  },
+  "review": {
+   "model": "v2",
+   "since": "2026-10-24",
+   "weeks": 8,
+   "expected": "2026-12-19",
+   "keep": 0.0,
+   "retire": -0.02,
+   "max_drawdown": -0.5,
+   "text": "After 8 weekly model-v2 calls are graded: keep v2 if its average return beats the top-200 average; keep it but review again at 16 weeks if it trails by less than 2 points per call; retire it if it trails by 2 points or more per call, or if following it weekly ever loses more than 50% from a peak.",
+   "graded_weeks": 1,
+   "calls": [
+    {
+     "date": "2026-10-24",
+     "basket": -0.0694,
+     "market": -0.0538
+    }
+   ],
+   "status": "collecting",
+   "edge": -0.015655903142244763,
+   "drawdown": 0.0
+  }
+ },
  "calls_7d": {
   "all": {
    "calls": 284,
