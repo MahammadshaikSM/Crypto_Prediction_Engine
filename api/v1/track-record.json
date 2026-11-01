@@ -1,6 +1,6 @@
 {
  "api_version": "1.0",
- "generated_at": "2026-11-01T21:35:11Z",
+ "generated_at": "2026-11-01T22:18:04Z",
  "source": "CoinMarketCap",
  "disclaimer": "Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits.",
  "docs": "api.html",
@@ -97,10 +97,10 @@
     "2026-09-23"
    ],
    "calls": 356,
-   "avg": 0.0371,
-   "median": 0.0083,
-   "in_profit": 0.5337,
-   "beat_btc": 0.5899,
+   "avg": 0.036,
+   "median": 0.0068,
+   "in_profit": 0.5281,
+   "beat_btc": 0.5927,
    "btc_avg": -0.0051
   },
   "per_call": [
@@ -2435,10 +2435,10 @@
     "2026-09-27"
    ],
    "calls": 360,
-   "avg": 0.0078,
-   "median": 0.0012,
-   "in_profit": 0.5111,
-   "beat_btc": 0.4778,
+   "avg": 0.0068,
+   "median": -0.0014,
+   "in_profit": 0.4889,
+   "beat_btc": 0.4833,
    "btc_avg": -0.002
   },
   "per_call": [

@@ -4,80 +4,80 @@
   "2026-09-30"
  ],
  "train_end": "2025-09-30",
- "coins": 183,
+ "coins": 187,
  "horizons": {
   "3": {
    "weights": {
     "vol_adj_mom": 0,
-    "mom24h": 14.8,
-    "btc_rel": 79.1,
-    "vol_surge": 6.0,
-    "rsi_s": 0.1
+    "mom24h": 10.9,
+    "btc_rel": 76.0,
+    "vol_surge": 8.0,
+    "rsi_s": 5.1
    },
    "trace": [
     {
      "stage": "5% grid",
      "w": [
       0,
-      15,
-      80,
-      5,
-      0
+      10,
+      75,
+      10,
+      5
      ],
-     "hit": 19.818
+     "hit": 19.65
     },
     {
      "stage": "1.0% steps",
      "w": [
       0,
-      15.0,
-      79.0,
-      6.0,
-      0
+      11.0,
+      76.0,
+      8.0,
+      5
      ],
-     "hit": 19.958
+     "hit": 19.678
     },
     {
      "stage": "0.1% steps",
      "w": [
       0,
-      14.8,
-      79.1,
-      6.0,
-      0.1
+      10.9,
+      76.0,
+      8.0,
+      5.1
      ],
-     "hit": 20.0
+     "hit": 19.692
     }
    ],
    "live": {
     "train": {
-     "hit": 17.913165266106443,
-     "base": 7.022475148274779,
-     "pos": 47.450980392156865,
-     "edge": 2.2301949145413786,
+     "hit": 17.759103641456583,
+     "base": 6.9730891201732925,
+     "pos": 47.563025210084035,
+     "edge": 2.243282020142504,
      "days": 714
     },
     "test": {
-     "hit": 16.38121546961326,
-     "base": 5.66884879292434,
-     "pos": 42.95580110497237,
-     "edge": 1.0585959850260132,
+     "hit": 16.464088397790054,
+     "base": 5.552808690476823,
+     "pos": 43.1767955801105,
+     "edge": 1.1708177338944212,
      "days": 362
     }
    },
    "tuned": {
     "train": {
-     "hit": 20.0,
-     "base": 7.022475148274779,
-     "pos": 48.55742296918768,
-     "edge": 2.8686447044437453,
+     "hit": 19.69187675070028,
+     "base": 6.9730891201732925,
+     "pos": 48.61344537815126,
+     "edge": 2.8065666416406794,
      "days": 714
     },
     "test": {
-     "hit": 17.403314917127073,
-     "base": 5.66884879292434,
-     "pos": 42.67955801104972,
-     "edge": 1.1024470974783884,
+     "hit": 17.07182320441989,
+     "base": 5.552808690476823,
+     "pos": 42.76243093922652,
+     "edge": 1.0642087441051897,
      "days": 362
     }
    },
@@ -87,8 +87,8 @@
     "hits": 0,
     "picks": [
      {
-      "symbol": "H",
-      "ret": -17.49,
+      "symbol": "ORDI",
+      "ret": -2.78,
       "hit": false
      },
      {
@@ -97,8 +97,13 @@
       "hit": false
      },
      {
-      "symbol": "ORDI",
-      "ret": -2.78,
+      "symbol": "LIT",
+      "ret": 14.41,
+      "hit": false
+     },
+     {
+      "symbol": "H",
+      "ret": -17.49,
       "hit": false
      },
      {
@@ -107,13 +112,8 @@
       "hit": false
      },
      {
-      "symbol": "LIT",
-      "ret": 14.41,
-      "hit": false
-     },
-     {
-      "symbol": "ZAMA",
-      "ret": -0.68,
+      "symbol": "STABLE",
+      "ret": -8.71,
       "hit": false
      },
      {
@@ -122,18 +122,18 @@
       "hit": false
      },
      {
+      "symbol": "ZAMA",
+      "ret": -0.68,
+      "hit": false
+     },
+     {
+      "symbol": "FF",
+      "ret": -9.97,
+      "hit": false
+     },
+     {
       "symbol": "PYTH",
       "ret": 4.93,
-      "hit": false
-     },
-     {
-      "symbol": "BSV",
-      "ret": 11.33,
-      "hit": false
-     },
-     {
-      "symbol": "BEAM",
-      "ret": 4.45,
       "hit": false
      }
     ],
@@ -159,6 +159,10 @@
       "ret": 23.99
      },
      {
+      "symbol": "XPL",
+      "ret": 23.34
+     },
+     {
       "symbol": "XTZ",
       "ret": 21.64
      },
@@ -173,10 +177,6 @@
      {
       "symbol": "BONK",
       "ret": 21.15
-     },
-     {
-      "symbol": "DEEP",
-      "ret": 20.41
      }
     ]
    },
@@ -186,11 +186,6 @@
     "hits": 0,
     "picks": [
      {
-      "symbol": "DYDX",
-      "ret": -26.16,
-      "hit": false
-     },
-     {
       "symbol": "LIT",
       "ret": 14.41,
       "hit": false
@@ -201,8 +196,8 @@
       "hit": false
      },
      {
-      "symbol": "MORPHO",
-      "ret": 3.9,
+      "symbol": "DYDX",
+      "ret": -26.16,
       "hit": false
      },
      {
@@ -211,8 +206,13 @@
       "hit": false
      },
      {
-      "symbol": "BSV",
-      "ret": 11.33,
+      "symbol": "MORPHO",
+      "ret": 3.9,
+      "hit": false
+     },
+     {
+      "symbol": "STABLE",
+      "ret": -8.71,
       "hit": false
      },
      {
@@ -221,18 +221,18 @@
       "hit": false
      },
      {
+      "symbol": "BSV",
+      "ret": 11.33,
+      "hit": false
+     },
+     {
       "symbol": "PYTH",
       "ret": 4.93,
       "hit": false
      },
      {
-      "symbol": "APE",
-      "ret": -0.04,
-      "hit": false
-     },
-     {
-      "symbol": "GLM",
-      "ret": -2.67,
+      "symbol": "ZAMA",
+      "ret": -0.68,
       "hit": false
      }
     ],
@@ -258,6 +258,10 @@
       "ret": 23.99
      },
      {
+      "symbol": "XPL",
+      "ret": 23.34
+     },
+     {
       "symbol": "XTZ",
       "ret": 21.64
      },
@@ -272,86 +276,82 @@
      {
       "symbol": "BONK",
       "ret": 21.15
-     },
-     {
-      "symbol": "DEEP",
-      "ret": 20.41
      }
     ]
    }
   },
   "7": {
    "weights": {
-    "vol_adj_mom": 5,
-    "mom24h": 11.0,
-    "btc_rel": 75,
-    "vol_surge": 8.0,
-    "rsi_s": 1.0
+    "vol_adj_mom": 0,
+    "mom24h": 10,
+    "btc_rel": 80,
+    "vol_surge": 10,
+    "rsi_s": 0
    },
    "trace": [
     {
      "stage": "5% grid",
      "w": [
-      5,
+      0,
       10,
-      75,
+      80,
       10,
       0
      ],
-     "hit": 18.992
+     "hit": 18.838
     },
     {
      "stage": "1.0% steps",
      "w": [
-      5,
-      11.0,
-      75,
-      8.0,
-      1.0
+      0,
+      10,
+      80,
+      10,
+      0
      ],
-     "hit": 19.034
+     "hit": 18.838
     },
     {
      "stage": "0.1% steps",
      "w": [
-      5,
-      11.0,
-      75,
-      8.0,
-      1.0
+      0,
+      10,
+      80,
+      10,
+      0
      ],
-     "hit": 19.034
+     "hit": 18.838
     }
    ],
    "live": {
     "train": {
-     "hit": 17.296918767507,
-     "base": 7.022475148274779,
-     "pos": 47.81512605042017,
-     "edge": 6.335652708688001,
+     "hit": 17.086834733893557,
+     "base": 6.9730891201732925,
+     "pos": 47.773109243697476,
+     "edge": 6.351803103657227,
      "days": 714
     },
     "test": {
-     "hit": 13.77094972067039,
-     "base": 5.671132233355707,
-     "pos": 41.899441340782126,
-     "edge": 1.9517451133439712,
+     "hit": 13.938547486033519,
+     "base": 5.55510159670687,
+     "pos": 42.150837988826815,
+     "edge": 2.025384651662705,
      "days": 358
     }
    },
    "tuned": {
     "train": {
-     "hit": 19.03361344537815,
-     "base": 7.022475148274779,
-     "pos": 48.65546218487395,
-     "edge": 7.814250051142587,
+     "hit": 18.837535014005603,
+     "base": 6.9730891201732925,
+     "pos": 48.4733893557423,
+     "edge": 7.779231260595324,
      "days": 714
     },
     "test": {
-     "hit": 15.335195530726256,
-     "base": 5.671132233355707,
-     "pos": 41.75977653631285,
-     "edge": 1.922870083663218,
+     "hit": 15.251396648044693,
+     "base": 5.55510159670687,
+     "pos": 41.95530726256983,
+     "edge": 1.8935954000234247,
      "days": 358
     }
    },
@@ -361,8 +361,8 @@
     "hits": 1,
     "picks": [
      {
-      "symbol": "H",
-      "ret": -18.43,
+      "symbol": "ORDI",
+      "ret": -5.3,
       "hit": false
      },
      {
@@ -371,8 +371,13 @@
       "hit": false
      },
      {
-      "symbol": "ORDI",
-      "ret": -5.3,
+      "symbol": "LIT",
+      "ret": 33.57,
+      "hit": true
+     },
+     {
+      "symbol": "H",
+      "ret": -18.43,
       "hit": false
      },
      {
@@ -381,13 +386,8 @@
       "hit": false
      },
      {
-      "symbol": "LIT",
-      "ret": 33.57,
-      "hit": true
-     },
-     {
-      "symbol": "ZAMA",
-      "ret": 0.54,
+      "symbol": "STABLE",
+      "ret": -9.09,
       "hit": false
      },
      {
@@ -396,18 +396,18 @@
       "hit": false
      },
      {
+      "symbol": "ZAMA",
+      "ret": 0.54,
+      "hit": false
+     },
+     {
+      "symbol": "FF",
+      "ret": -12.96,
+      "hit": false
+     },
+     {
       "symbol": "PYTH",
       "ret": 14.65,
-      "hit": false
-     },
-     {
-      "symbol": "BSV",
-      "ret": 8.26,
-      "hit": false
-     },
-     {
-      "symbol": "BEAM",
-      "ret": 5.39,
       "hit": false
      }
     ],
@@ -465,13 +465,23 @@
       "hit": false
      },
      {
+      "symbol": "ORDI",
+      "ret": -5.3,
+      "hit": false
+     },
+     {
       "symbol": "LIT",
       "ret": 33.57,
       "hit": true
      },
      {
-      "symbol": "ORDI",
-      "ret": -5.3,
+      "symbol": "AAVE",
+      "ret": 5.79,
+      "hit": false
+     },
+     {
+      "symbol": "STABLE",
+      "ret": -9.09,
       "hit": false
      },
      {
@@ -480,8 +490,8 @@
       "hit": false
      },
      {
-      "symbol": "AAVE",
-      "ret": 5.79,
+      "symbol": "USELESS",
+      "ret": 15.98,
       "hit": false
      },
      {
@@ -490,23 +500,13 @@
       "hit": false
      },
      {
-      "symbol": "USELESS",
-      "ret": 15.98,
-      "hit": false
-     },
-     {
-      "symbol": "PYTH",
-      "ret": 14.65,
-      "hit": false
-     },
-     {
       "symbol": "APE",
       "ret": -2.88,
       "hit": false
      },
      {
-      "symbol": "ZAMA",
-      "ret": 0.54,
+      "symbol": "PYTH",
+      "ret": 14.65,
       "hit": false
      }
     ],

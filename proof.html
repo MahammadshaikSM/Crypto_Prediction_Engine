@@ -59,12 +59,13 @@
         All returns are after 0.3% trading costs per coin. Here is what held up, and what didn't.</p>
 
       <div class="verdicts">
-        <div class="vd good"><span class="k">7-day calls &middot; main signal</span><b class="big">+4.1%</b>
-          <p>per call above comparable random coins (90% range +1.0% to +7.7%), positive from every start day.
+        <div class="vd good"><span class="k">7-day calls &middot; main signal</span><b class="big">+3.7%</b>
+          <p>per call above comparable random coins (90% range +0.6% to +7.3%), positive from every start day.
           Passed all four tests.</p></div>
-        <div class="vd warn"><span class="k">3-day calls &middot; experimental</span><b class="big">+1.0%</b>
-          <p>per call above comparable coins, but the range includes zero (-0.1% to +2.2%) and at 1% trading costs the average
-          shrinks to +0.1%. A watchlist, not a trade.</p></div>
+        <div class="vd warn"><span class="k">3-day calls &middot; experimental</span><b class="big">+1.2%</b>
+          <p>per call above comparable coins (+0.1% to +2.4%, only just above zero),
+          but at 1% trading costs the average is -0.0% and buying a day late leaves no proven edge.
+          A watchlist, not a trade.</p></div>
         <div class="vd"><span class="k">Live record &middot; 7-day</span><b class="big" style="color:var(--fg)">+4.3%</b>
           <p>average per call on this site (284 graded calls) vs +1.0% for the top-200 average and
           +0.1% for Bitcoin. Earlier calls came from older model versions.</p></div>
@@ -76,15 +77,15 @@
       <div class="tblwrap"><table class="tbl">
         <tr><th></th><th>Avg return per call</th><th>Coins that went up</th><th>Top-10 hit rate</th></tr>
         
-        <tr><td>7-day picks</td><td>+3.7%</td><td>43.0%</td><td>17.6%</td></tr>
-        <tr><td>Matched random coins</td><td>-0.4%</td><td>41.1%</td><td>8.6%</td></tr>
+        <tr><td>7-day picks</td><td>+3.6%</td><td>42.6%</td><td>17.3%</td></tr>
+        <tr><td>Matched random coins</td><td>-0.2%</td><td>41.0%</td><td>8.8%</td></tr>
         <tr><td>Top-200 average</td><td>-0.5%</td><td>43.1%</td><td>5.7%</td></tr>
         <tr><td>Bitcoin</td><td>-0.5%</td><td>&ndash;</td><td>&ndash;</td></tr>
       </table></div>
-      <p class="plain">Matched random coins hit the top 10 more often than pure chance (8.6% vs 5.7%), so part of the
-        headline hit rate <b>is</b> volatility. But they lost money on average (-0.4%) while the picks made
-        +3.7%. The edge in returns is not explained by volatility or size.</p>
-      <p class="plain warn">The picks do <b>not</b> go up more often: 43.0% of picked coins rose vs 43.1% of all coins.
+      <p class="plain">Matched random coins hit the top 10 more often than pure chance (8.8% vs 5.7%), so part of the
+        headline hit rate <b>is</b> volatility. But they lost money on average (-0.2%) while the picks made
+        +3.6%. The edge in returns is not explained by volatility or size.</p>
+      <p class="plain warn">The picks do <b>not</b> go up more often: 42.6% of picked coins rose vs 43.1% of all coins.
         The gain comes from the winners rising much further than the losers fall. Hold all 10 in equal size; single picks are a coin flip.</p>
 
       <h2 class="sec">2 &middot; Is it luck from a few lucky weeks?</h2>
@@ -92,34 +93,35 @@
         test on non-overlapping windows only, for every possible start day, and resampled the weeks 4,000 times to get a 90% range.</p>
       <div class="tblwrap"><table class="tbl">
         <tr><th>Edge per call</th><th>Average</th><th>90% range</th><th>Independent windows</th><th>Start days positive</th></tr>
-        <tr><td>7-day vs matched random coins</td><td><b>+4.1%</b></td><td>+1.0% to +7.7%</td><td>51</td><td>7/7</td></tr><tr><td>7-day vs top-200 average</td><td><b>+4.3%</b></td><td>+2.1% to +6.6%</td><td>50</td><td>7/7</td></tr><tr><td>7-day vs Bitcoin</td><td><b>+4.1%</b></td><td>+1.5% to +6.7%</td><td>50</td><td>7/7</td></tr><tr><td>3-day vs matched random coins</td><td><b>+1.0%</b></td><td>-0.1% to +2.2%</td><td>120</td><td>3/3</td></tr><tr><td>3-day vs top-200 average</td><td><b>+1.1%</b></td><td>+0.1% to +2.2%</td><td>120</td><td>3/3</td></tr><tr><td>3-day vs Bitcoin</td><td><b>+1.0%</b></td><td>-0.1% to +2.2%</td><td>120</td><td>3/3</td></tr>
+        <tr><td>7-day vs matched random coins</td><td><b>+3.7%</b></td><td>+0.6% to +7.3%</td><td>51</td><td>7/7</td></tr><tr><td>7-day vs top-200 average</td><td><b>+3.9%</b></td><td>+1.3% to +6.9%</td><td>51</td><td>7/7</td></tr><tr><td>7-day vs Bitcoin</td><td><b>+3.9%</b></td><td>+0.9% to +6.7%</td><td>51</td><td>7/7</td></tr><tr><td>3-day vs matched random coins</td><td><b>+1.2%</b></td><td>+0.1% to +2.4%</td><td>120</td><td>3/3</td></tr><tr><td>3-day vs top-200 average</td><td><b>+1.1%</b></td><td>+0.1% to +2.3%</td><td>120</td><td>3/3</td></tr><tr><td>3-day vs Bitcoin</td><td><b>+1.1%</b></td><td>-0.1% to +2.4%</td><td>120</td><td>3/3</td></tr>
       </table></div>
       <p class="plain">For the 7-day calls the whole 90% range is above zero against every yardstick, and every one of the 7 possible
-        start days is positive. For the 3-day calls the range touches zero against comparable coins and Bitcoin: not proven.</p>
+        start days is positive. For the 3-day calls the ranges sit at or just above zero, and the edge is gone at 1% trading costs or a
+        one-day delay: not proven.</p>
 
       <h2 class="sec">3 &middot; Does the score mean what it says?</h2>
       <p class="sec-sub">The 7-day score is the model's chance that a coin finishes in the top 10 of ~200. A good score should come true about
         as often as it says.</p>
-      <div class="tblwrap" style="padding:18px"><svg viewBox="0 0 640 260" style="width:100%;max-width:640px;height:auto" role="img" aria-label="Predicted vs actual chance of a top-10 finish"><rect x="53.1" y="208.0" width="29.9" height="12.0" fill="#8b9cc8" rx="3"/><rect x="88.5" y="208.4" width="29.9" height="11.6" fill="#D4FF3A" rx="3"/><text x="86.7" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">0&#8211;2%</text><text x="103.5" y="203.4" fill="#D4FF3A" font-size="10.5" text-anchor="middle">2%</text><rect x="146.4" y="195.5" width="29.9" height="24.5" fill="#8b9cc8" rx="3"/><rect x="181.9" y="200.7" width="29.9" height="19.3" fill="#D4FF3A" rx="3"/><text x="180.0" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">2&#8211;5%</text><text x="196.8" y="195.7" fill="#D4FF3A" font-size="10.5" text-anchor="middle">3%</text><rect x="239.7" y="176.7" width="29.9" height="43.3" fill="#8b9cc8" rx="3"/><rect x="275.2" y="184.2" width="29.9" height="35.8" fill="#D4FF3A" rx="3"/><text x="273.3" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">5&#8211;8%</text><text x="290.1" y="179.2" fill="#D4FF3A" font-size="10.5" text-anchor="middle">5%</text><rect x="333.1" y="153.4" width="29.9" height="66.6" fill="#8b9cc8" rx="3"/><rect x="368.5" y="159.4" width="29.9" height="60.6" fill="#D4FF3A" rx="3"/><text x="366.7" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">8&#8211;12%</text><text x="383.5" y="154.4" fill="#D4FF3A" font-size="10.5" text-anchor="middle">9%</text><rect x="426.4" y="118.6" width="29.9" height="101.4" fill="#8b9cc8" rx="3"/><rect x="461.9" y="131.6" width="29.9" height="88.4" fill="#D4FF3A" rx="3"/><text x="460.0" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">12&#8211;20%</text><text x="476.8" y="126.6" fill="#D4FF3A" font-size="10.5" text-anchor="middle">13%</text><rect x="519.7" y="63.5" width="29.9" height="156.5" fill="#8b9cc8" rx="3"/><rect x="555.2" y="68.5" width="29.9" height="151.5" fill="#D4FF3A" rx="3"/><text x="553.3" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">20&#8211;30%</text><text x="570.1" y="63.5" fill="#D4FF3A" font-size="10.5" text-anchor="middle">22%</text><line x1="40" x2="600" y1="220" y2="220" stroke="#ffffff22"/></svg><p class="cap"><span style="color:#8b9cc8">&#9632; what the score said</span> &nbsp; <span style="color:#D4FF3A">&#9632; what happened</span> &middot; grouped by score, all ~200 coins, held-out days</p></div>
-      <p class="plain">The 10 picks scored 17.7% on average and actually hit
-        17.6% of the time. Lower scores run a little optimistic (they say ~4%, reality ~3%),
+      <div class="tblwrap" style="padding:18px"><svg viewBox="0 0 640 260" style="width:100%;max-width:640px;height:auto" role="img" aria-label="Predicted vs actual chance of a top-10 finish"><rect x="53.1" y="207.9" width="29.9" height="12.1" fill="#8b9cc8" rx="3"/><rect x="88.5" y="208.9" width="29.9" height="11.1" fill="#D4FF3A" rx="3"/><text x="86.7" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">0&#8211;2%</text><text x="103.5" y="203.9" fill="#D4FF3A" font-size="10.5" text-anchor="middle">2%</text><rect x="146.4" y="195.5" width="29.9" height="24.5" fill="#8b9cc8" rx="3"/><rect x="181.9" y="201.6" width="29.9" height="18.4" fill="#D4FF3A" rx="3"/><text x="180.0" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">2&#8211;5%</text><text x="196.8" y="196.6" fill="#D4FF3A" font-size="10.5" text-anchor="middle">3%</text><rect x="239.7" y="176.5" width="29.9" height="43.5" fill="#8b9cc8" rx="3"/><rect x="275.2" y="184.0" width="29.9" height="36.0" fill="#D4FF3A" rx="3"/><text x="273.3" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">5&#8211;8%</text><text x="290.1" y="179.0" fill="#D4FF3A" font-size="10.5" text-anchor="middle">5%</text><rect x="333.1" y="153.1" width="29.9" height="66.9" fill="#8b9cc8" rx="3"/><rect x="368.5" y="159.8" width="29.9" height="60.2" fill="#D4FF3A" rx="3"/><text x="366.7" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">8&#8211;12%</text><text x="383.5" y="154.8" fill="#D4FF3A" font-size="10.5" text-anchor="middle">9%</text><rect x="426.4" y="118.5" width="29.9" height="101.5" fill="#8b9cc8" rx="3"/><rect x="461.9" y="131.2" width="29.9" height="88.8" fill="#D4FF3A" rx="3"/><text x="460.0" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">12&#8211;20%</text><text x="476.8" y="126.2" fill="#D4FF3A" font-size="10.5" text-anchor="middle">13%</text><rect x="519.7" y="63.5" width="29.9" height="156.5" fill="#8b9cc8" rx="3"/><rect x="555.2" y="68.7" width="29.9" height="151.3" fill="#D4FF3A" rx="3"/><text x="553.3" y="236" fill="#A1A1AC" font-size="11" text-anchor="middle">20&#8211;30%</text><text x="570.1" y="63.7" fill="#D4FF3A" font-size="10.5" text-anchor="middle">22%</text><line x1="40" x2="600" y1="220" y2="220" stroke="#ffffff22"/></svg><p class="cap"><span style="color:#8b9cc8">&#9632; what the score said</span> &nbsp; <span style="color:#D4FF3A">&#9632; what happened</span> &middot; grouped by score, all ~200 coins, held-out days</p></div>
+      <p class="plain">The 10 picks scored 17.6% on average and actually hit
+        17.3% of the time. Lower scores run a little optimistic (they say ~4%, reality ~3%),
         so read small scores as "unlikely", not as exact odds.</p>
 
       <h2 class="sec">4 &middot; Can you actually trade it?</h2>
       <div class="tblwrap"><table class="tbl">
         <tr><th>7-day calls</th><th>Result</th></tr>
-        <tr><td>Median 24h trading volume of picks</td><td><b>$28M</b> (all coins $25M)</td></tr>
-        <tr><td>Picks under $1M / $5M daily volume</td><td>1.9% / 9.9%</td></tr>
-        <tr><td>Thin coins (&lt;$1M) swapped for the next pick</td><td>+3.6% per call</td></tr>
-        <tr><td>At 0.3% / 1% / 2% round-trip costs</td><td>+3.7% / +3.0% / +2.0% per call</td></tr>
-        <tr><td>Bought a full day after the signal</td><td>+3.5% per call (edge vs market +1.7% to +6.4%)</td></tr>
+        <tr><td>Median 24h trading volume of picks</td><td><b>$29M</b> (all coins $25M)</td></tr>
+        <tr><td>Picks under $1M / $5M daily volume</td><td>1.9% / 10.4%</td></tr>
+        <tr><td>Thin coins (&lt;$1M) swapped for the next pick</td><td>+3.5% per call</td></tr>
+        <tr><td>At 0.3% / 1% / 2% round-trip costs</td><td>+3.6% / +2.9% / +1.9% per call</td></tr>
+        <tr><td>Bought a full day after the signal</td><td>+3.5% per call (edge vs market +0.9% to +7.4%)</td></tr>
       </table></div>
       <p class="plain">The picks are as liquid as the average coin, survive 2% trading costs, and still work if you buy a day late.</p>
 
       <h2 class="sec">The market light</h2>
       <p class="sec-sub">TRADE when Bitcoin is flat or up over 7 days, CAUTION when it is down. Held-out year, 7-day calls:
-        +5.6% per call on TRADE days vs +2.1% on CAUTION days, with smaller drops on TRADE
-        days. The difference is likely but not proven (roughly 88&ndash;94% in resampling), the site's live record shows the opposite so far,
+        +5.5% per call on TRADE days vs +1.9% on CAUTION days, with smaller drops on TRADE
+        days. The difference is likely but not proven (roughly 90&ndash;94% in resampling), the site's live record shows the opposite so far,
         and it had no effect on 3-day calls. One input, not a rule.</p>
 
       <h2 class="sec">The live test, with the rule set in advance</h2>

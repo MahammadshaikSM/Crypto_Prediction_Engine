@@ -150,6 +150,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 <div style="display:flex;gap:8px;padding:20px 32px 0;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(6,13,31,0.95);position:sticky;top:0;z-index:100">
   <a href="prediction_dashboard.html" style="padding:10px 24px;border-radius:10px 10px 0 0;font-size:.85rem;font-weight:600;letter-spacing:.04em;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-bottom:1px solid #060d1f;color:#e8eaf6;text-decoration:none">&#128640; Crypto</a>
   <a href="stock_dashboard.html" style="padding:10px 24px;border-radius:10px 10px 0 0;font-size:.85rem;font-weight:600;letter-spacing:.04em;color:#8b9cc8;text-decoration:none">&#128200; Stocks</a>
+  <a href="watchlist.html" style="padding:10px 24px;border-radius:10px 10px 0 0;font-size:.85rem;font-weight:600;letter-spacing:.04em;color:#8b9cc8;text-decoration:none">&#11088; Watchlist</a>
 </div>
 <header class="header">
   <img class="logo-mark" src="brand/ichnora/icon.svg" alt="" width="36" height="36">
@@ -157,7 +158,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
     <div class="logo-name">ichnora</div>
     <div class="logo-sub">Every call leaves a footprint</div>
   </div>
-  <div class="hdr-right">Last updated: Nov 01, 2026 at 14:55</div>
+  <div class="hdr-right">Last updated: Nov 01, 2026 at 16:18</div>
 </header>
 <nav class="horizon-tabs" aria-label="Prediction horizon">
   <a href="prediction_dashboard.html" class="htab ">&#128197; 7-Day Prediction</a>
@@ -168,7 +169,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
   <div class="light light-caution">
     <div class="light-dot"></div>
     <div><div class="light-h">Market light: <b>CAUTION</b> <span>Bitcoin -4.1% over 7 days &middot; 2026-11-01</span></div>
-    <div class="light-why">Bitcoin is down over the last 7 days. Backtest (held-out year): 7-day calls averaged <b>+5.6%</b> on TRADE days vs <b>+2.1%</b> on CAUTION days, after costs. On this site so far: +3.9% (136 calls) vs +4.9% (132 calls). In testing the light made no difference for 3-day calls; it is shown for context. One input, not a guarantee.</div></div></div>
+    <div class="light-why">Bitcoin is down over the last 7 days. Backtest (held-out year): 7-day calls averaged <b>+5.5%</b> on TRADE days vs <b>+1.9%</b> on CAUTION days, after costs. On this site so far: +3.9% (136 calls) vs +4.9% (132 calls). In testing the light made no difference for 3-day calls; it is shown for context. One input, not a guarantee.</div></div></div>
 
   <!-- ── Today's 3-Day Picks ───────────────────────────────────── -->
   <div style="margin-bottom:52px">
@@ -186,12 +187,12 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
       A "hit" = coin appeared in the real top&nbsp;10 gainers 3&nbsp;days later.
     </p>
     <div class="model-badge">
-      <span class="mbadge">&#8383; BTC-Relative 79.1%</span>
-      <span class="mbadge">&#128640; 24H Momentum 14.8%</span>
-      <span class="mbadge">&#128202; Volume Surge 6%</span>
-      <span class="mbadge">&#128201; RSI Score 0.1%</span>
+      <span class="mbadge">&#8383; BTC-Relative 76%</span>
+      <span class="mbadge">&#128640; 24H Momentum 10.9%</span>
+      <span class="mbadge">&#128202; Volume Surge 8%</span>
+      <span class="mbadge">&#128201; RSI Score 5.1%</span>
     </div>
-    <p class="section-sub" style="margin-top:10px;font-size:.78rem">Backtest of these exact weights on held-out CoinMarketCap data (Oct 2025 &ndash; Sep 2026, 362 days): <strong>17.4%</strong> hit rate vs 5.7% for random picks.</p>
+    <p class="section-sub" style="margin-top:10px;font-size:.78rem">Backtest of these exact weights on held-out CoinMarketCap data (Oct 2025 &ndash; Sep 2026, 362 days): <strong>17.1%</strong> hit rate vs 5.6% for random picks.</p>
   </div>
   <div class="stats">
     <div class="stat c-blue entry-anim" style="animation-delay:.05s">
@@ -228,8 +229,8 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
     <div class="light light-caution" style="margin-bottom:22px"><div class="light-dot"></div><div>
       <div class="light-h">Experimental: <b>no reliable edge after realistic costs</b></div>
       <div class="light-why">In a year of data the model never trained on, 3-day calls beat comparable coins (same volatility and size)
-        by +1.0% per call, but the 90% range runs from -0.1% to +2.2%, and at 1% trading costs the
-        average falls to +0.1%. Treat them as a watchlist, not a trade. The 7-day calls are the main signal.
+        by +1.2% per call, but the 90% range runs from +0.1% to +2.4%, and at 1% trading costs the
+        average falls to -0.0%. Treat them as a watchlist, not a trade. The 7-day calls are the main signal.
         <a href="proof.html" style="color:inherit">See the proof page</a>.</div></div></div><p class="section-sub" style="color:var(--gold)">Only 10 graded calls so far: too early to judge.</p>
     <div class="stats" style="margin-bottom:22px">
       <div class="stat c-green"><div class="stat-label">Avg return per call</div><div class="stat-val green">-5.9%</div>
@@ -247,7 +248,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
       
       <tr><td>&#128994; Made on TRADE days</td><td>1</td><td>-8.3%</td><td>-5.2%</td><td>-2.5%</td><td>0%</td><td>0%</td></tr>
       <tr><td>&#128992; Made on CAUTION days</td><td>9</td><td>-5.6%</td><td>-2.7%</td><td>-1.5%</td><td>11%</td><td>22%</td></tr>
-      <tr><td>Backtest, held-out year (2025-10-02 &ndash; 2026-09-27)</td><td>360</td><td>+0.8%</td><td>-0.3%</td><td>-0.2%</td><td>51%</td><td>&ndash;</td></tr>
+      <tr><td>Backtest, held-out year (2025-10-02 &ndash; 2026-09-27)</td><td>360</td><td>+0.7%</td><td>-0.3%</td><td>-0.2%</td><td>49%</td><td>&ndash;</td></tr>
     </table></div>
     <div class="ins-card" style="margin-top:14px">
       <div class="ins-card-title">Growth of $100, one call every 3 days</div>
@@ -363,7 +364,7 @@ function rsiTag(rsi) {
     subtitle.innerHTML =
       'Matures in <strong style="color:var(--blue)">' + daysLeft + ' day' + (daysLeft!==1?'s':'') + '</strong>' +
       ' (' + fmtDate(today.maturity_date) + ')' +
-      ' &middot; Model: BTC-Rel(79.1%) + 24H-Mom(14.8%) + Volume(6%) + RSI(0.1%)';
+      ' &middot; Model: BTC-Rel(76%) + 24H-Mom(10.9%) + Volume(8%) + RSI(5.1%)';
   }
 
   coins.forEach(function(c) {
@@ -711,7 +712,7 @@ function buildInsights() {
     '<p style="font-size:.79rem;color:var(--text2);margin-bottom:18px">Weights derived from correlation between each factor score and actual hit outcomes.</p>'+
     wBars+
     '<div style="margin-top:16px;padding:14px;background:rgba(79,172,254,.06);border:1px solid rgba(79,172,254,.12);border-radius:12px;font-size:.75rem;color:var(--text2)">'+
-    '&#128161; <strong style="color:var(--blue)">Current live model</strong> uses BTC-Rel(79.1%) + 24H-Mom(14.8%) + Volume(6%) + RSI(0.1%).'+
+    '&#128161; <strong style="color:var(--blue)">Current live model</strong> uses BTC-Rel(76%) + 24H-Mom(10.9%) + Volume(8%) + RSI(5.1%).'+
     '</div>';
 }
 </script>

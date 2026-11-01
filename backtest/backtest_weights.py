@@ -47,17 +47,22 @@ def read_rows(args):
                 yield str(r[0])[:10], r[2], r[4], r[5], r[6], r[7]
 
 
+# Marked "stable" in the CMC export but they are ordinary, volatile tokens (named after or tied to
+# stablecoin projects): Plasma (XPL), Stable (STABLE), Falcon Finance (FF), Telcoin (TEL).
+NOT_STABLE = {"36645", "38892", "38482", "2394"}
+
+
 def stable_ids(args):
     if not args.xlsx:
         coins = Path(args.csv).with_name("coins.csv")          # written alongside daily.csv
         if not coins.exists():
             return set()
         with open(coins, encoding="utf-8") as fh:
-            return {r["id"] for r in csv.DictReader(fh) if r["stable"] == "Yes"}
+            return {r["id"] for r in csv.DictReader(fh) if r["stable"] == "Yes"} - NOT_STABLE
     import openpyxl
     wb = openpyxl.load_workbook(args.xlsx, read_only=True, data_only=True)
     it = wb["Coins"].iter_rows(values_only=True); next(it)
-    return {str(r[3]) for r in it if r[0] is not None and r[4] == "Yes"}
+    return {str(r[3]) for r in it if r[0] is not None and r[4] == "Yes"} - NOT_STABLE
 
 
 def to_float(x):

@@ -138,8 +138,9 @@ def main():
           <p>per call above comparable random coins (90% range {rng(i7['vs matched'])}), positive from every start day.
           Passed all four tests.</p></div>
         <div class="vd warn"><span class="k">3-day calls &middot; experimental</span><b class="big">{pct(i3['vs matched']['mean'])}</b>
-          <p>per call above comparable coins, but the range includes zero ({rng(i3['vs matched'])}) and at 1% trading costs the average
-          shrinks to {pct(e3['cost_sensitivity']['0.01'])}. A watchlist, not a trade.</p></div>
+          <p>per call above comparable coins ({rng(i3['vs matched'])}{", a range that includes zero" if i3['vs matched']['lo'] <= 0 else ", only just above zero"}),
+          but at 1% trading costs the average is {pct(e3['cost_sensitivity']['0.01'])} and buying a day late leaves no proven edge.
+          A watchlist, not a trade.</p></div>
         <div class="vd"><span class="k">Live record &middot; 7-day</span><b class="big" style="color:var(--fg)">{pct(live['avg'])}</b>
           <p>average per call on this site ({live['calls']} graded calls) vs {pct(live['market_avg'])} for the top-200 average and
           {pct(live['btc_avg'])} for Bitcoin. Earlier calls came from older model versions.</p></div>
@@ -166,7 +167,8 @@ def main():
         {indep_rows(i7, 7)}{indep_rows(i3, 3)}
       </table></div>
       <p class="plain">For the 7-day calls the whole 90% range is above zero against every yardstick, and every one of the 7 possible
-        start days is positive. For the 3-day calls the range touches zero against comparable coins and Bitcoin: not proven.</p>
+        start days is positive. For the 3-day calls the ranges sit at or just above zero, and the edge is gone at 1% trading costs or a
+        one-day delay: not proven.</p>
 
       <h2 class="sec">3 &middot; Does the score mean what it says?</h2>
       <p class="sec-sub">The 7-day score is the model's chance that a coin finishes in the top 10 of ~200. A good score should come true about
@@ -190,7 +192,7 @@ def main():
       <h2 class="sec">The market light</h2>
       <p class="sec-sub">TRADE when Bitcoin is flat or up over 7 days, CAUTION when it is down. Held-out year, 7-day calls:
         {pct(lt['trade']['basket_mean'])} per call on TRADE days vs {pct(lt['caution']['basket_mean'])} on CAUTION days, with smaller drops on TRADE
-        days. The difference is likely but not proven (roughly 88&ndash;94% in resampling), the site's live record shows the opposite so far,
+        days. The difference is likely but not proven (roughly 90&ndash;94% in resampling), the site's live record shows the opposite so far,
         and it had no effect on 3-day calls. One input, not a rule.</p>
 
       <h2 class="sec">The live test, with the rule set in advance</h2>

@@ -70,7 +70,7 @@ def light_block(data, day, entry):
                     backtest_period="2025-10-01 to 2026-09-30, held out from training",
                     backtest_avg_return_per_call_trade=r(bt.get("trade", {}).get("basket_mean")),
                     backtest_avg_return_per_call_caution=r(bt.get("caution", {}).get("basket_mean")),
-                    note="Backtest edge is likely but not certain (about 88-94% bootstrap probability). "
+                    note="Backtest edge is likely but not certain (about 90-94% bootstrap probability). "
                          "Live split is in track-record.json and updates daily."))
 
 

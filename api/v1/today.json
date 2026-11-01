@@ -1,6 +1,6 @@
 {
  "api_version": "1.0",
- "generated_at": "2026-11-01T21:35:11Z",
+ "generated_at": "2026-11-01T22:18:04Z",
  "source": "CoinMarketCap",
  "disclaimer": "Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits.",
  "docs": "api.html",
@@ -14,9 +14,9 @@
   "evidence": {
    "applies_to": "7-day calls (no measurable effect on 3-day calls in testing)",
    "backtest_period": "2025-10-01 to 2026-09-30, held out from training",
-   "backtest_avg_return_per_call_trade": 0.0557,
-   "backtest_avg_return_per_call_caution": 0.0208,
-   "note": "Backtest edge is likely but not certain (about 88-94% bootstrap probability). Live split is in track-record.json and updates daily."
+   "backtest_avg_return_per_call_trade": 0.0555,
+   "backtest_avg_return_per_call_caution": 0.0189,
+   "note": "Backtest edge is likely but not certain (about 90-94% bootstrap probability). Live split is in track-record.json and updates daily."
   }
  },
  "calls_7d": {
