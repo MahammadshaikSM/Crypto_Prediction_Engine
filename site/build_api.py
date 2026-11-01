@@ -207,6 +207,7 @@ def main():
         latest = wl["calls"][max(wl["calls"])] if wl.get("calls") else None
         dump(V1 / "watchlist.json", dict(meta, status="experimental: the weekly rule showed no proven edge in testing",
                                          stats=wl.get("stats"), this_week=latest, record=wl.get("record"),
+                                         news=wl.get("news"), news_note="tone = rough keyword count on headlines; not used by the weekly call",
                                          graded=[c for c in wl.get("calls", {}).values() if c.get("graded")]))
     dump(API / "openapi.json", openapi())
     (ROOT / "llms.txt").write_text(llms_txt(today), encoding="utf-8")

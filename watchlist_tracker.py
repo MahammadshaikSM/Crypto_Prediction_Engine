@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 import numpy as np
 
+import news_feed
 import watchlist as wl
 
 ROOT = Path(__file__).resolve().parent
@@ -100,6 +101,71 @@ def record(calls):
 
 
 # ---------- page ----------
+CONSENSUS = {"strong_buy": "Strong buy", "buy": "Buy", "hold": "Hold", "underperform": "Underperform",
+             "sell": "Sell", "strong_sell": "Strong sell", "none": "&ndash;"}
+
+
+def news_section(state):
+    news = state.get("news") or {}
+    if not news:
+        return ""
+    stats_by = {r["ticker"]: r for r in state.get("stats", [])}
+
+    def tone_badge(x, n):
+        if x is None or not n:
+            return "<span class='tone'>no news</span>"
+        lab, c = ("Positive", "pos") if x >= 0.3 else ("Negative", "neg") if x <= -0.3 else ("Mixed", "mix")
+        return f"<span class='tone {c}'>{lab} {x:+.1f}</span><small>{n} headlines</small>"
+
+    def move_row(t):
+        r = news.get(t, {}); s = stats_by.get(t, {})
+        cons = CONSENSUS.get(r.get("consensus") or "none", esc(r.get("consensus")))
+        ana = (f"{cons}<small>{r['analysts']} analysts &middot; target {pct(r.get('upside'), 0)}</small>"
+               if r.get("analysts") else "&ndash;")
+        ch = (f"<span class='up'>&#9650;{r['upgrades_30d']}</span> <span class='dn'>&#9660;{r['downgrades_30d']}</span>"
+              if r.get("upgrades_30d") is not None else "&ndash;")
+        earn = (f"{esc(r['earnings'])}<small>in {r['earnings_in']} days</small>"
+                + (" <span class='tag hot'>soon</span>" if r["earnings_in"] <= 14 else "")) if r.get("earnings") else "&ndash;"
+        tags = " ".join(f"<span class='tag'>{esc(x)}</span>" for x in r.get("tags", [])) or "&ndash;"
+        short = pct(r.get("short_float"), 1).lstrip("+") if r.get("short_float") is not None else "&ndash;"
+        return (f"<tr><td><b>{esc(t)}</b><small>{esc(NAMES.get(t, t))}</small></td><td class='l'>{tone_badge(r.get('tone'), r.get('n'))}</td>"
+                f"<td class='l'>{ana}</td><td>{ch}</td><td class='l'>{earn}</td><td>{short}</td>"
+                f"<td class='{'up' if s.get('above50') else 'dn' if s.get('above50') is not None else ''}'>"
+                f"{'&#9650;' if s.get('above50') else '&#9660;' if s.get('above50') is not None else '&ndash;'}</td>"
+                f"<td class='l'>{tags}</td></tr>")
+
+    def card(t):
+        r = news.get(t, {}); hs = r.get("headlines") or []
+        if not hs:
+            return ""
+        items = "".join(
+            f"<li><a href='{esc(h['link'])}' target='_blank' rel='noopener nofollow'>{esc(h['title'])}</a>"
+            f"<small>{esc(h['source'])} &middot; {esc(h['published'][:10])}"
+            + "".join(f" <span class='tag'>{esc(x)}</span>" for x in h["tags"])
+            + (f" <span class='{'up' if h['tone'] > 0 else 'dn'}'>{h['tone']:+d}</span>" if h["tone"] else "") + "</small></li>"
+            for h in hs[:5])
+        acts = {"up": "upgraded to", "down": "downgraded to", "main": "kept at", "init": "started at", "reit": "reiterated"}
+        rc = "".join(f"<li class='rc'>{esc(c['date'])} &middot; {esc(c['firm'])}: {esc(acts.get(c['action'], c['action']))} {esc(c['to'])}"
+                     + (f" (target ${c['target']:,.0f})" if c.get("target") else "") + "</li>" for c in r.get("rating_changes", [])[:3])
+        return (f"<details class='news'><summary><b>{esc(t)}</b> {esc(NAMES.get(t, t))} {tone_badge(r.get('tone'), r.get('n'))}</summary>"
+                f"<ul>{items}{rc}</ul></details>")
+
+    order = sorted(news, key=lambda t: -(news[t].get("n") or 0) * abs(news[t].get("tone") or 0))
+    return f"""
+  <h2>News, sentiment and catalysts</h2>
+  <p class="sub">What could move each stock: the tone of the last 7 days of headlines, the analysts' view, recent rating changes, the next
+    earnings date and short interest. Updated {esc(state.get('news_updated', ''))}. Click a stock below for its latest headlines.</p>
+  <div class="panel"><table>
+    <tr><th>Stock</th><th class="l">News tone (7 days)</th><th class="l">Analysts</th><th>Ratings 30d</th><th class="l">Next earnings</th>
+      <th>Short % float</th><th>Trend</th><th class="l">In the news</th></tr>
+    {''.join(move_row(t) for t in wl.TICKERS)}
+  </table></div>
+  <div class="newsgrid">{''.join(card(t) for t in order)}</div>
+  <p class="note">News tone is a rough keyword count on headlines (+1 for words like "beats" or "upgrade", &minus;1 for words like "falls" or
+    "probe"), not a judgement of the story; headlines can mention other companies. Tags are keyword matches too. Analyst data and
+    earnings dates: Yahoo Finance. Headlines: Google News. None of this feeds the weekly call.</p>"""
+
+
 def pct(x, d=1):
     return "&ndash;" if x is None else f"{x * 100:+.{d}f}%"
 
@@ -178,6 +244,20 @@ th:first-child,td:first-child{{text-align:left}} td b{{color:var(--text)}} td sm
 tr.bm td{{background:rgba(79,172,254,.04)}} tr:last-child td{{border-bottom:none}}
 .up{{color:var(--green)}} .dn{{color:var(--red)}} .empty{{color:var(--muted);text-align:left}}
 .note{{font-size:.76rem;color:var(--muted);max-width:900px;margin-top:12px}}
+td.l,th.l{{text-align:left}}
+.tone{{font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px;background:rgba(255,255,255,.05);color:var(--muted);white-space:nowrap}}
+.tone.pos{{background:rgba(0,245,160,.1);color:var(--green)}} .tone.neg{{background:rgba(255,77,109,.1);color:var(--red)}} .tone.mix{{background:rgba(255,214,10,.08);color:var(--gold)}}
+.tag{{font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:6px;background:rgba(79,172,254,.1);color:var(--blue);white-space:nowrap}}
+.tag.hot{{background:rgba(255,154,61,.15);color:var(--orange)}}
+.newsgrid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:10px;margin-top:14px}}
+details.news{{background:var(--glass);border:1px solid var(--border);border-radius:14px;padding:12px 16px}}
+details.news summary{{cursor:pointer;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.82rem;color:var(--text2)}}
+details.news summary b{{color:var(--text)}} details.news summary small{{color:var(--muted);font-size:.66rem}}
+details.news ul{{list-style:none;margin-top:10px;display:grid;gap:9px}}
+details.news li a{{color:var(--text);text-decoration:none;font-size:.8rem}} details.news li a:hover{{text-decoration:underline}}
+details.news li small{{display:block;color:var(--muted);font-size:.66rem;margin-top:2px}}
+details.news li.rc{{font-size:.72rem;color:var(--text2)}}
+@media(max-width:700px){{.newsgrid{{grid-template-columns:1fr}}}}
 @media(max-width:700px){{.wrap{{padding:28px 16px 60px}}.header{{padding:16px}}.topnav{{padding:16px 16px 0}}h1{{font-size:1.6rem}}}}
 </style>
 </head>
@@ -209,6 +289,8 @@ tr.bm td{{background:rgba(79,172,254,.04)}} tr:last-child td{{border-bottom:none
     {''.join(stat_row(r) for r in order)}
   </table></div>
 
+  {news_section(state)}
+
   <h2>Graded weekly calls</h2>
   <div class="panel"><table>
     <tr><th>Week</th><th>Top 5</th><th>Top 5 return</th><th>Watchlist avg</th><th>SPY</th><th>vs watchlist</th></tr>
@@ -228,6 +310,9 @@ def main():
     px, vol = download()
     state["stats"] = stats(px, vol)
     weekly_calls(state, px)
+    print("  collecting news, analyst ratings and earnings dates ...")
+    state["news"] = news_feed.collect(wl.TICKERS)
+    state["news_updated"] = datetime.now(timezone.utc).strftime("%b %d, %Y %H:%M UTC")
     state["updated"] = datetime.now(timezone.utc).strftime("%b %d, %Y %H:%M UTC")
     state["record"] = record(list(state["calls"].values()))
     DATA.write_text(json.dumps(state, indent=1), encoding="utf-8")
