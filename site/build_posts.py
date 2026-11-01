@@ -29,7 +29,7 @@ SHORT = SITE.replace("https://", "").replace("http://", "").rstrip("/")
 KEEP_DAYS, CALL_DAYS = 14, 40
 # 3-day calls showed no reliable edge after costs (proof.html), so they are no longer posted.
 # They are still made and graded on the site; calls already posted still get their result post.
-POST_3D_UNTIL = "2026-10-29"
+POST_3D_UNTIL = "2026-11-01"
 TAG = {7: "#7DayCall", 3: "#3DayCall"}
 
 PINNED = f"""📌 How Ichnora works
