@@ -184,6 +184,7 @@ def main():
                 docs=url("api.html"))
     today = dict(meta, date=day,
                  market_light=light_block(data, day, data["predictions"][day]) if day else None,
+                 market_sentiment=trader_stats.market_sentiment(data["predictions"][day].get("regime")) if day else None,
                  calls_7d=call_block(data, 7), calls_3d=call_block(data, 3), rebound=rebound_block(rb))
     record = dict(meta, method="Buy the 10 picks in equal amounts at the call price, sell at the grading price, minus "
                                f"{trader_stats.COST:.1%} round-trip costs per coin. Bitcoin over the same days for comparison.")

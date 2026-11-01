@@ -7,6 +7,9 @@ For every top-200 coin on CoinMarketCap (stablecoins left out):
 
 Credits: listings ~2 + 92 days of history for ~200 coins ~185 per run.
 Runs in the daily GitHub Action after the trackers.
+
+--quick (every 4 hours, .github/workflows/coin-prices.yml): refresh only price, 24h / 7d / 30d change, market
+cap and volume from one listings call (~2 credits); history, scores and verdicts stay from the daily run.
 """
 import json, sys
 from datetime import datetime, timezone
@@ -31,7 +34,31 @@ def load(name, default=None):
         return default
 
 
+def quick():
+    """Every 4 hours: refresh prices and moves in the existing coins.json from one listings call."""
+    path = ROOT / "site" / "coins.json"
+    doc = load("site/coins.json")
+    if not doc:
+        print("coins.json not built yet; the daily run builds it first")
+        return
+    live = {c["cmc_id"]: c for c in cmc.listings(200)}
+    n = 0
+    for c in doc["coins"]:
+        x = live.get(c["cmc_id"])
+        if not x or not x.get("current_price"):
+            continue
+        c.update(price=sig(x["current_price"]), ch24=sig(x.get("price_change_percentage_24h"), 4),
+                 ch7=sig(x.get("price_change_percentage_7d_in_currency"), 4), ch30=sig(x.get("price_change_percentage_30d"), 4),
+                 mcap=sig(x.get("market_cap"), 4), vol24=sig(x.get("total_volume"), 4))
+        n += 1
+    doc["prices_at"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    path.write_text(json.dumps(doc, separators=(",", ":")), encoding="utf-8")
+    print(f"coins.json: refreshed prices for {n} coins at {doc['prices_at']}")
+
+
 def main():
+    if "--quick" in sys.argv:
+        return quick()
     data = load("prediction_data.json", {})
     preds = data.get("predictions", {})
     day = max(preds) if preds else None
@@ -61,8 +88,8 @@ def main():
             in7=c["id"] in in7, in3=c["id"] in in3, rebound=verdict.get(c["cmc_id"]),
             start=rows[0]["date"] if rows else None, closes=[sig(r["price"]) for r in rows]))
     light = trader_stats.light_for(data, day, today) if day else None
-    doc = dict(generated_at=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), call_date=day,
-               light=light, coins=out,
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    doc = dict(generated_at=now, prices_at=now, call_date=day, light=light, sentiment=trader_stats.market_sentiment(today.get("regime")), coins=out,
                note="closes are CoinMarketCap daily snapshots (00:00 UTC); score7 = model v2's chance (%) of finishing in the "
                     "week's top 10 of ~200 coins; 3-day calls are experimental. Not financial advice.")
     (ROOT / "site" / "coins.json").write_text(json.dumps(doc, separators=(",", ":")), encoding="utf-8")

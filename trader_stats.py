@@ -172,3 +172,13 @@ def review(data):
     else:
         status = "keep" if edge >= REVIEW["keep"] else "retire" if edge <= REVIEW["retire"] else "extend"
     return dict(out, status=status, edge=edge, drawdown=dd)
+
+
+def market_sentiment(regime):
+    """Market-wide sentiment: CoinMarketCap Fear & Greed (0-100) on the day of a call and 7 days earlier."""
+    if not regime or regime.get("fng") is None:
+        return None
+    v = regime["fng"]
+    label = ("Extreme fear" if v < 25 else "Fear" if v < 45 else "Neutral" if v <= 55 else "Greed" if v <= 75 else "Extreme greed")
+    return dict(fear_greed=v, fear_greed_7d_ago=regime.get("fng_7"), label=label, as_of=regime.get("date"),
+                source="CoinMarketCap Fear & Greed index (market-wide, not per coin)")

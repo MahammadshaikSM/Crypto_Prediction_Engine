@@ -1,0 +1,47 @@
+name: Coin prices every 4 hours
+
+# Refreshes prices and 24h / 7d / 30d moves in site/coins.json for the Coin Checker (~2 CMC credits a run).
+# History, odds, model scores and verdicts come from the daily run.
+on:
+  schedule:
+    - cron: '5 */4 * * *'   # every 4 hours at :05 (00:05, 04:05, 08:05 ... UTC)
+  workflow_dispatch:
+
+concurrency:
+  group: site-data        # shared with the daily run, so the two never push at the same time
+  cancel-in-progress: false
+
+jobs:
+  prices:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests numpy
+
+      - name: Refresh coin prices
+        run: python site/build_coins.py --quick
+        env:
+          CMC_API_KEY: ${{ secrets.CMC_API_KEY }}
+
+      - name: Commit and push
+        run: |
+          git config user.name  "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add site/coins.json 2>/dev/null || true
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: coin prices $(date -u +%Y-%m-%dT%H:%MZ)"
+            git pull --rebase origin master
+            git push
+          fi

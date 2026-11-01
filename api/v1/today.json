@@ -1,6 +1,6 @@
 {
  "api_version": "1.0",
- "generated_at": "2026-11-01T22:18:04Z",
+ "generated_at": "2026-11-01T22:50:55Z",
  "source": "CoinMarketCap",
  "disclaimer": "Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits.",
  "docs": "api.html",
@@ -18,6 +18,13 @@
    "backtest_avg_return_per_call_caution": 0.0189,
    "note": "Backtest edge is likely but not certain (about 90-94% bootstrap probability). Live split is in track-record.json and updates daily."
   }
+ },
+ "market_sentiment": {
+  "fear_greed": 36.0,
+  "fear_greed_7d_ago": 46.0,
+  "label": "Fear",
+  "as_of": "2026-10-31",
+  "source": "CoinMarketCap Fear & Greed index (market-wide, not per coin)"
  },
  "calls_7d": {
   "horizon_days": 7,

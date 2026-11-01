@@ -121,6 +121,7 @@
   <div class="wrap">
     <div class="who"><b>Ichnora</b><span>Data from <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">CoinMarketCap</a></span></div>
     <ol>
+      <li>Prices and 24h / 7d / 30d moves refresh every 4 hours. Price history, odds, model scores and verdicts refresh once a day with the daily run. Market sentiment is CoinMarketCap's Fear &amp; Greed index for the whole market.</li>
       <li>Target first / stop first: share of start days in the look-back period where the daily close reached your take-profit before your stop, within your window. "Neither" ends at the window's last close. Start days whose window hasn't finished and hasn't hit either level are left out.</li>
       <li>7-day model: Ichnora model v2's chance that the coin finishes in the week's top 10 of ~200 coins, and its rank today. 3-day calls are experimental. Rebound Radar verdicts are frozen on the day a coin was flagged.</li>
       <li>Personal research project. Not a broker, adviser or exchange. Nothing here is financial advice; crypto can lose all of its value.</li>
@@ -231,7 +232,12 @@ fetch("site/coins.json", { cache: "no-cache" }).then((r) => r.json()).then((d) =
   $("#coin-list").innerHTML = d.coins.map((c) => `<option value="${esc(c.symbol)} · ${esc(c.name)}">`).join("");
   const lt = d.light;
   if (lt) { const chip = $("#light-chip"); chip.textContent = `Market light ${lt.state === "trade" ? "TRADE" : "CAUTION"} · BTC ${lt.btc7 >= 0 ? "+" : ""}${Number(lt.btc7).toFixed(1)}% 7d`; }
-  $("#meta").innerHTML = `<span class="chip">Data ${esc(d.generated_at.slice(0, 10))}</span><span class="chip">${d.coins.length} coins</span>${d.call_date ? `<span class="chip">Model scores from the ${esc(d.call_date)} call</span>` : ""}`;
+  const at = (iso) => iso ? new Date(iso).toLocaleString("en-US", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }) : "–";
+  const se = d.sentiment;
+  $("#meta").innerHTML = `<span class="chip">Prices ${esc(at(d.prices_at || d.generated_at))}</span>`
+    + `<span class="chip">Odds &amp; scores ${esc(d.generated_at.slice(0, 10))}</span><span class="chip">${d.coins.length} coins</span>`
+    + (se ? `<span class="chip" title="CoinMarketCap Fear &amp; Greed, market-wide">Market sentiment <b>${esc(se.label)}</b> · ${esc(se.fear_greed)}/100${se.fear_greed_7d_ago != null ? ` (week ago ${esc(se.fear_greed_7d_ago)})` : ""}</span>` : "")
+    + (d.call_date ? `<span class="chip">Model scores from the ${esc(d.call_date)} call</span>` : "");
   const p = new URLSearchParams(location.search);
   for (const [k, id] of [["tp", "#tp"], ["sl", "#sl"], ["win", "#win"], ["look", "#look"]]) if (p.get(k)) $(id).value = p.get(k);
   const fromUrl = (p.get("c") || "").split(",").filter(Boolean), saved = (store.get("cc-sel") || "").split(",").filter(Boolean);
