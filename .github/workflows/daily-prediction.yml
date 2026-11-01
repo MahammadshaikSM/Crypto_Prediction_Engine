@@ -38,6 +38,12 @@ jobs:
       - name: Run stock prediction tracker
         run: python stock_tracker.py
 
+      - name: Coin Checker data (92 days of history for the top 200 + today's scores)
+        run: python site/build_coins.py
+        env:
+          CMC_API_KEY: ${{ secrets.CMC_API_KEY }}
+        continue-on-error: true
+
       - name: Stock watchlist (daily stats + experimental weekly call)
         run: python watchlist_tracker.py
         continue-on-error: true
@@ -96,6 +102,7 @@ jobs:
           git add site/forecast.json 2>/dev/null || true
           git add rebound_data.json rebound_dashboard.html 2>/dev/null || true
           git add watchlist_data.json watchlist.html 2>/dev/null || true
+          git add site/coins.json 2>/dev/null || true
           git add -A api llms.txt 2>/dev/null || true
           git add index.html proof.html 2>/dev/null || true   # today's values are baked into the homepage
           git add -A posts site/calls.json 2>/dev/null || true

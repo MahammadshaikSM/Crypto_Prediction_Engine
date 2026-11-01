@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coin Checker · Ichnora</title>
+<meta name="description" content="Pick any top-200 coin, set your take-profit and stop, and see how often it worked over the last 30 to 90 days, next to Ichnora's model score and Rebound Radar verdict.">
+<meta name="theme-color" content="#07070A">
+<link rel="icon" href="brand/ichnora/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="brand/ichnora/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="brand/ichnora/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site/style.css">
+<style>
+  .cc-h { font: 800 clamp(40px, 6vw, 72px)/.95 var(--display); letter-spacing: -.04em; margin-top: 14px; }
+  .cc-h em { font-style: normal; background: var(--brand-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .panel { margin-top: 26px; padding: 20px 22px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
+  .pick-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .pick-row input[type=search] { flex: 1 1 260px; min-height: 46px; padding: 0 16px; border-radius: 14px; border: 1px solid var(--line); background: #0B0B10; color: var(--fg); font: 500 16px var(--sans, Inter); }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .chip-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: #FFFFFF08; color: var(--fg-2); font: 600 13px var(--mono); cursor: pointer; }
+  .chip-btn.on { border-color: #D4FF3A88; color: var(--lime); }
+  .chip-btn img { width: 18px; height: 18px; border-radius: 50%; }
+  .chip-btn .x { opacity: .6; margin-left: 2px; }
+  .settings { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-top: 18px; }
+  .settings label { display: grid; gap: 6px; font: 600 12px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--fg-2); }
+  .settings input, .settings select { min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line); background: #0B0B10; color: var(--fg); font: 600 16px var(--mono); }
+  .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 14px; margin-top: 22px; }
+  .cc { padding: 18px 20px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); position: relative; }
+  .cc-top { display: flex; align-items: center; gap: 12px; }
+  .cc-top img { width: 38px; height: 38px; border-radius: 50%; background: #fff1; }
+  .cc-top b { font: 800 22px var(--display); display: block; line-height: 1; }
+  .cc-top span { font-size: 13px; color: var(--fg-2); }
+  .cc-top .px { margin-left: auto; text-align: right; font: 700 16px var(--mono); }
+  .cc-top .px small { display: block; font: 500 12px var(--mono); color: var(--fg-2); }
+  .rm { position: absolute; top: 10px; right: 12px; background: none; border: 0; color: var(--fg-2); cursor: pointer; font-size: 18px; }
+  .moves { display: flex; gap: 14px; margin-top: 12px; font: 600 13px var(--mono); color: var(--fg-2); }
+  .bracket { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+  .bk { border-radius: 14px; padding: 10px 12px; background: #FFFFFF06; border: 1px solid var(--line); }
+  .bk .k { font: 600 11px var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--fg-2); }
+  .bk .v { font: 800 26px var(--display); letter-spacing: -.02em; }
+  .bk.tp .v { color: var(--lime); } .bk.sl .v { color: #FF7A6B; }
+  .bar3 { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin-top: 10px; background: #FFFFFF10; }
+  .bar3 i { display: block; } .bar3 .a { background: var(--lime); } .bar3 .b { background: #FF7A6B; } .bar3 .c { background: #FFFFFF30; }
+  .line { font-size: 14px; color: var(--fg-2); margin-top: 10px; }
+  .line b { color: var(--fg); }
+  .sig { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); display: grid; gap: 6px; font-size: 14px; color: var(--fg-2); }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font: 700 11px var(--mono); letter-spacing: .04em; border: 1px solid; margin-right: 4px; }
+  .badge.g { color: var(--lime); border-color: #D4FF3A66; } .badge.o { color: #ff9a3d; border-color: #ff9a3d66; } .badge.r { color: #FF7A6B; border-color: #FF7A6B66; } .badge.n { color: var(--fg-2); border-color: var(--line); }
+  .spark { width: 100%; height: 44px; margin-top: 10px; }
+  .up { color: var(--lime); } .dn { color: #FF7A6B; }
+  .tbl { width: 100%; border-collapse: collapse; margin-top: 10px; font-variant-numeric: tabular-nums; font-size: 14px; }
+  .tbl th { text-align: right; font: 600 11px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--fg-2); padding: 10px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .tbl td { text-align: right; padding: 9px 8px; border-bottom: 1px solid #ffffff0a; color: var(--fg-2); white-space: nowrap; }
+  .tbl th:first-child, .tbl td:first-child { text-align: left; } .tbl td b { color: var(--fg); }
+  .tbl tr { cursor: pointer; } .tbl tr:hover td { background: #FFFFFF06; }
+  .tblwrap { overflow-x: auto; }
+  .warn { margin-top: 18px; padding: 14px 18px; border-radius: 14px; border: 1px solid #ff9a3d55; background: #ff9a3d0d; color: var(--fg-2); font-size: 14px; }
+  .warn b { color: #ffb27a; }
+  .empty { color: var(--fg-2); margin-top: 18px; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="ambient" aria-hidden="true"><i class="a"></i><i class="b"></i></div>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="./"><img class="brand-icon" src="brand/ichnora/icon.svg" alt="" width="34" height="34">ichnora</a>
+    <nav class="nav-links" aria-label="Primary"><a href="./#today">Today</a><a href="call.html">Calls</a><a href="coins.html" aria-current="page">Coin Checker</a><a href="proof.html">Proof</a><a href="rebound_dashboard.html">Rebound</a><a href="api.html">API</a></nav>
+    <a class="btn lime sm" href="prediction_dashboard.html">Live dashboard ↗</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="block" style="padding-top:56px">
+    <div class="wrap">
+      <span class="chip" id="light-chip">Coin Checker</span>
+      <h1 class="cc-h">Your coins. <em>Your target. The odds.</em></h1>
+      <p class="lede" style="margin-top:16px">Pick coins, set a take-profit and a stop, and see how often each one hit the target before the stop
+        over recent weeks, next to Ichnora's own view of it. History, not a promise.</p>
+
+      <div class="panel">
+        <div class="pick-row">
+          <label class="sr" for="q">Add a coin</label>
+          <input type="search" id="q" list="coin-list" placeholder="Type a coin: BTC, Solana, XPL…" autocomplete="off">
+          <datalist id="coin-list"></datalist>
+          <button class="btn lime sm" type="button" id="add">Add</button>
+          <button class="btn sm" type="button" id="clear">Clear</button>
+        </div>
+        <div class="chips" id="selected" aria-live="polite"></div>
+        <div class="settings">
+          <label>Take-profit (+%)<input type="number" id="tp" value="10" min="0.5" max="200" step="0.5"></label>
+          <label>Stop (−%)<input type="number" id="sl" value="3" min="0.5" max="90" step="0.5"></label>
+          <label>Within (days)<input type="number" id="win" value="7" min="1" max="30" step="1"></label>
+          <label>Look back<select id="look"><option value="30">30 days</option><option value="60" selected>60 days</option><option value="90">90 days</option></select></label>
+        </div>
+        <div class="meta" id="meta"></div>
+      </div>
+
+      <div class="cards" id="cards"></div>
+      <p class="empty" id="empty">Add one or more coins above, or click any row in the table below.</p>
+
+      <h2 class="title" style="margin-top:56px;font-size:clamp(28px,4vw,40px)">Every coin, <em>with your settings</em></h2>
+      <p class="intro">All ~190 coins ranked by how often they hit your take-profit before your stop in the look-back period. Click a row to add it.</p>
+      <div class="panel tblwrap"><table class="tbl" id="all">
+        <thead><tr><th>Coin</th><th>Target first</th><th>Stop first</th><th>Neither</th><th>Avg result</th><th>7-day model</th><th>Price</th><th>7d</th></tr></thead>
+        <tbody></tbody></table></div>
+
+      <div class="warn"><b>Read this before you trade.</b> Odds use one CoinMarketCap price per day (00:00 UTC). Crypto often swings more than 3%
+        within a day, so in real trading a tight stop is hit more often than shown here. A strong recent run (or crash) does not tend to repeat
+        on schedule. "Avg result" is before fees and funding. With leverage, multiply every loss: at 5&times; a 3% stop costs 15% of your margin.
+        Not financial advice.</div>
+    </div>
+  </section>
+</main>
+
+<footer class="legal">
+  <div class="wrap">
+    <div class="who"><b>Ichnora</b><span>Data from <a href="https://coinmarketcap.com/" target="_blank" rel="noopener">CoinMarketCap</a></span></div>
+    <ol>
+      <li>Target first / stop first: share of start days in the look-back period where the daily close reached your take-profit before your stop, within your window. "Neither" ends at the window's last close. Start days whose window hasn't finished and hasn't hit either level are left out.</li>
+      <li>7-day model: Ichnora model v2's chance that the coin finishes in the week's top 10 of ~200 coins, and its rank today. 3-day calls are experimental. Rebound Radar verdicts are frozen on the day a coin was flagged.</li>
+      <li>Personal research project. Not a broker, adviser or exchange. Nothing here is financial advice; crypto can lose all of its value.</li>
+    </ol>
+  </div>
+</footer>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const pct = (x, d = 0, sign = false) => x == null || !isFinite(x) ? "–" : (sign && x > 0 ? "+" : "") + (x * 100).toFixed(d) + "%";
+const chg = (v) => v == null ? '<span>–</span>' : `<span class="${v > 0 ? "up" : v < 0 ? "dn" : ""}">${v > 0 ? "+" : ""}${Number(v).toFixed(1)}%</span>`;
+const money = (p) => p == null ? "–" : p >= 1000 ? "$" + p.toLocaleString("en-US", { maximumFractionDigits: 0 }) : p >= 1 ? "$" + p.toFixed(2) : "$" + Number(p.toPrecision(4));
+const store = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+const VERDICT = { comeback: ["Comeback candidate", "g"], watch: ["Watching", "o"], unlikely: ["Unlikely to recover", "r"] };
+let DATA = null, BY = {}, sel = [];
+
+function bracket(closes, tp, sl, win, look) {
+  const c = closes.filter((x) => x != null && x > 0), n = c.length, start = Math.max(0, n - 1 - look);
+  let up = 0, dn = 0, none = 0, sum = 0, cnt = 0;
+  for (let i = start; i < n - 1; i++) {
+    let res = null, end = null;
+    for (let j = i + 1; j <= Math.min(i + win, n - 1); j++) {
+      const r = c[j] / c[i] - 1;
+      if (r >= tp) { res = "up"; break; }
+      if (r <= -sl) { res = "dn"; break; }
+      end = r;
+    }
+    if (!res && i + win > n - 1) continue;            // window not finished yet
+    cnt++;
+    if (res === "up") { up++; sum += tp; } else if (res === "dn") { dn++; sum -= sl; } else { none++; sum += end ?? 0; }
+  }
+  return cnt ? { up: up / cnt, dn: dn / cnt, none: none / cnt, avg: sum / cnt, n: cnt } : null;
+}
+
+function settings() {
+  const v = (id, d) => { const x = parseFloat($(id).value); return isFinite(x) && x > 0 ? x : d; };
+  return { tp: v("#tp", 10) / 100, sl: v("#sl", 3) / 100, win: Math.round(v("#win", 7)), look: parseInt($("#look").value, 10) };
+}
+
+function spark(closes) {
+  const c = closes.filter((x) => x != null), lo = Math.min(...c), hi = Math.max(...c), W = 300, H = 44;
+  if (c.length < 2 || hi <= lo) return "";
+  const pts = c.map((v, i) => `${(i / (c.length - 1) * W).toFixed(1)},${(H - 3 - (v - lo) / (hi - lo) * (H - 6)).toFixed(1)}`).join(" ");
+  const col = c[c.length - 1] >= c[0] ? "#D4FF3A" : "#FF7A6B";
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="${col}" stroke-width="2" points="${pts}"/></svg>`;
+}
+
+function signals(c) {
+  const out = [];
+  if (c.score7 != null) out.push(`7-day model: <b>${Number(c.score7).toFixed(0)}%</b> chance of a top-10 finish this week · rank <b>${c.rank7}</b> of ${c.ranked}`);
+  else out.push("7-day model: not scored today");
+  const b = [];
+  if (c.in7) b.push('<span class="badge g">In today\'s 7-day call</span>');
+  if (c.in3) b.push('<span class="badge o">In 3-day call (experimental)</span>');
+  if (c.rebound) { const [t, k] = VERDICT[c.rebound.verdict] || [c.rebound.verdict, "n"]; b.push(`<span class="badge ${k}">Rebound Radar: ${esc(t)}</span>`); }
+  if (b.length) out.push(b.join(""));
+  return out.map((x) => `<div>${x}</div>`).join("");
+}
+
+function card(c, s) {
+  const r = bracket(c.closes, s.tp, s.sl, s.win, s.look), base = s.sl / (s.tp + s.sl);
+  const bk = r ? `<div class="bracket">
+      <div class="bk tp"><div class="k">+${(s.tp * 100).toFixed(1).replace(".0", "")}% first</div><div class="v">${pct(r.up)}</div></div>
+      <div class="bk sl"><div class="k">−${(s.sl * 100).toFixed(1).replace(".0", "")}% first</div><div class="v">${pct(r.dn)}</div></div>
+      <div class="bk"><div class="k">Neither</div><div class="v">${pct(r.none)}</div></div></div>
+    <div class="bar3" aria-hidden="true"><i class="a" style="width:${r.up * 100}%"></i><i class="b" style="width:${r.dn * 100}%"></i><i class="c" style="width:${r.none * 100}%"></i></div>
+    <p class="line">Average result per trade: <b class="${r.avg >= 0 ? "up" : "dn"}">${pct(r.avg, 1, true)}</b> before fees · ${r.n} start days ·
+      a coin moving at random would hit the target first about <b>${pct(base)}</b> of the time</p>`
+    : `<p class="line">Not enough history for these settings.</p>`;
+  return `<article class="cc"><button class="rm" type="button" data-rm="${esc(c.id)}" aria-label="Remove ${esc(c.symbol)}">×</button>
+    <div class="cc-top"><img src="${esc(c.image)}" alt="" loading="lazy" referrerpolicy="no-referrer"><div><b>${esc(c.symbol)}</b><span>${esc(c.name)}</span></div>
+      <div class="px">${money(c.price)}<small>market cap ${c.mcap ? "$" + (c.mcap / 1e9).toFixed(2) + "B" : "–"}</small></div></div>
+    <div class="moves"><span>24h ${chg(c.ch24)}</span><span>7d ${chg(c.ch7)}</span><span>30d ${chg(c.ch30)}</span></div>
+    ${spark(c.closes)}${bk}<div class="sig">${signals(c)}</div></article>`;
+}
+
+function render() {
+  const s = settings();
+  $("#cards").innerHTML = sel.map((id) => BY[id]).filter(Boolean).map((c) => card(c, s)).join("");
+  $("#empty").style.display = sel.length ? "none" : "";
+  $("#selected").innerHTML = sel.map((id) => BY[id]).filter(Boolean).map((c) =>
+    `<button class="chip-btn on" type="button" data-rm="${esc(c.id)}"><img src="${esc(c.image)}" alt="" referrerpolicy="no-referrer">${esc(c.symbol)}<span class="x" aria-hidden="true">×</span><span class="sr">remove</span></button>`).join("");
+  const rows = DATA.coins.map((c) => ({ c, r: bracket(c.closes, s.tp, s.sl, s.win, s.look) })).filter((x) => x.r)
+    .sort((a, b) => b.r.up - a.r.up || a.r.dn - b.r.dn);
+  $("#all tbody").innerHTML = rows.map(({ c, r }) => `<tr data-add="${esc(c.id)}"><td><b>${esc(c.symbol)}</b> <span style="color:var(--fg-2)">${esc(c.name)}</span></td>
+    <td class="up">${pct(r.up)}</td><td class="dn">${pct(r.dn)}</td><td>${pct(r.none)}</td><td class="${r.avg >= 0 ? "up" : "dn"}">${pct(r.avg, 1, true)}</td>
+    <td>${c.score7 != null ? Number(c.score7).toFixed(0) + "%" : "–"}</td><td>${money(c.price)}</td><td>${chg(c.ch7)}</td></tr>`).join("");
+  const q = new URLSearchParams({ c: sel.map((id) => BY[id]?.symbol).filter(Boolean).join(","), tp: s.tp * 100, sl: s.sl * 100, win: s.win, look: s.look });
+  history.replaceState(null, "", "?" + q.toString());
+  store.set("cc-sel", sel.join(","));
+}
+
+function add(token) {
+  const t = String(token || "").trim().toLowerCase(); if (!t) return;
+  const c = DATA.coins.find((x) => x.symbol.toLowerCase() === t || x.id === t || x.name.toLowerCase() === t)
+    || DATA.coins.find((x) => (x.symbol + " · " + x.name).toLowerCase() === t)
+    || DATA.coins.find((x) => x.name.toLowerCase().startsWith(t) || x.symbol.toLowerCase().startsWith(t));
+  if (!c) { $("#q").setCustomValidity(`"${token}" isn't in today's top 200`); $("#q").reportValidity(); return; }
+  $("#q").setCustomValidity("");
+  if (!sel.includes(c.id)) sel.push(c.id);
+  $("#q").value = ""; render();
+}
+
+fetch("site/coins.json", { cache: "no-cache" }).then((r) => r.json()).then((d) => {
+  DATA = d; d.coins.forEach((c) => { BY[c.id] = c; });
+  $("#coin-list").innerHTML = d.coins.map((c) => `<option value="${esc(c.symbol)} · ${esc(c.name)}">`).join("");
+  const lt = d.light;
+  if (lt) { const chip = $("#light-chip"); chip.textContent = `Market light ${lt.state === "trade" ? "TRADE" : "CAUTION"} · BTC ${lt.btc7 >= 0 ? "+" : ""}${Number(lt.btc7).toFixed(1)}% 7d`; }
+  $("#meta").innerHTML = `<span class="chip">Data ${esc(d.generated_at.slice(0, 10))}</span><span class="chip">${d.coins.length} coins</span>${d.call_date ? `<span class="chip">Model scores from the ${esc(d.call_date)} call</span>` : ""}`;
+  const p = new URLSearchParams(location.search);
+  for (const [k, id] of [["tp", "#tp"], ["sl", "#sl"], ["win", "#win"], ["look", "#look"]]) if (p.get(k)) $(id).value = p.get(k);
+  const fromUrl = (p.get("c") || "").split(",").filter(Boolean), saved = (store.get("cc-sel") || "").split(",").filter(Boolean);
+  if (fromUrl.length) fromUrl.forEach((s) => add(s)); else if (saved.length) { sel = saved.filter((id) => BY[id]); render(); } else { ["BTC", "ETH", "SOL"].forEach((s) => add(s)); }
+}).catch(() => { $("#cards").innerHTML = '<p class="empty">Coin data is not available right now. It refreshes with the daily update.</p>'; });
+
+$("#add").addEventListener("click", () => add($("#q").value.split(" · ")[0]));
+$("#q").addEventListener("keydown", (e) => { if (e.key === "Enter") add($("#q").value.split(" · ")[0]); });
+$("#q").addEventListener("change", () => { if ($("#q").value.includes(" · ")) add($("#q").value.split(" · ")[0]); });
+$("#clear").addEventListener("click", () => { sel = []; render(); });
+["#tp", "#sl", "#win", "#look"].forEach((id) => $(id).addEventListener("input", () => DATA && render()));
+document.addEventListener("click", (e) => {
+  const rm = e.target.closest("[data-rm]"); if (rm) { sel = sel.filter((x) => x !== rm.dataset.rm); render(); return; }
+  const ad = e.target.closest("[data-add]"); if (ad && !sel.includes(ad.dataset.add)) { sel.push(ad.dataset.add); render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+});
+})();
+</script>
+</body>
+</html>
