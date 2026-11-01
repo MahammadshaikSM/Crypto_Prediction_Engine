@@ -439,6 +439,7 @@ a { color:inherit; text-decoration:none }
 <div class="tab-nav">
   <a href="prediction_dashboard.html" class="tab-btn">&#128640; Crypto</a>
   <a href="stock_dashboard.html" class="tab-btn active">&#128200; Stocks</a>
+  <a href="watchlist.html" class="tab-btn">&#11088; Watchlist</a>
 </div>
 
 <div class="header">

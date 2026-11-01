@@ -38,6 +38,10 @@ jobs:
       - name: Run stock prediction tracker
         run: python stock_tracker.py
 
+      - name: Stock watchlist (daily stats + experimental weekly call)
+        run: python watchlist_tracker.py
+        continue-on-error: true
+
       - name: Build landing page data
         run: python site/build_summary.py
 
@@ -91,6 +95,7 @@ jobs:
                   site/summary.json site/history.json
           git add site/forecast.json 2>/dev/null || true
           git add rebound_data.json rebound_dashboard.html 2>/dev/null || true
+          git add watchlist_data.json watchlist.html 2>/dev/null || true
           git add -A api llms.txt 2>/dev/null || true
           git add index.html proof.html 2>/dev/null || true   # today's values are baked into the homepage
           git add -A posts site/calls.json 2>/dev/null || true

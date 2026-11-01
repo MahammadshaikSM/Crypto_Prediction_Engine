@@ -127,6 +127,8 @@ def openapi():
                                              "Average return per call after 0.3% costs, win rates, Bitcoin over the same days, split by market light, plus the held-out backtest."),
             "/api/v1/rebound.json": get("Rebound Radar",
                                         "Every top-200 coin down 25%+ in 30 days with its comeback verdict, tracked coins and the graded scorecard."),
+            "/api/v1/watchlist.json": get("Stock watchlist",
+                                          "23 US stocks also traded as crypto perpetuals: daily stats, the experimental weekly top-5 call and its graded record."),
             "/api/v1/calls.json": get("Recent calls", "Recent 7-day and 3-day calls with entry prices, latest prices, grades and basket return vs Bitcoin."),
         },
     }
@@ -160,6 +162,7 @@ def llms_txt(today):
 - [track-record.json]({url('api/v1/track-record.json')}): returns after costs vs Bitcoin, by market light, plus backtest
 - [rebound.json]({url('api/v1/rebound.json')}): coins down 25%+ in 30 days, comeback verdicts, scorecard
 - [calls.json]({url('api/v1/calls.json')}): recent calls with grades
+- [watchlist.json]({url('api/v1/watchlist.json')}): 23 stocks also traded as crypto perpetuals, with an experimental weekly call
 - [openapi.json]({url('api/openapi.json')}): OpenAPI 3.1 description
 
 ## Pages for people
@@ -199,6 +202,12 @@ def main():
     dump(V1 / "track-record.json", record)
     dump(V1 / "rebound.json", dict(meta, **(rebound_block(rb, full=True) or {})))
     dump(V1 / "calls.json", dict(meta, calls=calls.get("calls", calls if isinstance(calls, list) else [])))
+    wl = load("watchlist_data.json")
+    if wl:
+        latest = wl["calls"][max(wl["calls"])] if wl.get("calls") else None
+        dump(V1 / "watchlist.json", dict(meta, status="experimental: the weekly rule showed no proven edge in testing",
+                                         stats=wl.get("stats"), this_week=latest, record=wl.get("record"),
+                                         graded=[c for c in wl.get("calls", {}).values() if c.get("graded")]))
     dump(API / "openapi.json", openapi())
     (ROOT / "llms.txt").write_text(llms_txt(today), encoding="utf-8")
     print(f"api: today.json ({day}), track-record.json, rebound.json, calls.json, openapi.json, llms.txt")

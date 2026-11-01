@@ -799,6 +799,7 @@ body{background:var(--void);color:var(--text);font-family:var(--font);line-heigh
 <div style="display:flex;gap:8px;padding:20px 32px 0;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(6,13,31,0.95);position:sticky;top:0;z-index:100">
   <a href="prediction_dashboard.html" style="padding:10px 24px;border-radius:10px 10px 0 0;font-size:.85rem;font-weight:600;letter-spacing:.04em;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-bottom:1px solid #060d1f;color:#e8eaf6;text-decoration:none">&#128640; Crypto</a>
   <a href="stock_dashboard.html" style="padding:10px 24px;border-radius:10px 10px 0 0;font-size:.85rem;font-weight:600;letter-spacing:.04em;color:#8b9cc8;text-decoration:none">&#128200; Stocks</a>
+  <a href="watchlist.html" style="padding:10px 24px;border-radius:10px 10px 0 0;font-size:.85rem;font-weight:600;letter-spacing:.04em;color:#8b9cc8;text-decoration:none">&#11088; Watchlist</a>
 </div>
 <header class="header">
   <img class="logo-mark" src="brand/ichnora/icon.svg" alt="" width="36" height="36">

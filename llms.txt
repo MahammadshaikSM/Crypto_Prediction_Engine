@@ -24,6 +24,7 @@ Research data from a public experiment, not financial advice. Crypto is volatile
 - [track-record.json](api/v1/track-record.json): returns after costs vs Bitcoin, by market light, plus backtest
 - [rebound.json](api/v1/rebound.json): coins down 25%+ in 30 days, comeback verdicts, scorecard
 - [calls.json](api/v1/calls.json): recent calls with grades
+- [watchlist.json](api/v1/watchlist.json): 23 stocks also traded as crypto perpetuals, with an experimental weekly call
 - [openapi.json](api/openapi.json): OpenAPI 3.1 description
 
 ## Pages for people

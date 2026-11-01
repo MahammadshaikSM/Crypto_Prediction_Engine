@@ -308,7 +308,7 @@ tr:last-child td{{border-bottom:none}}
 </style>
 </head>
 <body>
-<div class="topnav"><a class="on" href="prediction_dashboard.html">&#128640; Crypto</a><a href="stock_dashboard.html">&#128200; Stocks</a></div>
+<div class="topnav"><a class="on" href="prediction_dashboard.html">&#128640; Crypto</a><a href="stock_dashboard.html">&#128200; Stocks</a><a href="watchlist.html">&#11088; Watchlist</a></div>
 <header class="header">
   <img class="logo-mark" src="brand/ichnora/icon.svg" alt="" width="36" height="36">
   <div><div class="logo-name">ichnora</div><div class="logo-sub">Every call leaves a footprint</div></div>

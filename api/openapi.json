@@ -53,6 +53,20 @@
     }
    }
   },
+  "/api/v1/watchlist.json": {
+   "get": {
+    "summary": "Stock watchlist",
+    "description": "23 US stocks also traded as crypto perpetuals: daily stats, the experimental weekly top-5 call and its graded record.",
+    "responses": {
+     "200": {
+      "description": "JSON document",
+      "content": {
+       "application/json": {}
+      }
+     }
+    }
+   }
+  },
   "/api/v1/calls.json": {
    "get": {
     "summary": "Recent calls",
