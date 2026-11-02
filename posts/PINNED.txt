@@ -2,13 +2,14 @@
 
 Ichnora (from Greek íchnos, "track"): every call leaves a footprint.
 
-Every day we publish 10 coins for 3 days and 10 for 7 days.
+Every day we publish 10 coins for the next 7 days.
 Each call shows the start and end date. On the end date we post the results, good or bad.
 
 • Prices are locked at pick time
-• Every call is graded in public: wins and misses
+• Every call is graded in public: wins and misses, after costs, against the whole market
 • Every call and its result stays public
+• Hold all 10 in equal size: the edge comes from a few big winners, not from single picks
 
 Follow for a new call every day and every result.
-#Ichnora #3DayCall #7DayCall
+#Ichnora #7DayCall
 Not financial advice. Crypto is volatile and you can lose money.

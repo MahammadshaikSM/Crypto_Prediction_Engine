@@ -125,6 +125,22 @@
     "4_result_3d_2026-10-29",
     "4_result_7d_2026-10-25"
    ]
+  },
+  "2026-11-02": {
+   "telegram_me": [
+    "1_call_7d",
+    "3_update_3d_2026-10-31",
+    "3_update_7d_2026-10-27",
+    "4_result_3d_2026-10-30",
+    "4_result_7d_2026-10-26"
+   ],
+   "telegram_channel": [
+    "1_call_7d",
+    "3_update_3d_2026-10-31",
+    "3_update_7d_2026-10-27",
+    "4_result_3d_2026-10-30",
+    "4_result_7d_2026-10-26"
+   ]
   }
  },
  "calls": {
@@ -199,6 +215,10 @@
   "3d_2026-11-01": {
    "telegram_me": 43,
    "telegram_channel": 33
+  },
+  "7d_2026-11-02": {
+   "telegram_me": 49,
+   "telegram_channel": 38
   }
  }
 }
