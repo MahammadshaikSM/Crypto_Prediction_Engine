@@ -1,17 +1,50 @@
 name: Daily Crypto & Stock Prediction
 
 on:
+  # The on-time trigger is an outside scheduler (cron-job.org) calling workflow_dispatch at 11:30 UTC.
+  # GitHub's own schedule stays as a backup; it often starts hours late, and skips itself (job "check")
+  # when today's call already exists.
   schedule:
     # 11:30 AM UTC = 5:00 PM IST (India) daily
     - cron: '30 11 * * *'
-  workflow_dispatch:  # lets you trigger manually from GitHub Actions tab
+  workflow_dispatch:  # lets you (or the outside scheduler) trigger it from the Actions tab or the API
+    inputs:
+      diagnose:
+        description: "Also run the model v2 diagnostic (uses ~70 extra CMC credits)"
+        type: boolean
+        default: false
 
 concurrency:
   group: site-data    # shared with the 4-hourly price refresh, so the two never push at the same time
   cancel-in-progress: false
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      needed: ${{ steps.today.outputs.needed }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Has today's run already happened?
+        id: today
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          python - >> "$GITHUB_OUTPUT" <<'EOF'
+          import json, os
+          from datetime import datetime, timezone
+          today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+          done = today in json.load(open("prediction_data.json", encoding="utf-8")).get("predictions", {})
+          skip = os.environ["EVENT"] == "schedule" and done   # manual and outside-scheduler runs always run
+          print("needed=" + ("false" if skip else "true"))
+          EOF
+          cat "$GITHUB_OUTPUT"
+
   predict:
+    needs: check
+    if: needs.check.outputs.needed == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: write   # needed to commit results back to repo
@@ -77,8 +110,8 @@ jobs:
         run: python site/build_proof.py
         continue-on-error: true
 
-      - name: Diagnose model v2 (manual runs only; writes posts/diag_v2.json)
-        if: github.event_name == 'workflow_dispatch'
+      - name: Diagnose model v2 (only when asked; writes posts/diag_v2.json)
+        if: github.event_name == 'workflow_dispatch' && inputs.diagnose
         run: python diag_v2.py
         env:
           CMC_API_KEY: ${{ secrets.CMC_API_KEY }}

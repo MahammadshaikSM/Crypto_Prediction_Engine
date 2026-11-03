@@ -11,7 +11,7 @@ Runs in the daily GitHub Action after the trackers.
 --quick (every 4 hours, .github/workflows/coin-prices.yml): refresh only price, 24h / 7d / 30d change, market
 cap and volume from one listings call (~2 credits); history, scores and verdicts stay from the daily run.
 """
-import json, sys
+import json, os, sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -41,6 +41,12 @@ def quick():
     if not doc:
         print("coins.json not built yet; the daily run builds it first")
         return
+    if os.environ.get("GITHUB_EVENT_NAME") == "schedule" and doc.get("prices_at"):
+        # GitHub's own (often late) schedule backs up the outside scheduler: skip if prices are fresh
+        age = datetime.now(timezone.utc) - datetime.fromisoformat(doc["prices_at"].replace("Z", "+00:00"))
+        if age.total_seconds() < 90 * 60:
+            print(f"prices refreshed {age.total_seconds() / 60:.0f} minutes ago; skipping")
+            return
     live = {c["cmc_id"]: c for c in cmc.listings(200)}
     n = 0
     for c in doc["coins"]:
