@@ -1,10 +1,250 @@
 {
  "api_version": "1.0",
- "generated_at": "2026-11-05T11:32:33Z",
+ "generated_at": "2026-11-06T11:32:41Z",
  "source": "CoinMarketCap",
  "disclaimer": "Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits.",
  "docs": "api.html",
  "calls": [
+  {
+   "date": "2026-11-06",
+   "end": "2026-11-09",
+   "horizon": 3,
+   "model": "3d-tuned",
+   "status": "open",
+   "graded_on": null,
+   "hits": null,
+   "up": null,
+   "actual_top10": [],
+   "picks": [
+    {
+     "rank": 1,
+     "symbol": "PIEVERSE",
+     "name": "Pieverse",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38849.png",
+     "start": 1.3997682969904701,
+     "now": 1.3997682969904701,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 2,
+     "symbol": "CAP",
+     "name": "Cap",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png",
+     "start": 0.10149157228944647,
+     "now": 0.10149157228944647,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 3,
+     "symbol": "RED",
+     "name": "RedStone",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/21707.png",
+     "start": 0.15283740322831754,
+     "now": 0.15283740322831754,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 4,
+     "symbol": "LIT",
+     "name": "Lighter",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39125.png",
+     "start": 3.4412568218155557,
+     "now": 3.4412568218155557,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 5,
+     "symbol": "FLUID",
+     "name": "Fluid",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/10508.png",
+     "start": 2.306668554987636,
+     "now": 2.306668554987636,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 6,
+     "symbol": "STX",
+     "name": "Stacks",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4847.png",
+     "start": 0.3361544804371443,
+     "now": 0.3361544804371443,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 7,
+     "symbol": "TEL",
+     "name": "Telcoin",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/2394.png",
+     "start": 0.0016083623776080274,
+     "now": 0.0016083623776080274,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 8,
+     "symbol": "RSR",
+     "name": "Reserve Rights",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/3964.png",
+     "start": 0.0015463477305261335,
+     "now": 0.0015463477305261335,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 9,
+     "symbol": "INJ",
+     "name": "Injective",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/7226.png",
+     "start": 8.221749137635873,
+     "now": 8.221749137635873,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 10,
+     "symbol": "RAY",
+     "name": "Raydium",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/8526.png",
+     "start": 1.7818588798121717,
+     "now": 1.7818588798121717,
+     "change": 0.0,
+     "hit": null
+    }
+   ],
+   "light": {
+    "state": "caution",
+    "btc7": -2.32,
+    "as_of": "2026-11-06"
+   },
+   "basket": null,
+   "btc": null
+  },
+  {
+   "date": "2026-11-06",
+   "end": "2026-11-13",
+   "horizon": 7,
+   "model": "v2",
+   "status": "open",
+   "graded_on": null,
+   "hits": null,
+   "up": null,
+   "actual_top10": [],
+   "picks": [
+    {
+     "rank": 1,
+     "symbol": "CAP",
+     "name": "Cap",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png",
+     "start": 0.10149157228944647,
+     "now": 0.10149157228944647,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 2,
+     "symbol": "TEL",
+     "name": "Telcoin",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/2394.png",
+     "start": 0.0016083623776080274,
+     "now": 0.0016083623776080274,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 3,
+     "symbol": "FLUID",
+     "name": "Fluid",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/10508.png",
+     "start": 2.306668554987636,
+     "now": 2.306668554987636,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 4,
+     "symbol": "AWE",
+     "name": "AWE",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4006.png",
+     "start": 0.062225823595959295,
+     "now": 0.062225823595959295,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 5,
+     "symbol": "SOON",
+     "name": "SOON",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/36542.png",
+     "start": 0.26241261084148426,
+     "now": 0.26241261084148426,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 6,
+     "symbol": "BEAM",
+     "name": "Beam",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
+     "start": 0.0041470822407030025,
+     "now": 0.0041470822407030025,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 7,
+     "symbol": "STX",
+     "name": "Stacks",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4847.png",
+     "start": 0.3361544804371443,
+     "now": 0.3361544804371443,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 8,
+     "symbol": "RUNE",
+     "name": "THORChain",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4157.png",
+     "start": 0.5861816324708652,
+     "now": 0.5861816324708652,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 9,
+     "symbol": "TRUMP",
+     "name": "OFFICIAL TRUMP",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/35336.png",
+     "start": 1.214686528385692,
+     "now": 1.214686528385692,
+     "change": 0.0,
+     "hit": null
+    },
+    {
+     "rank": 10,
+     "symbol": "CASHCAT",
+     "name": "Cash Cat",
+     "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40809.png",
+     "start": 0.0950821033164332,
+     "now": 0.0950821033164332,
+     "change": 0.0,
+     "hit": null
+    }
+   ],
+   "light": {
+    "state": "caution",
+    "btc7": -2.32,
+    "as_of": "2026-11-06"
+   },
+   "basket": null,
+   "btc": null
+  },
   {
    "date": "2026-11-05",
    "end": "2026-11-08",
@@ -22,8 +262,8 @@
      "name": "Cap",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png",
      "start": 0.09757968652942037,
-     "now": 0.09757968652942037,
-     "change": 0.0,
+     "now": 0.10149157228944647,
+     "change": 4.01,
      "hit": null
     },
     {
@@ -32,8 +272,8 @@
      "name": "Fluid",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/10508.png",
      "start": 2.661279238770022,
-     "now": 2.661279238770022,
-     "change": 0.0,
+     "now": 2.306668554987636,
+     "change": -13.32,
      "hit": null
     },
     {
@@ -42,8 +282,8 @@
      "name": "Beam",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
      "start": 0.004396856547120446,
-     "now": 0.004396856547120446,
-     "change": 0.0,
+     "now": 0.0041470822407030025,
+     "change": -5.68,
      "hit": null
     },
     {
@@ -52,8 +292,8 @@
      "name": "Pieverse",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38849.png",
      "start": 1.3109710816388593,
-     "now": 1.3109710816388593,
-     "change": 0.0,
+     "now": 1.3997682969904701,
+     "change": 6.77,
      "hit": null
     },
     {
@@ -62,8 +302,8 @@
      "name": "Stacks",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4847.png",
      "start": 0.34367595928604217,
-     "now": 0.34367595928604217,
-     "change": 0.0,
+     "now": 0.3361544804371443,
+     "change": -2.19,
      "hit": null
     },
     {
@@ -72,8 +312,8 @@
      "name": "Lighter",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39125.png",
      "start": 3.422884328181931,
-     "now": 3.422884328181931,
-     "change": 0.0,
+     "now": 3.4412568218155557,
+     "change": 0.54,
      "hit": null
     },
     {
@@ -82,8 +322,8 @@
      "name": "Tezos",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/2011.png",
      "start": 0.2968980465998092,
-     "now": 0.2968980465998092,
-     "change": 0.0,
+     "now": 0.25377567563045306,
+     "change": -14.52,
      "hit": null
     },
     {
@@ -92,8 +332,8 @@
      "name": "Injective",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/7226.png",
      "start": 8.424445869067481,
-     "now": 8.424445869067481,
-     "change": 0.0,
+     "now": 8.221749137635873,
+     "change": -2.41,
      "hit": null
     },
     {
@@ -102,8 +342,8 @@
      "name": "SuperVerse",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/8290.png",
      "start": 0.1870306345488552,
-     "now": 0.1870306345488552,
-     "change": 0.0,
+     "now": 0.17317698277836194,
+     "change": -7.41,
      "hit": null
     },
     {
@@ -112,8 +352,8 @@
      "name": "Midnight",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39064.png",
      "start": 0.04157266859713705,
-     "now": 0.04157266859713705,
-     "change": 0.0,
+     "now": 0.039333516096739234,
+     "change": -5.39,
      "hit": null
     }
    ],
@@ -142,8 +382,8 @@
      "name": "Cap",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png",
      "start": 0.09757968652942037,
-     "now": 0.09757968652942037,
-     "change": 0.0,
+     "now": 0.10149157228944647,
+     "change": 4.01,
      "hit": null
     },
     {
@@ -152,8 +392,8 @@
      "name": "AWE",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4006.png",
      "start": 0.06829548623781642,
-     "now": 0.06829548623781642,
-     "change": 0.0,
+     "now": 0.062225823595959295,
+     "change": -8.89,
      "hit": null
     },
     {
@@ -162,8 +402,8 @@
      "name": "Meteora",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38353.png",
      "start": 0.2932632507857071,
-     "now": 0.2932632507857071,
-     "change": 0.0,
+     "now": 0.2750297501957908,
+     "change": -6.22,
      "hit": null
     },
     {
@@ -172,8 +412,8 @@
      "name": "Beam",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
      "start": 0.004396856547120446,
-     "now": 0.004396856547120446,
-     "change": 0.0,
+     "now": 0.0041470822407030025,
+     "change": -5.68,
      "hit": null
     },
     {
@@ -182,8 +422,8 @@
      "name": "Cash Cat",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40809.png",
      "start": 0.10427217228599245,
-     "now": 0.10427217228599245,
-     "change": 0.0,
+     "now": 0.0950821033164332,
+     "change": -8.81,
      "hit": null
     },
     {
@@ -192,8 +432,8 @@
      "name": "THORChain",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4157.png",
      "start": 0.6425045986005159,
-     "now": 0.6425045986005159,
-     "change": 0.0,
+     "now": 0.5861816324708652,
+     "change": -8.77,
      "hit": null
     },
     {
@@ -202,8 +442,8 @@
      "name": "Tagger",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/34958.png",
      "start": 0.0007659170952523098,
-     "now": 0.0007659170952523098,
-     "change": 0.0,
+     "now": null,
+     "change": null,
      "hit": null
     },
     {
@@ -212,8 +452,8 @@
      "name": "RedStone",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/21707.png",
      "start": 0.14810591307073007,
-     "now": 0.14810591307073007,
-     "change": 0.0,
+     "now": 0.15283740322831754,
+     "change": 3.19,
      "hit": null
     },
     {
@@ -222,8 +462,8 @@
      "name": "Fluid",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/10508.png",
      "start": 2.661279238770022,
-     "now": 2.661279238770022,
-     "change": 0.0,
+     "now": 2.306668554987636,
+     "change": -13.32,
      "hit": null
     },
     {
@@ -232,8 +472,8 @@
      "name": "Kamino",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/30986.png",
      "start": 0.036288931047982656,
-     "now": 0.036288931047982656,
-     "change": 0.0,
+     "now": 0.034429556877262034,
+     "change": -5.12,
      "hit": null
     }
    ],
@@ -272,8 +512,8 @@
      "name": "Beam",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
      "start": 0.004233690895122499,
-     "now": 0.004396856547120446,
-     "change": 3.85,
+     "now": 0.0041470822407030025,
+     "change": -2.05,
      "hit": null
     },
     {
@@ -282,8 +522,8 @@
      "name": "Lighter",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39125.png",
      "start": 3.5079246416990126,
-     "now": 3.422884328181931,
-     "change": -2.42,
+     "now": 3.4412568218155557,
+     "change": -1.9,
      "hit": null
     },
     {
@@ -292,8 +532,8 @@
      "name": "Stacks",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4847.png",
      "start": 0.3490888251042574,
-     "now": 0.34367595928604217,
-     "change": -1.55,
+     "now": 0.3361544804371443,
+     "change": -3.71,
      "hit": null
     },
     {
@@ -302,8 +542,8 @@
      "name": "LayerZero",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/26997.png",
      "start": 1.892597885764504,
-     "now": 1.744641961192332,
-     "change": -7.82,
+     "now": 1.6210340738556466,
+     "change": -14.35,
      "hit": null
     },
     {
@@ -312,8 +552,8 @@
      "name": "Midnight",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39064.png",
      "start": 0.04386937950341742,
-     "now": 0.04157266859713705,
-     "change": -5.24,
+     "now": 0.039333516096739234,
+     "change": -10.34,
      "hit": null
     },
     {
@@ -322,8 +562,8 @@
      "name": "Polygon (prev. MATIC)",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28321.png",
      "start": 0.09691593872384145,
-     "now": 0.09777171138943207,
-     "change": 0.88,
+     "now": 0.09346108548041322,
+     "change": -3.56,
      "hit": null
     },
     {
@@ -332,8 +572,8 @@
      "name": "Cash Cat",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40809.png",
      "start": 0.10807891758018445,
-     "now": 0.10427217228599245,
-     "change": -3.52,
+     "now": 0.0950821033164332,
+     "change": -12.03,
      "hit": null
     },
     {
@@ -342,8 +582,8 @@
      "name": "Stable",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38892.png",
      "start": 0.02887158914180248,
-     "now": 0.02864092373111432,
-     "change": -0.8,
+     "now": 0.025833101580916663,
+     "change": -10.52,
      "hit": null
     },
     {
@@ -352,8 +592,8 @@
      "name": "Pieverse",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38849.png",
      "start": 1.1536866094866411,
-     "now": 1.3109710816388593,
-     "change": 13.63,
+     "now": 1.3997682969904701,
+     "change": 21.33,
      "hit": null
     }
    ],
@@ -382,8 +622,8 @@
      "name": "Cap",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png",
      "start": 0.07567676564597345,
-     "now": 0.09757968652942037,
-     "change": 28.94,
+     "now": 0.10149157228944647,
+     "change": 34.11,
      "hit": null
     },
     {
@@ -402,8 +642,8 @@
      "name": "Kamino",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/30986.png",
      "start": 0.03366450612358486,
-     "now": 0.036288931047982656,
-     "change": 7.8,
+     "now": 0.034429556877262034,
+     "change": 2.27,
      "hit": null
     },
     {
@@ -412,8 +652,8 @@
      "name": "THORChain",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4157.png",
      "start": 0.631945187761081,
-     "now": 0.6425045986005159,
-     "change": 1.67,
+     "now": 0.5861816324708652,
+     "change": -7.24,
      "hit": null
     },
     {
@@ -422,8 +662,8 @@
      "name": "SOON",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/36542.png",
      "start": 0.2670226125213994,
-     "now": 0.26763441669507915,
-     "change": 0.23,
+     "now": 0.26241261084148426,
+     "change": -1.73,
      "hit": null
     },
     {
@@ -432,8 +672,8 @@
      "name": "Cash Cat",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40809.png",
      "start": 0.10807891758018445,
-     "now": 0.10427217228599245,
-     "change": -3.52,
+     "now": 0.0950821033164332,
+     "change": -12.03,
      "hit": null
     },
     {
@@ -442,8 +682,8 @@
      "name": "RedStone",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/21707.png",
      "start": 0.14499303589571208,
-     "now": 0.14810591307073007,
-     "change": 2.15,
+     "now": 0.15283740322831754,
+     "change": 5.41,
      "hit": null
     },
     {
@@ -452,8 +692,8 @@
      "name": "Beam",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
      "start": 0.004233690895122499,
-     "now": 0.004396856547120446,
-     "change": 3.85,
+     "now": 0.0041470822407030025,
+     "change": -2.05,
      "hit": null
     },
     {
@@ -462,8 +702,8 @@
      "name": "Fluid",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/10508.png",
      "start": 2.16637358831514,
-     "now": 2.661279238770022,
-     "change": 22.84,
+     "now": 2.306668554987636,
+     "change": 6.48,
      "hit": null
     },
     {
@@ -472,8 +712,8 @@
      "name": "AWE",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4006.png",
      "start": 0.065454670284524,
-     "now": 0.06829548623781642,
-     "change": 4.34,
+     "now": 0.062225823595959295,
+     "change": -4.93,
      "hit": null
     }
    ],
@@ -490,11 +730,22 @@
    "end": "2026-11-06",
    "horizon": 3,
    "model": "3d-tuned",
-   "status": "open",
-   "graded_on": null,
-   "hits": null,
-   "up": null,
-   "actual_top10": [],
+   "status": "graded",
+   "graded_on": "2026-11-06",
+   "hits": 2,
+   "up": 5,
+   "actual_top10": [
+    "CAP",
+    "FLUID",
+    "TEL",
+    "PIEVERSE",
+    "RAY",
+    "INJ",
+    "RED",
+    "LIT",
+    "USELESS",
+    "ZEC"
+   ],
    "picks": [
     {
      "rank": 1,
@@ -502,9 +753,9 @@
      "name": "Holo",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/2682.png",
      "start": 0.0005334261216623067,
-     "now": null,
-     "change": null,
-     "hit": null
+     "now": 0.000385058931744042,
+     "change": -27.81,
+     "hit": false
     },
     {
      "rank": 2,
@@ -512,9 +763,9 @@
      "name": "Beam",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
      "start": 0.003986762980392437,
-     "now": 0.004396856547120446,
-     "change": 10.29,
-     "hit": null
+     "now": 0.0041470822407030025,
+     "change": 4.02,
+     "hit": false
     },
     {
      "rank": 3,
@@ -522,9 +773,9 @@
      "name": "Pieverse",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38849.png",
      "start": 1.1689711891448422,
-     "now": 1.3109710816388593,
-     "change": 12.15,
-     "hit": null
+     "now": 1.3997682969904701,
+     "change": 19.74,
+     "hit": true
     },
     {
      "rank": 4,
@@ -532,9 +783,9 @@
      "name": "Pepe",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/24478.png",
      "start": 4.796537549095555e-06,
-     "now": 4.945641786772465e-06,
-     "change": 3.11,
-     "hit": null
+     "now": 5.059985505106983e-06,
+     "change": 5.49,
+     "hit": false
     },
     {
      "rank": 5,
@@ -542,9 +793,9 @@
      "name": "Cash Cat",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40809.png",
      "start": 0.10590174194427474,
-     "now": 0.10427217228599245,
-     "change": -1.54,
-     "hit": null
+     "now": 0.0950821033164332,
+     "change": -10.22,
+     "hit": false
     },
     {
      "rank": 6,
@@ -552,9 +803,9 @@
      "name": "Stacks",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4847.png",
      "start": 0.3296162361691392,
-     "now": 0.34367595928604217,
-     "change": 4.27,
-     "hit": null
+     "now": 0.3361544804371443,
+     "change": 1.98,
+     "hit": false
     },
     {
      "rank": 7,
@@ -562,9 +813,9 @@
      "name": "Hyperliquid",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/32196.png",
      "start": 84.22408903506108,
-     "now": 82.0564745556469,
-     "change": -2.57,
-     "hit": null
+     "now": 78.24019605285781,
+     "change": -7.1,
+     "hit": false
     },
     {
      "rank": 8,
@@ -572,9 +823,9 @@
      "name": "GoМining",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/10180.png",
      "start": 0.3977102287095647,
-     "now": 0.3814112550824992,
-     "change": -4.1,
-     "hit": null
+     "now": 0.3840942949728509,
+     "change": -3.42,
+     "hit": false
     },
     {
      "rank": 9,
@@ -582,9 +833,9 @@
      "name": "LayerZero",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/26997.png",
      "start": 1.7650430305080322,
-     "now": 1.744641961192332,
-     "change": -1.16,
-     "hit": null
+     "now": 1.6210340738556466,
+     "change": -8.16,
+     "hit": false
     },
     {
      "rank": 10,
@@ -592,9 +843,9 @@
      "name": "Lighter",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39125.png",
      "start": 3.1364879770097467,
-     "now": 3.422884328181931,
-     "change": 9.13,
-     "hit": null
+     "now": 3.4412568218155557,
+     "change": 9.72,
+     "hit": true
     }
    ],
    "light": {
@@ -602,8 +853,8 @@
     "btc7": -4.16,
     "as_of": "2026-11-03"
    },
-   "basket": null,
-   "btc": null
+   "basket": -0.018760000000000006,
+   "btc": -0.013582619035956478
   },
   {
    "date": "2026-11-03",
@@ -622,8 +873,8 @@
      "name": "Tagger",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/34958.png",
      "start": 0.0007833395402895892,
-     "now": 0.0007659170952523098,
-     "change": -2.22,
+     "now": null,
+     "change": null,
      "hit": null
     },
     {
@@ -642,8 +893,8 @@
      "name": "Cap",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png",
      "start": 0.07346279636171825,
-     "now": 0.09757968652942037,
-     "change": 32.83,
+     "now": 0.10149157228944647,
+     "change": 38.15,
      "hit": null
     },
     {
@@ -652,8 +903,8 @@
      "name": "RedStone",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/21707.png",
      "start": 0.1390490251557161,
-     "now": 0.14810591307073007,
-     "change": 6.51,
+     "now": 0.15283740322831754,
+     "change": 9.92,
      "hit": null
     },
     {
@@ -662,8 +913,8 @@
      "name": "AWE",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4006.png",
      "start": 0.06419143840940102,
-     "now": 0.06829548623781642,
-     "change": 6.39,
+     "now": 0.062225823595959295,
+     "change": -3.06,
      "hit": null
     },
     {
@@ -672,8 +923,8 @@
      "name": "Cash Cat",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40809.png",
      "start": 0.10590174194427474,
-     "now": 0.10427217228599245,
-     "change": -1.54,
+     "now": 0.0950821033164332,
+     "change": -10.22,
      "hit": null
     },
     {
@@ -682,8 +933,8 @@
      "name": "Beam",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
      "start": 0.003986762980392437,
-     "now": 0.004396856547120446,
-     "change": 10.29,
+     "now": 0.0041470822407030025,
+     "change": 4.02,
      "hit": null
     },
     {
@@ -692,8 +943,8 @@
      "name": "MemeCore",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/35491.png",
      "start": 0.836310991888004,
-     "now": 0.8267458118347466,
-     "change": -1.14,
+     "now": 0.8316317321712551,
+     "change": -0.56,
      "hit": null
     },
     {
@@ -702,8 +953,8 @@
      "name": "Grass",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/32956.png",
      "start": 0.5672542185730276,
-     "now": 0.5588557470276061,
-     "change": -1.48,
+     "now": 0.4986454476968646,
+     "change": -12.09,
      "hit": null
     },
     {
@@ -712,8 +963,8 @@
      "name": "Fluid",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/10508.png",
      "start": 1.8772372345674553,
-     "now": 2.661279238770022,
-     "change": 41.77,
+     "now": 2.306668554987636,
+     "change": 22.88,
      "hit": null
     }
    ],
@@ -873,8 +1124,8 @@
      "name": "Tagger",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/34958.png",
      "start": 0.000785399950052437,
-     "now": 0.0007659170952523098,
-     "change": -2.48,
+     "now": null,
+     "change": null,
      "hit": null
     },
     {
@@ -883,8 +1134,8 @@
      "name": "Cap",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png",
      "start": 0.0722699641918054,
-     "now": 0.09757968652942037,
-     "change": 35.02,
+     "now": 0.10149157228944647,
+     "change": 40.43,
      "hit": null
     },
     {
@@ -893,8 +1144,8 @@
      "name": "Beam",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
      "start": 0.004451274701054184,
-     "now": 0.004396856547120446,
-     "change": -1.22,
+     "now": 0.0041470822407030025,
+     "change": -6.83,
      "hit": null
     },
     {
@@ -903,8 +1154,8 @@
      "name": "AWE",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4006.png",
      "start": 0.06382361884143277,
-     "now": 0.06829548623781642,
-     "change": 7.01,
+     "now": 0.062225823595959295,
+     "change": -2.5,
      "hit": null
     },
     {
@@ -913,8 +1164,8 @@
      "name": "MemeCore",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/35491.png",
      "start": 0.842614162789503,
-     "now": 0.8267458118347466,
-     "change": -1.88,
+     "now": 0.8316317321712551,
+     "change": -1.3,
      "hit": null
     },
     {
@@ -923,8 +1174,8 @@
      "name": "Grass",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/32956.png",
      "start": 0.5566312410220979,
-     "now": 0.5588557470276061,
-     "change": 0.4,
+     "now": 0.4986454476968646,
+     "change": -10.42,
      "hit": null
     },
     {
@@ -933,8 +1184,8 @@
      "name": "Lighter",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39125.png",
      "start": 3.071011098156717,
-     "now": 3.422884328181931,
-     "change": 11.46,
+     "now": 3.4412568218155557,
+     "change": 12.06,
      "hit": null
     },
     {
@@ -943,8 +1194,8 @@
      "name": "Pons",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40938.png",
      "start": 0.20586018346184345,
-     "now": 0.21659850556050567,
-     "change": 5.22,
+     "now": 0.19137823711623206,
+     "change": -7.03,
      "hit": null
     },
     {
@@ -953,8 +1204,8 @@
      "name": "USD.AI",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39870.png",
      "start": 0.03975498319143998,
-     "now": 0.042523409683561685,
-     "change": 6.96,
+     "now": null,
+     "change": null,
      "hit": null
     },
     {
@@ -963,8 +1214,8 @@
      "name": "Stacks",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/4847.png",
      "start": 0.32282607211175146,
-     "now": 0.34367595928604217,
-     "change": 6.46,
+     "now": 0.3361544804371443,
+     "change": 4.13,
      "hit": null
     }
    ],
@@ -1124,8 +1375,8 @@
      "name": "Cap",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png",
      "start": 0.07319944525975189,
-     "now": 0.09757968652942037,
-     "change": 33.31,
+     "now": 0.10149157228944647,
+     "change": 38.65,
      "hit": null
     },
     {
@@ -1134,8 +1385,8 @@
      "name": "Beam",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
      "start": 0.0048722226282957234,
-     "now": 0.004396856547120446,
-     "change": -9.76,
+     "now": 0.0041470822407030025,
+     "change": -14.88,
      "hit": null
     },
     {
@@ -1144,8 +1395,8 @@
      "name": "Tagger",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/34958.png",
      "start": 0.0007771723624913316,
-     "now": 0.0007659170952523098,
-     "change": -1.45,
+     "now": null,
+     "change": null,
      "hit": null
     },
     {
@@ -1154,8 +1405,8 @@
      "name": "SOON",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/36542.png",
      "start": 0.28286423369264796,
-     "now": 0.26763441669507915,
-     "change": -5.38,
+     "now": 0.26241261084148426,
+     "change": -7.23,
      "hit": null
     },
     {
@@ -1164,8 +1415,8 @@
      "name": "Lighter",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39125.png",
      "start": 3.2203173901302407,
-     "now": 3.422884328181931,
-     "change": 6.29,
+     "now": 3.4412568218155557,
+     "change": 6.86,
      "hit": null
     },
     {
@@ -1174,8 +1425,8 @@
      "name": "Sentient",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38868.png",
      "start": 0.019886173796884444,
-     "now": 0.0191497265634504,
-     "change": -3.7,
+     "now": 0.01884280920566901,
+     "change": -5.25,
      "hit": null
     },
     {
@@ -1184,8 +1435,8 @@
      "name": "Morpho",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/34104.png",
      "start": 2.285547155218422,
-     "now": 2.2454058609549388,
-     "change": -1.76,
+     "now": 2.085776008681551,
+     "change": -8.74,
      "hit": null
     },
     {
@@ -1194,8 +1445,8 @@
      "name": "Compound",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/5692.png",
      "start": 20.53131004255889,
-     "now": 20.541448625168556,
-     "change": 0.05,
+     "now": 20.02568438678418,
+     "change": -2.46,
      "hit": null
     },
     {
@@ -1204,8 +1455,8 @@
      "name": "Meteora",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38353.png",
      "start": 0.2816396311584857,
-     "now": 0.2932632507857071,
-     "change": 4.13,
+     "now": 0.2750297501957908,
+     "change": -2.35,
      "hit": null
     },
     {
@@ -1214,8 +1465,8 @@
      "name": "MemeCore",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/35491.png",
      "start": 0.8466072092091362,
-     "now": 0.8267458118347466,
-     "change": -2.35,
+     "now": 0.8316317321712551,
+     "change": -1.77,
      "hit": null
     }
    ],
@@ -1375,8 +1626,8 @@
      "name": "Tagger",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/34958.png",
      "start": 0.0007268366480837233,
-     "now": 0.0007659170952523098,
-     "change": 5.38,
+     "now": null,
+     "change": null,
      "hit": null
     },
     {
@@ -1385,8 +1636,8 @@
      "name": "Cap",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png",
      "start": 0.07393713565632834,
-     "now": 0.09757968652942037,
-     "change": 31.98,
+     "now": 0.10149157228944647,
+     "change": 37.27,
      "hit": null
     },
     {
@@ -1395,8 +1646,8 @@
      "name": "Beam",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
      "start": 0.0050050764455975075,
-     "now": 0.004396856547120446,
-     "change": -12.15,
+     "now": 0.0041470822407030025,
+     "change": -17.14,
      "hit": null
     },
     {
@@ -1405,8 +1656,8 @@
      "name": "RedStone",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/21707.png",
      "start": 0.1470319849862462,
-     "now": 0.14810591307073007,
-     "change": 0.73,
+     "now": 0.15283740322831754,
+     "change": 3.95,
      "hit": null
     },
     {
@@ -1415,8 +1666,8 @@
      "name": "SOON",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/36542.png",
      "start": 0.2825417380294609,
-     "now": 0.26763441669507915,
-     "change": -5.28,
+     "now": 0.26241261084148426,
+     "change": -7.12,
      "hit": null
     },
     {
@@ -1425,8 +1676,8 @@
      "name": "edgeX",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39720.png",
      "start": 0.35193448521981574,
-     "now": 0.3404282896240927,
-     "change": -3.27,
+     "now": 0.31522340981986685,
+     "change": -10.43,
      "hit": null
     },
     {
@@ -1435,8 +1686,8 @@
      "name": "Compound",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/5692.png",
      "start": 20.779843147058543,
-     "now": 20.541448625168556,
-     "change": -1.15,
+     "now": 20.02568438678418,
+     "change": -3.63,
      "hit": null
     },
     {
@@ -1445,8 +1696,8 @@
      "name": "USD.AI",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/39870.png",
      "start": 0.04352793729618296,
-     "now": 0.042523409683561685,
-     "change": -2.31,
+     "now": null,
+     "change": null,
      "hit": null
     },
     {
@@ -1455,8 +1706,8 @@
      "name": "Meteora",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38353.png",
      "start": 0.2879258602112,
-     "now": 0.2932632507857071,
-     "change": 1.85,
+     "now": 0.2750297501957908,
+     "change": -4.48,
      "hit": null
     },
     {
@@ -1465,8 +1716,8 @@
      "name": "Sentient",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38868.png",
      "start": 0.01946299940695467,
-     "now": 0.0191497265634504,
-     "change": -1.61,
+     "now": 0.01884280920566901,
+     "change": -3.19,
      "hit": null
     }
    ],
@@ -1614,11 +1865,22 @@
    "end": "2026-11-06",
    "horizon": 7,
    "model": "v2",
-   "status": "open",
-   "graded_on": null,
-   "hits": null,
-   "up": null,
-   "actual_top10": [],
+   "status": "graded",
+   "graded_on": "2026-11-06",
+   "hits": 1,
+   "up": 2,
+   "actual_top10": [
+    "PIEVERSE",
+    "FLUID",
+    "CAP",
+    "LIT",
+    "STX",
+    "INJ",
+    "RSR",
+    "TEL",
+    "RAY",
+    "GNO"
+   ],
    "picks": [
     {
      "rank": 1,
@@ -1626,9 +1888,9 @@
      "name": "Cap",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/40531.png",
      "start": 0.08090531145028214,
-     "now": 0.09757968652942037,
-     "change": 20.61,
-     "hit": null
+     "now": 0.10149157228944647,
+     "change": 25.44,
+     "hit": true
     },
     {
      "rank": 2,
@@ -1636,9 +1898,9 @@
      "name": "Tagger",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/34958.png",
      "start": 0.0007191698072600345,
-     "now": 0.0007659170952523098,
-     "change": 6.5,
-     "hit": null
+     "now": 0.000678274774304205,
+     "change": -5.69,
+     "hit": false
     },
     {
      "rank": 3,
@@ -1646,9 +1908,9 @@
      "name": "SOON",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/36542.png",
      "start": 0.30454428314207804,
-     "now": 0.26763441669507915,
-     "change": -12.12,
-     "hit": null
+     "now": 0.26241261084148426,
+     "change": -13.83,
+     "hit": false
     },
     {
      "rank": 4,
@@ -1656,9 +1918,9 @@
      "name": "Beam",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28298.png",
      "start": 0.004848776758772484,
-     "now": 0.004396856547120446,
-     "change": -9.32,
-     "hit": null
+     "now": 0.0041470822407030025,
+     "change": -14.47,
+     "hit": false
     },
     {
      "rank": 5,
@@ -1666,9 +1928,9 @@
      "name": "Compound",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/5692.png",
      "start": 20.234282055850304,
-     "now": 20.541448625168556,
-     "change": 1.52,
-     "hit": null
+     "now": 20.02568438678418,
+     "change": -1.03,
+     "hit": false
     },
     {
      "rank": 6,
@@ -1676,9 +1938,9 @@
      "name": "MemeCore",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/35491.png",
      "start": 0.9640672330209571,
-     "now": 0.8267458118347466,
-     "change": -14.24,
-     "hit": null
+     "now": 0.8316317321712551,
+     "change": -13.74,
+     "hit": false
     },
     {
      "rank": 7,
@@ -1686,9 +1948,9 @@
      "name": "Meteora",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38353.png",
      "start": 0.2764547039407644,
-     "now": 0.2932632507857071,
-     "change": 6.08,
-     "hit": null
+     "now": 0.2750297501957908,
+     "change": -0.52,
+     "hit": false
     },
     {
      "rank": 8,
@@ -1696,9 +1958,9 @@
      "name": "Sentient",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/38868.png",
      "start": 0.018854558486852763,
-     "now": 0.0191497265634504,
-     "change": 1.57,
-     "hit": null
+     "now": 0.01884280920566901,
+     "change": -0.06,
+     "hit": false
     },
     {
      "rank": 9,
@@ -1706,9 +1968,9 @@
      "name": "Grass",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/32956.png",
      "start": 0.6003708761804291,
-     "now": 0.5588557470276061,
-     "change": -6.91,
-     "hit": null
+     "now": 0.4986454476968646,
+     "change": -16.94,
+     "hit": false
     },
     {
      "rank": 10,
@@ -1716,9 +1978,9 @@
      "name": "Pyth Network",
      "image": "https://s2.coinmarketcap.com/static/img/coins/64x64/28177.png",
      "start": 0.06164118928022107,
-     "now": 0.0664974617792122,
-     "change": 7.88,
-     "hit": null
+     "now": 0.06564198501256252,
+     "change": 6.49,
+     "hit": false
     }
    ],
    "light": {
@@ -1726,8 +1988,8 @@
     "btc7": -4.33,
     "as_of": "2026-10-30"
    },
-   "basket": null,
-   "btc": null
+   "basket": -0.03735,
+   "btc": -0.017112624764570872
   },
   {
    "date": "2026-10-29",
@@ -6867,8 +7129,8 @@
      "name": "The Graph",
      "image": "https://coin-images.coingecko.com/coins/images/13397/large/Graph_Token.png?1696513159",
      "start": 0.03081893,
-     "now": 0.020522832414789503,
-     "change": -33.41,
+     "now": 0.01961195861287543,
+     "change": -36.36,
      "hit": null
     },
     {
@@ -6897,8 +7159,8 @@
      "name": "THORChain",
      "image": "https://coin-images.coingecko.com/coins/images/6595/large/THORChain_RUNE_Token.png?1782452363",
      "start": 0.774764,
-     "now": 0.6425045986005159,
-     "change": -17.07,
+     "now": 0.5861816324708652,
+     "change": -24.34,
      "hit": null
     },
     {
@@ -6907,8 +7169,8 @@
      "name": "IOTA",
      "image": "https://coin-images.coingecko.com/coins/images/692/large/IOTA_Thumbnail_%281%29.png?1743772896",
      "start": 0.055061,
-     "now": 0.04038984389796547,
-     "change": -26.65,
+     "now": 0.03823285598218052,
+     "change": -30.56,
      "hit": null
     },
     {
@@ -6927,8 +7189,8 @@
      "name": "Algorand",
      "image": "https://coin-images.coingecko.com/coins/images/4380/large/download.png?1696504978",
      "start": 0.134709,
-     "now": 0.09982017613100871,
-     "change": -25.9,
+     "now": 0.09380599893851982,
+     "change": -30.36,
      "hit": null
     },
     {
@@ -6937,8 +7199,8 @@
      "name": "Grass",
      "image": "https://coin-images.coingecko.com/coins/images/40094/large/Grass.jpg?1725697048",
      "start": 0.590151,
-     "now": 0.5588557470276061,
-     "change": -5.3,
+     "now": 0.4986454476968646,
+     "change": -15.51,
      "hit": null
     }
    ],
@@ -7080,137 +7342,6 @@
    },
    "basket": 0.04195555555555555,
    "btc": 0.010192605921418574
-  },
-  {
-   "date": "2026-09-26",
-   "end": "2026-10-03",
-   "horizon": 7,
-   "model": "v1",
-   "status": "graded",
-   "graded_on": "2026-10-03",
-   "hits": 2,
-   "up": 3,
-   "actual_top10": [
-    "QNT",
-    "NIGHT",
-    "BTW",
-    "GRASS",
-    "PUMP",
-    "ZRO",
-    "MON",
-    "WLD",
-    "ZBCN",
-    "SKY"
-   ],
-   "picks": [
-    {
-     "rank": 1,
-     "symbol": "2Z",
-     "name": "DoubleZero",
-     "image": "https://coin-images.coingecko.com/coins/images/68339/large/Coingecko_-_PFP.png?1755694420",
-     "start": 0.073437,
-     "now": 0.046519,
-     "change": -36.65,
-     "hit": false
-    },
-    {
-     "rank": 2,
-     "symbol": "BP",
-     "name": "Backpack",
-     "image": "https://coin-images.coingecko.com/coins/images/102171961/large/image_%285%29.png?1774269858",
-     "start": 1.25,
-     "now": 1.23,
-     "change": -1.6,
-     "hit": false
-    },
-    {
-     "rank": 3,
-     "symbol": "QNT",
-     "name": "Quant",
-     "image": "https://coin-images.coingecko.com/coins/images/3370/large/5ZOu7brX_400x400.jpg?1696504070",
-     "start": 110.52,
-     "now": 247.27,
-     "change": 123.73,
-     "hit": true
-    },
-    {
-     "rank": 4,
-     "symbol": "RUNE",
-     "name": "THORChain",
-     "image": "https://coin-images.coingecko.com/coins/images/6595/large/THORChain_RUNE_Token.png?1782452363",
-     "start": 0.747817,
-     "now": 0.742118,
-     "change": -0.76,
-     "hit": false
-    },
-    {
-     "rank": 5,
-     "symbol": "SEI",
-     "name": "Sei",
-     "image": "https://coin-images.coingecko.com/coins/images/28205/large/Sei_Logo_-_Transparent.png?1696527207",
-     "start": 0.074118,
-     "now": 0.071388,
-     "change": -3.68,
-     "hit": false
-    },
-    {
-     "rank": 6,
-     "symbol": "GRASS",
-     "name": "Grass",
-     "image": "https://coin-images.coingecko.com/coins/images/40094/large/Grass.jpg?1725697048",
-     "start": 0.518983,
-     "now": 0.747123,
-     "change": 43.96,
-     "hit": true
-    },
-    {
-     "rank": 7,
-     "symbol": "AERO",
-     "name": "Aerodrome Finance",
-     "image": "https://coin-images.coingecko.com/coins/images/31745/large/token.png?1696530564",
-     "start": 0.901857,
-     "now": 0.793766,
-     "change": -11.99,
-     "hit": false
-    },
-    {
-     "rank": 8,
-     "symbol": "KMNO",
-     "name": "Kamino",
-     "image": "https://coin-images.coingecko.com/coins/images/35801/large/Kamino_200x200.png?1767944671",
-     "start": 0.050518,
-     "now": 0.03983728,
-     "change": -21.14,
-     "hit": false
-    },
-    {
-     "rank": 9,
-     "symbol": "GRT",
-     "name": "The Graph",
-     "image": "https://coin-images.coingecko.com/coins/images/13397/large/Graph_Token.png?1696513159",
-     "start": 0.02823176,
-     "now": 0.02839774,
-     "change": 0.59,
-     "hit": false
-    },
-    {
-     "rank": 10,
-     "symbol": "ENA",
-     "name": "Ethena",
-     "image": "https://coin-images.coingecko.com/coins/images/36530/large/ethena.png?1711701436",
-     "start": 0.277911,
-     "now": 0.234007,
-     "change": -15.8,
-     "hit": false
-    }
-   ],
-   "light": {
-    "state": "trade",
-    "btc7": 3.08,
-    "as_of": "2026-09-26"
-   },
-   "basket": 0.07366,
-   "btc": 0.009248898940602324
   }
  ]
 }
