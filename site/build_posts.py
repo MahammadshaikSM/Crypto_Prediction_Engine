@@ -30,6 +30,8 @@ KEEP_DAYS, CALL_DAYS = 14, 40
 # 3-day calls showed no reliable edge after costs (proof.html), so they are no longer posted.
 # They are still made and graded on the site; calls already posted still get their result post.
 POST_3D_UNTIL = "2026-11-01"
+# CoinMarketCap community posts allow 3 images (each $CASHTAG renders as one) and 3 hashtags.
+CMC_CASHTAGS, CMC_COIN_HASHTAGS = 3, 1   # #Ichnora and the call tag use the other 2 hashtags
 TAG = {7: "#7DayCall", 3: "#3DayCall"}
 
 PINNED = f"""📌 How Ichnora works
@@ -248,7 +250,8 @@ def x_len(text):
 
 def caption(call, mode, limit=None):
     """Short daily captions; the explanation lives once on the profile (PROFILE.txt / PINNED.txt).
-    With `limit` (X = 280), coin hashtags are added only while the post still fits."""
+    With `limit` (X = 280), coin hashtags are added only while the post still fits.
+    Without it (Telegram and the CMC kit), captions keep to CMC's cashtag and hashtag limits."""
     all_tags = list(dict.fromkeys(t for t in (coin_tag(p["name"]) for p in call["picks"]) if t))
     if limit:
         kept = []
@@ -258,13 +261,18 @@ def caption(call, mode, limit=None):
                 break
             kept.append(t)
         return caption_with(call, mode, kept)
-    return caption_with(call, mode, all_tags)
+    return caption_with(call, mode, all_tags[:CMC_COIN_HASHTAGS], CMC_CASHTAGS)
 
 
-def caption_with(call, mode, coin_tags):
+def ticker(symbol, position, max_cash):
+    """'$BTC' while within the cashtag limit, then plain 'BTC'."""
+    return f"${symbol}" if max_cash is None or position < max_cash else symbol
+
+
+def caption_with(call, mode, coin_tags, max_cash=None):
     h = call["horizon"]
     tags = " ".join([f"#Ichnora {TAG[h]}"] + coin_tags)
-    cash = " ".join(f"${p['symbol']}" for p in call["picks"])
+    cash = " ".join(ticker(p["symbol"], i, max_cash) for i, p in enumerate(call["picks"]))
     rng = f"{md(call['date'])} → {md(call['end'])}"
     if mode == "call":
         head = f"🎯 {h}-Day Call · {rng}" if h == 7 else f"🧪 {h}-Day Call (experimental) · {rng}"
@@ -279,7 +287,8 @@ def caption_with(call, mode, coin_tags):
             lead = ", ".join(f"${p['symbol']} {pct(p['change'])}" for p in ranked[:3])
             head, body = f"⏳ Results tomorrow · {h}-Day Call {rng}", f"Leading: {lead}{arrow(call)}"
         else:
-            hits = ", ".join(f"${p['symbol']} {pct(p['change'])}" for p in ranked if p["hit"]) or "none"
+            hits = ", ".join(f"{ticker(p['symbol'], i, max_cash)} {pct(p['change'])}"
+                             for i, p in enumerate(q for q in ranked if q["hit"])) or "none"
             head = f"✅ {h}-Day results · {rng}"
             body = f"{call['hits']}/10 hit the top 10: {hits} · {call['up']}/10 up{arrow(call)}"
             if call.get("basket") is not None and call.get("btc") is not None:
