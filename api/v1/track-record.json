@@ -1,22 +1,22 @@
 {
  "api_version": "1.0",
- "generated_at": "2026-11-12T11:32:33Z",
+ "generated_at": "2026-11-13T11:32:35Z",
  "source": "CoinMarketCap",
  "disclaimer": "Research data from a public experiment, not financial advice. Crypto is volatile and can go to zero. Past results do not guarantee future returns. Use as one input next to your own judgement and risk limits.",
  "docs": "api.html",
  "method": "Buy the 10 picks in equal amounts at the call price, sell at the grading price, minus 0.3% round-trip costs per coin. Bitcoin over the same days for comparison.",
  "model_v2_live": {
   "all": {
-   "calls": 13,
-   "avg": -0.0636,
-   "median": -0.057,
+   "calls": 14,
+   "avg": -0.0663,
+   "median": -0.0583,
    "in_profit": 0.0,
-   "beat_btc": 0.0769,
-   "btc_avg": -0.036,
-   "coin_win": 0.2385,
-   "avg_win": 0.1711,
-   "avg_loss": -0.137,
-   "expectancy": -0.0636
+   "beat_btc": 0.0714,
+   "btc_avg": -0.0398,
+   "coin_win": 0.2357,
+   "avg_win": 0.1646,
+   "avg_loss": -0.1376,
+   "expectancy": -0.0663
   },
   "review": {
    "model": "v2",
@@ -47,28 +47,28 @@
  },
  "calls_7d": {
   "all": {
-   "calls": 295,
-   "avg": 0.039,
-   "median": 0.0134,
-   "in_profit": 0.5593,
-   "beat_btc": 0.5356,
-   "btc_avg": -0.0005,
-   "coin_win": 0.4431,
-   "avg_win": 0.2493,
-   "avg_loss": -0.1289,
-   "expectancy": 0.0387
+   "calls": 296,
+   "avg": 0.0386,
+   "median": 0.0128,
+   "in_profit": 0.5574,
+   "beat_btc": 0.5338,
+   "btc_avg": -0.0008,
+   "coin_win": 0.4422,
+   "avg_win": 0.249,
+   "avg_loss": -0.129,
+   "expectancy": 0.0382
   },
   "last_30": {
    "calls": 30,
-   "avg": -0.0676,
-   "median": -0.0583,
-   "in_profit": 0.1,
-   "beat_btc": 0.1667,
-   "btc_avg": -0.023,
-   "coin_win": 0.2535,
-   "avg_win": 0.1943,
-   "avg_loss": -0.1577,
-   "expectancy": -0.0685
+   "avg": -0.0714,
+   "median": -0.0643,
+   "in_profit": 0.0667,
+   "beat_btc": 0.1333,
+   "btc_avg": -0.0254,
+   "coin_win": 0.2552,
+   "avg_win": 0.1853,
+   "avg_loss": -0.16,
+   "expectancy": -0.0719
   },
   "by_market_light": {
    "trade": {
@@ -84,16 +84,16 @@
     "expectancy": 0.0397
    },
    "caution": {
-    "calls": 143,
-    "avg": 0.04,
-    "median": 0.0082,
-    "in_profit": 0.5245,
-    "beat_btc": 0.5315,
-    "btc_avg": -0.0072,
-    "coin_win": 0.4431,
-    "avg_win": 0.2655,
+    "calls": 144,
+    "avg": 0.039,
+    "median": 0.0077,
+    "in_profit": 0.5208,
+    "beat_btc": 0.5278,
+    "btc_avg": -0.0078,
+    "coin_win": 0.4414,
+    "avg_win": 0.2648,
     "avg_loss": -0.1421,
-    "expectancy": 0.0385
+    "expectancy": 0.0375
    }
   },
   "backtest_held_out": {
@@ -2468,33 +2468,41 @@
     "btc": -0.0879,
     "market": -0.1035,
     "light": "caution"
+   },
+   {
+    "date": "2026-11-06",
+    "end": "2026-11-13",
+    "basket": -0.1026,
+    "btc": -0.0895,
+    "market": -0.0755,
+    "light": "caution"
    }
   ]
  },
  "calls_3d": {
   "all": {
-   "calls": 21,
-   "avg": -0.0505,
-   "median": -0.0459,
-   "in_profit": 0.1429,
-   "beat_btc": 0.1905,
-   "btc_avg": -0.0146,
-   "coin_win": 0.2381,
-   "avg_win": 0.0853,
-   "avg_loss": -0.0929,
-   "expectancy": -0.0505
+   "calls": 22,
+   "avg": -0.0516,
+   "median": -0.0474,
+   "in_profit": 0.1364,
+   "beat_btc": 0.1818,
+   "btc_avg": -0.017,
+   "coin_win": 0.2318,
+   "avg_win": 0.0847,
+   "avg_loss": -0.0927,
+   "expectancy": -0.0516
   },
   "last_30": {
-   "calls": 21,
-   "avg": -0.0505,
-   "median": -0.0459,
-   "in_profit": 0.1429,
-   "beat_btc": 0.1905,
-   "btc_avg": -0.0146,
-   "coin_win": 0.2381,
-   "avg_win": 0.0853,
-   "avg_loss": -0.0929,
-   "expectancy": -0.0505
+   "calls": 22,
+   "avg": -0.0516,
+   "median": -0.0474,
+   "in_profit": 0.1364,
+   "beat_btc": 0.1818,
+   "btc_avg": -0.017,
+   "coin_win": 0.2318,
+   "avg_win": 0.0847,
+   "avg_loss": -0.0927,
+   "expectancy": -0.0516
   },
   "by_market_light": {
    "trade": {
@@ -2510,16 +2518,16 @@
     "expectancy": -0.0831
    },
    "caution": {
-    "calls": 20,
-    "avg": -0.0488,
-    "median": -0.0439,
-    "in_profit": 0.15,
-    "beat_btc": 0.2,
-    "btc_avg": -0.0141,
-    "coin_win": 0.25,
-    "avg_win": 0.0853,
-    "avg_loss": -0.0936,
-    "expectancy": -0.0488
+    "calls": 21,
+    "avg": -0.0501,
+    "median": -0.0459,
+    "in_profit": 0.1429,
+    "beat_btc": 0.1905,
+    "btc_avg": -0.0167,
+    "coin_win": 0.2429,
+    "avg_win": 0.0847,
+    "avg_loss": -0.0933,
+    "expectancy": -0.0501
    }
   },
   "backtest_held_out": {
@@ -2701,6 +2709,14 @@
     "basket": -0.0758,
     "btc": -0.0176,
     "market": -0.0266,
+    "light": "caution"
+   },
+   {
+    "date": "2026-11-10",
+    "end": "2026-11-13",
+    "basket": -0.0746,
+    "btc": -0.0667,
+    "market": -0.0392,
     "light": "caution"
    }
   ]
