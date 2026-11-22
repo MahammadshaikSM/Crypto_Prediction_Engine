@@ -375,6 +375,18 @@
     "3_update_7d_2026-11-15",
     "4_result_7d_2026-11-14"
    ]
+  },
+  "2026-11-22": {
+   "telegram_me": [
+    "1_call_7d",
+    "3_update_7d_2026-11-16",
+    "4_result_7d_2026-11-15"
+   ],
+   "telegram_channel": [
+    "1_call_7d",
+    "3_update_7d_2026-11-16",
+    "4_result_7d_2026-11-15"
+   ]
   }
  },
  "calls": {
@@ -529,6 +541,10 @@
   "7d_2026-11-21": {
    "telegram_me": 130,
    "telegram_channel": 100
+  },
+  "7d_2026-11-22": {
+   "telegram_me": 134,
+   "telegram_channel": 103
   }
  }
 }
