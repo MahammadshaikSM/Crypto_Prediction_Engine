@@ -617,419 +617,419 @@
    "from_high": -0.6765910179252543,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 1.0754682026319908,
+   "vol_vs_20d": 0.917143975099724,
    "history_days": 445
   },
   {
    "ticker": "GOOGL",
    "name": "Alphabet",
    "benchmark": false,
-   "close": 282.1000061035156,
-   "as_of": "2026-11-23",
-   "d1": 0.06336460860623516,
-   "w1": -0.005709837551873265,
-   "m1": -0.11901560341195316,
-   "m3": -0.18641533154454515,
-   "rsi": 51.18110729810431,
-   "from_high": -0.29847017164455425,
+   "close": 279.04998779296875,
+   "as_of": "2026-11-24",
+   "d1": -0.010811833550360417,
+   "w1": -0.0041042982296973785,
+   "m1": -0.11916035812687564,
+   "m3": -0.18353988054956594,
+   "rsi": 43.95939794743272,
+   "from_high": -0.30605499537934633,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 0.9772805114739126,
-   "history_days": 500
+   "vol_vs_20d": 0.7304135651904986,
+   "history_days": 501
   },
   {
    "ticker": "MU",
    "name": "Micron",
    "benchmark": false,
-   "close": 707.7000122070312,
-   "as_of": "2026-11-23",
-   "d1": 0.19039208858069423,
-   "w1": -0.015743660839372176,
-   "m1": -0.19355019993004485,
-   "m3": -0.2413353071556511,
-   "rsi": 39.466615815666984,
-   "from_high": -0.4166582397492713,
+   "close": 629.7899780273438,
+   "as_of": "2026-11-24",
+   "d1": -0.11008906716945999,
+   "w1": -0.11598496233258104,
+   "m1": -0.303098407081726,
+   "m3": -0.32876271757685094,
+   "rsi": 38.474614395203716,
+   "from_high": -0.48087778997626474,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 1.468529129620306,
-   "history_days": 500
+   "vol_vs_20d": 1.105771447076145,
+   "history_days": 501
   },
   {
    "ticker": "INTC",
    "name": "Intel",
    "benchmark": false,
-   "close": 59.65999984741211,
-   "as_of": "2026-11-23",
-   "d1": 0.16341656138062288,
-   "w1": 0.07553629952229302,
-   "m1": -0.31393743703402543,
-   "m3": -0.31801557432515226,
-   "rsi": 48.95857790811053,
-   "from_high": -0.5766993130838429,
+   "close": 54.79999923706055,
+   "as_of": "2026-11-24",
+   "d1": -0.08146162626184417,
+   "w1": -0.006706524273423553,
+   "m1": -0.39427436169283336,
+   "m3": -0.37896644873377905,
+   "rsi": 46.17082230921591,
+   "from_high": -0.6111820754377888,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 1.0702032322934023,
-   "history_days": 500
+   "vol_vs_20d": 0.8415213355826078,
+   "history_days": 501
   },
   {
    "ticker": "PLTR",
    "name": "Palantir",
    "benchmark": false,
-   "close": 159.36000061035156,
-   "as_of": "2026-11-23",
-   "d1": 0.11060000355177046,
-   "w1": -0.006421839162145115,
-   "m1": -0.1900381163387468,
-   "m3": -0.07740401463493962,
-   "rsi": 40.40440018658165,
-   "from_high": -0.23769433970830278,
+   "close": 161.17999267578125,
+   "as_of": "2026-11-24",
+   "d1": 0.01142063289695705,
+   "w1": 0.029509422516811323,
+   "m1": -0.18939853327151235,
+   "m3": -0.0919437032350352,
+   "rsi": 43.561803840548706,
+   "from_high": -0.22898832660683877,
    "above50": false,
    "above200": true,
-   "vol_vs_20d": 1.2818864283415963,
-   "history_days": 500
+   "vol_vs_20d": 0.8021013953134427,
+   "history_days": 501
   },
   {
    "ticker": "NVDA",
    "name": "NVIDIA",
    "benchmark": false,
-   "close": 165.0500030517578,
-   "as_of": "2026-11-23",
-   "d1": 0.3148251784973235,
-   "w1": 0.05706419685499298,
-   "m1": -0.2176242045933322,
-   "m3": -0.22443236062307736,
-   "rsi": 35.17516263530307,
-   "from_high": -0.3101070086019795,
+   "close": 155.3800048828125,
+   "as_of": "2026-11-24",
+   "d1": -0.05858829439653457,
+   "w1": -0.0005146135829129372,
+   "m1": -0.2806481255425347,
+   "m3": -0.25806605794423576,
+   "rsi": 34.41309515660164,
+   "from_high": -0.35052666228411256,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 2.708853229516885,
-   "history_days": 500
+   "vol_vs_20d": 1.190429503435206,
+   "history_days": 501
   },
   {
    "ticker": "NFLX",
    "name": "Netflix",
    "benchmark": false,
-   "close": 58.099998474121094,
-   "as_of": "2026-11-23",
-   "d1": 0.0241494613597657,
-   "w1": -0.043621424294302935,
-   "m1": -0.11769172634143243,
-   "m3": -0.2934452620422746,
-   "rsi": 35.15625565445666,
-   "from_high": -0.46867856163828747,
+   "close": 58.869998931884766,
+   "as_of": "2026-11-24",
+   "d1": 0.013253020275149296,
+   "w1": -0.01357240900048673,
+   "m1": -0.07871678362882406,
+   "m3": -0.27731402414039363,
+   "rsi": 26.081431141945757,
+   "from_high": -0.4616369478430582,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 1.233749229530655,
-   "history_days": 500
+   "vol_vs_20d": 0.88084294270769,
+   "history_days": 501
   },
   {
    "ticker": "MRVL",
    "name": "Marvell",
    "benchmark": false,
-   "close": 144.74000549316406,
-   "as_of": "2026-11-23",
-   "d1": 0.18367686406674943,
-   "w1": -0.004265238817998118,
-   "m1": -0.36659223240743577,
-   "m3": -0.3977384782816976,
-   "rsi": 40.91303816040738,
-   "from_high": -0.5423716098370159,
+   "close": 131.57000732421875,
+   "as_of": "2026-11-24",
+   "d1": -0.09099072591625212,
+   "w1": -0.11543631528058829,
+   "m1": -0.43720588582760167,
+   "m3": -0.46310328380662047,
+   "rsi": 40.64178556221235,
+   "from_high": -0.5840115492578317,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 1.1185575155278746,
-   "history_days": 500
+   "vol_vs_20d": 0.8242774566473988,
+   "history_days": 501
   },
   {
    "ticker": "SKHY",
    "name": "SK hynix",
    "benchmark": false,
-   "close": 124.27999877929688,
-   "as_of": "2026-11-23",
-   "d1": 0.19996137052714125,
-   "w1": 0.01718774323846639,
-   "m1": -0.0929791643257496,
-   "m3": -0.22096157631623192,
-   "rsi": 38.466894546134306,
-   "from_high": -0.37431407277757733,
+   "close": 111.9800033569336,
+   "as_of": "2026-11-24",
+   "d1": -0.09897003172816465,
+   "w1": -0.08669763641221706,
+   "m1": -0.2148365783849434,
+   "m3": -0.2913555225333645,
+   "rsi": 36.99271884714495,
+   "from_high": -0.43623822884664665,
    "above50": false,
    "above200": null,
-   "vol_vs_20d": 1.4346173995986229,
-   "history_days": 96
+   "vol_vs_20d": 0.8331813495343846,
+   "history_days": 97
   },
   {
    "ticker": "HOOD",
    "name": "Robinhood",
    "benchmark": false,
-   "close": 67.37000274658203,
-   "as_of": "2026-11-23",
-   "d1": 0.08364170388916281,
-   "w1": -0.06508458188883737,
-   "m1": -0.2913642267503891,
-   "m3": -0.39896507317657537,
-   "rsi": 31.135388149461264,
-   "from_high": -0.5085351484776552,
+   "close": 65.6500015258789,
+   "as_of": "2026-11-24",
+   "d1": -0.025530668703889647,
+   "w1": -0.05116347435491431,
+   "m1": -0.292869408493446,
+   "m3": -0.3951538513716075,
+   "rsi": 27.57626051262538,
+   "from_high": -0.5210825747814787,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 0.9582541160001941,
-   "history_days": 500
+   "vol_vs_20d": 0.6752308404778028,
+   "history_days": 501
   },
   {
    "ticker": "CBRS",
    "name": "Cerebras",
    "benchmark": false,
-   "close": 98.51000213623047,
-   "as_of": "2026-11-23",
-   "d1": 0.19160522944387104,
-   "w1": -0.02455684503414346,
-   "m1": -0.11108101058015685,
-   "m3": -0.46438667291774816,
-   "rsi": 50.3313177802031,
-   "from_high": -0.6833188677249861,
+   "close": 88.77999877929688,
+   "as_of": "2026-11-24",
+   "d1": -0.09877173023991892,
+   "w1": -0.1478210931154491,
+   "m1": -0.1807696177058833,
+   "m3": -0.5125994962714605,
+   "rsi": 48.57725484516729,
+   "from_high": -0.7145980110941259,
    "above50": false,
    "above200": null,
-   "vol_vs_20d": 1.0994395362502885,
-   "history_days": 134
+   "vol_vs_20d": 0.7210426672427572,
+   "history_days": 135
   },
   {
    "ticker": "AMZN",
    "name": "Amazon",
    "benchmark": false,
-   "close": 255.38999938964844,
-   "as_of": "2026-11-23",
-   "d1": 0.034721626331419175,
-   "w1": -0.009156161436863486,
-   "m1": 0.029798384635679076,
-   "m3": -0.021719138213324718,
-   "rsi": 52.64699224840044,
-   "from_high": -0.10080272773563581,
-   "above50": true,
+   "close": 252.2899932861328,
+   "as_of": "2026-11-24",
+   "d1": -0.012138322216704966,
+   "w1": -0.021714766156955667,
+   "m1": 0.012846750151705777,
+   "m3": -0.03069773140708809,
+   "rsi": 41.02429306458394,
+   "from_high": -0.11171747396276277,
+   "above50": false,
    "above200": true,
-   "vol_vs_20d": 1.0035756844397608,
-   "history_days": 500
+   "vol_vs_20d": 0.6266970236076074,
+   "history_days": 501
   },
   {
    "ticker": "TSM",
    "name": "TSMC",
    "benchmark": false,
-   "close": 363.6000061035156,
-   "as_of": "2026-11-23",
-   "d1": 0.14084909746158591,
-   "w1": -0.02637570165094827,
-   "m1": -0.1312035611594098,
-   "m3": -0.12657714600058534,
-   "rsi": 41.99502947933577,
-   "from_high": -0.251543813832969,
+   "close": 349.20001220703125,
+   "as_of": "2026-11-24",
+   "d1": -0.03960394294488745,
+   "w1": -0.02916397498727763,
+   "m1": -0.17713312386611701,
+   "m3": -0.16173041863128323,
+   "rsi": 41.13974887503535,
+   "from_high": -0.2811856299266762,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 1.8567467391662238,
-   "history_days": 500
+   "vol_vs_20d": 0.9501007041699395,
+   "history_days": 501
   },
   {
    "ticker": "QCOM",
    "name": "Qualcomm",
    "benchmark": false,
-   "close": 165.3800048828125,
-   "as_of": "2026-11-23",
-   "d1": 0.10297453774845655,
-   "w1": -0.0186327991338745,
-   "m1": -0.0598601475759335,
-   "m3": 0.03562591031236817,
-   "rsi": 50.512799393799625,
-   "from_high": -0.33513569352875316,
+   "close": 164.9600067138672,
+   "as_of": "2026-11-24",
+   "d1": -0.0025395946096562483,
+   "w1": -0.010259743648312725,
+   "m1": -0.08151447044612248,
+   "m3": 0.013057708803863477,
+   "rsi": 45.118046990701885,
+   "from_high": -0.3368241793376203,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 1.368343522780318,
-   "history_days": 500
+   "vol_vs_20d": 0.8887847542544093,
+   "history_days": 501
   },
   {
    "ticker": "IBM",
    "name": "IBM",
    "benchmark": false,
-   "close": 233.0,
-   "as_of": "2026-11-23",
-   "d1": 0.03813935780377875,
-   "w1": -0.03921485597397867,
-   "m1": -0.07473163233382818,
-   "m3": 0.0017978696910556646,
-   "rsi": 36.50884025315136,
-   "from_high": -0.28228288921656675,
-   "above50": false,
+   "close": 235.6199951171875,
+   "as_of": "2026-11-24",
+   "d1": 0.011244614236856298,
+   "w1": 0.019602747202753346,
+   "m1": -0.06388433761701529,
+   "m3": 0.03210146275941583,
+   "rsi": 34.631871045664,
+   "from_high": -0.2742123689475011,
+   "above50": true,
    "above200": false,
-   "vol_vs_20d": 1.0590018695202192,
-   "history_days": 500
+   "vol_vs_20d": 0.7481792124663039,
+   "history_days": 501
   },
   {
    "ticker": "DELL",
    "name": "Dell",
    "benchmark": false,
-   "close": 334.9100036621094,
-   "as_of": "2026-11-23",
-   "d1": 0.20462562728048983,
-   "w1": 0.04479805464355602,
-   "m1": -0.26625623987656044,
-   "m3": -0.2572005848539821,
-   "rsi": 38.83639909108339,
-   "from_high": -0.430023911889569,
+   "close": 295.2799987792969,
+   "as_of": "2026-11-24",
+   "d1": -0.11833031097749835,
+   "w1": -0.0852257165258462,
+   "m1": -0.3678306084601033,
+   "m3": -0.36249187115341663,
+   "rsi": 38.41738568175929,
+   "from_high": -0.4974693596454143,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 2.0466927603152847,
-   "history_days": 500
+   "vol_vs_20d": 2.4445039541006763,
+   "history_days": 501
   },
   {
    "ticker": "MSTR",
    "name": "Strategy",
    "benchmark": false,
-   "close": 84.4000015258789,
-   "as_of": "2026-11-23",
-   "d1": 0.08483288194385197,
-   "w1": -0.18082109554641213,
-   "m1": -0.4219573679805362,
-   "m3": -0.3345422982938622,
-   "rsi": 18.302178310363786,
-   "from_high": -0.5692558922412088,
+   "close": 77.55000305175781,
+   "as_of": "2026-11-24",
+   "d1": -0.08116111789430158,
+   "w1": -0.19637302537038537,
+   "m1": -0.44535832506479145,
+   "m3": -0.3704846049609952,
+   "rsi": 9.758512374549582,
+   "from_high": -0.6042155655532958,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 1.394700386892106,
-   "history_days": 500
+   "vol_vs_20d": 1.1959544194066594,
+   "history_days": 501
   },
   {
    "ticker": "MSFT",
    "name": "Microsoft",
    "benchmark": false,
-   "close": 492.5,
-   "as_of": "2026-11-23",
-   "d1": 0.016469931411029926,
-   "w1": -0.047372699115801664,
-   "m1": -0.05921450651235638,
-   "m3": 0.003541507371797481,
-   "rsi": 40.9346405465591,
-   "from_high": -0.11217812947328931,
+   "close": 496.1300048828125,
+   "as_of": "2026-11-24",
+   "d1": 0.007370568289974511,
+   "w1": -0.018077564633419585,
+   "m1": -0.06667589818416975,
+   "m3": 0.0014473602184887913,
+   "rsi": 25.682014828744016,
+   "from_high": -0.10563437774723916,
    "above50": false,
    "above200": true,
-   "vol_vs_20d": 1.0113125078416758,
-   "history_days": 500
+   "vol_vs_20d": 0.7550387781969549,
+   "history_days": 501
   },
   {
    "ticker": "SPCX",
    "name": "SpaceX",
    "benchmark": false,
-   "close": 133.35000610351562,
-   "as_of": "2026-11-23",
-   "d1": 0.04350892204518875,
-   "w1": -0.02919332039180078,
-   "m1": -0.09587089879323252,
-   "m3": -0.03334534937650235,
-   "rsi": 44.368992444869306,
-   "from_high": -0.3691754269902058,
+   "close": 125.80999755859375,
+   "as_of": "2026-11-24",
+   "d1": -0.0565429936243782,
+   "w1": -0.11213831850294587,
+   "m1": -0.14356703345237753,
+   "m3": -0.0989759137788292,
+   "rsi": 43.05917866526768,
+   "from_high": -0.40484413679999975,
    "above50": false,
    "above200": null,
-   "vol_vs_20d": 0.9238295951351521,
-   "history_days": 114
+   "vol_vs_20d": 1.0023724387256452,
+   "history_days": 115
   },
   {
    "ticker": "AMD",
    "name": "AMD",
    "benchmark": false,
-   "close": 453.4599914550781,
-   "as_of": "2026-11-23",
-   "d1": 0.06849825821354916,
-   "w1": -0.10077736068699528,
-   "m1": -0.12254492011243068,
-   "m3": -0.05367503154103004,
-   "rsi": 47.03660398282935,
-   "from_high": -0.3017461682915109,
+   "close": 413.2699890136719,
+   "as_of": "2026-11-24",
+   "d1": -0.08862965465253769,
+   "w1": -0.17905884665124738,
+   "m1": -0.22212399069354072,
+   "m3": -0.14068576444081815,
+   "rsi": 43.121822023650616,
+   "from_high": -0.3636321642556454,
    "above50": false,
-   "above200": true,
-   "vol_vs_20d": 1.271751918434964,
-   "history_days": 500
+   "above200": false,
+   "vol_vs_20d": 1.042584858302206,
+   "history_days": 501
   },
   {
    "ticker": "TSLA",
    "name": "Tesla",
    "benchmark": false,
-   "close": 385.4599914550781,
-   "as_of": "2026-11-23",
-   "d1": 0.11462605775060153,
-   "w1": 0.015062941401490892,
-   "m1": 0.035570335261281505,
-   "m3": 0.10052816975040146,
-   "rsi": 46.862365881644386,
-   "from_high": -0.2131542671408142,
+   "close": 384.67999267578125,
+   "as_of": "2026-11-24",
+   "d1": -0.0020235531484148472,
+   "w1": 0.01202285522699964,
+   "m1": -0.01772126686056863,
+   "m3": 0.11237055268213525,
+   "rsi": 49.869409096478485,
+   "from_high": -0.2147464913008582,
    "above50": true,
    "above200": true,
-   "vol_vs_20d": 1.2787727266663453,
-   "history_days": 500
+   "vol_vs_20d": 0.7877179289300976,
+   "history_days": 501
   },
   {
    "ticker": "META",
    "name": "Meta",
    "benchmark": false,
-   "close": 597.5999755859375,
-   "as_of": "2026-11-23",
-   "d1": 0.0655444457781933,
-   "w1": -0.04599223957749221,
-   "m1": -0.07005698526862703,
-   "m3": 0.049156406103767925,
-   "rsi": 44.762359302823114,
-   "from_high": -0.23147165608257747,
+   "close": 589.8200073242188,
+   "as_of": "2026-11-24",
+   "d1": -0.013018689055484978,
+   "w1": -0.04694037200408774,
+   "m1": -0.06460922099738697,
+   "m3": 0.02455218036745843,
+   "rsi": 40.96997320520555,
+   "from_high": -0.2414768876223653,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 0.8792344282094154,
-   "history_days": 500
+   "vol_vs_20d": 0.5764113828640288,
+   "history_days": 501
   },
   {
    "ticker": "DRAM",
    "name": "Roundhill Memory ETF",
    "benchmark": false,
-   "close": 39.56999969482422,
-   "as_of": "2026-11-23",
-   "d1": 0.18615104828702256,
-   "w1": 0.007639399887025888,
-   "m1": -0.159158552058984,
-   "m3": -0.2964082767804255,
-   "rsi": 39.624582384318245,
-   "from_high": -0.509786928934346,
+   "close": 35.91999816894531,
+   "as_of": "2026-11-24",
+   "d1": -0.09224163644247707,
+   "w1": -0.07731831781748755,
+   "m1": -0.25677639544667397,
+   "m3": -0.36300765104212473,
+   "rsi": 38.51536871940782,
+   "from_high": -0.5550049848149343,
    "above50": false,
    "above200": null,
-   "vol_vs_20d": 1.513810374516397,
-   "history_days": 163
+   "vol_vs_20d": 1.2249630561762042,
+   "history_days": 164
   },
   {
    "ticker": "SPY",
    "name": "S&P 500 ETF",
    "benchmark": true,
-   "close": 722.2899780273438,
-   "as_of": "2026-11-23",
-   "d1": 0.04708540117380822,
-   "w1": -0.02386652326285299,
-   "m1": -0.04958089678322375,
-   "m3": -0.05461005457522361,
-   "rsi": 41.14853918398945,
-   "from_high": -0.07290562947825041,
+   "close": 718.780029296875,
+   "as_of": "2026-11-24",
+   "d1": -0.004859473116399671,
+   "w1": -0.018649955080278446,
+   "m1": -0.06087247490434877,
+   "m3": -0.05941296914370864,
+   "rsi": 36.04996268398743,
+   "from_high": -0.07741081964816632,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 1.5116632612201817,
-   "history_days": 500
+   "vol_vs_20d": 1.0504941467024858,
+   "history_days": 501
   },
   {
    "ticker": "QQQ",
    "name": "Nasdaq-100 ETF",
    "benchmark": true,
-   "close": 651.030029296875,
-   "as_of": "2026-11-23",
-   "d1": 0.06998112619867203,
-   "w1": -0.01619942682754061,
-   "m1": -0.0757666003228521,
-   "m3": -0.08303067790031482,
-   "rsi": 42.67254167032288,
-   "from_high": -0.14299811453536804,
+   "close": 638.0999755859375,
+   "as_of": "2026-11-24",
+   "d1": -0.01986091751390051,
+   "w1": -0.02869325865109107,
+   "m1": -0.10404385755550005,
+   "m3": -0.10206378896627089,
+   "rsi": 38.779841334557915,
+   "from_high": -0.16001895829183832,
    "above50": false,
    "above200": false,
-   "vol_vs_20d": 1.4867338051322838,
-   "history_days": 500
+   "vol_vs_20d": 0.9556216761618327,
+   "history_days": 501
   }
  ],
- "updated": "Nov 24, 2026 11:32 UTC",
+ "updated": "Nov 25, 2026 11:35 UTC",
  "record": {
   "weeks": 3,
   "basket": -0.06515707710569064,
@@ -1040,121 +1040,12 @@
  },
  "news": {
   "SNDK": {
-   "headlines": [
-    {
-     "title": "Sandisk (SNDK) Stock Forecast: NAND Price Outlook, Earnings and Key Levels",
-     "source": "FXLeaders",
-     "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNWFR3aXYzcVdzMi04YjhEU0o0T2tYRzlMcUVxaFQwZUhjR09SMkxwTnVjOWpiTjdEblJicGFIdzJMVlRwOE5CT0pzbl8yMmZvdkIwbWVMbC1uYWJPemo3aS1wdE8yd2NWdVZIVVhkcFFPVHJpbUk0ZkZQZERQVDlvMGtsWUFiOU9SV3A0d3RMS1ZJRTQ?oc=5",
-     "published": "2026-11-24T06:33Z",
-     "tone": 0,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Sandisk: Armageddon Has Been Priced-In (NASDAQ:SNDK)",
-     "source": "Seeking Alpha",
-     "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxObl9HWHB4ZHhXS1dxVGlsWm52QmFzSlN4UjFvbk1yVU4zUWJ6cktxRjVMQTlUam5GNFlkcVNBNVplLVhnZ2RjTUpXR2tnTFdBNFc3bk1hTmdjYlE2cGxQWE80VjlIZGNsS0FoVTJOem12RWFTZTdUd1dDN1ZOOEQwVHdUeVc?oc=5",
-     "published": "2026-11-24T01:40Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Sandisk (SNDK) Stock Looks Below Fair Value After Its 179% Run",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPQWlFQzExdnVnemJTOFltaU9pN2VyNTlmeGp0NE1Vbm53dDl0NDQ5UlktNWplU2tGdk5STEZFbHhPbTZaeUdkSDFQMV9kMGxXMGc0WHhrSFIxWnlWTjd2SG0zRFVpd3BLRzZkdEh2eGc0Y0xoWXBXMFh0TFM2SWdLZzNjbnlYOFZvcldEbTIwbjFPNy02aGJ0QmRuYw?oc=5",
-     "published": "2026-11-23T20:08Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Sandisk Stock Climbs After Jensen Huang's Comeback at Nvidia",
-     "source": "Benzinga",
-     "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPeVVHWk5BVlN2bHljazhGaUtRbmptUEY1SDVpaElGYlpIQ1dycHItdnZ5aVZWQjVzYWFnWTFHbjR2UVZSenFoUlpkRy1KVnFhekdhdDBXRTdaTEtxWWhyM2xZQ19LNzJfWENheEl4MUlobkRlc2dCSlZCempDTTFGellSRDI4V19URE9aY2trTmIySmxma0NmdUNRTzRSNVVnSWg2Wk10NWFSSFI4TWxKWThpLVdJMXRpLTBPVw?oc=5",
-     "published": "2026-11-23T18:05Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Sandisk: The Numbers Are Still Ridiculous (NASDAQ:SNDK)",
-     "source": "Seeking Alpha",
-     "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNQ0kxTGx2QmVPX2YtZzZMTmIzUUxYVE51UldCSG16aFdCakpmd3JuYjFTd0oxOWJMdkhRZnAtbjlCdXZfcWlMSVFTbGI5cGpvcndURHEwNEd1aFl3NVRrdl8tRUc1Q0dNRU5UUy1RdWd1dzh0UFpXYzRtcC1fajc2dGFoeERkZU1u?oc=5",
-     "published": "2026-11-23T16:51Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Why Nvidia Rehiring Jensen Huang Is Making Sandisk Stock Skyrocket Today",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNWU1PU2k0XzdxekVMYXpUQkUtRFpueEh4WFcwaHJUQUdUcF9xb1FZYTlsa2hlWFJ2ZEJwMEtKWkNPQm5jcm1neGhwQ1hZaFRkSVBEUVFmZ3FsMkdWalR3d1RDSzZuRDhFb1lkM194V3lIa01sdGZfVFU4N2lpYlpOVzZfYzRjSUJNazhrUDZOSVp2OWM3dUdOQkE5RURyeWJ1OF92VUJyZHBmMUlXWmx1OUNTek55Zw?oc=5",
-     "published": "2026-11-23T15:43Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "SanDisk Surges 22% as Jensen Huang's Return to NVIDIA Sparks AI Chip Rebound; Seagate Jumps 18%, Micron Rallies 16%",
-     "source": "24/7 Wall St.",
-     "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNUEJsWmVwcjVqZEVVSDlZVi15SjI2SHFHSE9ublVINEpBWGlNRlBET3FWUFE5bGxvbEhKWHMzMjlBTnpobEVtMXhId1Z1cnVuRVpNcnlsS0E3TlZmREs5aXhXMV9hdlg0OHRHMDhUeHA2UFNKLUZwc1o5SDk5NWFVekZLUUZoazZwWHFabG9iZHQ2OW14dzh3TjVtT2tSS2xqQlVqd1VNcFRja3RTS3pMTERYT3F3cVJPUXFOTno4c3d5NjJVZmladk8tQW05aVFQeFVQem1PcWlrNEM2T1JTNFBzaXJicmpH?oc=5",
-     "published": "2026-11-23T15:04Z",
-     "tone": 4,
-     "tags": []
-    },
-    {
-     "title": "Why is SanDisk stock surging today?",
-     "source": "Investing.com",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOMEtIM2FlOUpJcjVQTmRnNy1wUHRMLVZQMlZ0cVhocFZZSER1NGVIVHdla0FrU01USUZldUxpM1phcUwzRXZESWRSa2M0c1lTRC1ZOUkzb3BDYXNROVA3WF8wN25iSnpWVVF4Snl5NlBicXQtTWJjZWtxN1VIclhtZkliUmNXMUlUeW5QYkNkRDM0QkpkWWlKR0xSQjg?oc=5",
-     "published": "2026-11-23T14:57Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Sandisk climbs 12% as technology shares rally (SNDK:NASDAQ)",
-     "source": "Seeking Alpha",
-     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPNmc2R2FwQlpaY3YtMVMySjRNeWthWVJ1ZlJfendTRnFYVVNIZGFzVEtHXzhPQ2lwOTFQWEpBQ01neGhERG9fQ1c2dnRYaDh4WVFXcV9uWFFqakI1cTF6N2NHWXdJQXpGblp5WUNvcVNVR2FzUG1JZjhLb2thVU1TOFJVNThJbjVZb0E?oc=5",
-     "published": "2026-11-23T14:55Z",
-     "tone": 2,
-     "tags": []
-    },
-    {
-     "title": "Even If Sandisk's Profits Get Cut in Half, Here's What $5,000 in the Stock Could Be Worth by 2030",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNUmNCcGhyRzB4QkdYODJ1VFMxTTcxbUJTbmdITWJ0d2Zpdno0ZmEtQ3ZVbUJ2dzZJbnBVaUI0LUFHcDNzUGprQ0JzTUd0ZWM3alVqUU01WjdfOFhPVDFrV0xsa1Y5UXdpOVVmUkRiX2hXQlNNRkk4MDFtbGdyaDAxdF9xS2VGOGpxSThMWE1MdlFfRTRIQ0tzMl8zWQ?oc=5",
-     "published": "2026-11-23T14:43Z",
-     "tone": -1,
-     "tags": []
-    },
-    {
-     "title": "SanDisk and Micron\u2019s Early-2027 Worst Cases: A NAND Inflection After a Split vs. Peak-Cycle Fear Amid Heavy CapEx",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOXzk4OHFtT2FLeEgxNV9mM1BUdzdpVmNpbFF0U2RXX2NzUDJqRklmNjgySEhzQnF5d3JYRHFXT1kxZzVVTGRLOFZReTVGc2RTeUFjaTFicDFWeGxZOWF3ZmE2Wm1ZcDNwWVFFVVdnSmxIRUdlaUktNHVzd3V1V2VxWURwemF0LS1QWVlidnFGakJxVVRwNG11Ml9KSFM?oc=5",
-     "published": "2026-11-23T13:45Z",
-     "tone": -1,
-     "tags": [
-      "Capital"
-     ]
-    },
-    {
-     "title": "Sandisk Just Split Its Stock 8-for-1. Is It Time to Buy?",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQeXMtcXFrOEZ1MmhzNWsxY3UtWmRqS2JTbmRmZXNuMXJsUk42enBjZ2pWOWtBQjR6X1JiTzF0Ti1hZjF5bGd4Mmw2SkF3Qnp1T1hGNTFYVkx6Um1HMjVyT05jY0hxek1FbTVBZGh1X1ltakx5cWJvTXpGVVN3SEdUQkxlZFlkMUdnTzh3dmQtQk1nU2JadWc?oc=5",
-     "published": "2026-11-23T10:20Z",
-     "tone": 0,
-     "tags": [
-      "Capital"
-     ]
-    }
-   ],
-   "n": 12,
-   "tone": 0.4166666666666667,
-   "tags": [
-    "Capital",
-    "Earnings"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Sandisk%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 24,
-   "target": 248.15105,
-   "upside": 1.829221867517957,
-   "short_float": 0.0346,
+   "target": 247.10938,
+   "upside": 2.170101090442591,
+   "short_float": 0.0375,
    "upgrades_30d": 0,
    "downgrades_30d": 1,
    "rating_changes": [
@@ -1188,119 +1079,15 @@
     }
    ],
    "earnings": "2027-02-15",
-   "earnings_in": 83
+   "earnings_in": 82
   },
   "GOOGL": {
-   "headlines": [
-    {
-     "title": "Why 1 Billionaire Investor Just Poured $3 Billion Into Amazon, Meta, and Alphabet",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNckhxYnNTT0dZMUs3aGhSMkZ4UG9vY0lIZjd0Y2liTkNSNEZJZ3R0djRyRWJBcGM4SzFMOGh4SlF0aVd6Vk9EbEp6MkpQSzd1RXZlcUhIZEY3RHBZNE9Ubm83X1l3dDlwSWxTdmxwbXFzdUNqSkNqcnpFMEhqUldqMHkxcER3ZGtnOWJHWTRfZkdTRVZodnJFWG5iU19YS0VqQmswWFhSTkwzOW5wZ0NfdjVlR3prRV9mUUxvTzJNcjdWSWNs?oc=5",
-     "published": "2026-11-24T10:15Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Alphabet Inc. - GOOGL 6 1/4 05/15/29 (NASDAQ:GOOGM): A Peter Lynch GARP Candidate",
-     "source": "ChartMill",
-     "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQNmd3VUZ4NjVXbGY3NE9OR2JhNkdCUVk0ME00bWhGTTJGSlpOcUw3WndPbzhIYnlXZzRucWxfRGhMYjNMQ3lud0ZMLTVTcHIzOWhCWnVtOGFIMUhueG5DZWZSMXFCWXZvTHF4bHYwRjQxN3FnZ3FGSDh6c1pDWFh3RnVCUUIySDdIakM2SnJSVzAzQnoycC1ZVWhsMTNPbjlmSnZ5MExGNHJTX3ZkOGt4bUJQWHEwTmVYbmlYcXNmUWZaMXpJ?oc=5",
-     "published": "2026-11-24T09:11Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Alphabet Vs Meta: Which Stock Is The Better Buy?",
-     "source": "Trefis",
-     "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNb3RxakNEejI1NUwtVDNCenVSQjV5X2VqUU5PdU1PVzJnVmxIdVl1RUdQOXFwSTJrbXlrclNfNmhsRnFOOG5DSnFOaWJHcmxlU0NfbVo2QUN6YjI5Q3Bjb2RQdk1QNGRnWF90bHVnanlvZWptT2RmVkN0SW5JX2xpQWJvd3hIVkRKX0FtU3BFalZXQ0NnaXFsUWVEbkFvNmZqa0hnSjZsc0dXYmd3?oc=5",
-     "published": "2026-11-24T09:06Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Prediction: Alphabet Will Be the World\u2019s Most Valuable Company by 2031",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQYjB2RVN6Q0Q2M1FVa2FMWVVTc2RHNnZJangtNUdnal9mTExEQkw3dTdrTUJsNXNlZ0dDVE5WaHNtUEZrQS14dkFzX2RZNUpGbGZUc3AzRkpnX1VTdHQyaUphcjU5dUNfZXNyNk52a19NX3hoOTBFOTRRd244cDZZLXJYVllmUkhVbzEyQ215YV9Hb2hQQVBJbVhLN3hpUm5oQ19oczBnTnk1Rm5aX1NUUDF3?oc=5",
-     "published": "2026-11-24T08:50Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "David Tepper, Seth Klarman and 5 Other Famous Investors Own Alphabet. Here\u2019s Who Sold Recently",
-     "source": "TIKR.com",
-     "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxPT0lpdE5TYUxpbzF6WjhwLTYwTkpDanBfS0FiWFZBbktMenJZSXdmem9UY2UtdlJYYmVHXzB1M0lSRVk2cjhBOXRyREJJUFVGOVhYZldSZC1vdy12NlJfOWNzSnRScmc5clBfUUc3V1QzTkpYeDdiMUM3VkFWZTVzTkdhUUpIR2dtUjF1c2N5LW5JWWluNVA0RjFGc2lkRU1KRXd3anVHX3libE52bWNmaWxxVDJ1SF9IcllOUlhSWE1WWS0wWHNFRDB5WS1aaVJvV2JZbnZvY0pYc1YwM01aS0tnZWJfSWVpRm5YaC00WQ?oc=5",
-     "published": "2026-11-24T08:31Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Alphabet (GOOGL) Stock Price Prediction: Alphabet tests its near-term pivot as bullish analyst targets meet mixed technicals",
-     "source": "blockchain.news",
-     "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOck1WV2ZrcmxJZWU4dUtLbWpiV0NQbjFGLTFQek1NSDQ5a2dmN2dlRGZBSDRkcGRuZXFqNVBqYVdoUzhCZXM1WktWajZ6R2ZOMWV1cW14MTVEQnBRMDZMb2g3QzlwbDdmX0RaTi1ZdG9maTZHYW9tQXN0dHU1OXkwamlYTkQ3OFlXN09LbnJZY1g3OXBuR1JRRW0wNA?oc=5",
-     "published": "2026-11-24T07:29Z",
-     "tone": 1,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "Alphabet stock gains 1.11% to EUR 262.13 before Xetra",
-     "source": "ad-hoc-news.de",
-     "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPel9ZdWZTbUpYMU42cURPclZTNC1xV2VocmQ3WnVUQ1lFLTJBa1hJUmdwelFfR2tRMzNNeVlVVkN1WTV1SVg4eGxYRk1YOXEzdUJYRFlnX3ZHbnVBdlV6QzUzVUgwenFqSktaaDlhTDhDUjV6SXNxZXQxeTE0RHg4bVI0aXktWG4xT2RvUF9UOUJqVDA1ZTZjZkNpNktwam5sMTJ4NW1Qc3dTRlVzYlBB?oc=5",
-     "published": "2026-11-24T07:29Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Alphabet Director K. Ram Shriram Transfers 19,730 Shares Each of Class A and Class C Stock via Trust Gifts",
-     "source": "Kalkine Media",
-     "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQYklfT3JmTW1DcU9sYmlmS0JCZVJMbVpIZzJ3NWI3b2ZBZ3kzRnBaMnM1elFvQ2l2STg3dlRRT0FHTUxBcVFYZllOWGxvYlRyZW1jTWJqNzh4alg5T0doREFSU3JIZy1BbFZLSUZ6NDZlRVFRUC1yMUZjcHhHZFc2RVRnOG96dGdwQktxODZjeGJFZnQ0aXE5MzJORll6WGlxVEhJVl9ETXFOY2pkN2ZjTDRKMlJlVURBQjNrekJVZi04SEo2emxkcmtWeTZZNExad08tbUNtZHVNWWt6Unp2SEFaYmhlQQ?oc=5",
-     "published": "2026-11-24T05:22Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Form 4 Alphabet Inc Class A: Kavitark Ram Shriram (Director) For: 23 November By Investing.com",
-     "source": "Investing.com India",
-     "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPNm1NeEI3X3hmZDlkVVNhWlN1a2pZa0kzbV9UbnFMazJDeG1jUDFTSUpENXNlRUhVSUxWZzFjbl9NVmF4c3ppUkZvV2hjWU1wN1ByMzl0R01BVUVrRkdyNjdscWxvTFpLYXBXb1B1cFdoVGNGZ1FUaEpyNm5IM3FpUlBFLU45QS1JVUxSRnNsUzA3aUxTRjlxQUNkckphNnd2eVgzR3RkVFVpWDV6U0hLbFV3UlA0bnIySVV6Y0lUUHpySjVqZXJkZWFDQ2h1cEE?oc=5",
-     "published": "2026-11-24T02:41Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Nvidia's Huang Return: What It Means for the AI Boom and the U.S. Economy",
-     "source": "Around Prague",
-     "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOY1ozWUUtZWRRbXo2OHQ2YnlLa2hoaGxqT002cnhuTGlsQS1sZUdOTG85aDN1bjZLaWVIM1V0azJzNkZrTHg2SUZtcUt1dmtCZDZOWVJfbnpONFFqcndXa1F6MHI5MnJWTkl6ZlRoZFRYQ2M4VG90amh6d0tENUFyTTBZS2hFY2Z1UlR3X3RWUTFacnVGWGZUZFRLV3dZUjBWcjVUZVRsaGc4dw?oc=5",
-     "published": "2026-11-24T02:08Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "BRK.A Stock News Today: Latest Updates & Live Price | MEXC",
-     "source": "MEXC",
-     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9JdnFyX3JQaDU5NXZBd0IxTVF4RkVJYnVpVWxnX0lHeTFkZXV1NlV5TlhHcm5nRGN5dUhab1ZnSzNZOHJpdU5kMGxBOTV1UEZBM1pVamZzejM?oc=5",
-     "published": "2026-11-24T01:41Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Alphabet Soars 6% as Jensen Huang\u2019s Return to Nvidia Reignites AI Stocks",
-     "source": "TIKR.com",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNbHFkc08xbGtiaFlBMGJJSU9EUHhjTzVZcmVQNVFoVUo3bkphQU5mWDVDazBrOGlKSkFuWVU5NVN4TDlnY1otWjhjSGZBSWFFaHZzX0lISFcxa1FzaXduUllTSTRKbFBqUHJ6Vm9lS2pfcWk3VW56NmpMWFNySW5HTVlGLWY5NUIzVTBJOWhvWnN5eHFYQkxLOGphZWQ?oc=5",
-     "published": "2026-11-24T00:00Z",
-     "tone": 1,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.25,
-   "tags": [
-    "Analyst"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Alphabet%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
-   "analysts": 53,
-   "target": 395.7702,
-   "upside": 0.4029429280397021,
-   "short_float": 0.0149,
+   "analysts": 54,
+   "target": 395.47815,
+   "upside": 0.41723042465507976,
+   "short_float": 0.0134000005,
    "upgrades_30d": 0,
    "downgrades_30d": 1,
    "rating_changes": [
@@ -1334,142 +1121,28 @@
     }
    ],
    "earnings": "2027-02-03",
-   "earnings_in": 71
+   "earnings_in": 70
   },
   "MU": {
-   "headlines": [
-    {
-     "title": "US Premarket AI Stocks Extend Losses; Micron Drops 7%, Nvidia Falls 5%",
-     "source": "bloomingbit",
-     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBMbTQyeFUtcElPdi1ZOElmbGJrVVBTUlBJdGVXQWhBd3RvWW5MdlZ2cmxGbnNGb3JXdDNvT05UTGRRUFNtaGtvYWdPdWVZOUR3Q2VXcQ?oc=5",
-     "published": "2026-11-24T11:07Z",
-     "tone": -3,
-     "tags": []
-    },
-    {
-     "title": "MU Rebounds 19% Into Its Falling Channel Ceiling, With $728.88 the Breakout Level",
-     "source": "TradingKey",
-     "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxOTlczM0o0b0t1dFRPU29EcGtqVlNYdzd6Vk1FUVZFRVhPaER1ZmhtQ2MyRV9SYVdWRGhuZmVQM0dTbXpIdVdibjYtOVVnVEJJSzlXQV9GYkctbzcwMTdHN1JQNEc3QkQ3NVNnNUVTaUx0ekp3QmpCeDhVTVFrcnhBODhHNVl0S1djWk5TSURZb0pjNElwdjk0b1Q0TnZxMURaWS1lckxLM2ppVG10NUJub0J1NU1iR3RjWHk5Qml3THpuY2Z3SWNEaWI4ZlVLM0Iya3NVbGdTdFJETWxXR1hlSU1rZWFtV0hl?oc=5",
-     "published": "2026-11-24T11:02Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "BNP Paribas Downgrades Micron Technology to Neutral, Price Target is $775",
-     "source": "marketscreener.com",
-     "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOWTFLY0ZqSHd5d0pFTjhvdnpEcV90RG5MTVNHMk9aekZPS19GZ3pkVFVZSG5iN3pycVRvWkVpZ2JuSDFmVEFYV3NSVW5kT2pmdXJPd0xGcC1qZ3MxR2JqSkpndHoxN0xNRTdwcWVkZ3ZobUUxWDBNSlpGT2FZZGNVbjFyanhJbzJMUDNzYzFEZWZkTHdaa25CMVJZTUJDd3JsU29jem90bmh4bkl2eXA2Y0lVLS05NFlHUlJBMmR4TXZRQQ?oc=5",
-     "published": "2026-11-24T10:37Z",
-     "tone": -1,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "Micron: Pounding The Buy Table (Double Upgrade)",
-     "source": "Seeking Alpha",
-     "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPNlFDejB5bGZ3YzVwRzRXTWZqbkJFUV9tbEcyeGhqTTBpZHhsRTNkX1hXQVhDNV96ZHp6WXVDZ1VZZ2JuTjZpRW44Vnc2RVVSd0FLcDJLcEFGLXBUV2c1cHBNYzNRR0dhQmViYnFCSzlSdno2WGJDTU5fNS1UTzIwSlJsUHA4TlE0eGQtYWJn?oc=5",
-     "published": "2026-11-24T10:36Z",
-     "tone": 1,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "Jensen Huang\u2019s Return Sparks AI Stocks as Micron Surges 19%, but Downside Risks Loom",
-     "source": "TradingKey",
-     "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQd28zemZiYU15YURYdS1qd1d6bmlwSXg3ZEstNHZ4YU5uS2JXSF9YN3hUZXVhY3huUURBT3BuZEVkT2VoSEF0MVdiMWNUSnJoNzRwOXJ3ei1YYVFFR04yRnk3RTRfQUVlTE92V0xoSEpvM1ZZQ1Ric29nM0kxQ2hHa2FrMWJsenBkUVhWUG5PLW5ueEVXQVgyT19HejVwZ2o3RW8zRGp2YUtDMlRVR25qRw?oc=5",
-     "published": "2026-11-24T09:15Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Micron Under 10 Times Earnings: Bargain Or Peak?",
-     "source": "Trefis",
-     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZlV0S2QtTi1YVVhiREczV0ZNczJieGwxZDJOb205cjdaY1VEaTExU2dFazBjNFRLQ2dXNzVMSlMwQmZCakh5M0hoV1RIYUtrSVpHc0NOelpzbWd1LS1Pb09lQnVycnBXZDZtcVExZWlXMThEeHVDM0cySGlfUFl5T3RibzJQZ1RJaWdjMHJhS0ZrTDJSTkdlTmc1b3o1UkYyT1VOSTZ3Qzc?oc=5",
-     "published": "2026-11-24T08:32Z",
-     "tone": 0,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Micron's 19% Snapback Stalls Below $711 as Volume Thins and Street Targets Sit Far Above the Tape",
-     "source": "BigGo Finance",
-     "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9VYXRPMTBBcVhDN0VFR2lSNlhPa3FQTEQyLU85RDRTUkh2MmwxXzZ5RndNNG9ZUlFEYUJHa1RQcnNLb2M3Qk5UYm5TYmltZjV2UFRBX1RUVXlIR3JNQjhkNF9vdlh3Q0xRcUdhOGpsQXRwY0ViSkE?oc=5",
-     "published": "2026-11-24T08:25Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Black Friday Comes to Tech Stocks: 3 Artificial Intelligence (AI) Names I\u2019d Buy on Sale",
-     "source": "The Globe and Mail",
-     "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNbVRNWU4yWWhuS1dzZGgwOVA2cFlCRUllSm5LY0xlenZDWUNaZnM3M3czcUVBNGdOM3JFank5djVQLXVVbkE3Y0NNTlFqQThFemhMN0N5M21sZ01XZXgzY1FUakgxMjlMMl9yd0dUYUQwb2ZFYWNvc05BLVloX1ZZcGxYSGhkWVU4bDNwZUV3dy11Sm5lOE5kSXhpSTd0OERqVHE0ak1yMWEtMzdXRjlYYmthc294OTVHOHFnSUt1YW1lMmNMZXlZS2JzcnZ2SVhxRXBsUjV4MHJLaHRSdFYzY3BxZ1c2NnZCT3J4OGJtLUJ0VGpTX05qZ2xR?oc=5",
-     "published": "2026-11-24T07:56Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Micron (MU) Stock Forecast: Memory Price Risks, AI Demand and Key Levels",
-     "source": "FXLeaders",
-     "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQeDRfMG9uSFBSSTBqanl2S0pRZHFkbFVNUnBuTDlMQTYxdnVIYXB2c3F3SlR4WHZVZXJad3JIT1NDcUR0Wm1ab3hPMVNnQWZvV2pJY1dyOTBDVWlkbURIblVySk9SZUVCODVqVi0yWlcwcE9Tc1hRX3lzQndFVUwxb19Pa0pXMmNJMVpUcmswVjB1bTVEelE?oc=5",
-     "published": "2026-11-24T05:48Z",
-     "tone": -1,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Nvidia Rally Lifts Asian Chip Stocks and Boosts Micron Shares",
-     "source": "cwibc.co.id",
-     "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBxVXJVYXpZM2ZEbnJkR211WTlUdkRvcFhaZFVkX0EyX3pzU1phbFd0T3FORWhkcDJHeFowUV9ZVnJod29NMU9PNk1wUkNFekZIbk1xdVFaaUtQVWZBamdaQk5kbVZLbDhwM2pXTQ?oc=5",
-     "published": "2026-11-24T05:29Z",
-     "tone": 2,
-     "tags": []
-    },
-    {
-     "title": "GS Finance Launches Micron Technology-Linked Autocallable Notes Maturing in 2029",
-     "source": "Kalkine Media",
-     "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOQkNzbDZvZkNJaVdxWmkyeXJCT1g0ZWd0Q0t4MVczM0xmTjhocWNnLXlScWxZZ18welo5aFZYVFZfSm1iaXM3bC1TX2xZTldXNmwzR0d0anM0LXdEanpXaXd3aUVMdndhZHZLdDduUF9pdGVTUTRIOE51dmhiY21tYlNLeE44eFVsTjRXTkVSTXN3enRvREk1cU51NFo2SjIweERiRFlIRGdlX1ZCczBCLTJQS0hHRHlodTU1WTc2U1VHQWQ1b2c?oc=5",
-     "published": "2026-11-24T01:43Z",
-     "tone": 0,
-     "tags": [
-      "Product / partner"
-     ]
-    },
-    {
-     "title": "Micron stock jumps 19% on Huang's return, with no new contracts behind it",
-     "source": "Startup Fortune",
-     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxORUZjSnNPUUJnVGt2MjBiUThmTlR1R3VFVjNlWHdIWUo1eWxfZ1ZFOTVhQUJkMGVtbWZXNWlKaFZ0S1doNUJsWEpjY2lXSHNxaVZKdURmUnFSa1o3Vlg3UnFXSndQaktMcEo3WkdfNi01UjU4UFdpX2hfWk5hcWdpVTJyeU9nUVF3MlhTeHd0MTAzTGQ3SGFlMlFtczFyWU0?oc=5",
-     "published": "2026-11-24T00:44Z",
-     "tone": 1,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.0,
-   "tags": [
-    "Analyst",
-    "Earnings",
-    "Product / partner"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Micron%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 45,
-   "target": 1550.2444,
-   "upside": 1.1905389289246857,
-   "short_float": 0.0207,
+   "target": 1529.6888,
+   "upside": 1.4288870893472425,
+   "short_float": 0.0212,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [],
    "earnings": "2026-12-17",
-   "earnings_in": 23
+   "earnings_in": 22
   },
   "INTC": {
-   "news_error": "HTTPError: 429 Client Error: Too Many Requests for url: https://news.google.com/rss/search?q=%22Intel%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Intel%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "hold",
    "analysts": 43,
-   "target": 90.65116,
-   "upside": 0.5194629567549449,
-   "short_float": 0.028800001,
+   "target": 90.4186,
+   "upside": 0.6499744525547446,
+   "short_float": 0.032,
    "upgrades_30d": 2,
    "downgrades_30d": 4,
    "rating_changes": [
@@ -1503,122 +1176,15 @@
     }
    ],
    "earnings": "2027-01-28",
-   "earnings_in": 65
+   "earnings_in": 64
   },
   "PLTR": {
-   "headlines": [
-    {
-     "title": "Monster insider trading alert for Palantir stock",
-     "source": "Finbold",
-     "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFA0alZsb1hSZERsVzQ4dTZQLXhlQXRrdjFfZXlxQWszQ1laSVRrM1lMT1V6enQ1dUplNEJIbEJTcnV1ejAzcXhRNlJtN3JxaUtsRWgyYThobGppZllQaDNxS21tVDkzV3h5ZHg2NlNQaVJTY2hGZlB6dTBMbzQ?oc=5",
-     "published": "2026-11-24T11:24Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Palantir: Why I'm Upgrading To Strong Buy After The Selloff",
-     "source": "Seeking Alpha",
-     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNMW9ObTlJbkpuVDZXd3ZWVVZZbEUzZTI1VHIwYVJvVnl3THJ5YVNlMHgwV1ZWYnRXRVVONjFwZkZKNzktSFgwRkxKREpBN3UtOUcwb09Kemg4eENndmlHeFZTMDdGR2xQX3E2Nk04eS1wUGZwRTdqRlZveF9uT1ZuSGJEVWc2aU0zV0E1MnNnQ3pzVUdFYjZJZjBWZFp1b3c?oc=5",
-     "published": "2026-11-24T10:28Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Palantir (PLTR) Stock Price Prediction: Earnings beat meets a weak-volume rebound attempt",
-     "source": "Blockchain News",
-     "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOcEt2Vm1tOW1vRFNNYXJmbHFqRS1kVEFIXzQxRzZQcTVMLVhidmpUVnROTXBZcHQ4bmJaS3BOUGczaDRXM3VQcXAxZ1V3ODJJdmc0VnYtR01LVVB0WThJUHFDbHc1eWtmeUx5VWEyZ0FITlZTS3VxM1cxTV9CQU04eU1mejF0R3RKUjVLWEdycTZwdkNUVnZURA?oc=5",
-     "published": "2026-11-24T07:42Z",
-     "tone": 2,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Palantir: Rule Of 147.8% Underscores Sovereign AI Growth Flywheel (Rating Upgrade)",
-     "source": "Seeking Alpha",
-     "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxNNGtGMkNFVWR5akloZ3pXSEVrVlRBY2tnVGc0cHZZckVLaV83cEZQUDhna1c0UjYzOUJwQ1lrZVZfazczNHJCeW5yTXJSYTZQZVF6LUpya3pyVXFOMXFmRWZlSFVMU1AxZjhWbTl1N1M0NWEyd1pEREcyNmhHWVhDdDlCYTVPdmFEVVNYbVdZZFo5dWZPTGEyUEh2OVdkbnJUYTJvOXpFWFRyWnhaeHd4OEEzRDI3VFlvSm5vMkdEYkVpUnVEN1QyQ2tVR21LWlBSWXBSX2x0TTNTNDh2UTBhd0RjWG1IR0I0d21nWWVTT2R0SWxpNjVvaw?oc=5",
-     "published": "2026-11-24T07:40Z",
-     "tone": 2,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "Nvidia Rally Puts Oracle And Palantir Stock Back In Focus",
-     "source": "Simply Wall St",
-     "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPWEoxdmc5c3V1RlF0NDQtWlhpbDh3WTJzaV9GUUNfZWNfOUF2WXQ5bWlrd2FMRmE3R1kzSXNBam1wb2xqb3NYRjJMUDNzMzdzNGNCemw1WFNnLWlPLWxRMnhmSFBlbTZyQ04xaVktSFhIUkNQVjZqdXBmSlRUcEdOZmQxM1Z1RHJKRHo1dzdwZ3VsM1EweEpvOElBSVg5ekViaV94SVZfeVEtVkYzZWtLQVJRYmkxcTQ4X2x6cmNtTHZfWVdLWm9xTTNJZUdXOWF2c3p3V3NMbTZxZGJSckF3emRfUmtHRURzNThUNXVB0gHzAUFVX3lxTFBwZkVSUnhxajhtREFMaDVSbXRSYW9VVG1yNE5XNnc0NTdIY3otcktHQjB0anNjdzMzUkZIYzdwNUFnU1RMc3FjZlNBRWpqNm9LSWJWQmVudm9ZTEJTZ0FuTzYwZWhWcnZxd0J2eUpaakRnZDhkRVZDaURMS3MxVk5LbnpPMFVydlZPZUEyaHVWTlNlTUtudXdjVm40WlY2RWhFX2g4dFlKcEl4ZzRDMmVKRVNNeGRMdUJTWjlldFVOaVpCTnNQTURjUzJTYkVYeVJCbXFwdWE3WGR5cDRDUzJnRFhhcnh5aG16bWkzZWR2bGVnRQ?oc=5",
-     "published": "2026-11-24T05:27Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Nvidia's Jensen Huang Reinstatement Sparks AI Rally, Lifting Palantir (NASDAQ: PLTR) Stock Price 10.6%",
-     "source": "Foreign Policy Journal",
-     "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQYm1WMzUzem43c2NqblB3SWVYWnJuRkVqV0FZWVNCZUYxSktLeEFGLXJpaFB0NnlOQzZkd2tkWk5CbEVEaExlVkxnRGRXVG9NT3h2VWg5QWh1XzcwQkxkWmlBY0l5TUFxcjcwaHo0VWgxc0pvM0tyRE53Z1JnM2lqdlp4Z3N5bkh3N1B0M1RwbVpSc1oyLVhCeTVxRjV1V2luV0YyVlYwaEotNU9FbUFwWW00VGJjS0NlYzlONlpQUzJTYzdOWERWc285V3RrOUdJTGhESFlsQ2lQakF3VGc?oc=5",
-     "published": "2026-11-24T04:01Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Palantir CTO Shyam Sankar sells $47.9M in PLTR shares By Investing.com",
-     "source": "Investing.com India",
-     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQaHpBSnZfSHFLRS01dnk3ZzJmOWFHMUZqTC16MVhONmtGRG1tcVlMMWZkS0h1SG9XTWRaWmp6VnJreVNIUmEwVEpPYzRfSGxybXg5dVRBcXh0T1BYWGtaOHZ1RUVLdzRXM0hBb1hncV9kV2Fqd1ptWWRHOXFtZW1rbUh3Wk9hNlctM2RjZDdINkhNc25mU1pMbkVKelVyU0FKcXk2NHFaV0RhMUF6cmpjQzFB?oc=5",
-     "published": "2026-11-24T01:41Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Shyam Sankar Executes Sale of 300,000 Palantir Shares Following Class B to Class A Conversion on Nov. 19, 2026",
-     "source": "Kalkine Media",
-     "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPVEozcUJUVmVlSkQ5OThfMk5vN3JLMUlFRjhfME83a19oR3ludWFLejhqTk5wYWliZ1c4MjhsaWR1UEhuTnpOenRpR3VkWXVIdlJNdkpCdmlFdFF3NDRVZVh1VGhYdXRNY2VNSVg4R3ZZNFhhVkRCNWZXRU9CNW9CRzFTSzNDSk9MS3g3ZFFuWk1STDBLczJhMlB4ajVJZTFNT256MU1fSE5YMmE3YVZmeUpYb2N1T0FMdnQxeG0ydW9DbThTdVhiWWdKRURTcXd6Yjh5c09iUGhIVnZnUFo4Ylc2NUpFc0hWOGc?oc=5",
-     "published": "2026-11-24T01:12Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "After converting Class B shares, the Palantir (PLTR) tech chief sold the resulting Class A stock.",
-     "source": "Stock Titan",
-     "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOTk53QlV1R0g1dVY2dktKN1VTUm1RaHR3cWdYZTIyLWc1U2dMN0V2VzJQYTY5dFFfR202NUxuSDJJUVBzU1JhazBVcV9fU1BCWlh3eEM3TzRLaGxmalgta0prZmxycWpsZTAwNDVYQUpkcXpaWVRIUzI2NUJ6ckhBTFR1MzQ1cF8wWFNvTm03cFlpX3p0SHNwNkhFMC04RGhuTHhqc0pFSmNsZ01RQXozdnNMWjFRVXBMbW1j?oc=5",
-     "published": "2026-11-24T01:02Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Palantir Technologies Inc (PLTR) Stock Up 11.1% and Still Underv",
-     "source": "GuruFocus",
-     "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPbmNhX1pIQmVBcG9CclNsYmxEYlhlVEFLR3FHcGIwTmNKQkh1SkJIQ0VsTzZ3b2Z3VXdYZVZzUWswUEMzU0dtbHRUWi1ORWRselpYdXhSZTVwZXNVUzZNQWFDN3hnVVpucG9YTk9vRkVKVEE2dXRMcVFHSHJhbHhSZFFpWXNpWEZCVm9kcW9HU1ZBbmExTGpsVUtHX0FSd2lGWEtXV2pDLXpOV1JWSkRQZ01TT1hXZEZkaWVF?oc=5",
-     "published": "2026-11-23T22:45Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Why Is Meta Stock Up Today? Shares Jump 6.55% to $597.60 as AI Trade Rebounds on Nvidia CEO News",
-     "source": "Around Prague",
-     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQVTBFUEFmLTVrdl81WU5IYmFDak8yNG5QZkx0OWFRRnI5UUFpTXA2YmhGZUNaVlZkMXlCblNuaEZWN2VMUmFydk0wVk16MW5rOEJxRjBTS242OUdGMXZaTmZuUzN6R1g0Vmk3RlFvWDRIRjdwbzRDMTNfcUFtMXlDSXRRU2podnZRQTVwOEFkTDh0b0pYdDFIOFRqYTdhX2JlcFNxZ1ZMWjd5c3V3WEJXWDdR?oc=5",
-     "published": "2026-11-23T21:53Z",
-     "tone": 2,
-     "tags": []
-    },
-    {
-     "title": "Why the Stock Market Rose Today: Dow Jumps 1,448 Points, S&P 500 +4.7%, Nasdaq +6.5%",
-     "source": "Around Prague",
-     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPZXNZaTAyWHhDT1E3bmdDVFUyV1JTem42VjZZc3BraVg2dUdQOU1LaGxzZUM4VUdmWlQ5QnRFa3gwRVpvbENMTjJPUllPWG93WDN6UU5NVTJsc1VGdDUzQVpYbTBzelVfS011bHdtUHZMUHJTRzM2NTVFaXg0WHJXR1RmNVYwcWdPZmxNa19yblg2cm53Y2U3LUJ4SkFja05ldkpESjYwXzdEaDBrSHRwUG1B?oc=5",
-     "published": "2026-11-23T21:31Z",
-     "tone": 2,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.8333333333333334,
-   "tags": [
-    "Analyst",
-    "Earnings"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Palantir%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "buy",
    "analysts": 29,
    "target": 222.9,
-   "upside": 0.3987198795180722,
-   "short_float": 0.025999999,
+   "upside": 0.3829259213301899,
+   "short_float": 0.025,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [
@@ -1652,115 +1218,15 @@
     }
    ],
    "earnings": "2027-02-01",
-   "earnings_in": 69
+   "earnings_in": 68
   },
   "NVDA": {
-   "headlines": [
-    {
-     "title": "Nvidia Stock Is Falling Again. Why the Jensen Jubilation Is Already Fading.",
-     "source": "Barron's",
-     "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFA2eG8tdTlDV1hsNU4tQ2JMRzROTWRubTAwLVd5MWxKcVR0WEFUTGlDMk1UWDZodWZxanVGbU05S1NVZTFNaE1VaGc2b0dkUXhmeGtTTVVPbjFWRl9QSGRjVjRPNExTRGpCRjVyazA5M1EzTVI1dkE?oc=5",
-     "published": "2026-11-24T11:12Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Nvidia stock falls after epic rally on Jensen Huang's return as CEO",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPQ2VuMWM0TmxDX1JHckNONUktS3M3eFVSbDVJeWQ0bWZsUFlhWTZ6dkZWSi1lUTlZUjVnamk5OTQ4bTBBc2ViWHJzekF0cTlWSlo0blR1ZkU2RDNYVU5QbnJOaDcwZVlmWlljTHEwRV9wQ2pfdG9nNG1icTZvcnBwalZFZGRCa3Q0dTNvQ2dWcVdzTnlGcHZEajN4ME5URDNTTV9RODhxSWQzdlBTZUZDZTF1ZkExektQMVhibk5PdFoyMEJfMmtIYnZR?oc=5",
-     "published": "2026-11-24T09:45Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Trump faces backlash after saying he 'convinced' Nvidia to reinstate CEO Jensen Huang",
-     "source": "BBC",
-     "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBGLU9yX2djdGRQV01hM0llUENSZ0U3a1YzQU1WdWx5Z0dMMVJGUFduWkhJTjBxOHVVeE9SN1lyaE1sNjdJYWVENzhrRUJ2cXNUZEZHaUpRUHE0UXM?oc=5",
-     "published": "2026-11-24T09:42Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Nvidia shares fall 4% in premarket after Huang comeback rally",
-     "source": "CNBC",
-     "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE52aUdsdjBXTkFjSkg1UVpmamJ6cXNsRWxPSGRGZXNMOFNuRWFHZEdudVdnQ2pRS0xKbFJvRUJmYldqSEl6UzFseHJWZzdENkNrbEdXd05yWEpyU3NOQjM3TVNjZUcyYVlKZ0RGTFlPVWF2T2hvX0tUVdIBfkFVX3lxTE9jTGJUVzdZamlIUjdnZlVNYkVhaDJ4MzY5MmpTZUpGMl9GRjZDSTNGR2FGenRsN0djalZxbjlrWUNCUXFOME9HdHdVTzdPTE9KT28wei1iTXl3bUxLSTZKRm1VWGhXVlhFQUpRMTV4ak9tUUtGdXZ6b29YNWhCQQ?oc=5",
-     "published": "2026-11-24T09:12Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Trump made up to $15m on Nvidia stock after Huang\u2019s return",
-     "source": "The Guardian",
-     "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQRUF3TVZCQlVITFBZeEFsTjRHODhTQ3p5cXBUT0FQRUhNaUg0NmxqTEh1MThHY3RLTXREZmtVZ01TVzM5SUptSnNNZlNJOVNnNXJsOGVHUmZMNkRvT09GaERueHk4NjR0bDJYUUY5Y2hZODA0QzJXQmV6dU9sSW1nbXBZNkFIcDlsdThzWFI5RWY4LXhSN2pTdFdTLVpweV9aeGJuOA?oc=5",
-     "published": "2026-11-24T08:18Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Nvidia Stock Just Had Its Best Day in Over a Decade. I'd Still Buy It Now.",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQVWp1Q1VCcGQ5b3N6VWtvVmZNOWhLSlg1NE56d3ZqTGQ1R3lnVHRrVkZ1aXlLVzBfMUc0aDFPSjZ1NGx5Q1R6YnB4aEZnbXN0cDZTSVdpS0x5eE4wZUp1aTJjaWFURUtZMEE3QXpWTGt4YmNpYm00T0dXTFdNc09DZ0xvcHFKcDN5TC1tQjAzOXV3bG45QlE?oc=5",
-     "published": "2026-11-24T06:03Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "NVIDIA Corporation (NVDA) stock price, news, quote and history",
-     "source": "Yahoo Finance Australia",
-     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9Nb3Qya2dEajFPaUk5dEVveFlBb0lMSjVhTXBHYldhYUI1TlAwUXYxZjFoZHhmRURWd3BRTjRZVDk1REF1NXNOUzRXWFhkT2d4b1E?oc=5",
-     "published": "2026-11-24T05:46Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Live Updates: Huang\u2019s Return to Nvidia Sparks Stock Rally and Lawmaker Skepticism",
-     "source": "The New York Times",
-     "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNdnQ0LTNaSmJtV2pfeHlCZmVqWDM1QXU0TkZZcnYxS1JpTGozTVR2dVhfM013NUp2VWdoMmdFWjZtR0tUenJlOURYNGFtcmZwZjJrd2VnSjUxVnFoZk90bWhrV3d3NzNkTTlyNjM3NzZXaXZLUEdEWlV4ZGdEeUZQY0xZbzBnZUYz?oc=5",
-     "published": "2026-11-24T05:39Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Stocks Surge After Jensen Huang Is Reinstated as Nvidia CEO",
-     "source": "The New York Times",
-     "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPNXRXMlFUQkJfcnJPMGVlaWZRejZzSnVuRWJiV1E3TUM3c3pkWkxSSGZJaGtCcEc0Uzdja0xzbFFNcWRIZEtZNlFHMHNDclAzVzJqUHU2Z2lFRE51V3AwSWV1cnRoamFsbDVleTdVUFVhSElYMEhXTlhiNkhQNWtSZlRGT1FYQURPeE9RTA?oc=5",
-     "published": "2026-11-24T05:31Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Trump owned at least $12 million in Nvidia stock at the end of last year",
-     "source": "ABC News - Breaking News, Latest News and Videos",
-     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPcm16eGltaFhHdnNpMi1kZi1vVERncG1Qc0pGa2Voa3B5WV82YnhTSTh1WXc3b3Q5VjFudjBpd2lFZExCT2Y4TkZZN0xIXzhlZ2d4dE9wbWpNRXNpcHhoRXRCaUJnWG9mdjJTa242VU9zQThKZVlGZEdUZUJPbi1lVVY4Q1psOXNxaW1jQkxhMNIBlAFBVV95cUxQOXhoLWhSci1qSU5XTHpYclFNTUd5V1NENzRzRksyS185Vmd3VDU4VmxtLUl1MFVtSktfRnpCUzE2RTFnMnd5TFIweHpKSjNITzVMMm9IUWlGMG9FMjl5enFYblFyb25wWHFFVjdCd1h6SFByVjlYQVphMDI4MlA3dE9jamR3N2ZBWlRDUURLOTFCMHRs?oc=5",
-     "published": "2026-11-24T04:51Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Tracking Nvidia\u2019s stock through the Jensen Huang controversy | CNN Business",
-     "source": "CNN",
-     "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZnMxVXhLWmdUVGZFbXl1V0xnRHpQZ0JqV0lqMDBPNlFULUlXV3dBcF91a3B6RDlacWRzdnNmLTJBR2xKMjBBRW80V2ZiczJRV0Z6bGlBS1NpVEdYZkN0UHZxNVFXOER0UmtIaDEtVXZQRHFoX3FBaF9BNzI2eFBzY0QtRWxMRU42UnhBUTlDMmRpRUZ1dXJRMFZYSkxJVGM5OEt0U19CQ2d4cGxsc1VjN1pCODhEYTVJ?oc=5",
-     "published": "2026-11-24T01:48Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Nvidia's Stock Surges More Than 30% on Jensen Huang's Return. Will It Get Back to $200?",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOVUFYSGdaSDRfU3FIOFFOaFpZS3I0UWNPRFdRcmJyb3NMdVFUaWE4aDBIMUdtUV9LTXFfMzVQTTFlMm9ZWVZ3NzRpQkllZzdGbFBGT2NLTWtFN1JjN2ZLWFdBMjMxVEl0UmdzcDh2bEtFaUZ5MnVJZ0lxYWE3c3J6MnJBTmk5WWJFS0Z2RjFleXU3T2NZZC04MQ?oc=5",
-     "published": "2026-11-24T00:00Z",
-     "tone": 1,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.3333333333333333,
-   "tags": [],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Nvidia%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "buy",
-   "analysts": 57,
-   "target": 244.54807,
-   "upside": 0.4816605271129959,
-   "short_float": 0.0121,
+   "analysts": 58,
+   "target": 244.71103,
+   "upside": 0.5749197451409447,
+   "short_float": 0.013200001,
    "upgrades_30d": 0,
    "downgrades_30d": 9,
    "rating_changes": [
@@ -1795,133 +1261,25 @@
    ]
   },
   "NFLX": {
-   "news_error": "HTTPError: 429 Client Error: Too Many Requests for url: https://news.google.com/rss/search?q=%22Netflix%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Netflix%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "buy",
    "analysts": 43,
    "target": 84.54884,
-   "upside": 0.4552296041308088,
-   "short_float": 0.0225,
+   "upside": 0.4361956854085274,
+   "short_float": 0.0221,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [],
    "earnings": "2027-01-19",
-   "earnings_in": 56
+   "earnings_in": 55
   },
   "MRVL": {
-   "headlines": [
-    {
-     "title": "Marvell shares drop to April lows despite stron...",
-     "source": "Pluang",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOZVFTcFBacHlLN3lEbUFlOEdkclloUGZRR3B5VGc4Wkd5ZEYwaElGNlNjOWlHZ0lseUItMTFJZVptd2FnTGRETTlFNU1IVHZrWFdDWG1JZnBUTC1adGtYMzJvMlZNZE03NWpyZTFjd054X0tYS1d1c1lTRi16TWVSRkw4NHQ0UW1INDQ3Z1BzRVhITklKWkx0ZFRnSWw?oc=5",
-     "published": "2026-11-24T11:00Z",
-     "tone": -1,
-     "tags": []
-    },
-    {
-     "title": "Marvell Stock Fell Almost 12% in a Single Day. I'd Consider Buying Shares Now.",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPeUpjWk1jMW9Xelc3R1NDbG1pV0FKVWRWMzBZaWRuczRnOFRSWmFyTjYwTWV6MzVWdEpzeXJYdm5KS3lidWJnQ05QN2JTT0dsR1Azd0lzZlB3QWM3VW95bGU3V2NyWHY1T3UxWFVGY24zT2JyaUZFYmtOc3FkTFB4elo5bmRYSDFncS0zaG1JUktRQzZocFdqY212T21mV1NxdktRRzBpanE4RG5qWGZlZklvcTYyQ2tfaXc?oc=5",
-     "published": "2026-11-24T10:37Z",
-     "tone": -1,
-     "tags": []
-    },
-    {
-     "title": "MRVL Stock Quote Price and Forecast",
-     "source": "CNN",
-     "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE40VFZrblZ3RzNzZVM3Y01XNVNTV3hNTGpjbGRhZ1dHUGRSNDMwOVh4VC12Z0FKeDdlOTVxcnlPX25Pb1hYZ3c2RXlJWTVKUzh6?oc=5",
-     "published": "2026-11-24T09:03Z",
-     "tone": 0,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Marvell Shares Jump 18% as Nvidia CEO Return Ignites Sympathy Rally Before Dec. 1 Earnings",
-     "source": "BigGo Finance",
-     "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1aSEpoLUgyME1FdkY1SGZkand5TWZYdzNhd0dGMDlNY3g5MDZWQS02RUhXTUZkNXA3bWltajVsS1FoZ2R3b2xCcDdhbHB3LVloVmxUYnpEaWpwTkFzSHlSS21YaGdXRU1jamoyVll0ckZZb0gzc0E?oc=5",
-     "published": "2026-11-24T08:36Z",
-     "tone": 2,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Marvell (MRVL) Stock Looks Reasonable Following Its 161% Three Year Run",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNbFVacFRZYjBNMUQtendScDZ6eDlPVTlKR1RJWjM2cG8yWjdjdmpwVGdRZnJGajhfUW1UVHdLaFZfTngtR2pNV1d1QTUxTDJNemplcHlNM1NPcGU2TzNQcG5fLTlORHNwU2tLSlh2YTFSSTR2RE50WlhBa2JfaF9BWkptMXFCX1dPNFpjSmlCNjBYUnBnQW1LUFk3VVBMd0gtenc?oc=5",
-     "published": "2026-11-23T23:20Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Why Marvell Technology Stock Crushed it Today",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQWk40YWZ5bkFCZkkxeE82RmxNSEV4UVFRelpiVDJHWHFzbzFjRE1qRGMta0VxYUdzNGFVWVNlRUZHNnF3dHFJTTRySldSVzhBT3dkX25TeGVCUmtpcWlCbDJDOV9zS3FWaXdPQ295Z0ROT3ZheDZ5N2RlbDdNSTEzQU8tZTIwdWRVUEJNb1RFaTVQZEQ2ZGF1TVp6T1lxSlVnR3hn?oc=5",
-     "published": "2026-11-23T22:06Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Marvell's Raised AI Targets Face A Skeptical Market As Stock Sinks Near Lows",
-     "source": "Finviz",
-     "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxORjZld3lzUGVwaC14TkpwT2RZZHZlVWNpV2cxNW1BZ2hESDZkZmNFb0M5T3FSMEh0ZXpQWXE3M1BGdWpoYVZyTWk0MVFzVHZBMTdFVHRaSkRyZk5TdnMyRGN2Y29tbE9sTnhGUWpDb1lpVXlQc0FvUnV0MG5UVUF6Y0R6blNZTXpkTUwtbHR4b3ZvZG14dWc4Z3NyX1hYZ08ySDJIZV9xSHU2UQ?oc=5",
-     "published": "2026-11-23T20:19Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Marvell Is Still Down 41% in a Month. Did Today Just Mark the Bottom for MRVL Stock?",
-     "source": "24/7 Wall St.",
-     "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOWjUxVXJqSjZQTHBreHUtM2lNZm5EWmhPaHZOUEVJamVWWUZwRldNQURUaW5hWnNLMlZHUURFbjFoZUthMDk5OXI1QUhpWEM4QlRtOWE2VHVZMXJLcXBIaVFfRm1obmxMNFdYQ2d6QUVDNlFydWJjRDVfUE9iTlczR1hGZ2VVQUF3cThMXzNncGloeEpOSlVxWnRBTDhzc2xWQTVxY081VkdqcFF3X2tXRDlyTzFMSHBYQVpoTzFsM284QWc?oc=5",
-     "published": "2026-11-23T20:02Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Why Lumentum Holdings (LITE) Stock Is Up Today",
-     "source": "Quiver Quantitative",
-     "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOZzNsZElVRURGakFaQXI1S0NJZUlFbDlVczFLLWViRUVnZkN6ZFVXTWlId1lueDcxcHJvQ2lhR014Wno0OXlrNmZJSGROTThLaVhKR1BKOWVHdlh2N0pkSTJfdmt4bE1Zb2R6eW9hVWpJT1p2QVY0dnRMbVVoRFMybGs2MUE4OUhFSEdF?oc=5",
-     "published": "2026-11-23T18:31Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Marvell forecasts 50%+ revenue growth but inves...",
-     "source": "Pluang",
-     "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPMkREbHJsdGhleC05bk5OaUlXNjEyMGs3OTR4YmE2YW5QWG1EU1k0MUtvYVJFLTZETkZyM1ZNTG9xTUFTRmUzR1YyMGxkMnB0REV6STFMZ1pBVlBwaW5NY09rWE85WElWZ3FWVm5GZEk4UjBGaVJQeE44RzFoTXdUY3QwRE5iRmN4bVhrUFhORHAwSHpEX2UwVlNuc2J3dw?oc=5",
-     "published": "2026-11-23T18:17Z",
-     "tone": 1,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Marvell Stocks Jump 15.43% as AI Chip Rebound Sets Up December 1 Report",
-     "source": "TradingView",
-     "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNSlJ1eGNUQ3hoY0FIbUlBWWpQSU1NN2lzMFJMc2wwS19rUWVGb2d2ZGFpanZXSGJ6ZFJ1cGdlUUx0dV9pc05WTzNEcVBvNHJnQzhJNUdKcnExbXViNFVxa1FSLUtLQklrcDZDUDZxZjFYbDdINUQtYlExdUFIY3BCeFlTQmRQX0hONzJqZ2JabzFYRGVZdzlxU3puMUY4TURGeURybm0tQU81d2JuUy1UY2F0N09qWmZXRUFNN2p0bUw4ajVtbWdNaExn?oc=5",
-     "published": "2026-11-23T17:55Z",
-     "tone": 2,
-     "tags": []
-    },
-    {
-     "title": "Should You Buy Marvell Technology Stock Before Dec. 1?",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQSzNKYldMNEdnTnZsZzVxUXpLaDBsc0x2dkZ5SjlCcUtmSVAyb0lXOWJNU1VLSG84U3o2eDhGR1FXVUxMUDZiaHNDVlB1UDUzLU5nclVKQTdXTHZlYmkyeTJIdmFFclpmdWZNX0xhY3JEcGxkOV9HRW1qTDMxcTJyMWxKU1Q4dFdSWkxXUDVRbGVzb2JDU1cwbWI1VDhHdw?oc=5",
-     "published": "2026-11-23T17:54Z",
-     "tone": 0,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.25,
-   "tags": [
-    "Earnings"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Marvell%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 40,
-   "target": 303.51825,
-   "upside": 1.096989429321542,
-   "short_float": 0.0348,
+   "target": 301.01825,
+   "upside": 1.2878942768108232,
+   "short_float": 0.0436,
    "upgrades_30d": 0,
    "downgrades_30d": 2,
    "rating_changes": [
@@ -1955,121 +1313,14 @@
     }
    ],
    "earnings": "2026-12-01",
-   "earnings_in": 7
+   "earnings_in": 6
   },
   "SKHY": {
-   "headlines": [
-    {
-     "title": "Jensen Huang Returns, KOSPI Recovers 5,000 Mark... Samsung and SK Hynix Surge",
-     "source": "SBS \ub274\uc2a4",
-     "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE94WHcxb2RWSlM5NEF0eUtMeU5VbDlWVGs0RXhkQVI3WWVXekNJVEVhakxQd0E4RmtfVWVZU3RNMWZyTTBfb0JoV1N2QVNzVXZBUWlEc0ZHU0NLek5SUDQtYkVJejFEUVd5QUZTN0VB0gFmQVVfeXFMTVRnQzRfdXY1a2dYU01Eb3BNRUlDelY5ZFVSMjVtWjdWZHI5QVVEa0oyTW0wQzJyZVFjbVpGN2hoWVZBUE1mTjlyUzdYQnBIS2Q5Q1RtLXJJZHloYXEwY2d1ZXpNd05B?oc=5",
-     "published": "2026-11-24T11:14Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "SK Hynix Inc (HY9.HM) Stock Price, News, Quote & History",
-     "source": "Yahoo! Finance Canada",
-     "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9kYlFlMEg2WjdvNmUwUFgwX3JHVjBBdWRFd3Vhb1cxRmQ5MkZ1cEtvRjN1OGJRbGJkdFFxQ3VETmxUNmo2LVVUcWtidjhyWlYxd3RiNQ?oc=5",
-     "published": "2026-11-24T09:51Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "SK hynix stock: Goldman Sachs cuts target to 2 million won",
-     "source": "ad-hoc-news.de",
-     "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNcFdBUDNqUUhqTHJLYlFISWhJSWN6WkhqTEtseURWRmtNaDB6a0hsTWNZWWJsbHlKV3otLXN4UDF1R0ZPZGZPYUdFcDdaTkhPV3h3bmlNN2hwakljM0ZKUC1SakJjZTdzaVM1bllwcFl1ZFZPd0hBYXE5ZGJZZVlLVVJIbjZ0VGJ0ZkZScThYUXpVaEhTM285SUNvaFBlX29uYlk3LWFmQ3l0UGpUZ1E5ZndiZ0wxOXA4UDdFVA?oc=5",
-     "published": "2026-11-24T08:27Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "SK Hynix (SKHYNIX) Stock Price Prediction: AI earnings strength meets a cooling momentum setup",
-     "source": "blockchain.news",
-     "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQWXB4UlFIWTc4MGhMd3FZT2pOU05rd3ZWYlpxY0RzYkpCY05WTnJfQjJuNVV5V0FlWUt6eEg0Q2RfMGxsYzB4RGxiTDNtS19PMlBFZVRhNWdkZEJvLWg0cV9CR25HLWI1OEd6X2JRQm9vcDhsaktqZGpzdWVBSmg0M2VLX2NMbzdOdWVSa3lvY0lnRmFWMlRaMEZhR212V3d4?oc=5",
-     "published": "2026-11-24T07:49Z",
-     "tone": 0,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "It was found that the top 1% of stock investment returns bought Naver and SK Square the most on the",
-     "source": "\ub9e4\uc77c\uacbd\uc81c",
-     "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1fZS0yRElfcUhISXpCOXRDZWd3YjdtVlMtVmZMaDJnQk54am9YTDQxQWk3T1JUQnRGY0FGWHpvanBack00b2JWYU5ZTnliOU0?oc=5",
-     "published": "2026-11-24T07:16Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "The Day After Buying '\u20a91.6 Billion in SKHY Shares,' Jensen Huang Returns ... Responsible Management Nets '\u20a9100 Million in Paper Gains'",
-     "source": "\ud30c\uc774\ub0b8\uc15c\ub274\uc2a4",
-     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5XQVhaSDI4VTg3dVhSZTJZZFltcHpoY1ptNW1oZnZJd1pMNUdmOERLQk5wNVQ5RHNxaHNjT3dBejFjcTJfUHFEalNHa1NKX2liMFZlUVV3dTk?oc=5",
-     "published": "2026-11-24T07:06Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "TSMC, Samsung, SK Hynix Rally As Jensen Huang Returns As Nvidia CEO \u2014 Top Analyst Flags Risks To AI Recovery",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQNmJpMWN6bWFhcTZPODltRi14YUU3OGtyV0w5QURTOTYxRzUydUJxeXRrckVEOFRQaHYzaHNFVVFBN3dEX2lHakJ2d1hseVdLeThBdm1HWlJjS3B0NjBFZ2tlVDNMTHpCSm5VUTk4TjYtMEMzb3BlV2owcjh6cXBicG1iUTZmbUl3X2RaUlBSWEZxOW9vRHlZ?oc=5",
-     "published": "2026-11-24T07:00Z",
-     "tone": 0,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "SK Hynix Climbs 8.3% in Seoul as Brokerages Trim Targets and Kioxia Stake Expansion Takes Shape",
-     "source": "ad-hoc-news.de",
-     "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNVHJhM1NDWnBYQlJpcHZwNEZZUDJKS0hiZDBmM3cyZ09EVFJFZ2VQMURFWTJ5bWxxeTlIcThQdzFiZ2dkcUdhX2NLSUk5Y2g3VjhmZzhmcDQ4RGFqOTh3VEpVNnRweVRpRDhZSm9BRWpCQm93SWE0SlZYWllwQ0NEMHFJbDFUTmhNc0pUbGI1TjFZbE84eGY3cVU4QU5CMUxtMGZrYTF1anJ1T1VCeFE4ak4za1dFV3hiQ1ZadkxZLTBwVlotWW5ZdzFwSUJHSG5POUNkNG5BbUkxNElKUW5KOENvMnZQUUFTT2ltdTFMNGxBMEp5V01UTHV3?oc=5",
-     "published": "2026-11-24T07:00Z",
-     "tone": 2,
-     "tags": []
-    },
-    {
-     "title": "SK hynix to Share the Burden of R&D Failures With Suppliers, Provide 100 Billion Won Over Five Years",
-     "source": "\ud30c\uc774\ub0b8\uc15c\ub274\uc2a4",
-     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE11RE1GM3BjenJjWUZCbEhkTUJUMEdiZ2J5cDVJOFpWR0RncWRJWGNLS2l2LTBZZ2FVMkw1bmtqU0lINk1hdnFRamg2V2VucUtMbXVDWWk3ZDI?oc=5",
-     "published": "2026-11-24T06:34Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Why SK hynix stock is trading up today",
-     "source": "The Globe and Mail",
-     "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQbk5JVkw4WWlVTTdpUThhcXFyTVViLVJNM2wzRUljSlpnMmJ5OFF0QkNjbXVZRjFtMGowM1hDWm1SWFpPZ1dGY09MSFQtVVc5dVlVV0ROWFYzV3FWWGlGZHZpTkEzXzE5WjBlRWIwUGp0RkZaUDFVa3lweFBlR25fRDNWUzRsOFQ3N2lGU01XWURPUEJPZk9Zc2F4NTJXQVNOQW9TLVFRcHl2dFR0Nkw4bWJvZVhpYWlSNTRsSVdmNWZTd0k?oc=5",
-     "published": "2026-11-24T06:32Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Samsung, SK Hynix Shares Surge as KOSPI Jumps over 7% on Jensen Huang\u2019s Return",
-     "source": "TipRanks",
-     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxObDl4alVtbkRWLXZUbzF1VjZqTDhiYlcwWDU3ZDcxUHpGc0dSUFFiQXkxTHluZFh2VGd5OGFkNld0WWJwOGtGOGNIOVB3VGlndm5Oekg1S25MMnRsNTIzenpEZTdfSUMxNmV1S19IVUlYTVpEV1FFSFF2aFpBcUJKSjJWelNQTGszaXlmTENMQjB1U0FaZFN3ZGl1bVNldnZpVUZLTnVmYnk?oc=5",
-     "published": "2026-11-24T05:28Z",
-     "tone": 2,
-     "tags": []
-    },
-    {
-     "title": "Lee Yong-cheol Apologizes for Spouse's Blank Trust Omission",
-     "source": "\uc870\uc120\uc77c\ubcf4",
-     "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOMTk3X1p4clU1U1JvTF9YTTJ5ZU9UVXJfemdYSk5QYUltc2RGZWdQMTAwWWNYd3QtSlAyR3lubWpaUWVHM0tDSmxlMDNZTXI5ZW5RclN3eVlFUmpHQTNNZlZzVlc0WG9KYWMtendnWEFKYWZBeTUteEZiTXplNWJDMVQxMmM2cHFW?oc=5",
-     "published": "2026-11-24T05:23Z",
-     "tone": 0,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.5833333333333334,
-   "tags": [
-    "Analyst",
-    "Earnings"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22SK+hynix%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 14,
-   "target": 259.5,
-   "upside": 1.0880270357257804,
+   "target": 253.07143,
+   "upside": 1.2599699053402391,
    "short_float": null,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
@@ -2104,119 +1355,15 @@
     }
    ],
    "earnings": "2027-01-27",
-   "earnings_in": 64
+   "earnings_in": 63
   },
   "HOOD": {
-   "headlines": [
-    {
-     "title": "CrowdStrike Holdings \u2022 Robinhood Token - CRWD - Stock Price & News",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5XWHJjeExNSm5OeHZ6Vi1yc1NseU94UGhXOW9BNmV6MnJRUWZaWXlzTmFOc3RnbmRyS2MxZW9adVFkbUpDWm95M0NXR3FRUHV2?oc=5",
-     "published": "2026-11-24T06:42Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "MaxLinear Tokenized Stock (Robinhood) Futures Price | MXL Perpetual Price, OI & Funding",
-     "source": "CoinGlass",
-     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5YMDJJQ3F0SXJ1alVhenRscGdRTERHXzhUT3E1cWVtRXJkTnc4OTVvMktzOFJKaGtxRHd3aVdwZmFyQWhoaktuc2JtQ1M0ZnZZYlE?oc=5",
-     "published": "2026-11-24T05:49Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "HOOD Stock Posts Best Gain In 2 Months \u2014 Jim Cramer Says It's \u2018Too High,\u2019 Retail Sees \u2018Buying\u2019 Opportunity",
-     "source": "TradingView",
-     "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPaE1vbVRsVG5IVkdUTWRjWWxwUUxJVVhLQ0FTeFdFeV9NTDBZQlRmZzg2MUFMVmtHX0YtdnVPNXN5R2I4UG5ad05IbHJiZUpLYk9fNVBabGJsdXJvaVU3RlNxNlhyNjREaUVmcVU3UGJJWGQ1VVowVi04SEI2bmRjUE5NZk9qWUxjRGtzMndjR29fV1ZlOTNLcG9GZTBwNlY5c2thTms0VTAtXzVxeTdRdU82c0hxQ1A2MDIzY25iVkNSV2tjd3h4UHpuVmdGN2FiZ3p0NVhYYm5TRWFXT0lNNE9JWmRQSVBIbFB2Y2RmMUtIQQ?oc=5",
-     "published": "2026-11-24T04:42Z",
-     "tone": 3,
-     "tags": []
-    },
-    {
-     "title": "Robinhood Debuts Token Linked to Actively Managed ETF, Tracking T. Rowe Price Tech ETF",
-     "source": "BigGo Finance",
-     "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE85Q0c3MC1RVkhaZE5GRjhSdmpPSEh3b0JQQVJGampVY3JFbG1NSjBuTG1UZ2JsLUNMLURWU1h6S3JEeFNMdUwyNG9wMXQtQm5GVDZZTTFTTWFsQzNYNnhfMzJUNVlJblNtZzhsUU5JVFFHRm9Cc2c?oc=5",
-     "published": "2026-11-24T02:56Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Quantum Space: QSPC Stock Price Quote & News",
-     "source": "Robinhood",
-     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1WcE1uSVZuS2dtVGhGWTByRV90RVBSTzd3TjFIY1ljMmlfQmVhM08xNF9KMFdFR2FpR2dsSlY3b0RrUVA0TmhINkF6YUVPSkl2eFE?oc=5",
-     "published": "2026-11-23T23:13Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Nvidia, Dell, Micron, Anthropic, CrowdStrike, UnitedHealth, and More Stocks That Explain Today\u2019s Market",
-     "source": "Barron's",
-     "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5Gb1NJc213U3JRbHpTNS1TT2lENXJ5RFY4aGQ3TWl0ZWZGajJMNUNpRDcwSWFtTm81ZzZackhuQ3g4cG5qbi1sckItb08tSnFld0hHTW5NVXVGYzZzRXdxanhIUVg?oc=5",
-     "published": "2026-11-23T21:27Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Aave V4 leads DeFi venues for tokenized stocks with $17.1M in deposits",
-     "source": "Crypto Briefing",
-     "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE16YXdyMUJGcFdhZ0FqellZWjhMaUhOTTVKRGZGYUtYcnNnclFHRTEwN1dyNERvZXVuTDNTbVV5ZURMb2xfVzVzMTJFUXJOcEQ5X0RYRWJ4ajljVHBmZlYzMlVMWC1Sck5PTXppdGMybU5QdUR6?oc=5",
-     "published": "2026-11-23T19:11Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Ken Fisher and 10 Other Big Funds Sold Robinhood Markets Last Quarter, While 10 Bought. Who\u2019s Right?",
-     "source": "TIKR.com",
-     "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNTVAzd1lzZzVDUEdlRTlZSTk1elVIZTR3RGUtUk1UV1pISGdyTGJHNmk2M3UyVzZ0OGdEYVltczFmMXFWUzFiU2FDdUdDcWs3blVoSUFWNGZHZnU1a3FLQ3BfNHVrc05sd01ZSS1BNjJSMmN3aHZpMDFzTkhrY3ozcmZIQ1p0Z0p3Mlc2NHcwZGJmdzZPOGZOaksyZ1d0c2hwQ1dnVGJ2THR6dm5tWDJocm0xTkF0N1Y2LUhGRGFDSQ?oc=5",
-     "published": "2026-11-23T18:57Z",
-     "tone": 0,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Actively Managed ETF Joins Robinhood\u2019s Stock Token Offerings",
-     "source": "Cryptonews.net",
-     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE95ak5VZW9vYXlhV3RrUlY0OHBpTDVZT25CMTJIcDg4eGU0cWdNVlc3Qmc1aHQtZFVCN0ZOMnpVWVE5eHpOblJjQlpsQ2JvZGRJX1dTQWlWUmw?oc=5",
-     "published": "2026-11-23T18:32Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Robinhood Crypto expands Stock Tokens to include T. Rowe Price Technology ETF",
-     "source": "Crypto Briefing",
-     "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9xQ0w5QlFvTGt1ZTdnWmhWNFpvVjE0d096dU9jYzd0dUpDTjR5T0N0VzlwYzhJaWRhaWRqMTljUGVYMUl5SGVVdEFRb1lkUWU5ZG56R2VLZDFYemtyOUFzd2FVVkZGSUFJelBwaVdNaGRqVi1OVWc?oc=5",
-     "published": "2026-11-23T17:54Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Robinhood adds its first actively managed ETF Stock Token",
-     "source": "Crypto News",
-     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE9xNlEzUFZTTGxWcVViTS1EaWFSMnk3azZWZ2JJWGJwN3BCVEJMNTVmck5vaUtfZ2FvYXVwb0ZSM0ZrNUZkc3dwLXVyUzB0X3pmdEFiOUpFdW9TQm5weXFOS19vYnN1eEsxZS1DRXkzQVAyUQ?oc=5",
-     "published": "2026-11-23T17:52Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Robinhood shares technical analysis: Upward price move meets oversold CCI signals",
-     "source": "Traders Union",
-     "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPWmV0YWNNVnRIVGpMVHVRT1Q3ajNyVjJ1cHFERGRPS3ZhQUdHVmMwR1dZYmc3Z2UwWjlDYUsyclFSZm1zdDFEeWpOdUpZYlR5U2F3bWsxRWowcGswWjZlcjh5eDJaYWJJOW1ONThtVDlKU05FcGpTRmtsTUZEZzBrcW5zUWdwb090WVBXMTVxRFRQMDlo?oc=5",
-     "published": "2026-11-23T16:56Z",
-     "tone": 0,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.3333333333333333,
-   "tags": [
-    "Earnings"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Robinhood%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "buy",
    "analysts": 30,
-   "target": 125.969,
-   "upside": 0.8698085201128096,
-   "short_float": 0.044899996,
+   "target": 125.00233,
+   "upside": 0.9040720487433358,
+   "short_float": 0.0468,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [
@@ -2250,126 +1397,15 @@
     }
    ],
    "earnings": "2027-02-10",
-   "earnings_in": 78
+   "earnings_in": 77
   },
   "CBRS": {
-   "headlines": [
-    {
-     "title": "CBRS News Today | Why did Cerebras Systems stock go up today?",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5UYTZMWnhyWXRweTU3YllfaGloYnhLVVFYTGk5MmNEXzhyR3gwcVZaYnJwRHlGTTZZcmFfNlFETUJCQWtkV3pyQ2VlYmQyMFl2VDN0Wk1HZ3A4YjVJUFk0eg?oc=5",
-     "published": "2026-11-24T00:54Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Cerebras Systems (NASDAQ:CBRS) Stock Jumps 19.2% - Here's What Happened",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQLWtGc2ZuakpTajVtS1g1VW5PTV9zeXdtbkhHdm1hcUN6aVlsN21mUXcxSEs4SUdkZ0tPenFNbm1heEdLUGV4cWdsSHF1NHdyUjU0bldWR3BvT3g5T1BMcGpqendXc1Qyb2lJY29ZSnl4SU5PY0Rtdk95aGtLMGNPWldCOTlULXBOanVoTXdHTGVsUHktZTNiRk9VYTNXQlpkNHl3cHh0WHBPM2RaLVNYX1d5c3J0TlZubUFnby1vX0JaZw?oc=5",
-     "published": "2026-11-23T22:23Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Cerebras Systems climbs 21% as broad market rally lifts tech stocks (CBRS:NASDAQ)",
-     "source": "Seeking Alpha",
-     "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNYjh5OXBFNXZpbXpRQlJhWFlsYjZqeDVEa3JNSldEaG1IbVNUQ01aTXN1UExiX3VaV0d3bkhrYnlyajNXdVNraG5MZkQwc2RJN3NxMkhVSFNoWXdwNkwxaFl6Njl0QW9MSXFQdXFNcnpsaTRfREFBNkptLXVyNXJDNWl0OTNaYjVnLUllN1Z0S0Y4ZEVMWENxdTU2elFXdC1HMm9kNjN4MA?oc=5",
-     "published": "2026-11-23T20:40Z",
-     "tone": 2,
-     "tags": []
-    },
-    {
-     "title": "Cathie Wood Just Bought $21 Million of Cerebras Across 2 ARK Funds",
-     "source": "TIKR.com",
-     "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNOEZaU2tURUk4OGpQVlU5eVhUV0RiS3JyUXJId0pCUFRfMVdOdWQtaTNhTk45dFl5elFzcHk4aEtEaW9EVnNmZ2xCbWtvQXhDT0hOckRheWc5cW84LVRGR3pGVEhTLURTcVhscEt3UVR3dHppTkRLc0tsb0lfMlJ6ZHd4VHdzUXpPNVpZMnNpYUVDalpta2c?oc=5",
-     "published": "2026-11-23T19:38Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Cerebras Systems\u2019 26.6x Sales Multiple Faces Scrutiny After 73% Stock Slide",
-     "source": "SSBCrack",
-     "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPV3dhWER4cUl0cnFsNjRKX3huRzlDNkxmYWtoUWZraVZfb0NKZFJyZmJ0czNwajZIQzRMczdsc0g1QlozdG45ZnBYQ0hoXzlkRTFEZ0ZfZndjdGtMRHVXT21wa0Q2NXRVbHpGRk1JOXgyNWZwdndxUnh3WDFuMGczYld1Rl9Kc1ZlSTZGZ2dyUHJXZjZNR0lDZ3l2cFRob1JFM1E?oc=5",
-     "published": "2026-11-23T17:58Z",
-     "tone": -1,
-     "tags": []
-    },
-    {
-     "title": "Rosenblatt maintains Cerebras Systems stock rating on inference tech By Investing.com",
-     "source": "Investing.com Australia",
-     "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNMjRFQ1JtcjJ4MHMxeUdZQkFVU0dKemNQaDlXc0dEQWFOMzNDbWlkbEVsUnVkMkhzdmprZmROLWd6bEJELW84NjBmNTNhNFlIQnFHby1rUWtpYkQwa0dYWGlQMUJKTXFTbGNaVE9rUWdhdHZRellxS2tvcXhnTDFqOTFQWWRNNF9paktxNjZLMXNleU9YUUJ6LXFmZWl6eGdVdjJrTHBhUWlxRWZjV0xFaE5WTTdHWUpzajFENmVZd3NqLTN6MjlPcw?oc=5",
-     "published": "2026-11-23T17:52Z",
-     "tone": 0,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "Larry Ellison drops from top 10 billionaires after $11B loss",
-     "source": "Crypto Briefing",
-     "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBsSDJPaHJJS3dIS1JCX09WVWszNHZlZVFIRUVUNmVVaDJHblNMTEt1bFc4TlpLVXc2cUJDNlZqRU9IVjQySVVnWk1ONXF4ZG5xOUJzQkhlVWhjWmU3bDJLMndPRms1bklzbFF1LTlhZ0Q1OHAtSkE?oc=5",
-     "published": "2026-11-23T17:25Z",
-     "tone": -2,
-     "tags": []
-    },
-    {
-     "title": "Cerebras stock surges as strong earnings collide with Nvidia leadership shake-up",
-     "source": "Crypto Briefing",
-     "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5URWdFUHk2b0Q2REFkaHZGa2pBUldCSGpIYTJOTjZrbEJiNVpBN2VGOHdzYTY0WTdQLVVUMHZhV0hqZW1lQWpaQU1KbjAwWF80dFFQYlFOT3hYS3V1TURKRHZucXFuZGRPR05RYzBXNGQ3dXlfUzZldzMwcEdUZ0E?oc=5",
-     "published": "2026-11-23T17:23Z",
-     "tone": 2,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Why Did Cerebras Stock Soar Today?",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNYXAwSVBnZ015TXZNc2QtY1JSNDVpWk1WZ1VtTFpLc0o4N2Y2X29UbFdETnZhNHN3WVRkVGV4WkozV2lvcFRxOUVCLW1XQmR3dHJoWWxUX1FhZlVWTVdIN0FCUnRENG9pX0NSNkdxN01sMmtWQzIxenVkamdmTjBfc2FR?oc=5",
-     "published": "2026-11-23T17:16Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Cerebras Systems (NASDAQ:CBRS) Stock Jumps 18.7% - Should You Buy?",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNd3Q2YVNiWktNM1JVam9VZDQwM0hmRFd2NjN0alM4TVB1NHB5bklvS0lmclhTV2VGRHBpODFWWWU0QndaQmtnaXNyOHFJOF8yRzVxcUt3aUVaWW05UXFMOXlKbmM0eXA0TnFKNVhzajF4SnRMTHQ5ZnJQRzBmWmxCUThRSThPdGdIUU05WFhZVXpyZEpwZ1R1OTJyck1rWnQ4eTdfYlRuNWJLazdsNlB2ZzhkeDQ1S2VkcTdn?oc=5",
-     "published": "2026-11-23T16:45Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Cerebras: Down ~80% From Highs, Enormous Mispricing Opportunity (Rating Upgrade)",
-     "source": "Seeking Alpha",
-     "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxORjhpU0dYY202S29ZTFJ2TzRqS2puY1FDWWxmdEFBb1ZUeDgyS1NtbjdHSERqX0tqWWp1SzhFTXF0alIweGh1cGtfbGdqUlJ2ZUFWTWgwdzcwN0ZzeXBDbmdoa0JtRlBFWmtZNGZrWGFUT0phVjJsY3dGU0FiQnl2NHlmRGJKbE5JUTdRclJRUG9PaTBXMXZIa2Rwd1NwQWs0WmtFcWs2ZXVmR0RyOVJHRG9ROTY?oc=5",
-     "published": "2026-11-23T03:15Z",
-     "tone": 1,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "Cerebras Cloud Revenue Nearly Quadrupled \u2014 But Why Did the Stock Crash 17% on \"Confusing\" GAAP Results?",
-     "source": "TradingKey",
-     "link": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxNZ0o0c3pUamhPSWRaYnc0aWpqNVFIdFprdjF4d1A5RHpRdThVS1l6SDBIR1pjUHFlczAtb08zdzhod3h1SnNhblBwQ25Samh4LVV5R3hxV0JXWXRrcjNjQVY2US02VDRXZWxxMmNJSUVDUWxQRHJGZ3JHTndyV1pqLWhEMTJ2dkxpdFdhbDNuU0pEUXRpQk9jUXNZQ2ZyNGdReVNCMTFSMi1BdWdSODg2U1Vrb21rTFBjZkxmcDNRMXlIaTJBdXZNRVEydXRNcjdDRXpNR2I5dGdYUWJLSnZPaWJJN012Ml9EaktnbEFTd0psZUVCNERFZmNvMHBwSlk?oc=5",
-     "published": "2026-11-22T07:05Z",
-     "tone": -1,
-     "tags": [
-      "Earnings"
-     ]
-    }
-   ],
-   "n": 12,
-   "tone": 0.3333333333333333,
-   "tags": [
-    "Analyst",
-    "Earnings"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Cerebras%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 11,
    "target": 210.18182,
-   "upside": 1.1336089737082529,
-   "short_float": 0.147,
+   "upside": 1.3674455958549223,
+   "short_float": 0.15359999,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [
@@ -2397,131 +1433,12 @@
    ]
   },
   "AMZN": {
-   "headlines": [
-    {
-     "title": "Amazon (AMZN) Sees $473.6 Million in Net ETF Buying on Friday",
-     "source": "GuruFocus",
-     "link": "https://news.google.com/rss/articles/CBMiqgJBVV95cUxPYWZQbmE5eklQRVpCWnVLbVNaQ2NYSUY3ZmxfZVA1X3NRaUJnUFlmV2NtRmw3M3p6SVlabzhMaGZ4dGVQWTZaZUZoSk9US0tMZ3FDTk1XLXE0OVU4NlVBMjQ3ZlRoUjB6b053eTBwRjc1YTBIbGdWQkFKeF9sZVZ0WTJsUGdjc1pldXVkOV92Vk9aX1dlNkFVZ19xQ2Q2bnE4eXE0amRVbDYxQ3NGWW5vbl9LTHVaTXlHRU1WLVZheGZBSkpaNTEtTzFFNkJPRy05Z0RIbDZVcDdPMTlIZEx3WXQ2SFBLaVJfWTJsMzJNQ0tNZVV4R3dJWGtLYTZGX3BQVGVZcS1zNFF0dTVRcm5pMEVyU1lUNUROTGF1ZjJHS0lPblR6VTEza19R?oc=5",
-     "published": "2026-11-24T11:15Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Should One Number Scare You About Amazon Stock?",
-     "source": "Trefis",
-     "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQOVNKVGtNS0luRGlTU3FNY0w4WUNIQlNSQWlWbGFWVV95R2U2TUdzbkstX0RJSk5FVVFYVGtGUkhMcTNOTEY2RFctQk9ERFJLWmRESDlFb3M1UXg2cnpNcGp1b1h2Tl8xQkxJT05HZFFqRDJmQS1fbEJMaVFTZ2NpaktyQ2d4cWlsdGRmYi1uY1RxY2JiZHNheC1tQ2tiZHFHQTlmOWRQU2hOMVk?oc=5",
-     "published": "2026-11-24T10:58Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Anthropic\u2019s IPO Safety Net Is Gone: Morgan Stanley \u201cCan No Longer\u201d Buy Below $83. That\u2019s a Risk for Amazon",
-     "source": "TIKR.com",
-     "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQdVNKY1g1Q0FqbTR4N3VMeEVmM2xEUFQ5X25UTVRaRGZHd09JTHRsWmJ3RktfTXR3WDNySWpnaUllUmtlcnpQcnhZTHdFN0hEYXU2T2sxNmlyd2ZYRFpZbzdNTXVmeXBHalhVOUZod3h4WFZMOXRpTlVxU0o5TV82VkNQWFBndHl4ZDRsY1d3SXV6c18yc1o3ZG5uZGVaMUpDMW5zTTVXbi1HSE9HTE9hNVpmcFdCZXB3U0hmdUlLVWc1d3BCWVRHTG9CNVpIZU9hdG91R3hUX1dEdnJxLWlYRnVHUEc3V3k5RkRFNjJ3QVI3bk5xY2VBcmxB?oc=5",
-     "published": "2026-11-24T10:24Z",
-     "tone": -1,
-     "tags": [
-      "Capital"
-     ]
-    },
-    {
-     "title": "Why 1 Billionaire Investor Just Poured $3 Billion Into Amazon, Meta, and Alphabet",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNckhxYnNTT0dZMUs3aGhSMkZ4UG9vY0lIZjd0Y2liTkNSNEZJZ3R0djRyRWJBcGM4SzFMOGh4SlF0aVd6Vk9EbEp6MkpQSzd1RXZlcUhIZEY3RHBZNE9Ubm83X1l3dDlwSWxTdmxwbXFzdUNqSkNqcnpFMEhqUldqMHkxcER3ZGtnOWJHWTRfZkdTRVZodnJFWG5iU19YS0VqQmswWFhSTkwzOW5wZ0NfdjVlR3prRV9mUUxvTzJNcjdWSWNs?oc=5",
-     "published": "2026-11-24T10:15Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Amazon Plans to Acquire Decart for About $7.5 Billion, Threatening Nvidia Data Center AI Chips",
-     "source": "TradingKey",
-     "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOWWkzYk9lNm1BSmQtYVJnZ0l5d2V6MW9nMENZYk9XdU80RmRNaEVPSEVFREFkdDN4WVpKMm1VUDEzMkVrVnZQb1p2Y1B6TlE5dVNFaE5ILV9CMnVyQ3VZNnZYTkRsQ0VrbC0zRzJTbnc3SU1laGMyQjU3Qk1TMkZrdG1KQ3lOLTVwWFR5WkM4THJ3cF8tTFE2dWgycGtxT0d6Z3hnNlpIem1Sa3ZvejBlcGhFQVc?oc=5",
-     "published": "2026-11-24T07:57Z",
-     "tone": 0,
-     "tags": [
-      "Deal / M&A"
-     ]
-    },
-    {
-     "title": "Prediction: Amazon stock will light up my ISA retirement portfolio in 2027",
-     "source": "Yahoo Finance UK",
-     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQeWpXTUJXMzQwNU9MdFlRQUZiM0poNGExVFNfYXdFOGdORHowZkNTYjkxSDA5QklKS0UtdmFDTVEySUtsZFR0TkJSZlloRFYzRVJPUlR2NGt3QmlzNzVUcjhFR05LUGxxQTZab2dLcFV4ajBnZVdyX2xRbl9uY1F1QTlUR3BuTldMSUE?oc=5",
-     "published": "2026-11-24T07:55Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Amazon's $7.5 Billion Decart Deal Caps a Week of Legal, Regulatory and Analyst News",
-     "source": "ad-hoc-news.de",
-     "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxOb0ZjNEZsTVNydTd3bXowQUF0YmRKMTc4aDI0dzNPbnNsRVc2TEVQZUJlMFJzSjlZYUE4UTBCSENKeTRpTlp1NHQ0VElmX0VLeTlyUWZ2Zm1MS19iNEUxSFNCT095bHFlV1gtLTV3Umk0N3BDUEE1RkFzaS0tVnRvTENGb04yVXJfNm9nVmxrSXNNZ2pzaFMtbGY0MmNrZVdieGdLMHo1WWxTaWZaQ0VOTUZCNzVwVzl6M2hSdWhKYjRXUm1rRy1heHlOdFItdzZaeURCbFNTZS1nUVQyWllSMVlRZFpfY2ZH?oc=5",
-     "published": "2026-11-24T01:51Z",
-     "tone": 0,
-     "tags": [
-      "Analyst",
-      "Legal / regulatory"
-     ]
-    },
-    {
-     "title": "Stanley Druckenmiller and 45 Other Big Funds Bought Amazon Last Quarter. Dan Loeb and 25 Others Sold. Who\u2019s Right?",
-     "source": "TIKR.com",
-     "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNTWtweGYzTk5pY2NZVGliNDJHZjJVeXhBWHhXN25yNEFkTEwwWkE1SzQ1TVdob3pxQVpMUDhRQWhYX0RHYWJtNFVkcnJwaDlMUjNtelVnUUNON2RYYzh5bXJBbEJ5U0JMbXZ0TXlCVUY4S3ZVWVU4TTd3VktNTWtneFBraVRNRml3MWZIdFVXWGh4LWdPaldNVm55clQwaVkwVjVVYzJybTlnNlM2azFDSkJVMFhqdXB5S051RTh5ajJUUUZyS0VRSnVmdUtVOVlZZlE?oc=5",
-     "published": "2026-11-24T00:00Z",
-     "tone": 0,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Amazon.com (NASDAQ:AMZN) Stock Jumps 3.5% After Analyst Upgrade",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQdEFnQ1liWFJrVDBPTkV4Umt0SEw3V3FvWDZoeTRZczNlYTlKLXBZM2dNVThEcXRkUm9KV0ZCTUFQTVJFWnhqcVk2NWQ5V2ZsbzZBUldEbTg0b0o2VDlCRklDNUlFRHk4X2RwRGZOa1ZOcnpfZmpONEtoU3ViZWVGTTh6RGJzSENlNW9QOXptcmEwQ3NmdmxydGtEdXp2Z3RUYlRJLWI2a3BzUmg0Z01xY3I4akVmWElWbWc?oc=5",
-     "published": "2026-11-23T22:10Z",
-     "tone": 2,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "Amazon may have just found a \u2018cheap\u2019 way to get a lot more out of its chips",
-     "source": "MarketWatch",
-     "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQdEVzS3pJNENwZ19reU5IZFR3RU9XdVRNUkxZNWYzUG1rNUJqNHNnSlA0LXhVQTNEc1lYVV9UTDBiczVqcFdDNzh6X25HdHFDd3NKVmMzY21XbU9UcDRRbURPME9GbWxCZWZoRUNrWE1YWFRzeGR5amUzeVlrV1ZkTGRCbFJ3R2g3OGUtNjByZjYyTUZpSmp6eVdvVmxxNDZ0ZjlCNFltR3dTTWxNcWRyR3ptZHZBS0U?oc=5",
-     "published": "2026-11-23T21:33Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Amazon Stock Rises 4% After Announcing Acquisition of AI Startup Decart AI",
-     "source": "KuCoin",
-     "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOeGZMRDlrbE1hb21mc28zX0JxOFNacFNmWVNYZzJ3cnVOeWd0TTdMNlJ0RGNxT1FRSkdvNEdqSi1fN2NueW9yeEdGaUxmNVNyd052SWZoSTl6QTA4WmNIWDQ5eWVDUWl4TW1sYU1PRHV0MU1iNFBJY05DSWNzdTNwbmRaZ0xiR2xpUE8zNnd5R2VNaWpTTFlucWVfR1dYcm1zZUU3WnhKTFI5V2M?oc=5",
-     "published": "2026-11-23T21:23Z",
-     "tone": 1,
-     "tags": [
-      "Deal / M&A"
-     ]
-    },
-    {
-     "title": "Amazon inks reported $7.5 billion deal for Israeli AI startup Decart's technology",
-     "source": "Ynetnews",
-     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE0yQjhkSmxWY25aSk9TWVh1bU42UHZjeHZfVkFSVjk3Z1daRmgwU2hiLUp3dVZ2c0ZWbUpoajgxUDF6dWl1cGFJc0I3SXMwZExUZHZIeUcwQlN5bDgzWF9fQnFR?oc=5",
-     "published": "2026-11-23T18:53Z",
-     "tone": 0,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.16666666666666666,
-   "tags": [
-    "Analyst",
-    "Capital",
-    "Deal / M&A",
-    "Earnings",
-    "Legal / regulatory"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Amazon%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 60,
    "target": 326.34033,
-   "upside": 0.27781169975331843,
-   "short_float": 0.0095999995,
+   "upside": 0.2935127432716318,
+   "short_float": 0.010299999,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [
@@ -2555,15 +1472,15 @@
     }
    ],
    "earnings": "2027-02-04",
-   "earnings_in": 72
+   "earnings_in": 71
   },
   "TSM": {
-   "news_error": "HTTPError: 429 Client Error: Too Many Requests for url: https://news.google.com/rss/search?q=%22TSMC%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22TSMC%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 20,
    "target": 586.693,
-   "upside": 0.6135671067106709,
-   "short_float": 0.0066000004,
+   "upside": 0.6801059564719358,
+   "short_float": 0.0069,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [
@@ -2576,125 +1493,15 @@
     }
    ],
    "earnings": "2027-01-14",
-   "earnings_in": 51
+   "earnings_in": 50
   },
   "QCOM": {
-   "headlines": [
-    {
-     "title": "Qualcomm Incorporated $QCOM Stock Position Lifted by State Board of Administration of Florida Retirement System",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMigAJBVV95cUxPbi1ibFVsdXl5a1BFYXNpUkw4cFo0VTJodlhIdmdoNmJYRENBRXloeWVHVUtFbTRWMVVTTVFpalUtUXhMTG14Wi1PWVh2M0xkRnBUTkk0RzNDNjV0NWxyRHpPVE1EcGNzdGE2UnhHTDR1NmlwaldJb1JXZWpjM01NUXVFTlZvY2tsTXA4Z0o3Qk45Y1V5dC1VaVFBWkdCNlZCdWV2ODlQcm92aTlJRFJybTMyN1JvN0ZfWHo5LU1qZE0zWmRiSEhiT1NIVFZ4OWVwSElVcG43V2NCaGxZeHlaT0VXcDhGTktYWF93cnQ0NDhWVXNPaERfa0h3NjhIS0Mt?oc=5",
-     "published": "2026-11-24T11:22Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Qualcomm Incorporated $QCOM Stock Position Decreased by Trivium Point Advisory LLC",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPSlhoUkxyZFFNQlV4NHlxU2FMa3RpVVFrd3QwX0VKSHhURWJNLU8tLTlYTEJBYW9PRUVlMVhkRE9CdVk2OWtLeEp1bldyYkpNY3RhVFlqY2s3ZlgtTDRMaFVoUFI5ZEdCVzhuNG1OXzBoYVdyVkkta2xPdmdDcW5kSTBXdFZNUE9RODlQd3BrMzBmLWdmUlJ3TFlGRTI2WnZ4LTVRQVBGX2RyelYtYVE3MmlSRkNoTHpNZUw0TE5ad3ZFaVROSXU4enI5Ql9tbHFxZEdoeXBZVHVMdw?oc=5",
-     "published": "2026-11-24T10:52Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Qualcomm Incorporated $QCOM Stock: Xcelsior Advisor Partners LLC Trims Stake",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNMkM0MF9BNEtYemtwUzVwbFY5RGtrYkkyWEJ1dU9JUnpBUE5CQTBZb19IdUNGTUtiYTZ1cGYwei1qMXV5d0xMQmViRWdBTDNtR3BpTC1IczFzMWdEajEyejZKUWRoZTN0SmI5dWxvNkZjczNybUdoU0ZlNW1wamY5LWEzLVRHdmZxVzExWURDTXE3Tkhvb2xFTFpSamhQVTdBc2s4Qk9TbG9HSWpiZHZHZVJKQ0JaMFBMN1NJWmZPWWpsd0lSQ3l5bm9KaTUwZEtt?oc=5",
-     "published": "2026-11-24T10:48Z",
-     "tone": 0,
-     "tags": [
-      "Product / partner"
-     ]
-    },
-    {
-     "title": "Qualcomm Incorporated $QCOM Shares Acquired by Boston Partners",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNQUE0d0pmb1k3RVdTS192TW9HUURmSl9Wd0I2V0RzTm1qMVg4V1JaNFllUnYwa2JjQjNVYl8zZ2wxUl9FWnZiMEw5N1NEenBjN05EUjZCMnZtSHJxc2tqNDhoSkd5V29LeW1iZFdJbkZPMERvM25HVG0wb0NaY3phSEpSUnJJeVd0TUl4RTBwZnpHd3VrU1lOYk0tTU1DRHJXLWp6azRFVEV4VnVITUJJbDR5TmJRU290SU5SVGNkZw?oc=5",
-     "published": "2026-11-24T09:02Z",
-     "tone": 0,
-     "tags": [
-      "Deal / M&A",
-      "Product / partner"
-     ]
-    },
-    {
-     "title": "Form 4 QUALCOMM Incorporated: Patricia Y. Grech (SVP, Chief Accounting Officer) For: 20 November By Investing.com",
-     "source": "Investing.com South Africa",
-     "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNZlJoRHdJbUJac3pqejk2djdRcENfRzJGV0tqNWdocWdXbDI2ZmJqczkxalRxUDJCLXpQbXQyQWxnV29ISVl4SlFmRjZjT3hiZUxrZmpCbEZHdEhJYW1uMkhyYzNzb2VNX1lWX2R0WkFoRHdTNnlzcV9Na2xjV0VxZTVVQUhSbGd1UmJZVWJsYXBqbzdleGpXSVpVZ3I5ZXZZajVZWGZraXBpZkc2TDJWcFpwTDBENjdLR0JTZnJSQjNCcGtCcE1IYTFyZWIyNGl1REpualh6a1R0SjN0SVdNRDdpb0R2QQ?oc=5",
-     "published": "2026-11-24T08:38Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "4,191 Shares in Qualcomm Incorporated $QCOM Acquired by 49 Wealth Management LLC",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQOXVBMGFpVmp0UEZQSGRqaS1aeWxmTFdzYnN4TDdVSzVtWDUtY2JLbHVJRGhCLXNsc01KRHF4VEtpdHhwWGRiZklKc0YxV2ZHRnlHcHR0bFVTYm4ydmhqeVJLNlV3aTZSR0M0TlMxWVRieTl0R0FhQ2VxZktQeTJJLTdvOVFFSTg3SF9oTEhQMXdFbHk4cThhRE9JTl8xTmhJM3BaVG1aME92UzdhNElDdVJOWkMyVTZ3SThoaDJuSURIc3BKa3pfdWZ3MHR5OU9DOEoySkVB?oc=5",
-     "published": "2026-11-24T08:12Z",
-     "tone": 0,
-     "tags": [
-      "Deal / M&A"
-     ]
-    },
-    {
-     "title": "QUALCOMM (QCOM) AI Push Puts Valuation Back In Focus But Is The Upside Priced In",
-     "source": "Simply Wall St",
-     "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPRlZtSW1LS2swUUVETDVMYnNsbzhyT2xHeWpsNW12aGNRX19PRnNhQWlVR3EyU1Z6V2w2MDdNeS1qZ1ZLRjRLbHlIeF9tcG8xdzFxVkhkWHVGM21ycUxQR21uZUhmR3lRMllkNjk2SGZmbzYwZTVvSm0xNmZHcDJXWXBmb0xaUGQ2Y2g0WC1UT3c2UEVQVFhoOE0zcFRSdHEtRVluZUQ1TU9pd09zQVNnWUY3ZlhkVVNiY2NnV3Y2Q3dqUTU0NmlLdUNTQ0tsQdIB0wFBVV95cUxQUHY5VmZTeWJOb0NweUZSS3RLS3VMQ1RzME5pZURsT1AwMXZBS0ZsWlpRS1lYYmpDd21zbWpEWjQwLVBudlV0TmJ6N09uNHBJU3ctUHd6SkR5RXFEVWVaczk0aDM2d1Vfa3VHb0RRSXdDMXB5T2dzWkpxbGRRMzdseEhBU1NFU181cnhoRU9DNV80dDRFTGJTSTZ0Y2MzbVE2Nkx5cUw3RXBfdFBUYUxYWnVwYkJocHM1am9WV0tVbzc1elRtcGF3bmVHckZTS1MzcmpJ?oc=5",
-     "published": "2026-11-24T05:22Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Qualcomm svp, chief accounting officer Grech sells $102,483 in stock. By Investing.com",
-     "source": "Investing.com South Africa",
-     "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPa2JmWFFjZTNBM2xEY1o2cUpUUlhUVHFqRWhWRWhvYW1zLVRma3k2VElvNXU0d19rR3BuRWtHRHhOS0VNWFEtWV93XzUxUHdBWThKdXZzQTFaUkpTN0Y1cjh0aWxUM2trVHNNYkk0cmozZmlOSW1JYUs2TG8zanBCYzlkSko2R0taX0lHSGpsQTNTbUx0QUpMbmwzNmNNckJkdERzS0NpWXBjNE8xRUx1RTNtTG56R3dQQmFUQllkWnJNZ0lY?oc=5",
-     "published": "2026-11-24T05:05Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "QUALCOMM Incorporated (QCOM) stock price, news, quote and history",
-     "source": "Yahoo Finance UK",
-     "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTFBSRVJ6dVQzbDhwNWxsOGJpUVFqOERERzk4Ri1RQTRuT2lfLUlBSkVKUENsNFM3cDE4OXZQNWM1Sk1oaWVqNFBGZm93eHNQMHl0ZEg1M2g4UzJlZnpIc2FndGl3?oc=5",
-     "published": "2026-11-24T00:32Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Qualcomm (NASDAQ:QCOM) Stock: Insider Patricia Grech Sells 628 Shares",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNX2JyX2VpWmx1R2lSX01oVnNTd2dSSWVtSTdtMC1hdERDWmZLTEJMMGppLXdtM3NDQVBjeFJ0OWRtUlpvT3YySXNmVGoyWVc1MzRwQUx1SWJLRThJRkl3eGdlTUZ4MmhkZGJsUkZ5bzlYUnVDVThuU1ZQTklGQXlwM0R3WktjUHVUZDY0bldEcUNZOTZFR29zTUZSWmhPMUxpdUJwTTV6Q0c1UEFweEw2SEtJQU9leVRGSThzN09pUU5FNTJEa0t3?oc=5",
-     "published": "2026-11-24T00:11Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "A preset trading plan covered the family trust\u2019s sale of 628 Qualcomm (QCOM) shares at $163.19 each.",
-     "source": "Stock Titan",
-     "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQbFN4X0tMNDdnQUdFdFFmbEZvZ3kzbG4zMkZZX0paWWFMOG5FNlpXdmV4ODdYU0dJeDB0cjRlVXVpdlJfWmhWNVB0UUtNU1JVdDI1ZW9jSXotcWZrSHFmWDRBTWdkRVJRVk5FZXdVRWJKa2R0NDBlWUk2akhDcWVCZm1PNkgwVVEySXhGZnJpUjg3T1F4SkZVYzRiajM0OVp1ajFLenNjSS1aSTNEQlE?oc=5",
-     "published": "2026-11-23T22:52Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Qualcomm (NASDAQ:QCOM) Stock Price Up 10.3% - Here's What Happened",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQek1uZ0V3bEtXQ2FEQkFvU013UEFRaG5aY3ZscFdObnh6ZGx6WXFKNURaekc1RHZyekFwNVZNMzZVdXpfZHp1bHZCWklvYzJyN0o4MDUxWXYyNGlnV0NQRHNHRFZ2RURRRWlSYThoNGhzUWwycnFEa3c5emdsSWd0R1p4S1NnQkhoMmY3QmxOSTQ0SVVHWkJlTi10S0UwSjNULU5zRkVOOV9FdUozakF3VzRxdGFsemtDeEVZ?oc=5",
-     "published": "2026-11-23T22:45Z",
-     "tone": 0,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.0,
-   "tags": [
-    "Deal / M&A",
-    "Product / partner"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Qualcomm%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "hold",
    "analysts": 28,
    "target": 185.25,
-   "upside": 0.12014753900108843,
-   "short_float": 0.030299999,
+   "upside": 0.12299951503394757,
+   "short_float": 0.0373,
    "upgrades_30d": 0,
    "downgrades_30d": 1,
    "rating_changes": [
@@ -2728,372 +1535,41 @@
     }
    ],
    "earnings": "2027-02-03",
-   "earnings_in": 71
+   "earnings_in": 70
   },
   "IBM": {
-   "headlines": [
-    {
-     "title": "International Business Machines Corporation $IBM Shares Bought by State Board of Administration of Florida Retirement System",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMikgJBVV95cUxOaUc4b0VlWEhEd3JvSnVIaW9GQlJMV0F6eVpEbTBncFZNWVllTmtob1lIbWM4RU1XNmVMTHR1RmFCT1gtRXFfMTJHd0lZaTYyZk03V0dLSF9SUlhDUS1QeVRiQzFCczZiNDlmdWR3MHYtLVowZG9hNXc0cTZSTXUxRTVDVU56RXBfekVZS3AwUFIwdFNxRzJFMUp0Q0ZJMlNxa2VMeXRaTFpFWXJ5RTB4Y2Y0RDR0SVp5anZQcmJ2OXkyNzItLXZZUzR5R2cxQmlYN1ZRNG9iNWppZDRuQUVwS3VRdkl0WGEtN0ItR21GdXlwaTlYN3djY2JVN3VIa2VhRW85VlFZajVLODlKSGgtckJR?oc=5",
-     "published": "2026-11-24T11:17Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "International Business Machines Corp Stock (IBM) Moved Up by 4.64% on Nov 23: What Investors Need To Know",
-     "source": "TradingKey",
-     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPWTRzV0NIQmpHUE9CWS00cGZKNlE4bG9sR29iVXRNOUFXeF95MmdxZHF3eUhidTdXMTYxR1d3MkY0RXVtQ3VRMEppSjlXdFVzZVFOa0h3VzQtV0MxbFYyRmR4dGpFcWFkRXlGdk9tRHVEczlHdlhDMDRTMlFUalBCMWV5UTVnUnhQRHc?oc=5",
-     "published": "2026-11-23T20:16Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "S&P 500 Unusual Volume Session: Dell, IBM, UNH, TPL",
-     "source": "ChartMill",
-     "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQZjBack1mdEYwMjAzOHB5VjRmNGdOMlEtTzJQZWd2OHlwMmc1d2d2OWtscWdzTm8xV1AxaGtZelFjajhVaVdDWVZCcUxLNkZ2NjN3VDN4R0pxaFBTR19lMHp3WUhqSDBQNU0xRzQ2NTM5N2N1VURNOXNoeDNCOGdmTmpLVHNBZmhCcVhvV2ZfRTdtb21oTFNEQ2ZKTWlwUQ?oc=5",
-     "published": "2026-11-23T18:05Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "IBM Shares Rebound 3.6% as Nvidia's Huang Returns, but AI Governance Study Exposes Spending Roadbloc",
-     "source": "ad-hoc-news.de",
-     "link": "https://news.google.com/rss/articles/CBMigAJBVV95cUxQX2dETlRGaW1qWkJXNkVuU0ZjM1V2WEhQRnppY0YtNTlvNVp1eDlWckEwdWhTNEdsaVlYdFVHR3M0Vlp5QmNyanRjX043d0c4VmJ0WS1OUWRnTEQzd3lMX1kxZmplME9sdk9RZWEtQ0xweldOSzNiS3gyMXZZZXFEemN3V2cxR3hVWS1EbjJsUHRrUFlOV3FGNW9NTGVvcG1OUF9EMDBWY3dPRno0dldrY3FZaVBybVFsZmJYMWRxa1g1SzV3a1JRMHZOR2hfOHR0b0NTRnprLXdLUUl4NW93OU80ZUNFOGlRYWdvM2pQd1AwZ29IVEdYQ2JHYnFJLTVv?oc=5",
-     "published": "2026-11-23T16:41Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "International Business Machines Corporation attracts institutional buying: Can IBM continue gains?",
-     "source": "Traders Union",
-     "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPVXczMHMwT0lKWFRQVnRlQlhkdEdpaVhVNjNzV2VTS2RpelNBREJGNlVDdWlqalpEaDRQMjlXVFEwRG5LSjJmclZRY3hPVkljc1A1Uk9fNTFOMXhEVU1lRGtwcXM4X1UtY3VFc05WQ1Myd0ZVcmJtanZEREpKM20wS3hGcVBSOUNYWVI0NERB?oc=5",
-     "published": "2026-11-23T15:55Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "IBM Hovers Below Trend as Analysts Keep Bullish Targets",
-     "source": "TradingPedia",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOTi1CSXozMTE2NlIwUGZ5b2lsamE4cVBPcjUzNGZnMjJOeU1JTFA1eFVLdHlLT3NwSng2M01ERlJuMnFUdHdIalByMDUtRzdXTmZlLXVtWjUxWDhhTDhjN3dyWml1cU5SS3FTTkNZMGYxek93ZFhvUkktQVR3N21acUN4MTZHMDF6Q3BXR25fN05Tbk5ZU3FuTjlfckk?oc=5",
-     "published": "2026-11-23T13:05Z",
-     "tone": 1,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "International Business Machines Corporation $IBM Shares Acquired by Xcelsior Advisor Partners LLC",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPejY3a2daNmgzRHMyUzJ5LUVWcXoxM0ZTNTZBQXZ6dnNkUDN6TzhwUnBKUlJVcWh4c1dPU05valhqbV9wcFFtOVgzY1hhRHdSSjRGNVVMOWVBWml4ZTVSLVVsZS1WdExCUno0X0JzTl9DQ1RxQl81djk3Z1lHTzVkZnl2aHJsbXZYaDJCb2NReXpKa184cEUzdVVNY1U2Rzh6VjhnVVEwZnFxc0E4SVl2T0J0cS1Rd25tU0xrMkIxUzF1OTZ4V3RNWEI1WHZsNFFTNU52TVVJcFFUemdJNnVLZC1obXgxLVQ4cDEtOURn?oc=5",
-     "published": "2026-11-23T11:08Z",
-     "tone": 0,
-     "tags": [
-      "Deal / M&A",
-      "Product / partner"
-     ]
-    },
-    {
-     "title": "International Business Machines Corporation $IBM Shares Bought by Lifeworks Advisors LLC",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNMFpoX2FKTkNNU0l3OERvWEZSbG1CQjM4WnBoS0lHbTZidE52UzN2enBSRHliZS1jclFoVmhTMk4yNlk0eUk5UkVlWG9rZEJEWktoYU1zcHN2NUluNFRfam5kNEp5Z1pVTmZkbV83N1NOY1dITjZESFJmQjB2T1ROUklFNm0zbUxXMjdDVS1Hc1I1UFN4bGtobG1HbHpUWGtUd1dMa3p4RHV6X29aV3Z3dVJOMzFvZkVfU0d0eElVVFF4Tk1obXAzSFNabDg2OXhVZ2pETGRZb3ZGTEllQkxpYWFR?oc=5",
-     "published": "2026-11-23T10:46Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Cisco Systems (CSCO) Stock Price Prediction: Strong Q1 beat meets a still-fragile chart",
-     "source": "Blockchain News",
-     "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOemQ0VkItRXVmZnhOVk1fc1dLUjNWWEJDYTRIV3hPSHVJVWV4RmcwN1dRY0w4QTVKdTJfYjV5dGZvSUJ6ODFOMGhHWkxBTHRwVExPWDdpZUQwWGN3c1VNeTVOS2h0RTdtM1hmMHdfVm52UnNIRG9PT2lqVDl6UUFKTURBQ1BRMUZzaVBOdS1GRzJyZw?oc=5",
-     "published": "2026-11-23T09:30Z",
-     "tone": 2,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "IBM Stock Price Prediction: Analyst targets hold up as price sits below key moving averages",
-     "source": "Blockchain News",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPODJqSjZoZXM4dzNCX1ZXX21lbTVNcDZlaE9DbVNsd3JsOHMwLWJlYUd2R3ZLOVdtNHVaS3ZaWmstd3ZIZVhIaG41bWx3czlCUUJFV2pqaDcwbzJydjZlelJObkw0aTZGVXdhUlRvQnQ4WU1FMHpnVVc2bWd6R19sQ0N6cVRPcjhwVjROeTBDWHZtb2JPWDBOX0RIQjA?oc=5",
-     "published": "2026-11-23T09:29Z",
-     "tone": 0,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "International Business Machines Corporation $IBM Stock Sold by Benjamin Edwards Inc.",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQTW5UNlFqZDNweGt0LUMwM005Z1FRODhyb1VsaUtLTnFwTkZqNG90TF9INHdwakIwRTE1T3NoZmtRbVcxUkhOeFlLeXZwUmFHMTNlXzFLNURtdXJJekVIWFFvZllvalBfUkFHODgwLWpuNTBmSEpoakZneTZScXFMb21MYVk2ay1fQ2lMXzFEci1ZbzhZQmdQb3lLdmdWRS1TczBFTnNIYzlEY3dVRVFLbTRtMnpjV3RURFFqQVFwU0ZHcm5mQ0dmTmlQR2VzR0NSaWRkTnFidS1jcmM?oc=5",
-     "published": "2026-11-23T09:01Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "International Business Machines Corporation $IBM Stock: Bleakley Financial Group LLC Raises Stake",
-     "source": "MarketBeat",
-     "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQUDhDdnJWRFRETGNRSlZ1YW1JUHU1RUpESWt1aWhqeEo3OWYySlJrS25XNFRTZmNJYUZTUE1KZzB3MmdscW9vTXFJM2FMSkZHTGs5UnFhRDh2ZzE5bV9iSHJNRjNNRTM4UHplMVlaWnJ5NWtnUTBrb3BLSjZlRl9UWWNDTFdKTnloNXUzdVFYRjBzUWdtczRYSHVZWjBiWndGZV9sdm1PVUxSRkgtU0lJTUwxdVNEVHVTbmEzN3FxZ1FjYmtlZ1hNbmN5SjQ1UFFHOE5UR0FvakhNRHRCcGRTLXcwVEpFZkdIZ1IxVw?oc=5",
-     "published": "2026-11-23T08:19Z",
-     "tone": 1,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.5,
-   "tags": [
-    "Analyst",
-    "Deal / M&A",
-    "Earnings",
-    "Product / partner"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22IBM%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "buy",
    "analysts": 23,
    "target": 259.84738,
-   "upside": 0.1152248068669528,
-   "short_float": 0.0209,
+   "upside": 0.1028239538239537,
+   "short_float": 0.0211,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [],
    "earnings": "2027-01-27",
-   "earnings_in": 64
+   "earnings_in": 63
   },
   "DELL": {
-   "headlines": [
-    {
-     "title": "Dell Gears Up For Q3 Print; Here Are The Recent Forecast Changes From Wall Street's Most Accurate Analyst",
-     "source": "Benzinga",
-     "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxNR1FOdG9abmxoOWdnRE5GaTFTS09ZcENTSUF0Qk43bFVHTHFrbUdWclEtUWR4NWFMMzBQSWJjZ3JGOVNuZHJqWkRJUE5hVjFBRWNkelRJTXFCSkZBYVI0Z2JsZFFJUTBvSWNhaDVsekZfTldab0RNNDlYSU94RDZkUkpidGlQaWFiSFRxeDR1R3JMcEh1UzBGQjJXRjlmUmNCZzVzTy1HLTdnSGlFa01LbEhQdGVDeHJIaXBTS2NmRWFFUDA0Yl9OV1Y4ZGpidGkwdnF0YVFMMUNOVzBHVmMtMXowMkxGbndHcVp5NkFKb0x4dDE5ek1wY1BlT21xSkkxOFhhRUdsVHZ4ZFk?oc=5",
-     "published": "2026-11-24T10:09Z",
-     "tone": 0,
-     "tags": [
-      "Earnings",
-      "Analyst"
-     ]
-    },
-    {
-     "title": "Own Dell Stock? Its Cash Gap Rarely Hurt It",
-     "source": "Trefis",
-     "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOTnJlbk0xeE1zSXdQcnZwcl9HTWFYeFBjSE85UEZ6b2tUbkZiaU1DaEFfa2p4OVlPYzdPM25RUHdaV3ZHbGhjdUF3eDYzbEN1Q1M3NWxGQ3UtejVVSy1MWU1qcmVsYlhmUmthLW5XLVFIV2o5N3ZGOHpIZ2NBOWR3aUZWOXFWeEN5cy0wMEdubGNyZHVaTUgzdjVWWG1jY0dIamM5Mlpn?oc=5",
-     "published": "2026-11-24T08:22Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Dell Q3 Preview: Margins, Outlook In Focus As Strong AI Server Demand Seen Supporting Performance",
-     "source": "TradingView",
-     "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNVTRJMW1Ib1RDVjRpVFNqQWNGb1ItQXZQRjJOMzdKaDFqanNYV01rZHZuQWQ3RTRsdW5zUTF0bjhORmY1Y3FncnFXblFOM3dldjhVTmdtdFRULUx6S1YtZDlnWUlqSHVraHpEaUZ1VGhHMkUxbUZ0dHlBWW5IZjYtTkZyZF82REVZME1OMG54akNFMzJQZVpxaFdEX2pRM1hUNzgzdnJVNWFWQTVmZnltekM5SEpRcDhHYTdTZlNSd09MT1RkSzdMT3ZFSEU0YXB3UlZNQm1sR2l2dnk1VXVZZ0d2cDdxRWwwT25UQQ?oc=5",
-     "published": "2026-11-24T08:14Z",
-     "tone": 1,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Is Gross Profit Dell Stock\u2019s Real Test Tonight?",
-     "source": "Trefis",
-     "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQQ1JONHZKRVZmMVZoS3JWSTVTLTdYTzJ2ZXFscjdTNlNudTZiUXlmWmgxVDN6SXpFQTU3cFRtaHNfeGlINmtua1c4eGt4UEVCTGlPVW9mZGI5TTVBX1FST0FQQk43anJZYU56amtNcUtlT1NsaVhoWVBzN2ExNW1DbWlSd2hIRGU5YW1ZalIwRkRGSV9WcWt0b2lIZ0xzeVRFNTV6aFpGUTVfNHc?oc=5",
-     "published": "2026-11-24T08:05Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Nvidia Has Incredible News for Artificial Intelligence (AI) Investors. Here Is My Top Stock to Buy Before It Is Too Late",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOR05Ub3hPVmduMjNLeGV3d2c0VDdjVG9fbmF3YnJOLVNnSVNlRU9SWHdWSWk5bjZKYkhlZDJpNlAwZjBfQ19PcUszZFVLelllTE1aM0tWcGhyT2x4Y0ZyRTVBSkdxR2o4ZmtpZXRvS1RYWUtzOEx3aGVQNkxqSk9NUzJURXotSFFqc2xCNGJIQ1FCOWR3Y1k0dmJ1SGMtb3hncTRyX0U4RElfcUZ6SzM0?oc=5",
-     "published": "2026-11-24T07:27Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "DELL: Dell Stock Pumps 20% on Huang Return as Traders Shift Focus to Earnings Report",
-     "source": "TradingView",
-     "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOVlhnXzVSSmpVR1BhcE45V3d1RmxadF9tNzVFWFJfRXBucVJ1MEx0Z0tNbnN6YWxyUGpxSlpackc3NW9tMkpzdkk3ckh6N2JTNzN6bVpXOW9WNGVDc2hqcGtHUUNDdDM5dS1JM0JxekdGZ0YyM2ZZYXBZQ0I1UmdzMlRmalRKanNIZE1xUXR6N3ZGTUk1WkZDM1UtckZhSkpzSzZOQS1BUFdQbnRMU1NUMWhFSXIxaURWdUxLVlBtaG0zS0RsTjI2OUlqWlNwWndhQV90N0NpYXc0M0Nv?oc=5",
-     "published": "2026-11-24T07:01Z",
-     "tone": 0,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "DELL Nov 2026 330.000 put (DELL261127P00330000) Stock Price, News, Quote & History",
-     "source": "Yahoo! Finance Canada",
-     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFA5enNCM0VUdklKRlJLaW8ydUVBMjhzQ1BTeGpkOFZYNU1MSFNWZTgybkpmZm9JVVFiSjBFWktYeGNBU1pBS0tKbkt3d01QM2ViYmlDWXZZV3NuOUZrSW5RWm5LM2I1UQ?oc=5",
-     "published": "2026-11-24T06:51Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Over Half Of Dell\u2019s $95 Billion Backlog Waits",
-     "source": "Trefis",
-     "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQeUo0MWttS2tpSFk3bHZ0c2tBSkNIUEZlZGFteXZuS0lvdnljUGxQTGI0TTB6d2hHNWZMYnprSUNnNFNEUl9MTUljZlRYazNPRU1aV1FNZm9KcDhrTmxLVDktWnNCRnNiODlGM1ZrUU9ockgtZTNzNjRHb0YtWW90SW1IM092N3U3ZzhYRC1DWHFyUUgya3Z2dWx4d2YzM0V3UmcyOHRyWkE?oc=5",
-     "published": "2026-11-24T06:40Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Dell Technologies Inc. (DELL) Stock Forecasts",
-     "source": "Yahoo! Finance Canada",
-     "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNb2o3QUpWclctNk83ajd2Y1BSVmI2VzQ2Qnd3cFY0SDlFdGdPdWR2am03TFRSbHBpR3YyQUg0WjFLcDVpa19Qa3ZfVkY0ZGlnVGx6SUtXQUxxTV81NmlRN0xpYWdoR0x3WTdiSmFqdFV5U0xBNzN1alA3cWVSVlh6eTNtYlF1V3NaVzNRbFNyVDc?oc=5",
-     "published": "2026-11-24T05:51Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "DELL Nov 2026 750.000 call (DELL261127C00750000) Stock Price, News, Quote & History",
-     "source": "Yahoo! Finance Canada",
-     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBHc1U3S1FFQ2tKUm1wbjZkWnRfc2ZtNXJKZEdJQTZxMzUwanhWd0JlNlNQQlpUS0ppemJTTWZSVVh4UzY1QldJNWJjRDBTc0J3OWJSQ1AxSk5weDlfMWtLTGtHcUpZZw?oc=5",
-     "published": "2026-11-24T03:16Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Dell Technologies (DELL) Roars Back, Gets 2 Major Catalysts Working in Its Favor",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNMnlFTGN4MGViaEdFdTNDQzJZVkJHbzBUYldsWHZiQ3JKUzdoQXExdERUOWtlZmI4TVQxQnppZUl1MHpIaGE0N3NhUF9iZVdEbTBSNEFPQkIwanVWNUdEVVZPbXBCVDE0UjRDMnVjTjdXQXJPbWl6S2pOYUJWQlNqLXhxQWx6SG9IWmJoTjZZYXRpMVU1V1FpTGdHVHlfZUE?oc=5",
-     "published": "2026-11-24T03:09Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "NVDA, DELL, OTLY, ZM, KYMR: 5 Trending Stocks Today - NVIDIA (NASDAQ:NVDA)",
-     "source": "Benzinga",
-     "link": "https://news.google.com/rss/articles/CBMigwJBVV95cUxQdW5GeUpCdkN1Q2tTMDBuMWM2OTV1R0hZWTkwWmRBNlB2ajJZOXFadGtpcWNmLUVISnFjS0Yzbmk3ZHhaVWVSeG96TmdleWZFTWhNOFJOVDM3Mm12Wi12cXNCanRZUWd4RXU3R3pPUExybkNPWm82RHByLUlBWk1wN3J5Y1RWcko0X1V2X3FFMHlJdV9DdWMtc2pVY1FKSXVTQjVWeXE3aXVjWnppRGQ1VFZ4TnhHQTJkbVFxbmRGYl8zYWk0QnJWa19UdHJzRGdLbFRYNUZLQUtGckpnSkhWaFNNMkRJbDk3WU9TdlRsYnlvY21kREthazlDVWRDendnRU9J?oc=5",
-     "published": "2026-11-24T01:02Z",
-     "tone": 0,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.16666666666666666,
-   "tags": [
-    "Analyst",
-    "Earnings"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Dell%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "buy",
    "analysts": 25,
-   "target": 578.88,
-   "upside": 0.7284643635603594,
-   "short_float": 0.0357,
+   "target": 568.88,
+   "upside": 0.9265781630994312,
+   "short_float": 0.035,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [],
-   "earnings": "2026-11-24",
-   "earnings_in": 0
+   "earnings": "2027-02-25",
+   "earnings_in": 92
   },
   "MSTR": {
-   "headlines": [
-    {
-     "title": "Strategy (MSTR) Rebuilds Institutional Backing As Major Holder Lifts Stake 58.5%",
-     "source": "Simply Wall St",
-     "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNcDV3ZkU2VUJucGM0TnBSZjctY3ZlNTU2SnNVQ1p0N1NPM1NUdFBLT1VkQXNGZmQtcVpNd2J0Q09XWVBpOFF6ZFVucEh1bzZUNmFFam9mMTJocnVZbFN3SVZWZWltc0lYSFNraE5uQ2ZrUHppeWZ6eTRUWWtsUUM2bzdJYUlaVmZwMWNkRE9DblFUTTB4Nncwc09ZdzRZenJ1Ry1mTl83aU9YbE00Ny0yZ3dmR0lYSVZJSTJINVJQV003c01QT3fSAcsBQVVfeXFMTjE3MXd5ODdVeXU5MS0xLUlqcFFlLUN3UXFVT2JZNG1LaUVhcHczeDlVTDlrSnFYWVhiT2hDMlAzdndZNWdEQVg2eG85WV9qeVI2ZWczZGYzYTBRT2lVRGw1MVB2TGdDLWxQU0RpTXEzVElBMmpKTXJDSW1ZZ0FJMDI1MVFKc1VPM2dzUGdubFFWODVvZ19IZEtiSUd0UFhNcU9TNzA2OXh1Sy1YZmk0VFFyRGVqMGplU3NaOVA0U1UwZ3pfYkJuYmVGLTQ?oc=5",
-     "published": "2026-11-24T10:11Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Strategy's Market Value Falls Below Its Bitcoin Holdings as MSTR Trades at a Discount",
-     "source": "Hokanews",
-     "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOaGpzZVZqVmYzTzFHNFIzRFlabHd5U3c0X0J3T1E3OXJpejhXYXJ3MktDOVV1RWtrMDJFdExzMGRiNWJWaEE3M1o0N1ZPTGRISXZsQVVYNVlMdFEzZVFxbjNYXzJPQjNWRlFyMzFMTDN3VnVjTWwyWmt2SFhFRjVVdHhR?oc=5",
-     "published": "2026-11-24T09:53Z",
-     "tone": -1,
-     "tags": []
-    },
-    {
-     "title": "MicroStrategy (MSTR) Stock Price Prediction: Oversold bounce tests a broken trend",
-     "source": "Blockchain News",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPb3BpaHhyVWY1ZDZYb1VxeWt6ZUZ5TnFEdS1ySjFwZFloVDU3RkE0OThYQUo1Wm1oOUZFWFZrajVpNlEwYXVJN205WnZRR2QtU0MwNDdIRFB0UGNlYm90WlJCNTNQLWxsaFhlanRMNGRqbDEzWXlMOV91dWtlVVowMUUtbDRMZU10ZHBGREI0eHozT0ZSYmQ5d1BDODM?oc=5",
-     "published": "2026-11-24T07:38Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Bitcoin Crashed to $55,000 and MicroStrategy Bought Only 457 BTC. Why?",
-     "source": "BeInCrypto",
-     "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE9zSVNFRzJDUWZ5MnM3UXpYSTB6SEVQUUhVNnpMYWFWd0RURjB2NFZLM2pwNnVGNDBuWG1YOXYzbkNHdWVwdVBJLVQ3UmNUUzRLQkZNTndiT1loTzAzcW1jdFlweHJvajZsMnYtcHE3REFPQQ?oc=5",
-     "published": "2026-11-24T05:09Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "MSTR Stock Price Prediction 2026, 2027, 2030 \u2013 2040: Can Strategy Inc Stock Reach $500?",
-     "source": "Coinpedia",
-     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOdmw1VllveENETFNwWHZxR1dTcmZIdkNKOVhuZGhpeTZfNWtTczNuZVh3czNuS0pXNG9GTDQ5MEdHdmZWZkd5TVY3bTkydTAzMmFXYS1McFl6T3luUXR4UTg2bHR4ZEFRcW1fU1RDRTktbDVWS1NCNm4tZkZfWTMyVzRnOWhCQkxnaUHSAY8BQVVfeXFMUDdWTkpabjREalZQS2NDcmRTNWxZTmpMa1RiWUJLSGRNanI2UnpWS3hDNVI5cWFzcGUzcGdiVk1pNDJzQXh1VWF1TTlqU0tZOUtQUE5qdm5VVTlHQkp2VkozQl9hZGF4dXUwVEpaRnhWR2lxay1Cb1hFTGpnWXdUTHMxZDBIUURMZVd2c1gwRkE?oc=5",
-     "published": "2026-11-23T23:06Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Strategy Inc (MSTR) Shares Jump 8% Amid Crypto Rebound and Bitco",
-     "source": "GuruFocus",
-     "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQNHBhUXB0T2xKZmVaclI2ZWQ4dTlVUF96WTJxaDNKbGI4N1B5Z3NkamYzc1BJUXJVbnlhTjdPM1R5LUJFTEhYT09aNlM0Ukw2NjA0OVZKVEc3TEFCTGlid1JKZG1iY0QzOEY1VU1UN3JPRjU0UFAwYVJmZU9LMEh0czFkWXlCQkNBWERxVnFtWEJpSkJkVXZROTVOc1pfLURHbUpyXzlBM3NZVVZsZXkwalNLS1Y?oc=5",
-     "published": "2026-11-23T22:07Z",
-     "tone": 2,
-     "tags": []
-    },
-    {
-     "title": "Strategy advances 8% as AI and crypto stocks rise (MSTR:NASDAQ)",
-     "source": "Seeking Alpha",
-     "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQU1dZX0V6TXNCblA5dDB5bDR5WlBhbnlvd2ZoRTJEcWxiaFF4b1BKTmhfNFBuVlM0c3QtdVdrQnNsblpjLXd6WkEwMEo3R1NTdlYtZ2E1aHNRUThKeW9zUGQ4Q0REWFZ0T01Wd0lhS1R4bHNFY0ROZURNR2dJTHZTSFlkLTdtVGhVRE8yZy14aw?oc=5",
-     "published": "2026-11-23T21:43Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Strategy Stock Jumps 7% in Pre-Market as It Acquires 457 Bitcoin Units",
-     "source": "The Coin Republic",
-     "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNdDMwTnFhSW9fQm9IMlpEb3NGbUJOOE1FRUxwRk16bEFVb2lsT0ExcWhZUVFRQVJtUU1HNWtHVXpjeElRcGhkZG1MMkZRRFdpczBSTXVJNjZrajdHb19mQ3dRcXNEYnkxZFVFcktIU1hDbEYzT2s3Si1MTnRWb1Y5dF9mYXVaRjdFUjRKUXROUkEzNWZIUmJiMGhhbzhrWUdQVEVZYlVzT21xbExiX1Bfa3NPVdIBuAFBVV95cUxNTm9oQmlCSUlBNV9GQzNEUFBzRldrM0JENjRRbmFqZDViRjJ3dk9DYVdlY3JoWXlSUk0wNnJRM1BkdTl0UVNVbnhqSnVvUXEwMVg5UmR4ME1qaWxHOXdrRVNNR1RYY2V1ZFotLWNNR05PZHZ5TjJFQzJCU19FRnBid21MTzV2MkYtWjE5TDFsbWg5R2tLeFViQ05rUkIxV2NuZldpY1BpbF9ncEdhNFBMRmtyTnFRamlU?oc=5",
-     "published": "2026-11-23T21:00Z",
-     "tone": 1,
-     "tags": [
-      "Deal / M&A"
-     ]
-    },
-    {
-     "title": "COIN, CRCL, MSTR, IREN Surge as Bitcoin and Crypto Market Recover",
-     "source": "The Crypto Times",
-     "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNd2RKRHFLa2cya1Q2bF9FYVNKVlVEMlVuZEhiRlFrUFVMbWhYUUNmQ0pvU2l2OHhXWVYtd0tEMDJ2M2d1X2oxU3BqeFpYaXBuY1ZBRjZWWmRxQnBhUEx3cDZZWEJhN0xVRkdpRDJGVlI5dWQ5VXVudElYUDR0aEl3Z1RNX3hMbDVMbzhldHpzeGsxVU1Nc1ZsOGJrNFBLaHVwRm13?oc=5",
-     "published": "2026-11-23T20:16Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Strategy Is Still Down 45% in a Month: Can MSTR Stock Revisit $150 as Bitcoin Holds $60,000?",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPSFhMRXRnVDhPY2Q0ZDVZWGZ0MnlGeGFVX0FQUXJlYm9lcEZTVGEwZ0Exc21iY21OYWR4amhKTWxjYkR4UEkxamJMZGM5djZHMDhESHEyTU9rcUY2M1gyVU55cmNLamRKOHNMb3haa181TW55eEEzTmxLVUxYVTl1c1NDQVdSYXlWRHZqcTlVX1FEcWlxRHdJeA?oc=5",
-     "published": "2026-11-23T19:54Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Strategy raises its buyback ceiling to $4 billion as MSTR shares sink 21%",
-     "source": "CryptoSlate",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQZ2dibnhuNFlKcjh5TWFycF9aWkltT2pPODA0S1Z1Y2JUM2V5M05rUi1UMUpLTkxJeUd3VzBGZVR1LVZyeFMxTW5HMlVOWXloZmI5TGpLVzJacWlCWDBvakppMWJ0bmNkelcyaENBZlNybWxkaXdUMFMyNTFGbmtQNU1pR3JkWjlQRXowRzZVa2ZsYWJPZnhZUnJ5N2s?oc=5",
-     "published": "2026-11-23T19:40Z",
-     "tone": 1,
-     "tags": [
-      "Capital"
-     ]
-    },
-    {
-     "title": "Strategy's Bitcoin Stack Is 22% Underwater. Peter Schiff Says It's \u2018About to Blow Up'",
-     "source": "BeInCrypto",
-     "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5pYXlXS29LWTJTbEZEb0U4MzlleWsyamY5cmVieU9aOHVKRHp3OGxETDBIVTVudTE0bF84T1lGVkVvZ3pXaUM3SW00WHMyTURLQXpTRGFoaTlMT1ZJV1UyY05YRU0zX05uUXZ5OUM1NWM?oc=5",
-     "published": "2026-11-23T19:38Z",
-     "tone": 0,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.4166666666666667,
-   "tags": [
-    "Capital",
-    "Deal / M&A"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22MSTR%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 15,
    "target": 233.26666,
-   "upside": 1.7638229857819905,
-   "short_float": 0.066700004,
+   "upside": 2.0079517730496454,
+   "short_float": 0.068,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [
@@ -3120,125 +1596,15 @@
     }
    ],
    "earnings": "2027-02-04",
-   "earnings_in": 72
+   "earnings_in": 71
   },
   "MSFT": {
-   "headlines": [
-    {
-     "title": "Dan Loeb and 47 Other Big Funds Bought Microsoft Last Quarter. Bill Ackman and 28 Others Sold. Who\u2019s Right?",
-     "source": "TIKR.com",
-     "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQeUlXVE5Wc3c3SU0wZGY1V09qR3hfZEtpUUl0UjNpeVF5REpkT042Tlh3bWdUY0VSSXhkaFFLOUtsOWN6dzFWZnlZZTZuVVdmenppUWhFdHRXdENSb21LY0YwYlVHWUZJbzFTY0pRaWpybWs2endmclRzM0ZRVlFzMVJIUXo4U0dYbnZfaU5uR2w2dURNTm1HRGZFTE9MV3Z2cGF0SG91UVdWNmRnT2lSYUtDTnNwVnhJU0gwV1dBQUlsWE5DS0c2Mkh5SUZqYURGdGRiVFdHY2VpUQ?oc=5",
-     "published": "2026-11-24T08:37Z",
-     "tone": 0,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Microsoft Revises Azure Pay Structure, Rewards Top Performers With More Stock",
-     "source": "BW People",
-     "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOOFpQZUM1N2ZnM3dsQWw3aUVFZ1ZVMnBpM0s4ZUpkZF9FWGwtZFZHR254bnpUZUpTal9GSFlpWU1mRW05Y0RnWGIybTFVVmh6QjJmeElQZmYzcUp3Tko2aF9ZS18xbTZRZlQ3THBDblV4YlQyeDFUQ3Z2SU5zcVRKZkxMR0FnTGxmZW1mOWdvQUpvUVp0NkxHNlVCc1pYeUxsRHotdkNxd1RxT3RBUGlDSjBxWm82dw?oc=5",
-     "published": "2026-11-24T07:10Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Chamath Says Microsoft \u201cClearly Is Going to Need to Have a Frontier Model.\u201d Nadella Is Betting It Won\u2019t",
-     "source": "TIKR.com",
-     "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOcWdpRGM4cU5wVUd1ejdPU2NaaXY1MzB2TFAwT0wyVkdWS3FoemowUTc2d29sSi02VFB2X1haOWQ0UU5IanpXU2hzbmE5Z181RUxfMDFUN2V4UXNlRVRxaHVwZHM2dk1YSURTUVBReVQ5bmRlcVVGNFFvVURKbk80bGpkRkc5SU9WR2dVMWhsa3plUjlyMkNaeTFOcUFXU0NsMUgzcDBjQ0lnSDJ1SFpiZHlmVXhTYzlwVWJiSmhiYWk2am8?oc=5",
-     "published": "2026-11-24T00:03Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "China Is \u201cOnly 12 Hours\u201d Behind US AI Labs. ByteDance\u2019s Reported Azure Deal Puts Microsoft in the Middle",
-     "source": "TIKR.com",
-     "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNeVFoSGFwaExibkZuYWFobnZtTW52ZHZSczNhaUh5QXlRdV9VY0pzZVlGZXUtdDk5VnNHX2VldW9ELXVDZ1pnQWhsZWNLZkJReDFjdGxBaGJDeFExNkdxOGJZaHJqREliSWZ1WnhaOUlpZWJpYl9xUjBVMlJFZ3VJeHpsbUJfUmdfZ1pLeEc4LXJ3YXJZS3NHUWdBWmlibXF3RzFoaVhRamlMY0RsNjEwZ3ozTW43LVp1X1R0NzJLaGhXR2g5?oc=5",
-     "published": "2026-11-23T22:11Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Billionaire Andreas Halvorsen Exited Microsoft and Made TSMC His Top Holding at $1.8 Billion",
-     "source": "24/7 Wall St.",
-     "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNenVrRnRmTW5XOFJOc19HMzRheHpmUDBKbjB6QkwySWEyQ1hLSUJyaWVENk1jd3FOaWlqM2tSbXFpcHYtMEQ0U1hFZjhlWlJKQ3A1UGd4MGhzUEFlckUwbXlkOGpNdnZDS0NSd0M1RHFzazloZlhHNmhZbzRMLTMxdEcyNF8zVUU5eTZDTkMxS1kxX2xZWllXbEtQZ3dJb0VkTGxsREFmcENJaFZ5VWd1d3d4c09NRUV0aFRxU0JuT1RPZzFyYmpkV1g3TkFqcWFy?oc=5",
-     "published": "2026-11-23T20:57Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Microsoft rises as warning on Chinese optical hardware ban fuels AI investment concern",
-     "source": "Traders Union",
-     "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPRERJcHRpV3FoSUtqN2I0SXk5TGFGYWNjNHZtTGdHaDFuNk9nYklsUlU1WENjMm12OGZzRGZaZ2JoOVQ4cXRiTTA0REdIeWwza0JVSVZ3ZnpKYW5SMFR5X1FuZmNNSnVmUlpSUUM0WHl4c0VKSGVnZ09OeG9KSE5LMFZzSEZQQQ?oc=5",
-     "published": "2026-11-23T20:32Z",
-     "tone": -2,
-     "tags": [
-      "Legal / regulatory"
-     ]
-    },
-    {
-     "title": "Microsoft Stocks Rise 3.9% With a Perfect GF Score as OpenAI Contingency Plans Surface",
-     "source": "TradingView",
-     "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxObFpkbk0xR1lORUU1SDV3TlI1VFBubXNsNl9tNjc2dEI4WDBaUWFqaTU1MDFxNlNqeC1XRXIzTllaMVROZE1OOXhqRXVSQXM4VFcwRExIcXAzem5uaHlrT2hRSDV6NlRianNfSDNKQzY3Rk5jMEhCOWx1YzZvZWUzUzFqa2oyck5zejg4RlFFeHlYRHo5cG1RQzZDWmlsbjhibGl1a0o2YVg3QzJBWFZ0ZkZTSFA3UjU2WlBUeWF1d25CVjFOVmJzaW9Eb19ZeEdyREs0VlFZY2dFUHBRTmc?oc=5",
-     "published": "2026-11-23T17:53Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "A $2.5 Billion Fund Just Bought These 3 Stocks",
-     "source": "TIKR.com",
-     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQc1B2UzV4Q3M1RERJNmRuZm9VTXJGd18zOVhvNTE5dDVxcDhYcEhmaTBERF84MFgwdUFtRXFWeHpLVTFkTmJFdm9jbmVPc0RBbWw0NWZlQmdiQVJXZ2h4R21oWU56cTRQT094LVZxbEZESE1Qc2lJUDVYa1lveEF6RERTWFpmakxRRFY5RDhxcEVrLXZzaW1aZDV3cFV6VWhON3BQQ3pwSXlTLXhkQldSMDVR?oc=5",
-     "published": "2026-11-23T17:07Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Microsoft Corp Stock (MSFT) Opened Up by 3.39% on Nov 23: A Full Analysis",
-     "source": "TradingKey",
-     "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPWUd0X3I1bVJ2SDRzRDBLajlQcXRUTWFMbjg1RS1YR1BhWlR1UVM0dEgtS2VWc2lySFpXYkppSC1XMnFaZkdXa0cxMjBqbjZBRkxYLUd3Y3RhTmdUUVlLTzREdmJEWEhJVWhXTjZucWZoOFYtNXJmdU0tWVJVWXM1S1Y1QkFlY0RVQ0Nz?oc=5",
-     "published": "2026-11-23T14:47Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Bernstein reiterates Microsoft stock rating on AI strategy By Investing.com",
-     "source": "Investing.com Australia",
-     "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNSm9KX3M1UGZRYXZaVGZrX2VVVENsenEtd2FLWGwwRDJrc0tKOVFxUDJEX3diMmhnNWZVRTlCSk56WHVwdjNqYWc0a2xxS2hpdjRmNm1Zb0dGY2VwbUNkSTBmanJsWWRYaURDMHJQT0dBR2VQNFhiUTh5WHhJai1wMXFzdFJBdDRxal85U0lUWXo1amdZVlZ0VU9Kejl0NkZYdlZQNE5WekNzSjBpQkdRR2RkWkdNbnpCMnZV?oc=5",
-     "published": "2026-11-23T14:28Z",
-     "tone": 0,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "Microsoft shares technical analysis: Downward price move persists under seller pressure",
-     "source": "Traders Union",
-     "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPcTcwaDgyNFM3bDBOTlk2dGtMSEZVSUgzZXlIU3lIOHN5cHItTGVISEk0cHBaeVRURVpHbTEtNFRPYmlZeXdoQlhOcXRILUcxM2FpT0ZuVmgxYVZDaXRnZ1NGdGo0RTU3UElGY2o5SGE5YjRXTWU3U0dkWWRUYjZCU0VpRFpPcmlGeUVwLXBOTlVscFJod0E?oc=5",
-     "published": "2026-11-23T14:13Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Apple vs. Microsoft: Here's Where I'd Put $2,000 Right Now",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOd293dkRWbTRqcTVCeVJGemtyNGFMdGxjSlN6LUl2TDFwY0RBWkNPZ08tdVBxWlc3ZkZqQ0ZkN0lnanBPODdwSUNudnZYaGw5ekRCSmF5aU92aWN1WUFuRFFqLVBaRktyc1R2LTJFUUxvbHMtQTl2N1hucDhHdlBoT0pkaWExQjVwZ0pIdjkxUTRQdklmUHA0VWxNS0lCbUZmVTEw?oc=5",
-     "published": "2026-11-23T13:15Z",
-     "tone": 0,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.0,
-   "tags": [
-    "Analyst",
-    "Earnings",
-    "Legal / regulatory"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Microsoft%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 54,
    "target": 637.3617,
-   "upside": 0.2941354314720812,
-   "short_float": 0.0082,
+   "upside": 0.28466672041602004,
+   "short_float": 0.009,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [
@@ -3272,119 +1638,15 @@
     }
    ],
    "earnings": "2027-01-27",
-   "earnings_in": 64
+   "earnings_in": 63
   },
   "SPCX": {
-   "headlines": [
-    {
-     "title": "SpaceX Stock Premarket Today: SPCX Dips As Jefferies Sets $210 Target",
-     "source": "Coinpedia",
-     "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNcWhOX1VhZXVGY1FmQ0tSb1BHdE9UU05sR1l2WVVjOGt5MllrdFJMNy13V1lwZjhHQVhkdFp3aXpZTzV2OXV5WnROZ3B3Rm9ZdTZTVWEyMmVMYUtwcHczOE5BNG1uX2VMbDBra1lzMFl5QzFzUjVzLUE5QzJvLVRXVUhYU29HYXJNekNEcEtnTGJhVTJRdVdsMm5fR293b044bjJ5M3ZjblVYWlXSAbABQVVfeXFMUE9NLS14cTRUUmdHd21EVDUyU29KTnNlV05GcnFNNTlwbDc3bkwtSlItZk05TVg2eENkWnBhbnVHX0lpS2stVGQzMmpQUmk0R0FveTRGSU5GR3gwMS1GNzNBMFNNU3NhREVZSDdPaWZMV05HLWVrdFlxelRlVVpyQTY2TFl1N1NRS1lXZHZsM20zY3pQbS04WGdVQ1lFUi10amh3UTBPc0lvZVJ0MEhmajk?oc=5",
-     "published": "2026-11-24T11:19Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Down 40%, here\u2019s a growth stock to consider buying before Christmas",
-     "source": "Yahoo Finance UK",
-     "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQNnJZMTVGSndHSkhFeWZGX2hWeUpqbE5MZGFlUzF0SGhQUkZHMFJ5Z2hmWHJzeEJhcmhldUFiSVBxM2xwc2xzVXhXQk1hNUtoaEhzeVhsNWEyVU9UazFPNE4xSHZ2dXAtbmVvQnZpazYxNnA1cE1pZEFTNWNEcDlZVzhIczY?oc=5",
-     "published": "2026-11-24T07:01Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Who can sell SpaceX stock on December 8? Employees and most early investors, not Musk",
-     "source": "Nacionale",
-     "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNU2p6ZHQ0M2VpSnFyMzZBTV84ZTNqYktKeERpRFJERThVT3BFTWNfRGttSnIxRFBvSGdhbkFqcGtuVzhEc2hSRk9TTHpERndFbUlvMXl2cWx3YU1GQUZyZUJVRURTSzNWLWtvdldPdXRMdENDUDc2dkczZVRxeTN1U21hemNDeWxFUWdJUDVxcjU2TTdTSUktTFJHRjViV2ZVQlZreGUtNkYyRi1wY1kyYkhTM2dOMFE?oc=5",
-     "published": "2026-11-24T04:29Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Will SpaceX stock drop after the December 8 unlock? How SPCX moved on its eight earlier unlock days",
-     "source": "Nacionale",
-     "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPXzNpeDAtRVJFSW5pM1hyY0wtN2w4T0lhakliODVhclFQdk5EbjZtM3VCTjZzdXRzN0tpcU1uamxIdDc5WEx6LVY1Ny0tSEdpZnY4alhTOU54RHdqeTBPc2dkVk9TQjRPcUNLdVIzdXIyOVNXQndEeUJKYXRmX0ZFWlp5Qzg5ZXF5SERGVzVqZzQ0c0FiNnMtellqS2taeHdLeXFnd3ZiMTVvUEhiRXoyTEFucEJoYlhuLWJz?oc=5",
-     "published": "2026-11-24T03:27Z",
-     "tone": -1,
-     "tags": []
-    },
-    {
-     "title": "Dow Jones Futures: Tech Stocks, Nvidia Snap Back On Jensen Huang's Return; Elon Musk-Led SpaceX, Tesla Rally",
-     "source": "Investor's Business Daily",
-     "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOd1IzaXRYZ1Zmel9FV1BGMUVhdlVxcHhJZTR1aVZNSEFjMXUyUDdZMlhKME5qRHRYdjRmWlE2Rm1WR2s2N0RzcWpVQUdaNVREQlBzTWxCWHRha2FqZUZMYk5GcklEcE84MmlXNUwyb3pQSGVoSlB5QVNEbUFXMWZyVkVZNGRCbF8wYVM5cUZBbDBYcTNNTi1OLUEzQ0VIN3VYak02Nk14Qmx0M3J6aF85YWlQZHpEWU5uUkV1MTQ2d3o1R01nMWdwQWktQTA?oc=5",
-     "published": "2026-11-24T03:27Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "SpaceX Stock Is Down 39% From Its High. Here's What Has to Happen Before I'd Buy.",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOc0F4a0dMdFI4WjFWdGQzRVhabkwyRTgyMFFvZmxCY0txZWZxOUtRLUdJNGVqS2xJeVVmYk5uazNDcXZXX3dNM0U0RFA4N0hGZ3A0TjItcXFhakM4MVMzYVhtZDh2OFNlbEtILVZIalRKOHkwY1pDVl9rNlJzLUZqRTI1NHd0bXhBd210aHJLT1czd0pYQWM1WC1hS2NNMnJtM1phWEtNdU9sNFlNdS1Tb09RcEt3R1N2TzVpVzV3?oc=5",
-     "published": "2026-11-24T03:00Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Cathie Wood Swapped Nvidia for SpaceX Over the Risk of \u201cLosing Jensen.\u201d Now Jensen\u2019s Back",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQdzRoTzYyenZFSW9hTWJKdzBqZDFleURLajQ2bzBFNmZNNmZUazZhQktPWUVqZ3ZQWWdSd0VScXNFeHFpX2daZkJIcVpXUTBDOU1hb21xZk9lcjY4a1BpUmlzdlBCNFlualBLY3JXXy1sVGJuLU5uQmZzZHhnX2I1aHRZQVRfQ3loTFc4R2FlaTRlbklkUjlvTUZTcmhWM1k?oc=5",
-     "published": "2026-11-24T00:07Z",
-     "tone": -1,
-     "tags": []
-    },
-    {
-     "title": "Can Elon Musk sell his SpaceX stock on December 8? No, his shares stay locked until June 12, 2027",
-     "source": "Nacionale",
-     "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOeUFPVE14c0E2Y1BZY1hjX1pjSXVMcEFsY1Q1QkZhc1d5S2lXa1MtYnNQai1uQld5VURHWktXU2hORXdFUjd5SUtIZFVyc1BSOXoxVjNPcmhYTkhBa2RRUHJxeEZFN1hOR0FtREcwT2RzVzh0UWtrN1hNb0E0NDliel9pZ3k0eFJNTURuZmZuZHR0eFBueVIydHVGbmVxU3Q1VXloQ1dORXI4R1U?oc=5",
-     "published": "2026-11-23T21:33Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Nvidia vs. SpaceX: The AI Revolution Is Big Enough for Both. Here's the Better Buy.",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPeUdyY0NaRjU4Zzd1OFlmX0hPbHp4UjA0NUdPNGFWQTNBMTlxZ0RjdlhtRGtMbkE0QXlMMlJHX2pkSmhVTUR5WEZKckpHdXg2Y2V5MXk2Skw3Z2J1RGR3UWVlVVFKSGZjWVRsbUpMZGRHODFEU1I4ZnZYd0dzTTdURE1JVnhGRUpFSHROLVM2UVVlbG0tRkpQc3diTjBlSnpXaUFOUUhTM045dkF5YW1lZTZDVWdsNU11RDJfV05B?oc=5",
-     "published": "2026-11-23T21:32Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "3 AI Stocks Billionaire Stanley Druckenmiller Has Been Quietly Buying",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPYUZGNldieHljaktMd0ViV1pmTmpMUnZQb0Mxb05pTUtWRXB3WXpTbThXWkM0b1gzOXVkTS02YVYwWkJLTFVoQVZzaWlKLWdsdTZhUGNEalIxYWdkY3NLWjVERTJ2NjlvUHF3SUVrLV9Ua1kzOV9ocWVPWWdWa1B0QzBrX3pQazN5Z1hweUJKbUY1SUliNzhFbU9RSFNLWktkejFkT0FydFFURVhsWE8wT0p3?oc=5",
-     "published": "2026-11-23T20:30Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "When is SpaceX's next earnings report? No date yet, and it sets the next SPCX unlock after December 8",
-     "source": "Nacionale",
-     "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPdHhsLTNUc3UxRS1venZwTXlKZVpwWEp0X1EwZEpHM3RDRlBHY3JLQU54ZENrRFpTZjNaLW4za0FMUkJxM2VVMjE2RHZzSjZ5V3A3M0hxYVpIWXdtQXJGcEtlT1ZvQ3BTY1dhSlh2blZfY2ZVTHVEVGhkSE02aE5JZjR2bHp6YmxiS2RtclVZRDhxd1NFRlcwQXpoaHhqQk43bDBSb2FORkVORWNZMTlFM0djVEF1VnNo?oc=5",
-     "published": "2026-11-23T20:10Z",
-     "tone": 0,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Anthropic Had a Strong First Day, but Will It End Up Like SpaceX?",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOY1B2aWdZelBBdXFjOVpJaXlYMzk5bkV4QW1NaW9jQjRLdWZmNlFZRmM2aWFuemxkRzV5eFRYVWhoUHZUSGVxeFBrWWpGXzlxYjR6STg5WV9QTXFNNjFJSEFQZHRpOGZoME9GbG1rQmE1VWtzeHJDZktRMlRTS2NKeEo1UGpUcFRzREV1NFNZbkNlVm9UaVB3UnRlWVIwZzRITGI4dFM5X1NFQQ?oc=5",
-     "published": "2026-11-23T19:52Z",
-     "tone": 1,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.16666666666666666,
-   "tags": [
-    "Earnings"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22SpaceX%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "buy",
    "analysts": 38,
    "target": 256.24527,
-   "upside": 0.9215993250843646,
-   "short_float": 0.020599999,
+   "upside": 1.036763929735315,
+   "short_float": 0.02,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [
@@ -3397,122 +1659,15 @@
     }
    ],
    "earnings": "2027-02-09",
-   "earnings_in": 77
+   "earnings_in": 76
   },
   "AMD": {
-   "headlines": [
-    {
-     "title": "AMD Files 337M Share Resale: OpenAI, Meta Cash Out",
-     "source": "shattered.io",
-     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPSjRVbVBNRWZERXltV3VsQnh3S0NYS2ZNNEZ2bmhQWTBHWWp2aXY2UDVwaWR6Q3Z5SnJoTmpOcEt3WHpsbG5yOFVEakRCZWVhR1A4RHh6aENKMERQcThjaXk5RFA3cmUyaVd4RGdESHotS3NSS0RBOHpCVzdXRzNaTXdYajdnWHVjV3c?oc=5",
-     "published": "2026-11-24T10:01Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "AMD Stock Forecast for 2026, 2027, 2028\u20132030 and Beyond",
-     "source": "LiteFinance",
-     "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNOHJoMzFPekd2UWJ5dWt1TVl5RU9DQkRZdm9FZnlvdWxnVVVHVzJNbWx6eUwtcnROSXl2MHZCdDVuUXdjbDlqZmF6SGpGc2Exck9keE5wTHAxSkN0SzVEdFBMekdFaEFyM050bGdFaGtMQ19BZ0FCT0E3VkJDYUZjLWF0UUU?oc=5",
-     "published": "2026-11-24T09:38Z",
-     "tone": 0,
-     "tags": [
-      "Earnings"
-     ]
-    },
-    {
-     "title": "US Futures Mixed After Monday\u2019s Nvidia-Led Chip Rally \u2014 ZM, HPE, AMD, BABA In Focus",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNeW9WRWNYclExdnVtQjJ5UHo1bV92aUJxdGFraUx4ZzNSRkVzWW9aeklqaTlzV29wRExmNVgyYm1Fb3k5bzNHd0thdE1lSHNtTS1HbV9jLVVXaUpqMWJmNnFzaFFTZjNOVEdHdW4zZVcya3RsekdVamxsTXpvS0dJbU9YeUZIZTVVOXJRYWs5THB5NVZyZTh6Z25icw?oc=5",
-     "published": "2026-11-24T09:30Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "What Advanced Micro Devices Holders Got Right Before A 111% Run",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQRkJVY3V1OFhRMThyVUFDaGRaakNqMmFNX0ZScE5mQnBya1RpRmtWclUteVFDUEtzS2JMaDQxQ0NMMElBYUotczI0enQ3ODEzWXRKbTF2ckhaVGJ2Z1BjMHZmYUJkLVZ0eVVUNFlIaDFZZVdoUkVucXZLWkZlSWRmQWt2aDROWVlGaU5aNmxVNGZjU0Y0VHVoRm9XaFJ4UUVZ?oc=5",
-     "published": "2026-11-24T09:09Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Own AMD Stock? Watch Its Pile Of Unsold Chips",
-     "source": "Trefis",
-     "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOaEEzTUFadDRsLTBrbTB0VzRwWXdyY2gzSEg2OTY5RWx2NDdRQ2s0WXQ5Mm5vaVBScGhLYVMzVU1iQWdRdk5pSzR2MFl0Tmh4dDJYZ0tKUXJYbU5tVDJscW5ZSFR6cGlOUGxGR0VNSmg1Y2JTZTBWS3F6ZUJoS255VnE0REVQUS1fYVRsU1NGQzFObXpPNlp3V0FwWXR2VHBKaGR6REpxaw?oc=5",
-     "published": "2026-11-24T06:42Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "AMD Registers 337M Shares for Resale, Potential Long-Term Overhang",
-     "source": "KuCoin",
-     "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQRU9LWmZ1THRaRlljdVBfX3FMaGdNZHlVV1B6bm91YTZWNUZla0NocXdMZkdMQ2Q0Y2lOUEdmMi0yTHQwLVktYjlEQ1ZkY3VNTGJpTlBONTZ1TnlpZjRpOU1xZE9BVDZBdjQtOGFaNzdVTXA4amsyYl9vaWNidHVlanMzMFM4dGNsRHpFbDUzQVg4c3R3ZkUzN3lCOEk4RVly?oc=5",
-     "published": "2026-11-24T06:17Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "AMD Files to Register 337 Million Shares Tied to OpenAI, Meta Warrants",
-     "source": "BigGo Finance",
-     "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB3bmR3aC1SY1I1bTllcFl6YWRxQWpzdXhzLXI1Rk41MlBfYUM1R2dUZTVJREoydG9RV1o2WHEzUzNLZWw2YW5LaTFxb2dLVW5Ield5aUtGUWtKT0gwZWpOQVd3a0ZCdW9xMzA1ZzRGcTJTakpTb0E?oc=5",
-     "published": "2026-11-24T05:25Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Advanced Micro Devices, Inc. (AMD) Stock Forecasts",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNTmpVUDJzTnQ3ZE4yb2wtSGVESUlpRXVwbWEwWWNpd0JEX3NlcEtpQ25DdDYtZUhrMDdqd1l5TlNtc1pBWHJ5VzZxUW5Qa0ZKQlBqWFBoM2htOU9paDUwMnI4WXJCSXBsTlhicnBYc0JPQm51OXNBdFd5RERJcjdGZDBFbGV4aldMVGZZWA?oc=5",
-     "published": "2026-11-24T05:17Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "AMD Stock Dips Overnight After Nvidia-Triggered Rally: AMD Registers 337M Shares For Resale Tied To OpenAI, Meta Warrants",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNdEJEc3NMNGhjTHlKR2tiMTFLWHZrYjBTUmdsMjZseVRCWVpCdDVKUmxCV0kzYnE4MFhPQno1cHZIQzBOWGhzQ0FvNXdsN1dRcnd5RDY2VG13UnlqU1V5Yi1EZGdvTGxTdGc2XzM2RHRzbE01NGFOaThXMlhqTjVuVUlWN1RuM3FHME9kdEFEMUdud1hYVG5tRGNhRk0?oc=5",
-     "published": "2026-11-24T03:47Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Why Is AMD Stock Up Today? Shares Jump 6.85% as Nvidia Brings Back Jensen Huang as CEO",
-     "source": "Around Prague",
-     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNNnY4Si13ak00X3lmN0FMSnFwcW9CQXloaFpsMzhTUk42aDFNWUthQm9pZHkxaEwyX3MxTkhjbEV5eVpsNGhhSm5KV1d4NGR2R2dTV1RkUnVLQWxNNVBrVE1Cems0R0pJeTlGeWlRUzFJaU15MTFZWUNJMDR3R2F4UFRHVkVMSkppaDROa3Nmcl9wdnRZZ2Fvd1J4cXkyaVdlVG80NkJGNHk1T0xpblpfV1ZB?oc=5",
-     "published": "2026-11-24T00:51Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "AMD Stock Rallies Nearly 8% as a Bernstein Analyst Remains Bullish Despite the Hunterbrook Short Report",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPVjJtUGJmWTlVeGFUdWJsazFtdHpVeVMtdjNvWmJZZnJfck0yMElUZk4zNHhsQlRzbmdWZDlwS1g3Z1NvamxjcDE0TWM4YnZrUS1kQTZyX25tZTJRem4xSmZwVFowcnBpeVZiNFN0WWJhbDctZVlISmZGSW9aSG5sSkNBSDdfamFnNzQ0OU9zei1IZnNDUFE?oc=5",
-     "published": "2026-11-23T23:58Z",
-     "tone": 1,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "AMD: Even 80% Growth Is Not Enough To Make Me Buy (NASDAQ:AMD)",
-     "source": "Seeking Alpha",
-     "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPUUkzVE1zWU4yeldGOHViRWpZNUc3XzZza1dUVUo3WnJIbFRDWmVUMjd0TVAxbVQ2aEZSYU5jZTJzd2piS3RZYnQzTlJaWnNHUlROeWNHQjBqNnFNd3Rsc285R2kxaVVUbVVWemJkOWEtamwwQVdSeFA0bVVpX093TVVmcVRLUVBzMmFQaGhwQV9NaUgyaFhWaWJIWUw?oc=5",
-     "published": "2026-11-23T23:20Z",
-     "tone": 1,
-     "tags": []
-    }
-   ],
-   "n": 12,
-   "tone": 0.4166666666666667,
-   "tags": [
-    "Analyst",
-    "Earnings"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22AMD%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 49,
    "target": 656.2122,
-   "upside": 0.44712256869404166,
-   "short_float": 0.023599999,
+   "upside": 0.5878534614174755,
+   "short_float": 0.0297,
    "upgrades_30d": 2,
    "downgrades_30d": 0,
    "rating_changes": [
@@ -3546,135 +1701,15 @@
     }
    ],
    "earnings": "2027-02-02",
-   "earnings_in": 70
+   "earnings_in": 69
   },
   "TSLA": {
-   "headlines": [
-    {
-     "title": "Should You Trim Or Add To Your Tesla Position?",
-     "source": "Trefis",
-     "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNM1FHQVpQVnc3eEYxVnQwYTlqenBrbXduLUR4Yk1vWDI1dkZ5WFpwVTl1MlZjQU1XUDE0d1VxT2NITjNSNGxUZEZaOWtLOFFTZEVNSUJvZTM2ZkNLbGUzOXprM2R0eVVIQzh1NVpEQ2taT08yUUNxejBCWTJtdC05Y1paQTV1RE5tTl9QZ3BITFZDdjdkNUpJdkJWZzl2ZGE3c0tDM1BMMjlXUQ?oc=5",
-     "published": "2026-11-24T10:42Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Tesla Stock Is on Track for Only Its 3rd Losing Year Since Its 2010 IPO. Here's What Happened After the Other 2.",
-     "source": "Yahoo Finance",
-     "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNOGc4bGtIUUJlMHhJM1NZSEVvXzlYaEFhWVpfZFNLcHJEZ3dTZTJWM0Z5VWhJMlYzdDZSR2xJUEwtY0lweHlkWUxxc0tvM0RMNV8ydjRXc1laU0d2SE9mSDhMS3k2aE9iVUxWb29KMDVpTWJMZ3NCZFE1cVRDbU1aVUVwUmZCTTBWdkRKcFBaekVGVDdzM1E?oc=5",
-     "published": "2026-11-24T08:54Z",
-     "tone": 0,
-     "tags": [
-      "Capital"
-     ]
-    },
-    {
-     "title": "Elon Musk's $3.5 Trillion SpaceX-Tesla Merger Gets a Five-Director Team \u2014 But They Face a Tough Test: Report",
-     "source": "Benzinga",
-     "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQNEg2WjJHaDF3QzkwQk1GMlZWM0VJNkhodEJmTVRSWU5sd3Z5Z1M3Z1F3LUpOQmIzM0J6TmJidVVjZWVTYkdlaWdBVzFhVjV1UHp2UVdmS0ktcWg5cUZwa0xVWUUxUkE4Ry0wMlNLX2V2ckFmRTNJYlczQzUxNFFqMXlWRmlSdkpoZ2RWN2J4LUhweXQtbGRhY2hpNnVBN05LVHg3NDBjLWVvN0hZNVhDM2xmWXVkaldlRGRKSkN2cFZtbEh2YlB4M0JVZDB0WkJSNHJjaWlmb1poakFkV2JuQVd0ZUd2em1yVVRhaw?oc=5",
-     "published": "2026-11-24T08:14Z",
-     "tone": 0,
-     "tags": [
-      "Deal / M&A"
-     ]
-    },
-    {
-     "title": "Tesla jumps 11.5% on FSD v15, a release most owners can't use yet",
-     "source": "Startup Fortune",
-     "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNQmpFVUZFa0ZPWTFGTmtoQkh0MmRhSDNEcmNXaW5Uc0lONTJzVWtELW45eXVrVEw3NS1TMkRyQ0dlTGQxNGR2aUNSaVJmZUlWbnRPVnJfZngtR19FbEpLU05NZ09FaEFDaURlbi1EQ0FPUEJPQzhBQm81cy1kZU04cTR0X2poSDhlZ2tWZWd3UUY0bVU?oc=5",
-     "published": "2026-11-24T06:46Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Prediction: 1 \"Magnificent Seven\" Stock That Will Lag the Market in 2027",
-     "source": "The Motley Fool",
-     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPRkE3SnNyNy0yb1YzMmhjWmNmTVg0eVVnNG5BMWdkUDhReHhTWnFfaG56elB3ZlRLQy1IWDZrWEh3cHlBR3lEZXhpTEo0ZWR6ajNiRUhENlhJUDl5VFBWa2YtMnFEZ2NaMERMbXluVTJSMnM1V2x5dklYQk5DNV9Rem1kbG93R2gwWjhiemh2d0dvTC1xaXA0RGhGQTh1Z1JzdFNWUElSb2JIM01YSnkxVFRR?oc=5",
-     "published": "2026-11-24T06:00Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Tesla Wants Drivers to Keep Their Eyes on the AI-Rendered Road",
-     "source": "The Daily Upside",
-     "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPXzdTSl9DbnRIZzNLVXRlQkxkc24tMUhfOUxBN3NYSUVjRXlUQXZTREZtUEowU1VNc05wOXVlNXF0Vm1LVE52MS0xcDVoNmpZVWwzM0ZkVUZlc0hWbmJTQWNLRzhPVDVBZzJINTl1NDdybHVFc0w5RzBnT1VIQlNvM21BYndrZlZ0N0VqQUVKTHBRdzh3WmQ5QUNLWkVKZUpyZUpQZXRFY2FsRW5DN0ZESDVwNjF4Yk9QVXFCUmJHaHQ?oc=5",
-     "published": "2026-11-24T05:03Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "SpaceX-Tesla: the directors negotiating the biggest merger ever",
-     "source": "Financial Times",
-     "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPeEdHa3JaV1FnaExBWDEtY1FaT0hubE5OcXZHSDNFNlRWYkw4Nk5YbWtmRkxIaTVUMHRLZ042V1llZlV2VWRaZ2pieEpKbXFpNlZtNHNWY0tWWDI2YWNrMjFPd1EySzVXWnh2ZGJqRzNIbDZXUUE1Wnc3ZFI0dFlhWHR4N3k?oc=5",
-     "published": "2026-11-24T05:01Z",
-     "tone": 0,
-     "tags": [
-      "Deal / M&A"
-     ]
-    },
-    {
-     "title": "TSLA Stock Outlook: Tesla $400 in Sight as Cybertruck Extension, Robotaxis and SpaceX Merger Speculation",
-     "source": "FXLeaders",
-     "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQZjFTQ3dCc2ttb1BpVmFMd205S3RDVDBGR2VHNUdFalhneWxIZlNkc1JlR0l5TVRNcEdaOFZDVEZFNm9TTVhlcFo3dWNqYkFOQ1RreE52Q09ZYmtyNkgzLUM5VDViNXZMWGxoYllpRlBNUmZsSlYxVzZ6dHBmdWhpSG5CMHpzTmtpdEdqREJhOVN1RGo5ZVZ5aDM4ZkJNdThFR29Pc01ZQ29kQWhNQkRlbDQ1S0VpSi1EM3JZN202WF9oQXVwOTA3T1NqNVUtbFppT3V1WFluQUVQMlVR?oc=5",
-     "published": "2026-11-24T04:03Z",
-     "tone": 0,
-     "tags": [
-      "Deal / M&A",
-      "Earnings"
-     ]
-    },
-    {
-     "title": "Tesla Stock (TSLA) Rises 11.5% on Reports of a SpaceX Merger (Nov 23)",
-     "source": "Gotrade",
-     "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBuTUJBSTJnMXdOY1BFcENtQk5peFJFblpzWWRGN29JZmlCTEZMZ2w2YjhXb2U0elljN2xOenNJa2dTbk5NbDRGQWRfdUljTHh6b3k0eFN1T0VOSFRZZnZoTGtZR1JpM3BkUHlaLWNOeEFaLVhwMVZ3c1g4bGp4d3c?oc=5",
-     "published": "2026-11-24T04:00Z",
-     "tone": 1,
-     "tags": [
-      "Deal / M&A"
-     ]
-    },
-    {
-     "title": "Dow Jones Futures: Tech Stocks, Nvidia Snap Back On Jensen Huang's Return; Elon Musk-Led SpaceX, Tesla Rally",
-     "source": "Investor's Business Daily",
-     "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOd1IzaXRYZ1Zmel9FV1BGMUVhdlVxcHhJZTR1aVZNSEFjMXUyUDdZMlhKME5qRHRYdjRmWlE2Rm1WR2s2N0RzcWpVQUdaNVREQlBzTWxCWHRha2FqZUZMYk5GcklEcE84MmlXNUwyb3pQSGVoSlB5QVNEbUFXMWZyVkVZNGRCbF8wYVM5cUZBbDBYcTNNTi1OLUEzQ0VIN3VYak02Nk14Qmx0M3J6aF85YWlQZHpEWU5uUkV1MTQ2d3o1R01nMWdwQWktQTA?oc=5",
-     "published": "2026-11-24T03:27Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "J.P. Morgan Analyst Sets Tesla Stock Price Target for 2026 and 2027",
-     "source": "CryptoRank",
-     "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOSHhvZGs4X3hoQUJwdy1waWdndmVOU3RVeEZKSWFtQVdTQ3E5SERUdVQyZ3hONmlJVms1d2N1YmZDZVlublBIR21kdzFxY3gzc3JzbTRCUnNoVFd3NWxtVlZjVHJBNDNwdmpiSE81Q0ZWVjM4NEJnSGk3YzlmbXBvandHeVZzd2gwVVVGSFNQeVE3cGZmNDU5ZGZsUEJmUWl0b183TFp2NA?oc=5",
-     "published": "2026-11-24T02:44Z",
-     "tone": 0,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "JPMorgan Maintains Tesla Stock 'Hold' Rating with $430 Price Target for 2026",
-     "source": "KuCoin",
-     "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQd0tDRGtQLURJazAyZVlaYlBwYUlRNVBTbGdWbUxsZlIyckR6MkhJTkZqVjk4OC1VRGdROHl3elVIeXhnaUtkdWlScXc5VE94d2VmNTBlSk14MlQ3MUVRaE4xY1l0N1FzYkNDSFRlWWRCTTNBZjc0bjBfNFNVcHg5dlFMQmk1dFQwY3YzWnJGN01HMVJDRlJrazVEM2NKT1lFbHA3cVhrVzM4cUk?oc=5",
-     "published": "2026-11-24T02:12Z",
-     "tone": 0,
-     "tags": [
-      "Analyst"
-     ]
-    }
-   ],
-   "n": 12,
-   "tone": 0.25,
-   "tags": [
-    "Analyst",
-    "Capital",
-    "Deal / M&A",
-    "Earnings"
-   ],
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Tesla%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "buy",
-   "analysts": 40,
-   "target": 417.52625,
-   "upside": 0.08318956571369274,
-   "short_float": 0.020299999,
+   "analysts": 41,
+   "target": 419.05,
+   "upside": 0.08934698970572952,
+   "short_float": 0.0196,
    "upgrades_30d": 1,
    "downgrades_30d": 0,
    "rating_changes": [
@@ -3694,130 +1729,24 @@
     }
    ],
    "earnings": "2027-01-27",
-   "earnings_in": 64
+   "earnings_in": 63
   },
   "META": {
-   "news_error": "HTTPError: 429 Client Error: Too Many Requests for url: https://news.google.com/rss/search?q=%22Meta+Platforms%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=%22Meta+Platforms%22+stock+when%3A7d&hl=en-US&gl=US&ceid=US:en",
    "consensus": "strong_buy",
    "analysts": 58,
-   "target": 845.3814,
-   "upside": 0.41462751004016063,
-   "short_float": 0.0341,
+   "target": 842.53656,
+   "upside": 0.4284638703333219,
+   "short_float": 0.0271,
    "upgrades_30d": 0,
    "downgrades_30d": 0,
    "rating_changes": [],
    "earnings": "2027-01-27",
-   "earnings_in": 64
+   "earnings_in": 63
   },
   "DRAM": {
-   "headlines": [
-    {
-     "title": "Huang\u2019s return lifts Korean chip shares, but Washington\u2019s China curbs cloud memory upgrades there",
-     "source": "Korea JoongAng Daily",
-     "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQNGs2alZ0Ql9hVEZwZ1dVQTYyakQzX29sTWtONWRfekpUZy04YW1BMjNKZ2ZuSV9acU1QOVJyTlVFYXh1VmlVTU1rMWhBQXFHNU01bVBjYVEwRE1BSlVBcC1XS1IyaElOVDliSnlXX0pVWU9IRU9ITDNWRnM1YXQtMFNxb3lFX3hRSTJtejQ0ZlZaWGYwcWJqVmgxeUJId25UZXVvVXE4QUU0UGJuN3Y0U3dRRS04WmYwZUpxM3BqV0dpczZwc2lwT3Fsck9yTUFIRjdIeXhwR25lU2J5eW5Veg?oc=5",
-     "published": "2026-11-24T08:57Z",
-     "tone": 1,
-     "tags": [
-      "Analyst"
-     ]
-    },
-    {
-     "title": "Nvidia Rally Lifts Asian Chip Stocks and Boosts Micron Shares",
-     "source": "SuaraGarut.ID",
-     "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE51ZDVXMVh6OTBFQ2toQ2dBX1ZxZGJHdTJ5T213bVl5T1I3SzZrTU1WVGd5emx0SWEyM0V5RzNhVWdDMFdtOEpCWUVMRFRSMmNRaHRRX1piVExNbFZ0MzhaVWhGLUFOUzA2UTRKdWVzdw?oc=5",
-     "published": "2026-11-24T05:33Z",
-     "tone": 2,
-     "tags": []
-    },
-    {
-     "title": "Nvidia Rally Lifts Global Chip Stocks and Micron Shares",
-     "source": "Peradaban.id",
-     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5xaHhTUnU2eUVUUVV1cTZYSmlSdmxqd0xyUFFLX0ptVGhLR25GelBhTnY1OWNjalhMMllOemd4RTNtR2o0UEh0cFJIbjM0N0ZVWXhGUFMwSmpkQkNFVm04eXZnNEgtQQ?oc=5",
-     "published": "2026-11-24T05:28Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Huang's return could lift Korean chip stocks, Daishin Securities says",
-     "source": "Chosunbiz",
-     "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNM1dwVUNoRlNiQ01EXzI1S0xrTC1DckdPeUEtQl9iNm1YT0RUS0p2dXBsbXdZdGRpV2c1VlVZdUpZR1JsbWhFMFFpQW1ndlZHU2hKdmhOeHZQaVNuQl9QRmIyRi04Rk9TSHRFMy02U2JfRUI1VnBFcFBjUGllMkJZctIBlAFBVV95cUxOQ1ZfeFRZcjRfdmhfdzc4eDJaWlpnQXhVZVMwV0sxU29Tb2NJbnBnM1N6ZVVlOEg5cFdjV2haWS1kV3QwVDBFcVRMbVF6Y3BZNmhjN1RuTGxITEU0Ti1KOU85UmpWR0tObXRDRGV4UVl0WWdBYjg3czQ2SThqSTJ2SmhWVng4aVpUQXZjT1ZBM2tsQ3Vt?oc=5",
-     "published": "2026-11-23T23:32Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "U.S. Semiconductor Stocks Surge on Jensen Huang's Return ... SKHY Up 20%",
-     "source": "\ud30c\uc774\ub0b8\uc15c\ub274\uc2a4",
-     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5wUWR0S0QyTTRCa0JmdDNfNnEtdlJkaExrSnRMSVRqRzNXOFpZY01IWGc1Wl9aN1MtWGVkRjRqeVE3MkZHMG16aFZHME5qeEZOSGN4OENLeXY?oc=5",
-     "published": "2026-11-23T22:19Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "AI server buyers face surprise price hikes after signing contracts as chip prices rise",
-     "source": "Korea JoongAng Daily",
-     "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNYUdMVFdqUWdRYzcyYnVSWUwwczZlMGhSdGpMQzZzMjh1VzhXNW4wWE5GT3BpSkl2T2dVbm5rdERBSld2NmdUMDA1YmE3SVMwc0ZDaFNoYXNVU3JEVmhjanJ5eTN5YVNSUF9wSEExQURZdkw5U0UtVUROUHJDTzNOXzIyZ085OFoteE05WXVxN1RvWFVTak1WQlg3Rmp5b2hjVTRIelhKZTc4aWRtSEJ3UFdoSmtMSGd5bm5EZUtQazZiY2pRVVpuRGRaOWZjbWxMVmU5V2xB?oc=5",
-     "published": "2026-11-23T22:04Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Roundhill Memory ETF (DRAM) Stock Price, News, Quote & History",
-     "source": "Yahoo! Finance Canada",
-     "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFAtMnotODJudThHdnpjTzZaNnNGMF9oNGQ5Qjg3ZUdPNUJPUUZRTWM0T3FBdWhxbFRyQk9hdjJtTXFwYkFNUlVJMXRFRThDNHRWRnc?oc=5",
-     "published": "2026-11-23T21:10Z",
-     "tone": 0,
-     "tags": []
-    },
-    {
-     "title": "Why is Micron stock rocketing higher today",
-     "source": "StockStory",
-     "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOXzJkYmdXQ29uMHVBcmx3SDczN3NBZ1hKYmxCM0xpOC03dGFNMFFfVVhxWHU0dkRtazVkYWMxNXRVYV9YQWtrS25UczA1M1p3a1kwT2R5T2h0d0FlMkwxQlQ2ZlBSSXlUT1ZjcXFtYVRKRW9IcEVGWXlPX0RYS01ad2xJdV9vMGJ1dmtvRW11XzYtZExvRXZGZ1RHT3NqejFza1JZcQ?oc=5",
-     "published": "2026-11-23T18:31Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Why is Micron stock up today? MU jumps as much as 20% on a Citi note and Jensen Huang's return",
-     "source": "Nacionale",
-     "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPLVVCYW5IeGpGVWh6NU10QlRtY0I3ZC1aSkpTTDRiU2VfcWszWnJRa3VUakt1czlaMEtaWE5kUUt3RXV1dlhNSGo1WVRvdmJjVXowQzZXVWgwOGpKNU85SElUb1hrSmRsSkF0dmNSYmVuT0R6Y0IxY3dHdjd0ckliYWxNYS1xLXBwY3lHZy00dHFqZTBmNGV3djdMLVNEREJzeTZJeXg3LUl3QQ?oc=5",
-     "published": "2026-11-23T18:30Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Memory chip and neocloud stocks soar by double digits as investors decide they love the AI trade again",
-     "source": "Fast Company",
-     "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQTHVTWDRLbm45ZXFiYUw3MjJEQmkwOThjRjdOR01vdjhFMmJaWVlySDZMZzUtTkhfV0pNUFlOMldLVnA0dlBpYmpKVlVKWGJ5MnFucTR1bEhVc1NYMmZOS3JsZUJMX1FHNWNlTzZBMHpPNGlaSTEzZWNSbWwwUkxKenNBV2xBbzVKa05TRExxN0E0ZDBzUUYxS1VVd3N2Tl90dUE?oc=5",
-     "published": "2026-11-23T18:10Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "Micron Gains Momentum as AI Demand Lifts Chip Stocks",
-     "source": "Demokratis.co.id",
-     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1rdW5iT3ZWWkRGeEF6Y1lEUXdUcnM0d18tNkZqLU1idWlWMVozNWI1WXQxSmRQYzVjNUdkU2xCbjJlZjdIUTgyLXJzcVJlTzlvVVhnUXRNS2lyMlF5MGRGY19KSHBfUQ?oc=5",
-     "published": "2026-11-23T14:51Z",
-     "tone": 1,
-     "tags": []
-    },
-    {
-     "title": "SanDisk vs. Micron \u2013 One AI Memory Stock Offers 200%+ Upside, According to Analysts",
-     "source": "TipRanks",
-     "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQRXZoM0hzLW50RWM0NTBqTHo3QWRRMmpkVkppdzJRR2k5a0Jlb29jWldJRVVPSFZFalN2aHB6QjJvam5qZ29iU1pGRHp3dl9ZemFoVzlCLVpJUy1wN0g5SHZDTGM2RkJpUjMxTkpjbFl4OVJXWmNKNnZxbWlLVnRBLTFXSmRPbGNxd0Z2SDNXbktENXZTREdmX2RBY3lJU1RWMTZfWGFhWE5ucHc?oc=5",
-     "published": "2026-11-23T12:41Z",
-     "tone": 0,
-     "tags": [
-      "Analyst"
-     ]
-    }
-   ],
-   "n": 12,
-   "tone": 0.8333333333333334,
-   "tags": [
-    "Analyst"
-   ]
+   "news_error": "HTTPError: 503 Server Error: Service Unavailable for url: https://news.google.com/rss/search?q=memory+chip+stocks+when%3A7d&hl=en-US&gl=US&ceid=US:en"
   }
  },
- "news_updated": "Nov 24, 2026 11:32 UTC"
+ "news_updated": "Nov 25, 2026 11:35 UTC"
 }
